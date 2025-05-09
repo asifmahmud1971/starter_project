@@ -10,7 +10,6 @@ import 'core/app/app_dependency.dart';
 import 'core/app/app_flavor.dart';
 import 'core/app_bloc_observer.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Permission.notification.isDenied.then((value) => {

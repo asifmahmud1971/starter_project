@@ -3,7 +3,6 @@ import 'package:demo/features/screens/auth/sign_up/models/tutorial_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class GradientFAB extends StatelessWidget {
   final VoidCallback onPressed;
   final IconData icon;

@@ -74,7 +74,8 @@ class ApiUrls {
   static String seenAllNotification = "notifications-mark-all-read";
   static String inAppPurchaseReference = "in-app-purchase-reference";
   static String checkGooglePayment = "check-google-payment";
-  static String adVideoUrl = 'https://drive.google.com/uc?export=download&id=1BJ03eSmGmE-dLQzShDe3PjIFqAW9jhqh';
+  static String adVideoUrl =
+      'https://drive.google.com/uc?export=download&id=1BJ03eSmGmE-dLQzShDe3PjIFqAW9jhqh';
 
   static String seenNotification(id) {
     return "notifications/$id";
@@ -103,6 +104,5 @@ class ApiUrls {
 
   static String privacyPolicyUrlDE =
       "https://demo.app/app-datenschutzrichtlinie/";
-  static String privacyPolicyUrlEN =
-      "https://demo.app/app-privacy-policy/";
+  static String privacyPolicyUrlEN = "https://demo.app/app-privacy-policy/";
 }

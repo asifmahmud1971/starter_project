@@ -1,11 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:demo/data/network/api_client.dart';
 import 'package:demo/data/network/api_failure.dart';
 import 'package:demo/data/network/api_request.dart';
 import 'package:demo/features/screens/home/repository/home_repo.dart';
-import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../../../data/network/api_urls.dart';
 
 @injectable
 class HomeRepositoryImp implements HomeRepository {
@@ -21,5 +19,4 @@ class HomeRepositoryImp implements HomeRepository {
         method: Method.post,
         params: params);
   }
-
 }

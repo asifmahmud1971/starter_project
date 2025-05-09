@@ -400,6 +400,7 @@ class AppStrings {
   static const String appUpdateDescription = "appUpdateDescription";
   static const String appUpdateUpdateBtn = "appUpdateUpdateBtn";
   static const String appUpdateSkipBtn = "appUpdateSkipBtn";
+
 // ============ [ AppUpdateScreen End ] ============
 
   static const String selectAudioType = "selectAudioType";

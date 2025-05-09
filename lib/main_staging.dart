@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:demo/core/components/custom_progress_loader.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,6 @@ import 'core/app/app.dart';
 import 'core/app/app_dependency.dart';
 import 'core/app/app_flavor.dart';
 import 'core/app_bloc_observer.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

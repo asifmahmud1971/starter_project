@@ -2,14 +2,13 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:demo/core/app/app_dependency.dart';
 import 'package:demo/core/app/app_preference.dart';
 import 'package:demo/data/network/api_urls.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 const String applicationJson = "application/json";
 const String contentType = "Content-Type";

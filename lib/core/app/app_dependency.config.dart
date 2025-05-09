@@ -31,8 +31,7 @@ import 'package:demo/features/screens/home/repository/home_repo_imp.dart'
     as _i18;
 import 'package:demo/features/screens/no_internet/cubit/internet_cubit.dart'
     as _i11;
-import 'package:demo/features/screens/theme/cubit/theme_cubit.dart'
-    as _i10;
+import 'package:demo/features/screens/theme/cubit/theme_cubit.dart' as _i10;
 import 'package:dio/dio.dart' as _i5;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;

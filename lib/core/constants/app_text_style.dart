@@ -206,4 +206,3 @@ final kLabelExtraLarge = TextStyle(
   color: AppColors.kTextPrimaryColor,
   fontFamily: kHankenGroteskFamily,
 );
-

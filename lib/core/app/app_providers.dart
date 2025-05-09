@@ -4,6 +4,7 @@ import 'package:demo/features/screens/no_internet/cubit/internet_cubit.dart';
 import 'package:demo/features/screens/theme/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../features/screens/auth/sign_up/cubit/sign_up_cubit.dart';
 import 'app_dependency.dart';
 

@@ -3,8 +3,6 @@ part of 'sign_in_cubit.dart';
 class SignInState extends Equatable {
   final AppStatus appStatus;
 
-
-
   const SignInState({
     this.appStatus = AppStatus.initial,
   });

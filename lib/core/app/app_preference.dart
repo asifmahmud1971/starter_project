@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -57,7 +58,6 @@ class AppPreferences {
       log('$runtimeType:: @saveUserData => $e');
     }
   }
-
 
   User getUserData() {
     if (_sharedPreferences.containsKey(prefsKeyUserInfo)) {
@@ -119,7 +119,6 @@ class AppPreferences {
   }
 
   /// set preferences data end here ///
-
 
   List<String> getPlayedAudioList() {
     List<String>? list = _sharedPreferences.getStringList(prefsKeyPlayedAudio);

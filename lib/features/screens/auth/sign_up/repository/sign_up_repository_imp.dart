@@ -1,9 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:demo/data/network/api_client.dart';
 import 'package:demo/data/network/api_failure.dart';
 import 'package:demo/data/network/api_request.dart';
 import 'package:demo/data/network/api_urls.dart';
 import 'package:demo/features/screens/auth/sign_up/repository/sign_up_repository.dart';
-import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../sign_in/models/login_response.dart';

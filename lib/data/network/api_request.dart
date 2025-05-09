@@ -1,10 +1,10 @@
 import 'dart:developer';
 
+import 'package:dartz/dartz.dart';
 import 'package:demo/core/components/custom_progress_loader.dart';
 import 'package:demo/core/utils/custom_method.dart';
 import 'package:demo/data/network/api_failure.dart';
 import 'package:demo/data/network/app_error.dart';
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 

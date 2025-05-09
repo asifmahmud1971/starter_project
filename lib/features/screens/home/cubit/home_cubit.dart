@@ -20,19 +20,19 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       await hubConnection.start();
       print('SignalR Connected');
-      
+
       hubConnection.on('ReceiveLatLon', (arguments) {
         if (arguments != null && arguments.isNotEmpty) {
-          final Map<String, dynamic> data = arguments.first as Map<String, dynamic>;
+          final Map<String, dynamic> data =
+              arguments.first as Map<String, dynamic>;
           print('Received Location: lat=${data["lat"]}, lon=${data["lon"]}');
           // You can store or use the location as needed here
         }
       });
     } on Exception catch (e) {
-    log("response error ---------> ${e}");
+      log("response error ---------> ${e}");
     }
   }
-
 
   Future<void> sendLocation(double lat, double lon) async {
     await hubConnection.invoke('SendLatLon', args: [lat, lon]);
@@ -47,6 +47,7 @@ class HomeCubit extends Cubit<HomeState> {
       distanceFilter: 0,
     );
 
-    return await Geolocator.getCurrentPosition(locationSettings: locationSettings);
+    return await Geolocator.getCurrentPosition(
+        locationSettings: locationSettings);
   }
 }
