@@ -1,5 +1,5 @@
-import 'package:demo/core/components/custom_svg.dart';
-import 'package:demo/generated/assets.dart';
+import 'package:medPilot/core/components/custom_svg.dart';
+import 'package:medPilot/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -1,9 +1,9 @@
-import 'package:demo/core/app/app_flavor.dart';
+import 'package:medPilot/core/app/app_flavor.dart';
 
 class ApiUrls {
   static String baseUrl = getServerUrl();
   static const String liveUrl =
-      'https://manage.demo.app/api/mobile/v1/'; //live server
+      'https://manage.medPilot.app/api/mobile/v1/'; //live server
   static const String devUrl =
       'https://bw-stg.dinnova.tech/api/mobile/v1/'; // dev server
   static const String testUrl =
@@ -103,6 +103,6 @@ class ApiUrls {
   static const String thumbNailsApiUrl = 'pre-populated-thumbnails';
 
   static String privacyPolicyUrlDE =
-      "https://demo.app/app-datenschutzrichtlinie/";
-  static String privacyPolicyUrlEN = "https://demo.app/app-privacy-policy/";
+      "https://medPilot.app/app-datenschutzrichtlinie/";
+  static String privacyPolicyUrlEN = "https://medPilot.app/app-privacy-policy/";
 }

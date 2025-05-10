@@ -1,4 +1,4 @@
-import 'package:demo/core/constants/app_colors.dart';
+import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 

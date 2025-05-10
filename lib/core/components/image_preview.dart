@@ -1,5 +1,5 @@
-import 'package:demo/core/components/custom_image.dart';
-import 'package:demo/core/components/image_zoom.dart';
+import 'package:medPilot/core/components/custom_image.dart';
+import 'package:medPilot/core/components/image_zoom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

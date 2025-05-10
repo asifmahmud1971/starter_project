@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:demo/core/components/custom_svg.dart';
-import 'package:demo/core/constants/app_colors.dart';
-import 'package:demo/generated/assets.dart';
+import 'package:medPilot/core/components/custom_svg.dart';
+import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

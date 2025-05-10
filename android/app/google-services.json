@@ -1,7 +1,7 @@
 {
   "project_info": {
     "project_number": "614170370248",
-    "project_id": "demo-98210",
+    "project_id": "medPilot-98210",
     "storage_bucket": "demo-98210.firebasestorage.app"
   },
   "client": [
@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:614170370248:android:7516e15fa47c50bae145fd",
         "android_client_info": {
-          "package_name": "com.example.demo"
+          "package_name": "com.hospice.medPilot"
         }
       },
       "oauth_client": [],
@@ -47,7 +47,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:614170370248:android:4c0274f81899402be145fd",
         "android_client_info": {
-          "package_name": "com.example.demo.stg"
+          "package_name": "com.hospice.medPilot.stg"
         }
       },
       "oauth_client": [],

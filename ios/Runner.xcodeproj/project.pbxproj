@@ -398,14 +398,14 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = HLQ454SBHW;
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = demo;
+				FLAVOR_APP_NAME = medPilot;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.demo-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hospice.medPilot-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -537,14 +537,14 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = HLQ454SBHW;
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = Demo;
+				FLAVOR_APP_NAME = MedPilot;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.demo-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hospice.medPilot-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -568,14 +568,14 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = HLQ454SBHW;
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = Demo;
+				FLAVOR_APP_NAME = MedPilot;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.demo-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hospice.medPilot-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -654,14 +654,14 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = HLQ454SBHW;
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "[DEV] Demo";
+				FLAVOR_APP_NAME = "[DEV] MedPilot";
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.demo-ios.dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hospice.medPilot-ios.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -738,14 +738,14 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = HLQ454SBHW;
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "[DEV] Demo";
+				FLAVOR_APP_NAME = "[DEV] MedPilot";
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.demo-ios.dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hospice.medPilot-ios.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -819,14 +819,14 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = HLQ454SBHW;
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "[DEV] Demo";
+				FLAVOR_APP_NAME = "[DEV] MedPilot";
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.demo-ios.dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hospice.medPilot-ios.dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -905,14 +905,14 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = HLQ454SBHW;
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "[STG] Demo";
+				FLAVOR_APP_NAME = "[STG] MedPilot";
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.demo-ios.stg";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hospice.medPilot-ios.stg";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -989,14 +989,14 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = HLQ454SBHW;
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "[STG] Demo";
+				FLAVOR_APP_NAME = "[STG] MedPilot";
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.demo-ios.stg";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hospice.medPilot-ios.stg";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1070,14 +1070,14 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = HLQ454SBHW;
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "[STG] Demo";
+				FLAVOR_APP_NAME = "[STG] MedPilot";
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.demo-ios.stg";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hospice.medPilot-ios.stg";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

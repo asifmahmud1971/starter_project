@@ -1,4 +1,4 @@
-import 'package:demo/core/components/custom_progress_loader.dart';
+import 'package:medPilot/core/components/custom_progress_loader.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

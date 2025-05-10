@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "demo 1.png",
+      "filename" : "medPilot 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "demo 2.png",
+      "filename" : "medPilot 2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "demo 3.png",
+      "filename" : "medPilot 3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

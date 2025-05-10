@@ -4,7 +4,7 @@
     createTime:2018-05-01 11:39
 */
 
-import 'package:demo/core/components/custom_refresh/src/internals/slivers.dart';
+import 'package:medPilot/core/components/custom_refresh/src/internals/slivers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';

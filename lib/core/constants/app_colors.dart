@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppColors {
   //App PrimaryColors
-  static const kPrimarySpeechBlue = Color(0xFF475EC5);
+  static const kPrimarySpeechBlue = Color(0xFFFF904D);
   static const kPrimarySpeechBlue950 = Color(0xFF222649);
   static const kPrimarySpeechBlue900 = Color(0xFF323B76);
   static const kPrimarySpeechBlue800 = Color(0xFF394294);
@@ -191,6 +191,17 @@ class AppColors {
     begin: Alignment.bottomCenter,
     end: Alignment.topCenter,
     stops: [1.0, 0.0],
+  );
+
+  static RadialGradient backGroundColor = RadialGradient(
+    colors: [
+      const Color(0xffE48F51).withValues(alpha: 0.27),
+      const Color(0xffD9D9D9).withValues(alpha:0),
+      const Color(0xffD9D9D9).withValues(alpha:0),
+      const Color(0xffD9D9D9).withValues(alpha:0),
+    ],
+    radius: 4.0,
+    center: Alignment.topCenter,
   );
 
   static final kTextFieldShadow = BoxShadow(

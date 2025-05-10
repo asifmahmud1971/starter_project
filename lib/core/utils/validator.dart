@@ -1,4 +1,4 @@
-import 'package:demo/features/screens/auth/sign_up/models/app_gender.dart';
+import 'package:medPilot/features/auth/sign_up/models/app_gender.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../constants/app_strings.dart';

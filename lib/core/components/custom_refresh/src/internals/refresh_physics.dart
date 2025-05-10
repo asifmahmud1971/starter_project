@@ -5,8 +5,8 @@
  */
 import 'dart:math' as math;
 
-import 'package:demo/core/components/custom_refresh/src/internals/slivers.dart';
-import 'package:demo/core/components/custom_refresh/src/smart_refresher.dart';
+import 'package:medPilot/core/components/custom_refresh/src/internals/slivers.dart';
+import 'package:medPilot/core/components/custom_refresh/src/smart_refresher.dart';
 // ignore_for_file: INVALID_USE_OF_PROTECTED_MEMBER
 // ignore_for_file: INVALID_USE_OF_VISIBLE_FOR_TESTING_MEMBER
 import 'package:flutter/rendering.dart';

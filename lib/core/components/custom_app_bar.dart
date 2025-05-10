@@ -1,8 +1,8 @@
-import 'package:demo/core/app/app_context.dart';
-import 'package:demo/core/components/custom_svg.dart';
-import 'package:demo/core/constants/app_colors.dart';
-import 'package:demo/core/constants/app_text_style.dart';
-import 'package:demo/generated/assets.dart';
+import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/core/components/custom_svg.dart';
+import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,6 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double elevation;
   final double titleSpacing;
   final String? icon;
+  final String? logo;
   final Color? shadowColor;
   final Color? backgroundColor;
   final VoidCallback? onBackPress;
@@ -41,6 +42,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.backgroundColor,
       this.onBackPress,
       this.actions,
+      this.logo,
       this.isLogo = false});
 
   @override
@@ -54,6 +56,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         automaticallyImplyLeading: isLogo ? true : false,
         centerTitle: centerTitle,
         leadingWidth: leadingWidth.w,
+        actions: actions,
         leading: isLogo
             ? null
             : Padding(
@@ -83,7 +86,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   SizedBox(width: 5.w),
                   Image.asset(
-                    Assets.iconsAlbanian,
+                    logo??Assets.iconsAlbanian,
                     height: 35.h,
                   )
                 ],

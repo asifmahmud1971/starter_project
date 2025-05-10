@@ -1,6 +1,6 @@
-# Demo
+# MedPilot
 
-Demo” --org com.dinnova.demo”
+MedPilot” --org com.dinnova.medPilot”
 
 ---
 
@@ -33,7 +33,7 @@ $ flutter build appbundle --flavor production --target lib/main_production.dart
 
 ```
 
-_\*demo works on iOS, Android._
+_\*medPilot works on iOS, Android._
 
 //flutter packages pub run build_runner build
 

@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:demo/core/app/app_dependency.dart';
-import 'package:demo/core/app/app_preference.dart';
-import 'package:demo/data/network/api_urls.dart';
+import 'package:medPilot/core/app/app_dependency.dart';
+import 'package:medPilot/core/app/app_preference.dart';
+import 'package:medPilot/data/network/api_urls.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';

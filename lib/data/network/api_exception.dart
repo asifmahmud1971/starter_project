@@ -1,4 +1,4 @@
-import 'package:demo/core/constants/app_strings.dart';
+import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:dio/dio.dart';
 
 import 'api_failure.dart';

@@ -1,4 +1,4 @@
-import 'package:demo/core/app/app_flavor.dart';
+import 'package:medPilot/core/app/app_flavor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 late SharedPreferences prefs;

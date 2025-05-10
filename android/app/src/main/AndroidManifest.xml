@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dinnova.demo">
+    package="com.dinnova.medPilot">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

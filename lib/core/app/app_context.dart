@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:demo/features/screens/dashboard/view/dashboard_screen.dart';
+import 'package:medPilot/features/dashboard/view/dashboard_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

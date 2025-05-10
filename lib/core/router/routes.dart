@@ -1,7 +1,7 @@
-import 'package:demo/features/screens/auth/sign_in/view/sign_in_screen.dart';
-import 'package:demo/features/screens/auth/sign_up/view/sign_up_screen.dart';
-import 'package:demo/features/screens/dashboard/view/dashboard_screen.dart';
-import 'package:demo/features/screens/splash/view/splash_screen.dart';
+import 'package:medPilot/features/auth/sign_in/view/sign_in_screen.dart';
+import 'package:medPilot/features/auth/sign_up/view/sign_up_screen.dart';
+import 'package:medPilot/features/dashboard/view/dashboard_screen.dart';
+import 'package:medPilot/features/splash/view/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

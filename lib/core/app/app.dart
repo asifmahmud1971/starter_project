@@ -1,15 +1,15 @@
-import 'package:demo/core/app/app_context.dart';
-import 'package:demo/core/app/app_providers.dart';
-import 'package:demo/core/router/routes.dart';
-import 'package:demo/features/screens/no_internet/cubit/internet_cubit.dart';
+import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/core/app/app_providers.dart';
+import 'package:medPilot/core/router/routes.dart';
+import 'package:medPilot/features/no_internet/cubit/internet_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../features/screens/theme/app_theme.dart';
-import '../../features/screens/theme/cubit/theme_cubit.dart';
+import '../../features/theme/app_theme.dart';
+import '../../features/theme/cubit/theme_cubit.dart';
 
 class InitApp extends StatelessWidget {
   const InitApp({super.key});
@@ -18,13 +18,13 @@ class InitApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: AppProviders.providers,
-      child: const DemoApp(),
+      child: const MedPilotApp(),
     );
   }
 }
 
-class DemoApp extends StatelessWidget {
-  const DemoApp({super.key});
+class MedPilotApp extends StatelessWidget {
+  const MedPilotApp({super.key});
 
   @override
   Widget build(BuildContext context) {
