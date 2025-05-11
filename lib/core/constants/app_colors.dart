@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppColors {
   //App PrimaryColors
+  static const kPrimaryColor = Color(0xFFFF904D);
   static const kPrimarySpeechBlue = Color(0xFFFF904D);
   static const kPrimarySpeechBlue950 = Color(0xFF222649);
   static const kPrimarySpeechBlue900 = Color(0xFF323B76);

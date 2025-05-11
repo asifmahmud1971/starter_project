@@ -1,0 +1,8 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Phone Handset -->
+    <path d="M6.62 10.79C8.06 13.99 10.87 16.8 14.08 18.24L16.85 15.47C17.07 15.25 17.4 15.18 17.69 15.27C18.91 15.65 20.24 15.86 21.6 15.86C22.04 15.86 22.4 16.22 22.4 16.66V21.4C22.4 21.84 22.04 22.2 21.6 22.2C11.14 22.2 1.8 12.86 1.8 2.4C1.8 1.96 2.16 1.6 2.6 1.6H7.34C7.78 1.6 8.14 1.96 8.14 2.4C8.14 3.76 8.35 5.09 8.73 6.31C8.82 6.6 8.75 6.93 8.53 7.15L5.76 9.92C6.03 10.21 6.31 10.5 6.62 10.79Z"
+        stroke="#1E88E5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Medical Cross Overlay -->
+    <circle cx="18" cy="6" r="4" fill="#E53935"/>
+    <path d="M18 4.5V7.5M16.5 6H19.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+</svg>

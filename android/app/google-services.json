@@ -28,7 +28,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:614170370248:android:f379f4344e1c1ca8e145fd",
         "android_client_info": {
-          "package_name": "com.dinnova.demo.dev"
+          "package_name": "com.hospice.medPilot.dev"
         }
       },
       "oauth_client": [],

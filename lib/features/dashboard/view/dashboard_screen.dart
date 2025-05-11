@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
-import 'package:medPilot/features/dashboard/cubit/dashboard_cubit.dart';
 import 'package:medPilot/features/patient_portal/home/view/patient_home_screen.dart';
 import 'package:medPilot/generated/assets.dart';
 
@@ -40,39 +38,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
         items: [
           BottomNavigationBarItem(
             icon: CustomSvg(
-              icon: Assets.iconsCurrency,
+              icon: Assets.medHome,
             ),
             activeIcon: CustomSvg(
-              icon: Assets.iconsCurrency,
+              icon: Assets.medHome,
             ),
-            label: "Test",
+            label: "Home",
           ),
           BottomNavigationBarItem(
             icon: CustomSvg(
-              icon: Assets.iconsCurrency,
+              icon: Assets.medCart,
             ),
             activeIcon: CustomSvg(
-              icon: Assets.iconsCurrency,
+              icon: Assets.iconsHome,
             ),
-            label: "Test",
+            label: "Cart",
           ),
           BottomNavigationBarItem(
             icon: CustomSvg(
-              icon: Assets.iconsCurrency,
+              icon: Assets.medMore,
             ),
             activeIcon: CustomSvg(
-              icon: Assets.iconsCurrency,
+              icon: Assets.iconsHome,
             ),
-            label: "Test",
-          ),
-          BottomNavigationBarItem(
-            icon: CustomSvg(
-              icon: Assets.iconsCurrency,
-            ),
-            activeIcon: CustomSvg(
-              icon: Assets.iconsCurrency,
-            ),
-            label: "Test",
+            label: "More",
           ),
         ],
       ),

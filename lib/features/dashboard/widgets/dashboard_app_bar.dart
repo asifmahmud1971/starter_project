@@ -1,11 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/core/router/routes.dart';
 import 'package:medPilot/generated/assets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
@@ -59,7 +59,7 @@ class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   SizedBox(width: 5.w),
                   Image.asset(
-                    Assets.iconsAlbanian,
+                    Assets.iconsPlaceholderViewVector,
                     height: 35.h,
                   )
                 ],

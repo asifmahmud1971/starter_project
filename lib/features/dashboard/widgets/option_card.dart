@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/generated/assets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DrawerOptionCard extends StatelessWidget {
   final String? icon;
@@ -33,7 +33,7 @@ class DrawerOptionCard extends StatelessWidget {
           children: [
             isSub
                 ? Image.asset(
-                    icon ?? Assets.iconsAlbanian,
+                    icon ?? Assets.iconsPlaceholderViewVector,
                     height: 18.r,
                     width: 18.r,
                   )

@@ -1,6 +1,6 @@
 # MedPilot
 
-MedPilot” --org com.dinnova.medPilot”
+MedPilot” --org com.hospice.medPilot”
 
 ---
 

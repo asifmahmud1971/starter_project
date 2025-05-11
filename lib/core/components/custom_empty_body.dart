@@ -1,10 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/generated/assets.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/constants/app_strings.dart';
 
@@ -41,7 +41,7 @@ class CustomEmptyBody extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CustomSvg(
-          icon: icons ?? Assets.iconsMusicNoteEmpty,
+          icon: icons ?? Assets.iconsBG,
           size: 40.r,
         ),
         SizedBox(height: 10.h),

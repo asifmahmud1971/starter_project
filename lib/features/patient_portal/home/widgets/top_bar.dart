@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/components/custom_image.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
+import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/generated/assets.dart';
 
 class TopBar extends StatefulWidget {
@@ -31,8 +32,14 @@ class _TopBarState extends State<TopBar> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Hello"),
-                    Text("Asif Al Mahmud"),
+                    Text(
+                      "Hello,",
+                      style: kBodyLarge,
+                    ),
+                    Text(
+                      "Asif Al Mahmud",
+                      style: kTitleMedium,
+                    )
                   ],
                 )
               ],
@@ -41,7 +48,6 @@ class _TopBarState extends State<TopBar> {
           Row(
             children: [
               CustomSvg(icon: Assets.iconsNotification),
-             /* CustomSvg(icon: Assets.iconsCa),*/
             ],
           )
         ],
