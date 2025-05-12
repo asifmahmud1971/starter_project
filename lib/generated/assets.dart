@@ -35,11 +35,9 @@ class Assets {
   static const String iconsLogo = 'assets/icons/logo.png';
   static const String iconsLogo2 = 'assets/icons/logo2.svg';
   static const String iconsLogout05 = 'assets/icons/logout-05.svg';
-  static const String iconsMedAlliedHealth =
-      'assets/icons/med/Allied_Health.svg';
+  static const String iconsMedAlliedHealth = 'assets/icons/med/Allied_Health.svg';
   static const String iconsMedAssignStaff = 'assets/icons/med/Assign_Staff.svg';
-  static const String iconsMedDiagnosticLab =
-      'assets/icons/med/Diagnostic_Lab.svg';
+  static const String iconsMedDiagnosticLab = 'assets/icons/med/Diagnostic_Lab.svg';
   static const String iconsMore = 'assets/icons/more.svg';
   static const String iconsNotification = 'assets/icons/notification.svg';
   static const String iconsPlaceholderViewVector = 'assets/icons/Placeholder_view_vector.svg';
@@ -85,30 +83,24 @@ class Assets {
   static const String medHomePackage = 'assets/icons/med/HomePackage.svg';
   static const String medHomeVisit = 'assets/icons/med/Home_Visit.svg';
   static const String medHospice = 'assets/icons/med/hospice.png';
-  static const String medIconNurseVisit =
-      'assets/icons/med/icon-nurse-Visit.svg';
-  static const String medInPatientRequest =
-      'assets/icons/med/InPatientRequest.svg';
+  static const String medIconNurseVisit = 'assets/icons/med/icon-nurse-Visit.svg';
+  static const String medInPatientRequest = 'assets/icons/med/InPatientRequest.svg';
   static const String medInstrumentRent = 'assets/icons/med/InstrumentRent.svg';
-  static const String medInvestigationsup =
-      'assets/icons/med/investigationsup.svg';
+  static const String medInvestigationsup = 'assets/icons/med/investigationsup.svg';
   static const String medLabReport = 'assets/icons/med/lab_report.svg';
+  static const String medMedicine = 'assets/icons/med/medicine.svg';
   static const String medMedpilot = 'assets/icons/med/medpilot.png';
   static const String medMonitoring = 'assets/icons/med/Monitoring.svg';
   static const String medMore = 'assets/icons/med/more.svg';
   static const String medPainClinic = 'assets/icons/med/painClinic.svg';
   static const String medPrescription = 'assets/icons/med/prescription.svg';
-  static const String medPsychSocialClinic =
-      'assets/icons/med/psych-SocialClinic.svg';
-  static const String medPsychoSocialClinicImage =
-      'assets/icons/med/PsychoSocialClinicImage.svg';
-  static const String medRehabilitativePallCare =
-      'assets/icons/med/RehabilitativePallCare.svg';
+  static const String medPsychSocialClinic = 'assets/icons/med/psych-SocialClinic.svg';
+  static const String medPsychoSocialClinicImage = 'assets/icons/med/PsychoSocialClinicImage.svg';
+  static const String medRehabilitativePallCare = 'assets/icons/med/RehabilitativePallCare.svg';
   static const String medTelePackage = 'assets/icons/med/TelePackage.svg';
   static const String medTreacking = 'assets/icons/med/treacking.svg';
   static const String medUploadDocument = 'assets/icons/med/UploadDocument.svg';
-  static const String medVideoConsultant =
-      'assets/icons/med/video_consultant.svg';
+  static const String medVideoConsultant = 'assets/icons/med/video_consultant.svg';
   static const String medWound = 'assets/icons/med/Wound.svg';
   static const String medWoundClinic = 'assets/icons/med/WoundClinic.svg';
   static const String medWoundDersing = 'assets/icons/med/WoundDersing.svg';
