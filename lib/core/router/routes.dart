@@ -18,24 +18,7 @@ class Routes {
   // static const String setPassword = "/set-password";
 
   static const String dashboard = "/dashboard";
-  static const String accountDetails = "/accountDetails";
-  static const String cartScreen = "/cartScreen";
-  static const String product = "/product";
-  static const String allProducts = "/all-product";
-  static const String imageGallery = "/image-gallery";
-  static const String checkOut = "/check-out";
-  static const String addressScreen = "/addressScreen";
-  static const String addAddressScreen = "/addAddressScreen";
-  static const String trackOrder = "/track_order";
-  static const String confirmOrder = "/confirmOrder";
-  static const String languageScreen = "/languageScreen";
-  static const String sessionsScreen = "/sessions_screen";
-  static const String createSessionScreen = "/create_session_screen";
-  static const String sessionDetailsScreen = "/session_details_screen";
-  static const String notificationScreen = "/notification_screen";
-  static const String settingsScreen = "/settings_screen";
-  static const String accountSettingScreen = "/account_setting_screen";
-  static const String voiceSettingsScreen = "/voice_settings_screen";
+
 }
 
 class RouteGenerator {

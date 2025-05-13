@@ -104,7 +104,7 @@ class Assets {
   static const String medWound = 'assets/icons/med/Wound.svg';
   static const String medWoundClinic = 'assets/icons/med/WoundClinic.svg';
   static const String medWoundDersing = 'assets/icons/med/WoundDersing.svg';
-  static const String translationsDe = 'assets/translations/de.json';
+  static const String translationsDe = 'assets/translations/bn.json';
   static const String translationsEn = 'assets/translations/en.json';
 
 }

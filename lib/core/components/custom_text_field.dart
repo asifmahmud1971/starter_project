@@ -10,6 +10,8 @@ import 'custom_svg.dart';
 class CustomTextField extends StatefulWidget {
   final String? title;
   final String? hint;
+  final String? labelText;
+  final TextStyle? labelStyle;
   final TextEditingController? controller;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
@@ -94,7 +96,7 @@ class CustomTextField extends StatefulWidget {
       this.isOptional = true,
       this.hintStyle,
       this.titleStyle,
-      this.onTapOutside});
+      this.onTapOutside, this.labelText, this.labelStyle});
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -184,6 +186,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ],
           decoration: InputDecoration(
             errorMaxLines: 3,
+            labelText: widget.labelText,
+            labelStyle: widget.labelStyle,
             contentPadding: EdgeInsets.symmetric(
               vertical: widget.height ?? 17.h,
               horizontal: widget.width ?? 16.w,

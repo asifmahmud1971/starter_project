@@ -37,10 +37,10 @@ void main() async {
     EasyLocalization(
       supportedLocales: const [
         Locale('en', 'US'),
-        Locale('de', 'DE'),
+        Locale('bn', 'BN'),
       ],
-      fallbackLocale: const Locale('de'),
-      startLocale: const Locale('de'),
+      fallbackLocale: const Locale('en'),
+      startLocale: const Locale('en'),
       saveLocale: true,
       path: 'assets/translations',
       child: const InitApp(),

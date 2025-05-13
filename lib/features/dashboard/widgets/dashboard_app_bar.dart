@@ -80,7 +80,7 @@ class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               InkWell(
                 onTap: () {
-                  GetContext.toNamed(route: Routes.cartScreen);
+                  //GetContext.toNamed(route: Routes.cartScreen);
                 },
                 radius: 30.r,
                 borderRadius: BorderRadius.circular(30.r),
