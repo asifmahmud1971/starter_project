@@ -1,44 +1,106 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medPilot/core/components/custom_image.dart';
-import 'package:medPilot/core/constants/app_colors.dart';
-import 'package:medPilot/features/patient_portal/home/helper/dummy_slider_list.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
-class AppSlider extends StatelessWidget {
-  const AppSlider({super.key});
+class AppSlider extends StatefulWidget {
+  final List<String> imageUrls;
+
+  const AppSlider({Key? key, required this.imageUrls}) : super(key: key);
+
+  @override
+  _AppSliderState createState() => _AppSliderState();
+}
+
+class _AppSliderState extends State<AppSlider> {
+  int _currentIndex = 0;
+  final CarouselSliderController _carouselController = CarouselSliderController();
 
   @override
   Widget build(BuildContext context) {
-    return  FlutterCarousel(
-      options: FlutterCarouselOptions(
-        height: 170.0,
-        autoPlay : true,
-        autoPlayCurve: Curves.easeInOutQuad,
-        autoPlayInterval : const Duration(seconds: 5),
-        showIndicator: true,
-        enlargeCenterPage: true,
-        slideIndicator: CircularSlideIndicator(
-            slideIndicatorOptions: SlideIndicatorOptions(
-          enableAnimation: true,
-          indicatorRadius: 6,
-          currentIndicatorColor: AppColors.kPrimaryColor,
-        )),
-      ),
-      items: sliderList.map((i) {
-        return Builder(
-          builder: (BuildContext context) {
-            return Container(
-                width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(horizontal: 8),
-                decoration: BoxDecoration(
-                    color: Colors.amber,borderRadius: BorderRadius.circular(10.r)
-                ),
-                child: CustomImage(baseUrl:i,radius: 10.r,)
+    return Column(
+      children: [
+        CarouselSlider(
+          carouselController: _carouselController,
+          options: CarouselOptions(
+            height: 200.0,
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 3),
+            autoPlayAnimationDuration: const Duration(milliseconds: 800),
+            autoPlayCurve: Curves.fastOutSlowIn,
+            enlargeCenterPage: true,
+            aspectRatio: 16/9,
+            viewportFraction: 0.8,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+          ),
+          items: widget.imageUrls.map((url) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 6.0,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15.0),
+                    child: Image.network(
+                      url,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: Colors.grey[200],
+                          child: const Icon(Icons.error, color: Colors.red),
+                        );
+                      },
+                    ),
+                  ),
+                );
+              },
             );
-          },
-        );
-      }).toList(),
+          }).toList(),
+        ),
+        const SizedBox(height: 12),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: widget.imageUrls.asMap().entries.map((entry) {
+            return GestureDetector(
+              onTap: () => _carouselController.animateToPage(entry.key),
+              child: Container(
+                width: _currentIndex == entry.key ? 24.0 : 8.0,
+                height: 8.0,
+                margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: _currentIndex == entry.key
+                      ? Theme.of(context).primaryColor
+                      : Colors.grey.withOpacity(0.4),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
 }

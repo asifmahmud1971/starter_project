@@ -4,6 +4,7 @@ import 'package:medPilot/core/components/common_background.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/patient_portal/home/helper/dummy_slider_list.dart';
 import 'package:medPilot/features/patient_portal/home/model/service_model.dart';
 import 'package:medPilot/features/patient_portal/home/view/blog_list.dart';
 import 'package:medPilot/features/patient_portal/home/view/service_list.dart';
@@ -52,7 +53,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
             30.verticalSpace,
             CallCard(),
             20.verticalSpace,
-            const AppSlider(),
+             AppSlider(imageUrls: sliderList,),
             20.verticalSpace,
             DefaultTabController(
               length: 2,
@@ -71,6 +72,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                     padding: EdgeInsets.zero,
                     labelStyle: kTitleMedium,
                     dividerColor: Colors.transparent,
+                    dividerHeight: 0.h,
                     tabs: const [
                       Tab(text: 'My Package'),
                       Tab(text: 'On-Demand Service'),

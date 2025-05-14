@@ -1,90 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
-import 'package:medPilot/core/constants/app_strings.dart';
-import 'package:medPilot/features/patient_portal/cart/widget/check_out_card.dart';
 import 'package:medPilot/generated/assets.dart';
 
-class PatientCartPage extends StatelessWidget {
-  const PatientCartPage({super.key});
+class CartItemCard extends StatelessWidget {
+  final String? title;
+  final double? price;
+  final int? quantity;
+  final String? image;
+
+  const CartItemCard(
+      {super.key, this.title, this.price, this.quantity, this.image});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(context),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              children: [
-                _buildCartItem(
-                  context,
-                  title: "Complete Blood Count (CBC)",
-                  price: 400,
-                  quantity: 1,
-                  image: "assets/images/blood_test.png",
-                ),
-                12.verticalSpace,
-                _buildCartItem(
-                  context,
-                  title: "Liver Function Test",
-                  price: 600,
-                  quantity: 1,
-                  image: "assets/images/liver_test.png",
-                ),
-              ],
-            ),
-          ),
-          CheckOutCard(),
-        ],
-      ),
-    );
-  }
-
-  AppBar _buildAppBar(BuildContext context) {
-    return AppBar(
-      title: Text(
-        AppStrings.myCart,
-        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-      ),
-      centerTitle: true,
-
-    );
-  }
-
-  Widget _buildCartItem(
-    BuildContext context, {
-    required String title,
-    required double price,
-    required int quantity,
-    required String image,
-  }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-            AppColors.kBackGroundShadow,
+          AppColors.kBackGroundShadow,
         ],
       ),
       child: Row(
         children: [
           // Product Image
           Container(
-            width: 100,
-            height: 100,
+            width: 100.r,
+            height: 100.r,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.horizontal(
                 left: Radius.circular(16),
               ),
               image: DecorationImage(
-                image: AssetImage(image),
+                image: AssetImage(image ?? ""),
                 fit: BoxFit.cover,
               ),
             ),
@@ -97,22 +48,22 @@ class PatientCartPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    title ?? "",
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 8),
+                  8.verticalSpace,
                   Text(
-                    "₹${price.toStringAsFixed(2)}",
+                    "₹${price?.toStringAsFixed(2)}",
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).primaryColor,
                         ),
                   ),
-                  const SizedBox(height: 12),
+                  12.verticalSpace,
                   Row(
                     children: [
                       // Quantity Selector
@@ -148,10 +99,10 @@ class PatientCartPage extends StatelessWidget {
                       ),
                       const Spacer(),
                       IconButton(
-                        icon: SvgPicture.asset(
-                          "assets/icons/trash.svg",
-                          width: 20,
-                          color: Colors.red[400],
+                        icon: CustomSvg(
+                          icon: Assets.iconsDelete,
+                          color: Colors.red,
+                          size: 40.r,
                         ),
                         onPressed: () {},
                       ),
@@ -165,5 +116,4 @@ class PatientCartPage extends StatelessWidget {
       ),
     );
   }
-
 }

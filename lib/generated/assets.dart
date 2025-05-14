@@ -13,6 +13,7 @@ class Assets {
   static const String iconsCancel = 'assets/icons/cancel.svg';
   static const String iconsCheckmark = 'assets/icons/checkmark.svg';
   static const String iconsClose = 'assets/icons/close.svg';
+  static const String iconsDelete = 'assets/icons/delete.svg';
   static const String iconsDelete03 = 'assets/icons/delete-03.svg';
   static const String iconsDelete04 = 'assets/icons/delete-04.svg';
   static const String iconsDelete3 = 'assets/icons/delete_3.svg';
@@ -104,7 +105,7 @@ class Assets {
   static const String medWound = 'assets/icons/med/Wound.svg';
   static const String medWoundClinic = 'assets/icons/med/WoundClinic.svg';
   static const String medWoundDersing = 'assets/icons/med/WoundDersing.svg';
-  static const String translationsDe = 'assets/translations/bn.json';
+  static const String translationsBn = 'assets/translations/bn.json';
   static const String translationsEn = 'assets/translations/en.json';
 
 }

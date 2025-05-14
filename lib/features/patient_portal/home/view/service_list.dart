@@ -40,7 +40,7 @@ class _ServiceListState extends State<ServiceList> {
             childAspectRatio: 1.0,
             mainAxisSpacing: 8,
             crossAxisSpacing: 8,
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(0),
             children: List.generate(
                 (widget.serviceDataList ?? []).length,
                 (index) => ServiceCard(

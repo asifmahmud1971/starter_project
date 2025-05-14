@@ -196,7 +196,7 @@ class AppColors {
 
   static RadialGradient backGroundColor = RadialGradient(
     colors: [
-      const Color(0xffE48F51).withValues(alpha: 0.27),
+      kPrimaryColor.withValues(alpha: 0.15),
       const Color(0xffD9D9D9).withValues(alpha:0),
       const Color(0xffD9D9D9).withValues(alpha:0),
       const Color(0xffD9D9D9).withValues(alpha:0),
