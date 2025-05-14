@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:medPilot/features/dashboard/view/dashboard_screen.dart';
+import 'package:medPilot/features/dashboard/view/staff_dashboard_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -93,9 +93,9 @@ class GetContext {
   static Widget _getPage(String routeName, dynamic arguments) {
     switch (routeName) {
       case '/home':
-        return DashboardScreen();
+        return StaffDashboardScreen();
       default:
-        return const DashboardScreen();
+        return const StaffDashboardScreen();
     }
   }
 

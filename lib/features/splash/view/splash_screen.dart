@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/app/app_dependency.dart';
 import 'package:medPilot/core/app/app_preference.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
@@ -26,8 +27,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _navigation() async {
     if (widget._appPreferences.isUserLoggedIn()) {
-      Navigator.pushNamedAndRemoveUntil(
-          context, Routes.dashboard, (route) => false);
+
+      if(widget._appPreferences.getUserData().userType == "Patient") {
+        GetContext.offAll(Routes.patientDashboard);
+      }else{
+        GetContext.offAll(Routes.staffDashboard);
+      }
+
     } else {
       Navigator.pushNamedAndRemoveUntil(
           context, Routes.signIn, (route) => false);

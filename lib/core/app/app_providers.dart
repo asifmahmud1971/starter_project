@@ -1,4 +1,5 @@
 import 'package:medPilot/features/auth/sign_in/cubit/sign_in_cubit.dart';
+import 'package:medPilot/features/dashboard/cubit/dashboard_cubit.dart';
 import 'package:medPilot/features/no_internet/cubit/internet_cubit.dart';
 import 'package:medPilot/features/patient_portal/home/cubit/home_cubit.dart';
 import 'package:medPilot/features/theme/cubit/theme_cubit.dart';
@@ -25,6 +26,9 @@ class AppProviders {
 
     BlocProvider<SignUpCubit>(
       create: (BuildContext context) => instance<SignUpCubit>(),
+    ),
+BlocProvider<DashboardCubit>(
+      create: (BuildContext context) => instance<DashboardCubit>(),
     ),
 
     // =========== [ Auth End ] ===========

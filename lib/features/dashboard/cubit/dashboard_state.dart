@@ -1,4 +1,5 @@
-part of 'dashboard_cubit.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
 enum DashboardStatus {
   initial,
@@ -8,21 +9,22 @@ enum DashboardStatus {
 }
 
 class DashboardState extends Equatable {
-  const DashboardState({
-    this.status = DashboardStatus.initial,
-    this.selectIndex,
-  });
+  const DashboardState(
+      {this.status = DashboardStatus.initial, this.selectedIndex = 0,this.selectedPage,});
 
   final DashboardStatus status;
-  final int? selectIndex;
+  final int selectedIndex;
+  final Widget? selectedPage;
 
-  DashboardState copyWith({DashboardStatus? status, int? selectIndex}) {
+  DashboardState copyWith(
+      {final DashboardStatus? status, final int? selectedIndex,final Widget? selectedPage}) {
     return DashboardState(
       status: status ?? this.status,
-      selectIndex: selectIndex ?? this.selectIndex,
+      selectedIndex: selectedIndex ?? this.selectedIndex,
+      selectedPage: selectedPage??this.selectedPage
     );
   }
 
   @override
-  List<Object> get props => [status, selectIndex ?? 0];
+  List<Object> get props => [status, selectedIndex,selectedPage??{}];
 }

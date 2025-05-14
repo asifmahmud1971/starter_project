@@ -1,30 +1,40 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:injectable/injectable.dart';
 import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/core/app/app_dependency.dart';
 
-import '../../patient_portal/home/view/patient_home_screen.dart';
+import 'package:medPilot/core/app/app_preference.dart';
+import 'package:medPilot/features/dashboard/cubit/dashboard_state.dart';
+import 'package:medPilot/features/patient_portal/cart/view/patient_cart_homescreen.dart';
+import 'package:medPilot/features/patient_portal/home/view/patient_home_screen.dart';
 
-part 'dashboard_state.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_text_style.dart';
+
 
 @injectable
 class DashboardCubit extends Cubit<DashboardState> {
-  DashboardCubit() : super(DashboardState());
-  int selectedIndex = 0;
-  List<Widget> screen = [
-    PatientHomeScreen()
-    /*const HomeScreen(),
-    const SessionsScreen(),
-    const MyFavoritesScreen(),
-    const MySessionsScreen(),*/
+  DashboardCubit()
+      : appPreferences = instance.get(),
+        super(const DashboardState());
+
+  final AppPreferences appPreferences;
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  List<Widget>? screen = [
+    const PatientHomeScreen(),
+    const PatientCartPage(),
+
   ];
 
-  void onItemTapped(int index) {
-    selectedIndex = index;
 
-      emit(state.copyWith(selectIndex: selectedIndex));
+
+  void onPageChanged(int index) async {
+
+      emit(state.copyWith(selectedIndex: index,selectedPage: screen?[index]??PatientHomeScreen()));
 
   }
 }

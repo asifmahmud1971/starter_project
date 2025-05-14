@@ -3,11 +3,11 @@ import 'package:medPilot/core/app/app_flavor.dart';
 class ApiUrls {
   static String baseUrl = getServerUrl();
   static const String liveUrl =
-      'https://manage.medPilot.app/api/mobile/v1/'; //live server
+      'https://my.medpilot.app/api/'; //live server
   static const String devUrl =
-      'https://bw-stg.dinnova.tech/api/mobile/v1/'; // dev server
+      'https://my.medpilot.app/api/'; // dev server
   static const String testUrl =
-      'https://bw-stg.dinnova.tech/api/mobile/v1/'; // test server
+      'https://my.medpilot.app/api/'; // test server
 
   // get current flavor url
   static String getServerUrl() {

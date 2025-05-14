@@ -18,4 +18,17 @@ class AppStrings {
   static const String logOut = "logOut";
   static const String home = "home";
 
+
+
+
+  static const String forgotPassword = "Forgot Password?";
+  static const String login = "Login";
+  static const String dontHaveAnAccount = "Don't have an account?";
+  static const String signUp = "Sign Up";
+  static const String enterEmail = "Enter Email";
+  static const String enterPassword = "Enter Password";
+  static const String or = "OR";
+  static const String wrongCredential = "Email or Password Incorrect";
+  static const String myCart = "My Cart";
+
 }

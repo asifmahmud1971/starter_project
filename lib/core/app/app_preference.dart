@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/auth/sign_in/models/login_response.dart';
+import '../../features/auth/sign_in/models/user.dart';
 import 'app_dependency.dart';
 
 const String prefsKeyLang = "prefsKeyLang";

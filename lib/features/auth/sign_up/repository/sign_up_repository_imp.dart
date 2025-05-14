@@ -21,7 +21,7 @@ class SignUpRepositoryImp implements SignUpRepository {
       url: ApiUrls.register,
       method: Method.post,
       params: params,
-      fromJson: LoginResponse.fromMap,
+      fromJson: LoginResponse.fromJson,
     );
   }
 
