@@ -10,6 +10,7 @@ import 'package:medPilot/core/app/app_preference.dart';
 import 'package:medPilot/features/dashboard/cubit/dashboard_state.dart';
 import 'package:medPilot/features/patient_portal/cart/view/patient_cart_homescreen.dart';
 import 'package:medPilot/features/patient_portal/home/view/patient_home_screen.dart';
+import 'package:medPilot/features/patient_portal/more/view/more_option_screen.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_style.dart';
@@ -27,13 +28,10 @@ class DashboardCubit extends Cubit<DashboardState> {
   List<Widget>? screen = [
     const PatientHomeScreen(),
     const PatientCartPage(),
-
+    MoreOptionScreen()
   ];
-
-
-
+  
   void onPageChanged(int index) async {
-
       emit(state.copyWith(selectedIndex: index,selectedPage: screen?[index]??PatientHomeScreen()));
 
   }

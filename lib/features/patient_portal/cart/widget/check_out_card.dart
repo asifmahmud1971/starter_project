@@ -19,7 +19,6 @@ class CheckOutCard extends StatelessWidget {
       child: Column(
         children: [
           // Promo Code Field
-
           // Order Summary
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
