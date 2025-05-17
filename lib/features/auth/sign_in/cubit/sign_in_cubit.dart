@@ -55,9 +55,9 @@ class SignInCubit extends Cubit<SignInState> {
           await _appPreferences.saveUserData(r.user);
           await _appPreferences.setUserToken(r.token ?? "");
           await _appPreferences.setIsUserLoggedIn(true);
-          if(r.user?.userType == "Patient") {
+          if (r.user?.userType == "Patient") {
             GetContext.offAll(Routes.patientDashboard);
-          }else{
+          } else {
             GetContext.offAll(Routes.staffDashboard);
           }
         },

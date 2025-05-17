@@ -8,9 +8,10 @@ import 'package:medPilot/features/patient_portal/home/model/service_model.dart';
 import 'package:medPilot/features/patient_portal/home/view/pescription_page.dart';
 
 class ServiceCard extends StatelessWidget {
-  final ServiceModel? serviceModel;
+  final String? title;
+  final String? icon;
 
-  const ServiceCard({super.key, this.serviceModel});
+  const ServiceCard({super.key, this.title, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +29,12 @@ class ServiceCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomSvg(
-              icon: serviceModel?.icon ?? "",
+              icon: icon ?? "",
               size: 40.r,
             ),
             10.verticalSpace,
             Text(
-              serviceModel?.title ?? "",
+              title ?? "",
               textAlign: TextAlign.center,
               style: kBodyMedium,
             )

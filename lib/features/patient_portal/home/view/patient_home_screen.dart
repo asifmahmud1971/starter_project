@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/components/common_background.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/patient_portal/home/cubit/home_cubit.dart';
 import 'package:medPilot/features/patient_portal/home/helper/dummy_slider_list.dart';
 import 'package:medPilot/features/patient_portal/home/model/service_model.dart';
 import 'package:medPilot/features/patient_portal/home/view/blog_list.dart';
@@ -25,6 +27,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
 
   @override
   void initState() {
+    context.read<HomeCubit>().getDashboardPermission();
     super.initState();
   }
 
@@ -85,8 +88,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
               ),
             ),
             selectedTabIndex == 0
-                ? ServiceList(serviceDataList: myPackageList)
-                : ServiceList(serviceDataList: onDemandServiceList),
+                ? ServiceList(type: "myPackage")
+                : ServiceList(),
             15.verticalSpace,
             const BlogList(),
             15.verticalSpace,

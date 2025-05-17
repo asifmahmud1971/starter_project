@@ -4,6 +4,32 @@ import 'package:easy_localization/easy_localization.dart';
 
 import '../../core/app/app_context.dart';
 
+
+
+
+extension AgeExtension on DateTime {
+  String get formattedAge {
+    final now = DateTime.now();
+    int age = now.year - year;
+    if (now.month < month || (now.month == month && now.day < day)) {
+      age--;
+    }
+    return '$age Yrs.';
+  }
+
+}
+
+extension DateParsing on String {
+  DateTime? toDate({bool utc = false}) {
+    try {
+      return utc ? DateTime.parse(this).toUtc() : DateTime.parse(this);
+    } catch (_) {
+      return null; // Return null if parsing fails
+    }
+  }
+}
+
+
 extension DateTimeExtensions on DateTime {
   String get formattedDate {
     // List of month names

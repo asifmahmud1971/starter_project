@@ -1,53 +1,59 @@
-import 'dart:developer';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
-import 'package:signalr_netcore/hub_connection_builder.dart';
+import 'package:medPilot/core/components/custom_progress_loader.dart';
+import 'package:medPilot/core/enum/app_status.dart';
+import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
+import 'package:medPilot/features/patient_portal/home/model/prescription_model.dart';
+import 'package:medPilot/features/patient_portal/home/repository/home_repository.dart';
 
 part 'home_state.dart';
 
 @injectable
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(const HomeState());
+  HomeCubit(this.homeRepository) : super(const HomeState());
 
-  final hubConnection = HubConnectionBuilder()
-      .withUrl('http://contest-api.devdata.top/Hub')
-      .build();
+  final HomeRepository homeRepository;
 
-  Future<void> startSignalR() async {
+  Future<void> getDashboardPermission() async {
+    showProgressDialog();
+    emit(state.copyWith(appStatus: AppStatus.loading));
+
     try {
-      await hubConnection.start();
-      print('SignalR Connected');
+      final response = await homeRepository.getDashboardPermission({});
 
-      hubConnection.on('ReceiveLatLon', (arguments) {
-        if (arguments != null && arguments.isNotEmpty) {
-          final Map<String, dynamic> data =
-              arguments.first as Map<String, dynamic>;
-          print('Received Location: lat=${data["lat"]}, lon=${data["lon"]}');
-          // You can store or use the location as needed here
-        }
-      });
-    } on Exception catch (e) {
-      log("response error ---------> ${e}");
+      response.fold(
+        (failure) {},
+        (data) async {
+          emit(state.copyWith(
+              appStatus: AppStatus.success, dashboardPermission: data));
+        },
+      );
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
     }
   }
 
-  Future<void> sendLocation(double lat, double lon) async {
-    await hubConnection.invoke('SendLatLon', args: [lat, lon]);
-    print('Location Sent: lat=$lat, lon=$lon');
-  }
+  Future<void> getPrescription() async {
+    showProgressDialog();
+    emit(state.copyWith(appStatus: AppStatus.loading));
 
-  Future<Position> getCurrentLocation() async {
-    LocationPermission permission = await Geolocator.requestPermission();
+    try {
+      final response = await homeRepository.getPrescription({});
 
-    LocationSettings locationSettings = LocationSettings(
-      accuracy: LocationAccuracy.high,
-      distanceFilter: 0,
-    );
+      response.fold(
+        (failure) {},
+        (data) async {
+          emit(state.copyWith(
+              appStatus: AppStatus.success, prescriptionModel: data));
+        },
+      );
 
-    return await Geolocator.getCurrentPosition(
-        locationSettings: locationSettings);
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+    }
   }
 }

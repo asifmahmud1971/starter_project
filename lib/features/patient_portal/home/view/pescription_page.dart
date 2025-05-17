@@ -1,16 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medPilot/core/components/custom_date_time_formatter.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/patient_portal/home/cubit/home_cubit.dart';
 import 'package:medPilot/features/patient_portal/home/widgets/medication_card.dart';
 import 'package:medPilot/generated/assets.dart';
 
-class PrescriptionScreen extends StatelessWidget {
+class PrescriptionScreen extends StatefulWidget {
   const PrescriptionScreen({super.key});
 
   @override
+  State<PrescriptionScreen> createState() => _PrescriptionScreenState();
+}
+
+class _PrescriptionScreenState extends State<PrescriptionScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<HomeCubit>().getPrescription();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    return BlocBuilder<HomeCubit, HomeState>(
+  builder: (context, state) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
@@ -21,7 +39,7 @@ class PrescriptionScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: 16.0),
             child: Center(
               child: Text(
-                '12/05/2025',
+                DateTime.now().toNameDate,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ),
@@ -44,8 +62,8 @@ class PrescriptionScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Patient 1',
+                   Text(
+                    state.prescriptionModel?.patient?.name??"",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 24,
@@ -58,7 +76,7 @@ class PrescriptionScreen extends StatelessWidget {
                       const Icon(Icons.cake, color: Colors.black, size: 16),
                       const SizedBox(width: 8),
                       Text(
-                        '25 Yrs • Male',
+                        '${state.prescriptionModel?.patient?.dob} • Male',
                         style: TextStyle(
                           color: Colors.black.withOpacity(0.9),
                         ),
@@ -240,6 +258,8 @@ class PrescriptionScreen extends StatelessWidget {
         ),
       ),
     );
+  },
+);
   }
 }
 
