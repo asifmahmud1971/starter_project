@@ -4,6 +4,7 @@ import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/components/custom_image.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/profile/editable_profile.dart';
 import 'package:medPilot/features/profile/profile_screen.dart';
 import 'package:medPilot/generated/assets.dart';
 
@@ -23,7 +24,7 @@ class _TopBarState extends State<TopBar> {
         children: [
           Expanded(
             child: InkWell(
-              onTap:() {GetContext.to(PatientProfileScreen());},
+              onTap:() {GetContext.to(EiditableProfileScreen());},
               child: Row(
                 children: [
                   CustomImage(

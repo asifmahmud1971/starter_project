@@ -5,20 +5,19 @@ import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/home/model/service_model.dart';
-import 'package:medPilot/features/patient_portal/home/view/pescription_page.dart';
+import 'package:medPilot/features/patient_portal/services/view/pescription_page.dart';
 
 class ServiceCard extends StatelessWidget {
   final String? title;
   final String? icon;
+  final VoidCallback? onTap;
 
-  const ServiceCard({super.key, this.title, this.icon});
+  const ServiceCard({super.key, this.title, this.icon, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        GetContext.to(PrescriptionScreen());
-      },
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(5.r),
         decoration: BoxDecoration(

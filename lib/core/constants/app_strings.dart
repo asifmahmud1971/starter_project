@@ -31,4 +31,11 @@ class AppStrings {
   static const String wrongCredential = "Email or Password Incorrect";
   static const String myCart = "My Cart";
 
+  // prescription
+  static const String years = "years";
+  static const String lastUpdate = "Last Update";
+  static const String diagnosis = "Diagnosis";
+  static const String medications = "Medications";
+  static const String advice = "Advice";
+
 }

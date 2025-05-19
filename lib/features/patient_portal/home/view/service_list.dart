@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/core/router/routes.dart';
 import 'package:medPilot/features/patient_portal/home/cubit/home_cubit.dart';
 import 'package:medPilot/features/patient_portal/home/model/service_model.dart';
 import 'package:medPilot/features/patient_portal/home/widgets/service_card.dart';
@@ -50,6 +52,9 @@ class _ServiceListState extends State<ServiceList> {
                     (state.dashboardPermission?.myPackage ?? []).length,
                         (index) =>
                         ServiceCard(
+                          onTap: (){
+                            GetContext.toNamed(route: state.dashboardPermission?.myPackage?[index].key);
+                          },
                           title: state.dashboardPermission?.myPackage?[index].serviceName,
                           icon: state.dashboardPermission?.myPackage?[index].staticIcon,
                         )): List.generate(

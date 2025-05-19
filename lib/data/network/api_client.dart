@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -163,7 +164,13 @@ class ApiClient {
           throw UnsupportedError("Unsupported HTTP method");
       }
 
-      // log('[$url] [${response.statusCode}] Response data: ${response.data}');
+      final prettyJson = const JsonEncoder.withIndent('  ').convert(response.data);
+      log('[$url] [${response.statusCode}] Request response =========>\n\t\t\t\t $prettyJson');
+
+     /* _dio.interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+      ));*/
       return response.data;
     } on DioException catch (error) {
       log('DioError: $error');

@@ -19,6 +19,18 @@ extension AgeExtension on DateTime {
 
 }
 
+extension FormattedDateExtension on String {
+  String get toFormattedDateTime {
+    try {
+      final dateTime = DateTime.parse(this).toLocal();
+      return DateFormat('dd/MM/yyyy hh:mm a').format(dateTime);
+    } catch (e) {
+      return ''; // Return empty string on invalid format
+    }
+  }
+}
+
+
 extension DateParsing on String {
   DateTime? toDate({bool utc = false}) {
     try {
