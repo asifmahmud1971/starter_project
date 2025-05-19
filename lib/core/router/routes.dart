@@ -3,6 +3,7 @@ import 'package:medPilot/features/auth/sign_up/view/sign_up_screen.dart';
 import 'package:medPilot/features/dashboard/view/patient_dashboard_screen.dart';
 import 'package:medPilot/features/dashboard/view/staff_dashboard_screen.dart';
 import 'package:medPilot/features/patient_portal/cart/view/patient_cart_homescreen.dart';
+import 'package:medPilot/features/patient_portal/services/view/followUp_page.dart';
 import 'package:medPilot/features/patient_portal/services/view/pescription_page.dart';
 import 'package:medPilot/features/splash/view/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -23,6 +24,7 @@ class Routes {
   static const String staffDashboard = "/staffDashboard";
   static const String patientDashboard = "/patientDashboard";
   static const String prescription = "prescription";
+  static const String followUp = "follow_up";
 
 }
 
@@ -67,6 +69,12 @@ class RouteGenerator {
         case Routes.prescription:
         return CupertinoPageRoute(
           builder: (_) =>  PrescriptionScreen(),
+          settings: routeSettings,
+        );
+      // global routes end
+ case Routes.followUp:
+        return CupertinoPageRoute(
+          builder: (_) =>  FollowUpScreen(),
           settings: routeSettings,
         );
       // global routes end

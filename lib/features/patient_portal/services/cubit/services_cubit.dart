@@ -6,14 +6,15 @@ import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
 import 'package:medPilot/features/patient_portal/home/model/prescription_model.dart';
 import 'package:medPilot/features/patient_portal/home/repository/home_repository.dart';
+import 'package:medPilot/features/patient_portal/services/repository/service_repository.dart';
 
 part 'services_state.dart';
 
 @injectable
 class ServiceCubit extends Cubit<ServiceState> {
-  ServiceCubit(this.homeRepository) : super(const ServiceState());
+  ServiceCubit(this.serviceRepository) : super(const ServiceState());
 
-  final HomeRepository homeRepository;
+  final ServiceRepository serviceRepository;
 
 
   Future<void> getPrescription() async {
@@ -21,7 +22,7 @@ class ServiceCubit extends Cubit<ServiceState> {
     emit(state.copyWith(appStatus: AppStatus.loading));
 
     try {
-      final response = await homeRepository.getPrescription({});
+      final response = await serviceRepository.getPrescription({});
 
       response.fold(
         (failure) {},

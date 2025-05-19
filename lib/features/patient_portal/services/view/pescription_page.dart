@@ -10,6 +10,7 @@ import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/core/utils/extension.dart';
 import 'package:medPilot/features/patient_portal/home/cubit/home_cubit.dart';
 import 'package:medPilot/features/patient_portal/home/widgets/medication_card.dart';
+import 'package:medPilot/features/patient_portal/services/cubit/services_cubit.dart';
 import 'package:medPilot/generated/assets.dart';
 
 class PrescriptionScreen extends StatefulWidget {
@@ -23,22 +24,21 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    context.read<HomeCubit>().getPrescription();
+    context.read<ServiceCubit>().getPrescription();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
+    return BlocBuilder<ServiceCubit, ServiceState>(
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: Colors.grey[50],
           appBar: AppBar(
             title: const Text('PRESCRIPTION'),
             centerTitle: true,
             actions: [
               Padding(
-                padding: const EdgeInsets.only(right: 16.0),
+                padding:  EdgeInsets.only(right: 16.w),
                 child: Center(
                   child: Text(
                     DateTime.now().toNameDate,
