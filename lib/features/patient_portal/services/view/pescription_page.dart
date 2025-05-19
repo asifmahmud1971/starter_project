@@ -202,7 +202,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.call,
-                              size: 18, color: AppColors.kPrimaryColor),
+                              size: 18.r, color: AppColors.kPrimaryColor),
                           6.horizontalSpace,
                           Text(
                             state.prescriptionModel?.patient
@@ -211,10 +211,10 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                             style: kBodyMedium.copyWith(
                                 color: AppColors.kBlackColor),
                           ),
-                          const SizedBox(width: 16),
+                          16.horizontalSpace,
                           Icon(Icons.email_outlined,
-                              size: 18, color: AppColors.kPrimaryColor),
-                          const SizedBox(width: 6),
+                              size: 18.r, color: AppColors.kPrimaryColor),
+                          6.horizontalSpace,
                           Text(
                             state.prescriptionModel?.patient?.email ?? "",
                             style: kBodyMedium.copyWith(
@@ -227,7 +227,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.location_on_outlined,
-                              size: 18, color: AppColors.kPrimaryColor),
+                              size: 18.r, color: AppColors.kPrimaryColor),
                           6.horizontalSpace,
                           Text(
                             'Dhaka, Bangladesh',
@@ -236,7 +236,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                           ),
                           16.horizontalSpace,
                           Icon(Icons.language,
-                              size: 18, color: AppColors.kPrimaryColor),
+                              size: 18.r, color: AppColors.kPrimaryColor),
                           6.horizontalSpace,
                           Text(
                             'www.medpilot.app',
