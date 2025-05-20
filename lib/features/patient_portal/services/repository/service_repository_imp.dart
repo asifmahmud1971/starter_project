@@ -6,6 +6,7 @@ import 'package:medPilot/data/network/api_request.dart';
 import 'package:medPilot/data/network/api_urls.dart';
 import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
 import 'package:medPilot/features/patient_portal/home/model/prescription_model.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/model/follow_up.dart';
 
 import 'service_repository.dart';
 
@@ -24,6 +25,15 @@ class ServiceRepositoryImp implements ServiceRepository {
         method: Method.get,
         params: params,
         fromJson: PrescriptionModel.fromJson);
+  }
+@override
+  Future<Either<ApiFailure, FollowUpModel>> getFollowUp(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+        url: ApiUrls.followUp,
+        method: Method.get,
+        params: params,
+        fromJson: FollowUpModel.fromJson);
   }
 
 

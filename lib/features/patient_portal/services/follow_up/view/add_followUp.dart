@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:medPilot/core/constants/app_colors.dart';
 
 class AddFollowUpScreen extends StatefulWidget {
   const AddFollowUpScreen({super.key});
@@ -103,7 +105,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
-        foregroundColor: Colors.teal.shade800,
+        foregroundColor: AppColors.kPrimaryColor,
         actions: [
           IconButton(
             icon: const Icon(Icons.help_outline),
@@ -111,54 +113,51 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
           ),
         ],
       ),
-      body: GradientBackground(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Date Time Card
-                _buildDateTimeCard(),
-                const SizedBox(height: 20),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Date Time Card
+              _buildDateTimeCard(),
+              const SizedBox(height: 20),
 
-                // Vital Signs Section
-                _buildSectionHeader('Vital Signs', Icons.monitor_heart),
-                _buildVitalSignsCard(),
-                const SizedBox(height: 20),
+              // Vital Signs Section
+              _buildSectionHeader('Vital Signs', Icons.monitor_heart),
+              _buildVitalSignsCard(),
+              const SizedBox(height: 20),
 
-                // Physical Symptoms Section
-                _buildSectionHeader(
-                    'Physical Symptoms', Icons.medical_services),
-                _buildPhysicalSymptomsCard(),
-                const SizedBox(height: 20),
+              // Physical Symptoms Section
+              _buildSectionHeader('Physical Symptoms', Icons.medical_services),
+              _buildPhysicalSymptomsCard(),
+              const SizedBox(height: 20),
 
-                // Functional Status Section
-                _buildSectionHeader('Functional Status', Icons.accessibility),
-                _buildFunctionalStatusCard(),
-                const SizedBox(height: 30),
+              // Functional Status Section
+              _buildSectionHeader('Functional Status', Icons.accessibility),
+              _buildFunctionalStatusCard(),
+              const SizedBox(height: 30),
 
-                // Save Button
-                Center(
-                  child: ElevatedButton.icon(
-                    icon: const Icon(Icons.save, size: 20),
-                    label: const Text('SAVE FOLLOW-UP',
-                        style: TextStyle(letterSpacing: 1)),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                      backgroundColor: Colors.teal.shade700,
-                      foregroundColor: Colors.white,
-                      elevation: 4,
-                    ),
-                    onPressed: _saveFollowUp,
+              // Save Button
+              Center(
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.save, size: 20),
+                  label: const Text('SAVE FOLLOW-UP',
+                      style: TextStyle(letterSpacing: 1)),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    backgroundColor: Colors.teal.shade700,
+                    foregroundColor: Colors.white,
+                    elevation: 4,
                   ),
+                  onPressed: _saveFollowUp,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -166,68 +165,64 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
   }
 
   Widget _buildDateTimeCard() {
-    return Card(
-        elevation: 3,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-
-        ),
-    child: Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          const Icon(Icons.calendar_today, color: Colors.teal),
-          const SizedBox(width: 15),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Date & Time',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    )),
-                const SizedBox(height: 5),
-                Row(
-                  children: [
-                    Expanded(
-                      child: FilledButton.icon(
-                        icon: const Icon(Icons.calendar_month, size: 18),
-                        label: Text(
-                          DateFormat('MMM dd, yyyy')
-                              .format(_selectedDate),
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white, boxShadow: [AppColors.kBackGroundShadow]),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            const Icon(Icons.calendar_today, color: Colors.teal),
+            const SizedBox(width: 15),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Date & Time',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      )),
+                  const SizedBox(height: 5),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FilledButton.icon(
+                          icon: const Icon(Icons.calendar_month, size: 18),
+                          label: Text(
+                            DateFormat('MMM dd, yyyy').format(_selectedDate),
+                          ),
+                          style: FilledButton.styleFrom(
+                            backgroundColor: Colors.teal.shade50,
+                            foregroundColor: Colors.teal.shade800,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                          ),
+                          onPressed: () => _selectDate(context),
                         ),
-                        style: FilledButton.styleFrom(
-                          backgroundColor: Colors.teal.shade50,
-                          foregroundColor: Colors.teal.shade800,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                        ),
-                        onPressed: () => _selectDate(context),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: FilledButton.icon(
-                        icon: const Icon(Icons.access_time, size: 18),
-                        label: Text(_selectedTime.format(context)),
-                        style: FilledButton.styleFrom(
-                          backgroundColor: Colors.teal.shade50,
-                          foregroundColor: Colors.teal.shade800,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: FilledButton.icon(
+                          icon: const Icon(Icons.access_time, size: 18),
+                          label: Text(_selectedTime.format(context)),
+                          style: FilledButton.styleFrom(
+                            backgroundColor: Colors.teal.shade50,
+                            foregroundColor: Colors.teal.shade800,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                          ),
+                          onPressed: () => _selectTime(context),
                         ),
-                        onPressed: () => _selectTime(context),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
     );
   }
 
@@ -250,9 +245,9 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
   }
 
   Widget _buildVitalSignsCard() {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white, boxShadow: [AppColors.kBackGroundShadow]),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -280,14 +275,16 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
             const Divider(height: 24, thickness: 0.5),
 
             // Oxygen and Temperature
-          _buildSmartVitalRow(
-            label: 'Oxygen (L) / Temp (°F)',
-            firstField: _buildSmartNumberField(
-                _oxygenController, 'Oxygen', '2', _getTempColor), // Problem here
-            secondField: _buildSmartNumberField(
-                _tempController, 'Temp', '98.6', _getTempColor), // And here
-            color: _getTempColor(),
-          ),
+            _buildSmartVitalRow(
+              label: 'Oxygen (L) / Temp (°F)',
+              firstField: _buildSmartNumberField(
+                  _oxygenController, 'Oxygen', '2', _getTempColor),
+              // Problem here
+              secondField: _buildSmartNumberField(
+                  _tempController, 'Temp', '98.6', _getTempColor),
+              // And here
+              color: _getTempColor(),
+            ),
             const Divider(height: 24, thickness: 0.5),
 
             // Intake and Output
@@ -310,30 +307,21 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                   'Blood Sugar', '5.5', _getBloodSugarColor),
               color: _getBloodSugarColor(),
             ),
-            const Divider(height: 24, thickness: 0.5),
-
-            // Shortness of Breath and Bowel Movement
-            Row(
-              children: [
-                Expanded(
-                  child: _buildSmartDropdown(
-                    value: _shortnessOfBreath,
-                    hint: 'Shortness of Breath',
-                    items: ['None', 'Mild', 'Moderate', 'Severe'],
-                    icon: Icons.air,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: _buildSmartDropdown(
-                    value: _bowelMovement,
-                    hint: 'Bowel Movement',
-                    items: ['Normal', 'Constipated', 'Diarrhea', 'Irregular'],
-                    icon: Icons.clean_hands,
-                  ),
-                ),
-              ],
+            Divider(height: 24.h, thickness: 0.5),
+            _buildSmartDropdown(
+              value: _shortnessOfBreath,
+              hint: 'Shortness of Breath',
+              items: ['None', 'Mild', 'Moderate', 'Severe'],
+              icon: Icons.air,
             ),
+            10.verticalSpace,
+            _buildSmartDropdown(
+              value: _bowelMovement,
+              hint: 'Bowel Movement',
+              items: ['Normal', 'Constipated', 'Diarrhea', 'Irregular'],
+              icon: Icons.clean_hands,
+            )
+            // Shortness of Breath and Bowel Movement
           ],
         ),
       ),
@@ -341,9 +329,12 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
   }
 
   Widget _buildPhysicalSymptomsCard() {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    return Container(
+      width: 1.sw,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [AppColors.kBackGroundShadow],
+          borderRadius: BorderRadius.circular(8.r)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -453,10 +444,10 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
               ),
             ),
             const Spacer(),
-            Icon(Icons.circle, size: 12, color: color),
+            // Icon(Icons.circle, size: 12, color: color),
           ],
         ),
-        const SizedBox(height: 8),
+        8.verticalSpace,
         Row(
           children: [
             Expanded(child: firstField),
@@ -483,7 +474,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        suffixIcon: Icon(Icons.circle, size: 12, color: getColor()),
+        //suffixIcon: Icon(Icons.circle, size: 12, color: getColor()),
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       ),
@@ -507,43 +498,54 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
     required List<String> items,
     required IconData icon,
   }) {
-    return DropdownButtonFormField<String>(
-      value: value,
-      decoration: InputDecoration(
-        labelText: hint,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+    return Row(
+      children: [
+        Expanded(
+          child: DropdownButtonFormField<String>(
+            value: value,
+            isExpanded: true,
+            // 🔧 This line fixes the overflow
+            decoration: InputDecoration(
+              labelText: hint,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              prefixIcon: Icon(icon, color: Colors.teal.shade700),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            ),
+            items: items.map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(
+                  value,
+                  maxLines: 1,
+                ),
+              );
+            }).toList(),
+            onChanged: (value) => setState(() {
+              if (hint.contains('Shortness')) {
+                _shortnessOfBreath = value;
+              } else if (hint.contains('Bowel')) {
+                _bowelMovement = value;
+              } else {
+                _functionalStatus = value;
+              }
+            }),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select an option';
+              }
+              return null;
+            },
+            style: TextStyle(color: Colors.grey.shade800),
+            dropdownColor: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            icon: Icon(Icons.arrow_drop_down, color: Colors.teal.shade700),
+            elevation: 2,
+          ),
         ),
-        prefixIcon: Icon(icon, color: Colors.teal.shade700),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      ),
-      items: items.map((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-      onChanged: (value) => setState(() {
-        if (hint.contains('Shortness')) {
-          _shortnessOfBreath = value;
-        } else if (hint.contains('Bowel')) {
-          _bowelMovement = value;
-        } else {
-          _functionalStatus = value;
-        }
-      }),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please select an option';
-        }
-        return null;
-      },
-      style: TextStyle(color: Colors.grey.shade800),
-      dropdownColor: Colors.white,
-      borderRadius: BorderRadius.circular(10),
-      icon: Icon(Icons.arrow_drop_down, color: Colors.teal.shade700),
-      elevation: 2,
+      ],
     );
   }
 
@@ -656,30 +658,5 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
     _insulinController.dispose();
     _bloodSugarController.dispose();
     super.dispose();
-  }
-}
-
-class GradientBackground extends StatelessWidget {
-  final Widget child;
-
-  const GradientBackground({super.key, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.teal.shade50,
-            Colors.teal.shade100.withOpacity(0.3),
-            Colors.white,
-          ],
-          stops: const [0.0, 0.3, 0.7],
-        ),
-      ),
-      child: child,
-    );
   }
 }

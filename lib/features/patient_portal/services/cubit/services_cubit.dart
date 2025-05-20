@@ -6,6 +6,7 @@ import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
 import 'package:medPilot/features/patient_portal/home/model/prescription_model.dart';
 import 'package:medPilot/features/patient_portal/home/repository/home_repository.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/model/follow_up.dart';
 import 'package:medPilot/features/patient_portal/services/repository/service_repository.dart';
 
 part 'services_state.dart';
@@ -37,4 +38,26 @@ class ServiceCubit extends Cubit<ServiceState> {
       dismissProgressDialog();
     }
   }
+  Future<void> getFollowUpReport() async {
+    showProgressDialog();
+    emit(state.copyWith(appStatus: AppStatus.loading));
+
+    try {
+      final response = await serviceRepository.getFollowUp({});
+
+      response.fold(
+        (failure) {},
+        (data) async {
+          emit(state.copyWith(
+              appStatus: AppStatus.success, followUp: data));
+        },
+      );
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+    }
+  }
+
+
 }

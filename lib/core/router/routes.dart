@@ -3,7 +3,8 @@ import 'package:medPilot/features/auth/sign_up/view/sign_up_screen.dart';
 import 'package:medPilot/features/dashboard/view/patient_dashboard_screen.dart';
 import 'package:medPilot/features/dashboard/view/staff_dashboard_screen.dart';
 import 'package:medPilot/features/patient_portal/cart/view/patient_cart_homescreen.dart';
-import 'package:medPilot/features/patient_portal/services/view/followUp_page.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_list_page.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_description_page.dart';
 import 'package:medPilot/features/patient_portal/services/view/pescription_page.dart';
 import 'package:medPilot/features/splash/view/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -74,7 +75,7 @@ class RouteGenerator {
       // global routes end
  case Routes.followUp:
         return CupertinoPageRoute(
-          builder: (_) =>  FollowUpScreen(),
+          builder: (_) =>  FollowupListPage(),
           settings: routeSettings,
         );
       // global routes end
