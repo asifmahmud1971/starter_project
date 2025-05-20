@@ -1,30 +1,87 @@
+import 'dart:io';
+import 'dart:developer';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/features/profile/editable_profile.dart';
+import '../../core/constants/app_colors.dart';
 
-class PatientProfileScreen extends StatelessWidget {
+class PatientProfileScreen extends StatefulWidget {
   const PatientProfileScreen({super.key});
 
   @override
+  State<PatientProfileScreen> createState() => _PatientProfileScreenState();
+}
+
+class _PatientProfileScreenState extends State<PatientProfileScreen> {
+  @override
   Widget build(BuildContext context) {
-    const primaryColor = Color(0xFFFF904D); // Vibrant orange
+    //const primaryColor = Color(0xFFFF904D); // Vibrant orange
     const secondaryColor = Color(0xFF394294); // Deep blue
     const accentColor = Color(0xFF6C63FF); // Purple accent
-
     return Scaffold(
       backgroundColor: Colors.grey[50],
       body: CustomScrollView(
         slivers: [
-          // App Bar with Profile Background
           SliverAppBar(
             expandedHeight: 180,
+            iconTheme: IconThemeData(
+              color: Colors.white, // Back icon color
+            ),
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [secondaryColor.withOpacity(0.8), primaryColor],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                color: AppColors.kPrimaryColor.withAlpha(480),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    70.verticalSpace,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            radius: 45,
+                            backgroundColor: AppColors.kGrayColor200,
+                            backgroundImage: CachedNetworkImageProvider(
+                                "https://picsum.photos/2000" ?? ""),
+                          ),
+                          10.horizontalSpace,
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    'Patient',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: [
+                                      _buildInfoChip(Icons.cake, '25 Yrs'),
+                                      const SizedBox(width: 8),
+                                      _buildInfoChip(Icons.transgender, 'Others'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -38,7 +95,9 @@ class PatientProfileScreen extends StatelessWidget {
                   ),
                   child: const Icon(Icons.edit, color: Colors.white),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  GetContext.to(EditAbleProfileScreen());
+                },
               ),
             ],
           ),
@@ -48,62 +107,6 @@ class PatientProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                // Profile Header
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Container(
-                      height: 80, // Space for avatar overlap
-                    ),
-                    Positioned(
-                      top: -60,
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Colors.white,
-                        child: CircleAvatar(
-                          radius: 46,
-                          backgroundImage: const AssetImage('assets/patient_avatar.png'),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.white,
-                                width: 3,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 40),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Patient 1',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Row(
-                            children: [
-                              _buildInfoChip(Icons.cake, '25 Yrs'),
-                              const SizedBox(width: 8),
-                              _buildInfoChip(Icons.transgender, 'Others'),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40),
-
-                // Info Sections
                 _buildModernSection(
                   title: 'Personal Details',
                   icon: Icons.person_outline,
@@ -114,14 +117,14 @@ class PatientProfileScreen extends StatelessWidget {
                     _buildDetailRow('Marital Status', 'Single'),
                   ],
                 ),
-
                 _buildModernSection(
                   title: 'Contact Information',
                   icon: Icons.contact_phone_outlined,
-                  color: primaryColor,
+                  color: AppColors.kPrimaryColor,
                   children: [
                     _buildDetailRow('Mobile', '+880 1717926565', isPhone: true),
-                    _buildDetailRow('Doctor Contact', '+880 1717926565', isPhone: true),
+                    _buildDetailRow('Doctor Contact', '+880 1717926565',
+                        isPhone: true),
                     _buildDetailRow('Address', '123 Medical Street, Dhaka'),
                   ],
                 ),
@@ -131,7 +134,8 @@ class PatientProfileScreen extends StatelessWidget {
                   icon: Icons.medical_information,
                   color: secondaryColor,
                   children: [
-                    _buildDetailRow('Allergies', 'Penicillin, Shellfish', isImportant: true),
+                    _buildDetailRow('Allergies', 'Penicillin, Shellfish',
+                        isImportant: true),
                     _buildDetailRow('Primary Diagnosis', 'Hypertension'),
                     _buildDetailRow('Co-morbidities', 'Type 2 Diabetes'),
                   ],
@@ -181,7 +185,8 @@ class PatientProfileScreen extends StatelessWidget {
                         const SizedBox(height: 12),
                         _buildDetailRow('Primary Contact', 'Mrs. Rahman'),
                         _buildDetailRow('Relationship', 'Mother'),
-                        _buildDetailRow('Phone', '+880 1712345678', isPhone: true),
+                        _buildDetailRow('Phone', '+880 1712345678',
+                            isPhone: true),
                         const SizedBox(height: 12),
                         SizedBox(
                           width: double.infinity,
@@ -224,7 +229,7 @@ class PatientProfileScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -240,7 +245,7 @@ class PatientProfileScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.2),
+                    color: color.withValues(alpha: 0.2),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(icon, color: color),
@@ -264,7 +269,8 @@ class PatientProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailRow(String label, String value, {bool isImportant = false, bool isPhone = false}) {
+  Widget _buildDetailRow(String label, String value,
+      {bool isImportant = false, bool isPhone = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -307,19 +313,19 @@ class PatientProfileScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color: Colors.grey.shade300.withAlpha(10),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 14, color: Colors.grey[600]),
+          Icon(icon, size: 14, color: Colors.grey[300]),
           const SizedBox(width: 6),
           Text(
             text,
             style: TextStyle(
               fontSize: 12,
-              color: Colors.grey[700],
+              color: Colors.grey[300],
             ),
           ),
         ],
