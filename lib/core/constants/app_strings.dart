@@ -37,5 +37,7 @@ class AppStrings {
   static const String diagnosis = "Diagnosis";
   static const String medications = "Medications";
   static const String advice = "Advice";
+  static const String vitalSign = "Vital Signs";
+  static const String physicalSymptoms = "Physical Symptoms";
 
 }

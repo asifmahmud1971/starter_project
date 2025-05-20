@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/constants/app_strings.dart';
 
 class AddFollowUpScreen extends StatefulWidget {
   const AddFollowUpScreen({super.key});
@@ -122,22 +124,22 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
             children: [
               // Date Time Card
               _buildDateTimeCard(),
-              const SizedBox(height: 20),
+              20.verticalSpace,
 
               // Vital Signs Section
-              _buildSectionHeader('Vital Signs', Icons.monitor_heart),
+              _buildSectionHeader(AppStrings.vitalSign.tr(), Icons.monitor_heart),
               _buildVitalSignsCard(),
-              const SizedBox(height: 20),
+              20.verticalSpace,
 
               // Physical Symptoms Section
-              _buildSectionHeader('Physical Symptoms', Icons.medical_services),
+              _buildSectionHeader(AppStrings.physicalSymptoms.tr(), Icons.medical_services),
               _buildPhysicalSymptomsCard(),
-              const SizedBox(height: 20),
+              20.verticalSpace,
 
               // Functional Status Section
               _buildSectionHeader('Functional Status', Icons.accessibility),
               _buildFunctionalStatusCard(),
-              const SizedBox(height: 30),
+              30.verticalSpace,
 
               // Save Button
               Center(
@@ -150,7 +152,8 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                         horizontal: 30, vertical: 15),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
-                    backgroundColor: Colors.teal.shade700,
+                    backgroundColor: AppColors.kPrimaryColor.withValues(alpha: 0.7
+                    ),
                     foregroundColor: Colors.white,
                     elevation: 4,
                   ),
@@ -172,7 +175,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
         padding: const EdgeInsets.all(16),
         child: Row(
           children: [
-            const Icon(Icons.calendar_today, color: Colors.teal),
+             Icon(Icons.calendar_today, color: AppColors.kPrimaryColor),
             const SizedBox(width: 15),
             Expanded(
               child: Column(
@@ -188,13 +191,16 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                     children: [
                       Expanded(
                         child: FilledButton.icon(
-                          icon: const Icon(Icons.calendar_month, size: 18),
+                          icon:  Icon(Icons.calendar_month, size: 18,color: AppColors.kPrimaryColor.withValues(alpha: 0.8
+                          ),),
                           label: Text(
                             DateFormat('MMM dd, yyyy').format(_selectedDate),
                           ),
                           style: FilledButton.styleFrom(
-                            backgroundColor: Colors.teal.shade50,
-                            foregroundColor: Colors.teal.shade800,
+                            backgroundColor: AppColors.kPrimaryColor.withValues(alpha: 0.2
+                            ),
+                            foregroundColor: AppColors.kPrimaryColor.withValues(alpha: 0.8
+                            ),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                           ),
@@ -207,8 +213,9 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                           icon: const Icon(Icons.access_time, size: 18),
                           label: Text(_selectedTime.format(context)),
                           style: FilledButton.styleFrom(
-                            backgroundColor: Colors.teal.shade50,
-                            foregroundColor: Colors.teal.shade800,
+                            backgroundColor: AppColors.kPrimaryColor.withValues(alpha: 0.2
+                            ),
+                            foregroundColor: AppColors.kPrimaryColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                           ),
@@ -231,13 +238,13 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
       padding: const EdgeInsets.only(left: 8.0, bottom: 8),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: Colors.teal.shade700),
-          const SizedBox(width: 8),
+          Icon(icon, size: 20, color: AppColors.kPrimaryColor),
+          8.horizontalSpace,
           Text(title,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.teal.shade800,
+                color: AppColors.kPrimaryColor,
               )),
         ],
       ),
@@ -363,11 +370,12 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                       }
                     });
                   },
-                  selectedColor: Colors.teal.shade100,
+                  checkmarkColor: AppColors.kPrimaryColor,
+                  selectedColor: AppColors.kPrimaryColor.withValues(alpha: 0.2),
                   backgroundColor: Colors.grey.shade100,
                   labelStyle: TextStyle(
                     color: _physicalSymptoms[symptom]!
-                        ? Colors.teal.shade800
+                        ? AppColors.kPrimaryColor
                         : Colors.grey.shade800,
                     fontWeight: _physicalSymptoms[symptom]!
                         ? FontWeight.bold
@@ -377,7 +385,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                     borderRadius: BorderRadius.circular(8),
                     side: BorderSide(
                       color: _physicalSymptoms[symptom]!
-                          ? Colors.teal.shade300
+                          ? AppColors.kPrimaryColor
                           : Colors.grey.shade300,
                     ),
                   ),
@@ -403,9 +411,11 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
   }
 
   Widget _buildFunctionalStatusCard() {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    return Container(
+      decoration: BoxDecoration(color: Colors.white,
+
+      boxShadow: [AppColors.kBackGroundShadow],borderRadius: BorderRadius.circular(8.r)
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: _buildSmartDropdown(
@@ -510,7 +520,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              prefixIcon: Icon(icon, color: Colors.teal.shade700),
+              prefixIcon: Icon(icon, color: AppColors.kPrimaryColor),
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             ),
@@ -541,7 +551,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
             style: TextStyle(color: Colors.grey.shade800),
             dropdownColor: Colors.white,
             borderRadius: BorderRadius.circular(10),
-            icon: Icon(Icons.arrow_drop_down, color: Colors.teal.shade700),
+            icon: Icon(Icons.arrow_drop_down, color: AppColors.kPrimaryColor),
             elevation: 2,
           ),
         ),
@@ -559,7 +569,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.light(
-              primary: Colors.teal.shade700,
+              primary: AppColors.kPrimaryColor,
               onPrimary: Colors.white,
               onSurface: Colors.grey.shade800,
             ),
@@ -583,7 +593,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.light(
-              primary: Colors.teal.shade700,
+              primary: AppColors.kPrimaryColor,
               onPrimary: Colors.white,
               onSurface: Colors.grey.shade800,
             ),
