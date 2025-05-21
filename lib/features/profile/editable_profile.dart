@@ -1,32 +1,39 @@
+import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/core/components/custom_button.dart';
+import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/profile/cubit/profile_cubit.dart';
+import '../../core/components/custom_text_field.dart';
+import '../../core/constants/app_colors.dart';
 
-class EiditableProfileScreen extends StatefulWidget {
-  const EiditableProfileScreen({super.key});
+class EditAbleProfileScreen extends StatefulWidget {
+  const EditAbleProfileScreen({super.key});
 
   @override
-  State<EiditableProfileScreen> createState() => _EiditableProfileScreenState();
+  State<EditAbleProfileScreen> createState() => _EditAbleProfileScreenState();
 }
 
-class _EiditableProfileScreenState extends State<EiditableProfileScreen> {
-  // Patient data variables
-  String patientName = "Patient 1";
-  String age = "25 Yrs 0 M 23 D";
-  String gender = "Others";
-  String mobileNo = "01717926565";
-  String doctorContact = "01717926565";
-  String dob = "04/22/2000";
-  String bloodGroup = "";
-  String maritalStatus = "";
-  String address = "";
-  String emergencyContact = "";
-  String emergencyPhone = "";
-  String allergies = "";
-  String diagnosis = "";
-  String comorbidities = "";
-
+class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
   bool isEditing = false;
   final _formKey = GlobalKey<FormState>();
+  File? _image;
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+
+  final profileCubit =  GetContext.context.read<ProfileCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,25 +43,7 @@ class _EiditableProfileScreenState extends State<EiditableProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('Patient Profile'),
-        actions: [
-          IconButton(
-            icon: Icon(isEditing ? Icons.save : Icons.edit),
-            onPressed: () {
-              if (isEditing) {
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState!.save();
-                  setState(() => isEditing = false);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Profile updated successfully')),
-                  );
-                }
-              } else {
-                setState(() => isEditing = true);
-              }
-            },
-          ),
-        ],
+        title: Text('Patient Profile',style: kTitleMedium),
       ),
       body: Form(
         key: _formKey,
@@ -63,78 +52,143 @@ class _EiditableProfileScreenState extends State<EiditableProfileScreen> {
           child: Column(
             children: [
               // Profile Header
-              Stack(
-                alignment: Alignment.center,
+              Column(
                 children: [
-                  Container(
-                    height: 120,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [secondaryColor, primaryColor],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+                  10.verticalSpace,
+                  Stack(
+                    alignment: AlignmentDirectional.topEnd,
+                    clipBehavior: Clip.none,
+                    children: [
+                      _image != null
+                          ? CircleAvatar(
+                        radius: 45,
+                        backgroundColor: AppColors.kGrayColor600,
+                        backgroundImage: FileImage(_image!),
+                      ) : CircleAvatar(
+                        radius: 45,
+                        backgroundColor: AppColors.kGrayColor200,
+                        backgroundImage: CachedNetworkImageProvider(
+                            "https://picsum.photos/2000" ?? ""),
                       ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  Positioned(
-                    top: 20,
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundColor: Colors.white,
-                          child: CircleAvatar(
-                            radius: 46,
-                            backgroundImage: const AssetImage('assets/patient_avatar.png'),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        isEditing
-                            ? TextFormField(
-                          initialValue: patientName,
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+                      InkWell(
+                        onTap: ()=> _pickImage(ImageSource.gallery),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        child: Container(
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
                             color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
                           ),
-                          textAlign: TextAlign.center,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            filled: false,
-                          ),
-                          onSaved: (value) => patientName = value ?? '',
-                          validator: (value) =>
-                          value!.isEmpty ? 'Name cannot be empty' : null,
-                        )
-                            : Text(
-                          patientName,
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                          child:  Icon(Icons.edit,size: 16,),
                         ),
-                      ],
-                    ),
+                      )
+                    ],
                   ),
                 ],
               ),
-              const SizedBox(height: 60),
-
-              // Personal Information
+              const SizedBox(height: 40),
               _buildEditableSection(
                 icon: Icons.person,
                 title: "Personal Information",
                 color: secondaryColor,
                 children: [
-                  _buildEditableField("Age", age, (value) => age = value ?? ''),
-                  _buildEditableField("Gender", gender, (value) => gender = value ?? ''),
-                  _buildEditableField("Date of Birth", dob, (value) => dob = value ?? ''),
-                  _buildEditableField(
-                      "Blood Group", bloodGroup, (value) => bloodGroup = value ?? ''),
-                  _buildEditableField(
-                      "Marital Status", maritalStatus, (value) => maritalStatus = value ?? ''),
+                  CustomTextField(
+                    controller: profileCubit.nameController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Name",
+                    hint: "Full name",
+                    hintColor: AppColors.kGrayColor200,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.ageController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Age",
+                    hint: "Age",
+                    hintColor: AppColors.kGrayColor200,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.genderController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Gender",
+                    hint: "Gender",
+                    hintColor: AppColors.kGrayColor200,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.dateOfBirthController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Date of Birth",
+                    hint: "Date of Birth",
+                    hintColor: AppColors.kGrayColor200,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
+
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.bloodGroupController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Blood Group",
+                    hint: "Blood Group",
+                    hintColor: AppColors.kGrayColor200,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.maritalStatusController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Marital Status",
+                    hint: "Marital Status",
+                    hintColor: AppColors.kGrayColor200,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
                 ],
               ),
 
@@ -144,15 +198,50 @@ class _EiditableProfileScreenState extends State<EiditableProfileScreen> {
                 title: "Contact Information",
                 color: primaryColor,
                 children: [
-                  _buildEditableField(
-                      "Mobile No", mobileNo, (value) => mobileNo = value ?? '',
-                      keyboardType: TextInputType.phone),
-                  _buildEditableField("Doctor Contact", doctorContact,
-                          (value) => doctorContact = value ?? '',
-                      keyboardType: TextInputType.phone),
-                  _buildEditableField(
-                      "Address", address, (value) => address = value ?? '',
-                      maxLines: 2),
+                  CustomTextField(
+                    controller: profileCubit.mobileNoController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Mobile No",
+                    hint: "Mobile No",
+                    hintColor: AppColors.kGrayColor200,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.doctorContactController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Doctor Contact",
+                    hint: "Doctor Contact",
+                    hintColor: AppColors.kGrayColor200,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.addressController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Address",
+                    hint: "Address",
+                    hintColor: AppColors.kGrayColor200,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  )
                 ],
               ),
 
@@ -162,11 +251,35 @@ class _EiditableProfileScreenState extends State<EiditableProfileScreen> {
                 title: "Emergency Contacts",
                 color: Colors.red,
                 children: [
-                  _buildEditableField("Contact Person", emergencyContact,
-                          (value) => emergencyContact = value ?? ''),
-                  _buildEditableField("Contact Number", emergencyPhone,
-                          (value) => emergencyPhone = value ?? '',
-                      keyboardType: TextInputType.phone),
+                  CustomTextField(
+                    controller: profileCubit.contactPersonController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Contact Person",
+                    hint: "Contact Person",
+                    hintColor: AppColors.kGrayColor200,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.contactNumberController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Contact Number",
+                    hint: "Contact Number",
+                    hintColor: AppColors.kGrayColor200,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  )
                 ],
               ),
 
@@ -176,16 +289,57 @@ class _EiditableProfileScreenState extends State<EiditableProfileScreen> {
                 title: "Medical Information",
                 color: Colors.green,
                 children: [
-                  _buildEditableField(
-                      "Allergies", allergies, (value) => allergies = value ?? '',
-                      maxLines: 2),
-                  _buildEditableField(
-                      "Primary Diagnosis", diagnosis, (value) => diagnosis = value ?? ''),
-                  _buildEditableField("Co-morbidities", comorbidities,
-                          (value) => comorbidities = value ?? '',
-                      maxLines: 2),
+                  CustomTextField(
+                    controller: profileCubit.allergiesController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Allergies",
+                    hint: "Allergies",
+                    hintColor: AppColors.kGrayColor200,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.primaryDiagnosisController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Primary Diagnosis",
+                    hint: "Primary Diagnosis",
+                    hintColor: AppColors.kGrayColor200,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.coMorbidityController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Co-morbidities",
+                    hint: "Co-morbidities",
+                    hintColor: AppColors.kGrayColor200,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  )
                 ],
               ),
+              20.verticalSpace,
+              CustomButton(
+                title: "Confirm",
+                onTap: (){},
+              )
             ],
           ),
         ),
@@ -242,64 +396,6 @@ class _EiditableProfileScreenState extends State<EiditableProfileScreen> {
             ...children,
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildEditableField(
-      String label,
-      String value,
-      Function(String?) onSaved, {
-        TextInputType keyboardType = TextInputType.text,
-        int maxLines = 1,
-      }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 14,
-            ),
-          ),
-          const SizedBox(height: 4),
-          isEditing
-              ? TextFormField(
-            initialValue: value,
-            keyboardType: keyboardType,
-            maxLines: maxLines,
-            decoration: InputDecoration(
-              contentPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: Colors.grey[300]!),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: Color(0xFF394294)),
-              ),
-            ),
-            onSaved: onSaved,
-          )
-              : Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            decoration: BoxDecoration(
-              color: Colors.grey[50],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(
-              value.isEmpty ? "Not specified" : value,
-              style: TextStyle(
-                color: value.isEmpty ? Colors.grey[400] : Colors.black87,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

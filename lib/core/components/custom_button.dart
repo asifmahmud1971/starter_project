@@ -58,21 +58,8 @@ class CustomButton extends StatelessWidget {
             ),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            color: backgroundColor ?? AppColors.kGrayColor900,
-            gradient: isGradientColor
-                ? gradient ??
-                    (onTap != null
-                        ? AppColors.kButtonGradient
-                        : LinearGradient(
-                            colors: [
-                              const Color(0xFF4E54CB).withOpacity(0.2),
-                              const Color(0xFF17A0B2).withOpacity(0.186),
-                            ], // Blue and purple gradient
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                          ))
-                : null, // Apply the gradient
-            borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
+            color: backgroundColor ?? AppColors.kGrayColor300,
+            borderRadius: BorderRadius.circular(borderRadius ?? 12.r),
             border: isBorder
                 ? border ?? Border.all(color: borderColor, width: 1)
                 : null // Rounded corners
