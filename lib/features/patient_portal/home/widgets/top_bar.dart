@@ -24,7 +24,7 @@ class _TopBarState extends State<TopBar> {
         children: [
           Expanded(
             child: InkWell(
-              onTap:() {GetContext.to(EditAbleProfileScreen());},
+              onTap:() {GetContext.to(PatientProfileScreen());},
               child: Row(
                 children: [
                   CustomImage(
