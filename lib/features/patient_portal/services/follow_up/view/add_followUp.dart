@@ -1,9 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/core/components/custom_text_field.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart';
 
 class AddFollowUpScreen extends StatefulWidget {
   const AddFollowUpScreen({super.key});
@@ -18,16 +22,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
   TimeOfDay _selectedTime = TimeOfDay.now();
 
   // Controllers
-  final TextEditingController _bpHighController = TextEditingController();
-  final TextEditingController _bpLowController = TextEditingController();
-  final TextEditingController _pulseController = TextEditingController();
-  final TextEditingController _saturationController = TextEditingController();
-  final TextEditingController _oxygenController = TextEditingController();
-  final TextEditingController _tempController = TextEditingController();
-  final TextEditingController _intakeController = TextEditingController();
-  final TextEditingController _outputController = TextEditingController();
-  final TextEditingController _insulinController = TextEditingController();
-  final TextEditingController _bloodSugarController = TextEditingController();
+  final FollowUpCubit followUpCubit = GetContext.context.read<FollowUpCubit>();
 
   // Dropdown values
   String? _shortnessOfBreath;
@@ -57,46 +52,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
   };
 
   // Color indicators based on values
-  Color _getBPColor() {
-    final high = int.tryParse(_bpHighController.text) ?? 0;
-    final low = int.tryParse(_bpLowController.text) ?? 0;
 
-    if (high > 140 || low > 90) return Colors.orange;
-    if (high > 160 || low > 100) return Colors.red;
-    if (high < 90 || low < 60) return Colors.blue;
-    return Colors.green;
-  }
-
-  Color _getPulseColor() {
-    final pulse = int.tryParse(_pulseController.text) ?? 0;
-    if (pulse > 100) return Colors.orange;
-    if (pulse > 120) return Colors.red;
-    if (pulse < 60) return Colors.blue;
-    return Colors.green;
-  }
-
-  Color _getSaturationColor() {
-    final sat = int.tryParse(_saturationController.text) ?? 0;
-    if (sat < 95) return Colors.orange;
-    if (sat < 90) return Colors.red;
-    return Colors.green;
-  }
-
-  Color _getTempColor() {
-    final temp = double.tryParse(_tempController.text) ?? 0;
-    if (temp > 99.5) return Colors.orange;
-    if (temp > 100.4) return Colors.red;
-    if (temp < 97.0) return Colors.blue;
-    return Colors.green;
-  }
-
-  Color _getBloodSugarColor() {
-    final sugar = double.tryParse(_bloodSugarController.text) ?? 0;
-    if (sugar > 7.8) return Colors.orange;
-    if (sugar > 11.1) return Colors.red;
-    if (sugar < 4.0) return Colors.blue;
-    return Colors.green;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -263,58 +219,58 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
             _buildSmartVitalRow(
               label: 'Blood Pressure (mmHg)',
               firstField: _buildSmartNumberField(
-                  _bpHighController, 'High', '120', _getBPColor),
+                  followUpCubit.bpHighController, 'High', '120', /*_getBPColor*/),
               secondField: _buildSmartNumberField(
-                  _bpLowController, 'Low', '80', _getBPColor),
-              color: _getBPColor(),
+                  followUpCubit.bpLowController, 'Low', '80', /*_getBPColor*/),
+              //color: _getBPColor(),
             ),
-            const Divider(height: 24, thickness: 0.5),
+            Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
 
             // Pulse and Saturation
             _buildSmartVitalRow(
               label: 'Pulse (bpm) / Saturation (%)',
               firstField: _buildSmartNumberField(
-                  _pulseController, 'Pulse', '72', _getPulseColor),
-              secondField: _buildSmartNumberField(_saturationController,
-                  'Saturation', '98', _getSaturationColor),
-              color: _getPulseColor(),
+                  followUpCubit.pulseController, 'Pulse', '72', /*_getPulseColor*/),
+              secondField: _buildSmartNumberField(followUpCubit.saturationController,
+                  'Saturation', '98', /*_getSaturationColor*/),
+              /*color: _getPulseColor(),*/
             ),
-            const Divider(height: 24, thickness: 0.5),
+            Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
 
             // Oxygen and Temperature
             _buildSmartVitalRow(
               label: 'Oxygen (L) / Temp (°F)',
               firstField: _buildSmartNumberField(
-                  _oxygenController, 'Oxygen', '2', _getTempColor),
+                  followUpCubit.oxygenController, 'Oxygen', '2', /*_getTempColor*/),
               // Problem here
               secondField: _buildSmartNumberField(
-                  _tempController, 'Temp', '98.6', _getTempColor),
+                  followUpCubit.tempController, 'Temp', '98.6', /*_getTempColor*/),
               // And here
-              color: _getTempColor(),
+              /*color: _getTempColor(),*/
             ),
-            const Divider(height: 24, thickness: 0.5),
+            Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
 
             // Intake and Output
             _buildSmartVitalRow(
               label: 'Intake (ml) / Output (ml)',
               firstField: _buildSmartNumberField(
-                  _intakeController, 'Intake', '1500', _getTempColor),
+                  followUpCubit.intakeController, 'Intake', '1500', /*_getTempColor*/),
               secondField: _buildSmartNumberField(
-                  _outputController, 'Output', '1200', _getTempColor),
-              color: Colors.teal,
+                  followUpCubit.outputController, 'Output', '1200', /*_getTempColor*/),
+              /*color: Colors.teal,*/
             ),
-            const Divider(height: 24, thickness: 0.5),
+            Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
 
             // Insulin and Blood Sugar
             _buildSmartVitalRow(
               label: 'Insulin (units) / Blood Sugar (mmol/L)',
               firstField: _buildSmartNumberField(
-                  _insulinController, 'Insulin', '8', _getTempColor),
-              secondField: _buildSmartNumberField(_bloodSugarController,
-                  'Blood Sugar', '5.5', _getBloodSugarColor),
-              color: _getBloodSugarColor(),
+                  followUpCubit.insulinController, 'Insulin', '8', /*_getTempColor*/),
+              secondField: _buildSmartNumberField(followUpCubit.bloodSugarController,
+                  'Blood Sugar', '5.5', /*_getBloodSugarColor*/),
+              /*color: _getBloodSugarColor(),*/
             ),
-            Divider(height: 24.h, thickness: 0.5),
+            Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
             _buildSmartDropdown(
               value: _shortnessOfBreath,
               hint: 'Shortness of Breath',
@@ -438,7 +394,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
     required String label,
     required Widget firstField,
     required Widget secondField,
-    required Color color,
+    /*required Color color,*/
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -473,32 +429,11 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
     TextEditingController controller,
     String label,
     String hint,
-    Color? Function() getColor,
+   /* Color? Function() getColor,*/
   ) {
-    return TextFormField(
-      controller: controller,
-      keyboardType: TextInputType.number,
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hint,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        //suffixIcon: Icon(Icons.circle, size: 12, color: getColor()),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      ),
-      style: TextStyle(
-        color: getColor(),
-        fontWeight: FontWeight.w500,
-      ),
-      onChanged: (value) => setState(() {}),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Required';
-        }
-        return null;
-      },
+    return CustomTextField(
+      radius: 8.r,
+      borderThink: 0.5,
     );
   }
 
@@ -514,15 +449,22 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
           child: DropdownButtonFormField<String>(
             value: value,
             isExpanded: true,
-            // 🔧 This line fixes the overflow
             decoration: InputDecoration(
               labelText: hint,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Colors.grey), // Default border color
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Colors.grey), // Border color when not focused
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: AppColors.kPrimaryColor), // Border color when focused
               ),
               prefixIcon: Icon(icon, color: AppColors.kPrimaryColor),
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             ),
             items: items.map((String value) {
               return DropdownMenuItem<String>(
@@ -657,16 +599,16 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
 
   @override
   void dispose() {
-    _bpHighController.dispose();
-    _bpLowController.dispose();
-    _pulseController.dispose();
-    _saturationController.dispose();
-    _oxygenController.dispose();
-    _tempController.dispose();
-    _intakeController.dispose();
-    _outputController.dispose();
-    _insulinController.dispose();
-    _bloodSugarController.dispose();
+    followUpCubit.bpHighController.dispose();
+    followUpCubit.bpLowController.dispose();
+    followUpCubit.pulseController.dispose();
+    followUpCubit.saturationController.dispose();
+    followUpCubit.oxygenController.dispose();
+    followUpCubit.tempController.dispose();
+    followUpCubit.intakeController.dispose();
+    followUpCubit.outputController.dispose();
+    followUpCubit.insulinController.dispose();
+    followUpCubit.bloodSugarController.dispose();
     super.dispose();
   }
 }

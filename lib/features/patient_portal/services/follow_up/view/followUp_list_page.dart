@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/features/patient_portal/services/cubit/services_cubit.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/view/add_followUp.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_description_page.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/widget/followUp_card.dart';
@@ -19,7 +20,7 @@ class _FollowupListPageState extends State<FollowupListPage> {
   @override
   void initState() {
     // TODO: implement initState
-    context.read<ServiceCubit>().getFollowUpReport();
+    context.read<FollowUpCubit>().getFollowUpReport();
     super.initState();
   }
 
@@ -48,7 +49,7 @@ class _FollowupListPageState extends State<FollowupListPage> {
         backgroundColor: AppColors.kPrimaryColor,
         elevation: 4,
       ),
-      body: BlocBuilder<ServiceCubit, ServiceState>(
+      body: BlocBuilder<FollowUpCubit, FollowUpState>(
         builder: (context, state) {
           return Column(
             children: [
