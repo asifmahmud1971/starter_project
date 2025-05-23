@@ -69,8 +69,8 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Text(
-                                        'Patient',
+                                      Text(
+                                        state.profileDetails?.patientName??"",
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,

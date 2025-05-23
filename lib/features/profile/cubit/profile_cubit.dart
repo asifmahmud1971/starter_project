@@ -58,7 +58,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         },
         (r) async {
           resetForm();
-          emit(state.copyWith(appStatus: AppStatus.success));
+          emit(state.copyWith(appStatus: AppStatus.success,profileDetails: r.profileDetails));
         },
       );
 
