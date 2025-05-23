@@ -5,6 +5,7 @@ import 'package:medPilot/features/dashboard/view/staff_dashboard_screen.dart';
 import 'package:medPilot/features/patient_portal/cart/view/patient_cart_homescreen.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_list_page.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_description_page.dart';
+import 'package:medPilot/features/patient_portal/services/pain_clinic/view/pain_clinic_screen.dart';
 import 'package:medPilot/features/patient_portal/services/view/pescription_page.dart';
 import 'package:medPilot/features/splash/view/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -26,6 +27,7 @@ class Routes {
   static const String patientDashboard = "/patientDashboard";
   static const String prescription = "prescription";
   static const String followUp = "follow_up";
+  static const String painClinic = "pain_clinic";
 
 }
 
@@ -76,6 +78,12 @@ class RouteGenerator {
  case Routes.followUp:
         return CupertinoPageRoute(
           builder: (_) =>  FollowupListPage(),
+          settings: routeSettings,
+        );
+      // global routes end
+case Routes.painClinic:
+        return CupertinoPageRoute(
+          builder: (_) =>  PainClinicScreen(),
           settings: routeSettings,
         );
       // global routes end

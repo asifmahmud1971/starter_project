@@ -34,6 +34,7 @@ class ApiUrls {
   static const String permission = 'permission';
   static const String prescription = 'prescription';
   static const String followUp = 'followup';
+  static const String painAssessment = 'all-pain-assessment';
 
 
 

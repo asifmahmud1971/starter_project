@@ -39,5 +39,13 @@ class AppStrings {
   static const String advice = "Advice";
   static const String vitalSign = "Vital Signs";
   static const String physicalSymptoms = "Physical Symptoms";
+  static const String painClinic = "Pain Clinic";
+  static const String location = "Location";
+  static const String radiation = "Radiation";
+  static const String severity = "Severity";
+  static const String pattern = "Pattern";
+  static const String relievingFactor = "Relieving Factors";
+  static const String suspectedCause = "Suspected Cause";
+  static const String viewDetails = "View Details";
 
 }
