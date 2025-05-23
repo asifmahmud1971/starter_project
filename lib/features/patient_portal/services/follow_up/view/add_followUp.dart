@@ -2,12 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/components/custom_text_field.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_date_time_card.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_functional_status_card.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_smart_vital_row.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_head_section_widget.dart';
+import '../widget/build_smart_dropdown_widget.dart';
 
 class AddFollowUpScreen extends StatefulWidget {
   const AddFollowUpScreen({super.key});
@@ -79,25 +83,27 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Date Time Card
-              _buildDateTimeCard(),
+              BuildDateTimeCard(
+                 selectedDate: _selectedDate,
+                 selectedTime: _selectedTime,
+                onSelectDate: () => _selectDate(context),
+                onSelectTime: ()=> _selectTime(context),
+              ),
               20.verticalSpace,
-
-              // Vital Signs Section
-              _buildSectionHeader(AppStrings.vitalSign.tr(), Icons.monitor_heart),
+              BuildHeadSectionWidget(title: AppStrings.vitalSign.tr(),icon: Icons.monitor_heart),
               _buildVitalSignsCard(),
               20.verticalSpace,
-
-              // Physical Symptoms Section
-              _buildSectionHeader(AppStrings.physicalSymptoms.tr(), Icons.medical_services),
+              BuildHeadSectionWidget(title:AppStrings.physicalSymptoms.tr(), icon: Icons.medical_services),
               _buildPhysicalSymptomsCard(),
               20.verticalSpace,
-
-              // Functional Status Section
-              _buildSectionHeader('Functional Status', Icons.accessibility),
-              _buildFunctionalStatusCard(),
+              BuildHeadSectionWidget(title: 'Functional Status', icon: Icons.accessibility),
+              BuildFunctionalStatusCard(
+                functionalStatus: _functionalStatus,
+                onChange: (value) => setState(() {
+                  _functionalStatus = value;
+                }),
+              ),
               30.verticalSpace,
-
-              // Save Button
               Center(
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.save, size: 20),
@@ -123,7 +129,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
     );
   }
 
-  Widget _buildDateTimeCard() {
+  /*Widget _buildDateTimeCard() {
     return Container(
       decoration: BoxDecoration(
           color: Colors.white, boxShadow: [AppColors.kBackGroundShadow]),
@@ -187,9 +193,9 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
         ),
       ),
     );
-  }
+  }*/
 
-  Widget _buildSectionHeader(String title, IconData icon) {
+/*  Widget _buildSectionHeader(String title, IconData icon) {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, bottom: 8),
       child: Row(
@@ -205,7 +211,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
         ],
       ),
     );
-  }
+  }*/
 
   Widget _buildVitalSignsCard() {
     return Container(
@@ -215,76 +221,96 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Blood Pressure
-            _buildSmartVitalRow(
+            BuildSmartVitalRow(
               label: 'Blood Pressure (mmHg)',
-              firstField: _buildSmartNumberField(
-                  followUpCubit.bpHighController, 'High', '120', /*_getBPColor*/),
-              secondField: _buildSmartNumberField(
-                  followUpCubit.bpLowController, 'Low', '80', /*_getBPColor*/),
-              //color: _getBPColor(),
+              firstField: CustomTextField(
+                controller: followUpCubit.bpHighController,
+                radius: 8.r,
+                hint: "hint",
+              ),
+              secondField: CustomTextField(
+                controller: followUpCubit.bpLowController,
+                radius: 8.r,
+                hint: "Low",
+              ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
-
-            // Pulse and Saturation
-            _buildSmartVitalRow(
+            BuildSmartVitalRow(
               label: 'Pulse (bpm) / Saturation (%)',
-              firstField: _buildSmartNumberField(
-                  followUpCubit.pulseController, 'Pulse', '72', /*_getPulseColor*/),
-              secondField: _buildSmartNumberField(followUpCubit.saturationController,
-                  'Saturation', '98', /*_getSaturationColor*/),
-              /*color: _getPulseColor(),*/
+              firstField: CustomTextField(
+                controller: followUpCubit.pulseController,
+                radius: 8.r,
+                hint: "Pulse",
+              ),
+              secondField: CustomTextField(
+                controller: followUpCubit.saturationController,
+                radius: 8.r,
+                hint: "Saturation",
+              ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
-
-            // Oxygen and Temperature
-            _buildSmartVitalRow(
+            BuildSmartVitalRow(
               label: 'Oxygen (L) / Temp (°F)',
-              firstField: _buildSmartNumberField(
-                  followUpCubit.oxygenController, 'Oxygen', '2', /*_getTempColor*/),
-              // Problem here
-              secondField: _buildSmartNumberField(
-                  followUpCubit.tempController, 'Temp', '98.6', /*_getTempColor*/),
-              // And here
-              /*color: _getTempColor(),*/
+              firstField: CustomTextField(
+                controller: followUpCubit.oxygenController,
+                radius: 8.r,
+                hint: "Oxygen",
+              ),
+              secondField: CustomTextField(
+                controller: followUpCubit.tempController,
+                radius: 8.r,
+                hint: "Temp",
+              ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
-
-            // Intake and Output
-            _buildSmartVitalRow(
+            BuildSmartVitalRow(
               label: 'Intake (ml) / Output (ml)',
-              firstField: _buildSmartNumberField(
-                  followUpCubit.intakeController, 'Intake', '1500', /*_getTempColor*/),
-              secondField: _buildSmartNumberField(
-                  followUpCubit.outputController, 'Output', '1200', /*_getTempColor*/),
-              /*color: Colors.teal,*/
+              firstField: CustomTextField(
+                controller: followUpCubit.intakeController,
+                radius: 8.r,
+                hint: "Intake",
+              ),
+              secondField: CustomTextField(
+                controller: followUpCubit.outputController,
+                radius: 8.r,
+                hint: "Output",
+              ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
-
-            // Insulin and Blood Sugar
-            _buildSmartVitalRow(
+            BuildSmartVitalRow(
               label: 'Insulin (units) / Blood Sugar (mmol/L)',
-              firstField: _buildSmartNumberField(
-                  followUpCubit.insulinController, 'Insulin', '8', /*_getTempColor*/),
-              secondField: _buildSmartNumberField(followUpCubit.bloodSugarController,
-                  'Blood Sugar', '5.5', /*_getBloodSugarColor*/),
-              /*color: _getBloodSugarColor(),*/
+
+              firstField: CustomTextField(
+                controller: followUpCubit.insulinController,
+                radius: 8.r,
+                hint: "Insulin",
+              ),
+              secondField: CustomTextField(
+                controller: followUpCubit.bloodSugarController,
+                radius: 8.r,
+                hint: "Blood Sugar",
+              ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
-            _buildSmartDropdown(
+            BuildSmartDropdown(
               value: _shortnessOfBreath,
               hint: 'Shortness of Breath',
               items: ['None', 'Mild', 'Moderate', 'Severe'],
               icon: Icons.air,
+              onChanged:  (value) => setState(() {
+                  _shortnessOfBreath = value;
+              }),
             ),
             10.verticalSpace,
-            _buildSmartDropdown(
+            BuildSmartDropdown(
               value: _bowelMovement,
               hint: 'Bowel Movement',
               items: ['Normal', 'Constipated', 'Diarrhea', 'Irregular'],
               icon: Icons.clean_hands,
+              onChanged:  (value) => setState(() {
+                  _bowelMovement = value;
+              }),
             )
-            // Shortness of Breath and Bowel Movement
           ],
         ),
       ),
@@ -366,7 +392,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
     );
   }
 
-  Widget _buildFunctionalStatusCard() {
+/*  Widget _buildFunctionalStatusCard() {
     return Container(
       decoration: BoxDecoration(color: Colors.white,
 
@@ -374,7 +400,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: _buildSmartDropdown(
+        child: BuildSmartDropdown(
           value: _functionalStatus,
           hint: 'Select Functional Status',
           items: [
@@ -385,16 +411,19 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
             'Wheelchair-bound - Uses wheelchair'
           ],
           icon: Icons.directions_walk,
+          onChanged: (value) => setState(() {
+              _functionalStatus = value;
+          }),
         ),
       ),
     );
-  }
+  }*/
 
-  Widget _buildSmartVitalRow({
+/*  Widget _buildSmartVitalRow({
     required String label,
     required Widget firstField,
     required Widget secondField,
-    /*required Color color,*/
+    *//*required Color color,*//*
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -423,20 +452,21 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
         ),
       ],
     );
-  }
+  }*/
 
-  Widget _buildSmartNumberField(
+/*  Widget _buildSmartNumberField(
     TextEditingController controller,
     String label,
     String hint,
-   /* Color? Function() getColor,*/
+   *//* Color? Function() getColor,*//*
   ) {
     return CustomTextField(
       radius: 8.r,
       borderThink: 0.5,
+      hint: hint,
     );
-  }
-
+  }*/
+/*
   Widget _buildSmartDropdown({
     required String? value,
     required String hint,
@@ -499,7 +529,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
         ),
       ],
     );
-  }
+  }*/
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
