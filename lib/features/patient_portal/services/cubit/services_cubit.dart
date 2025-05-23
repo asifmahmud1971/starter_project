@@ -38,26 +38,6 @@ class ServiceCubit extends Cubit<ServiceState> {
       dismissProgressDialog();
     }
   }
-  Future<void> getFollowUpReport() async {
-    showProgressDialog();
-    emit(state.copyWith(appStatus: AppStatus.loading));
-
-    try {
-      final response = await serviceRepository.getFollowUp({});
-
-      response.fold(
-        (failure) {},
-        (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success, followUp: data));
-        },
-      );
-
-      dismissProgressDialog();
-    } catch (e) {
-      dismissProgressDialog();
-    }
-  }
 
 
 }

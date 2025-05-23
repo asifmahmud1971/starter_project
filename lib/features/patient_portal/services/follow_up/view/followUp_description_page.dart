@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/model/follow_up.dart';
 
 class FollowUpDetails extends StatelessWidget {
   final Followup? followup;
+
   const FollowUpDetails({super.key, this.followup});
 
   @override
@@ -19,19 +16,19 @@ class FollowUpDetails extends StatelessWidget {
         title: const Text('Patient Follow-Ups'),
       ),
       body: FollowUpDetailsCard(
-        dateTime: followup?.date??"",
-        place: followup?.place??"",
-        vType: followup?.type??"",
-        bp: '${followup?.bpHigh??"max"}/${followup?.bpMin??"min"}',
-        pulse: followup?.pulse??"",
-        saturation: followup?.saturation??"",
-        o2: followup?.oxygen??"",
-        temp: followup?.temp??"",
-        inValue: followup?.intake??"",
-        out: followup?.output??"",
-        insulin: followup?.insulin??"",
-        sugar: followup?.sugar??"",
-        pain: followup?.pain??"",
+        dateTime: followup?.date ?? "",
+        place: followup?.place ?? "",
+        vType: followup?.type ?? "",
+        bp: '${followup?.bpHigh ?? "max"}/${followup?.bpMin ?? "min"}',
+        pulse: followup?.pulse ?? "",
+        saturation: followup?.saturation ?? "",
+        o2: followup?.oxygen ?? "",
+        temp: followup?.temp ?? "",
+        inValue: followup?.intake ?? "",
+        out: followup?.output ?? "",
+        insulin: followup?.insulin ?? "",
+        sugar: followup?.sugar ?? "",
+        pain: followup?.pain ?? "",
         critical: false,
       ),
     );
@@ -81,7 +78,7 @@ class FollowUpDetailsCard extends StatelessWidget {
     return Container(
       color: critical ? Colors.red[50] : Colors.white,
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal:16.w,vertical: 16.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,8 +107,8 @@ class FollowUpDetailsCard extends StatelessWidget {
                   ),
                   if (critical)
                     Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.red[100],
                         borderRadius: BorderRadius.circular(12),
@@ -152,25 +149,60 @@ class FollowUpDetailsCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
-              Wrap(
-                spacing: 12,
-                runSpacing: 12,
+              16.verticalSpace,
+              Row(
                 children: [
-                  _buildVitalCard('Blood Pressure(mmm of Hg)', bp, 'mmHg'),
-                  _buildVitalCard('Pulse(/min)', pulse, 'bpm'),
-                  _buildVitalCard('Saturation(%)', saturation, '%'),
-                  _buildVitalCard('Oxygen(L)', saturation, '%'),
-                  _buildVitalCard('Temperature(degree F)', temp, '°C'),
-                  _buildVitalCard('Intake(ml)', temp, '°C'),
-                  _buildVitalCard('Output(ml)', temp, '°C'),
-                  _buildVitalCard('Insulin(ml)', insulin, 'units'),
-                  _buildVitalCard('Blood Sugar(mmol/L)', sugar, 'level'),
-                  _buildVitalCard('Shortness of Breath', sugar, 'level'),
-                  _buildVitalCard('Bowel Movement', sugar, 'level'),
+                  Expanded(
+                      child: _buildVitalCard(
+                          'Blood Pressure(mmm of Hg)', bp, 'mmHg')),
+                  10.horizontalSpace,
+                  Expanded(child: _buildVitalCard('Pulse(/min)', pulse, 'bpm')),
                 ],
               ),
-              const SizedBox(height: 12),
+              10.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                      child: _buildVitalCard('Saturation(%)', saturation, '%')),
+                  10.horizontalSpace,
+                  Expanded(
+                      child: _buildVitalCard('Oxygen(L)', saturation, '%')),
+                ],
+              ),
+              10.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                      child:
+                          _buildVitalCard('Temperature(degree F)', temp, '°C')),
+                  10.horizontalSpace,
+                  Expanded(child: _buildVitalCard('Intake(ml)', temp, '°C')),
+                ],
+              ),
+              10.verticalSpace,
+              Row(
+                children: [
+                  Expanded(child: _buildVitalCard('Output(ml)', temp, '°C')),
+                  10.horizontalSpace,
+                  Expanded(
+                      child: _buildVitalCard('Insulin(ml)', insulin, 'units')),
+                ],
+              ),
+              10.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                      child: _buildVitalCard(
+                          'Blood Sugar(mmol/L)', sugar, 'level')),
+                  10.horizontalSpace,
+                  Expanded(
+                      child: _buildVitalCard(
+                          'Shortness of Breath', sugar, 'level')),
+                ],
+              ),
+              10.verticalSpace,
+              _buildVitalCard('Bowel Movement', sugar, 'level'),
+              12.verticalSpace,
               if (pain.isNotEmpty)
                 Row(
                   children: [
