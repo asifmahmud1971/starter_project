@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/features/profile/cubit/profile_cubit.dart';
 import 'package:medPilot/features/profile/editable_profile.dart';
 import '../../core/constants/app_colors.dart';
 
@@ -17,201 +19,215 @@ class PatientProfileScreen extends StatefulWidget {
 
 class _PatientProfileScreenState extends State<PatientProfileScreen> {
   @override
+  void initState() {
+    GetContext.context.read<ProfileCubit>().faceUserData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     //const primaryColor = Color(0xFFFF904D); // Vibrant orange
     const secondaryColor = Color(0xFF394294); // Deep blue
     const accentColor = Color(0xFF6C63FF); // Purple accent
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: 180,
-            iconTheme: IconThemeData(
-              color: Colors.white, // Back icon color
-            ),
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                color: AppColors.kPrimaryColor.withAlpha(480),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    70.verticalSpace,
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            radius: 45,
-                            backgroundColor: AppColors.kGrayColor200,
-                            backgroundImage: CachedNetworkImageProvider(
-                                "https://picsum.photos/2000" ?? ""),
-                          ),
-                          10.horizontalSpace,
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    'Patient',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Row(
+      body: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (context, state) {
+          return CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                expandedHeight: 180,
+                iconTheme: IconThemeData(
+                  color: Colors.white, // Back icon color
+                ),
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Container(
+                    color: AppColors.kPrimaryColor.withAlpha(480),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        70.verticalSpace,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CircleAvatar(
+                                radius: 45,
+                                backgroundColor: AppColors.kGrayColor200,
+                                backgroundImage: CachedNetworkImageProvider(
+                                    "https://picsum.photos/2000" ?? ""),
+                              ),
+                              10.horizontalSpace,
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      _buildInfoChip(Icons.cake, '25 Yrs'),
-                                      const SizedBox(width: 8),
-                                      _buildInfoChip(Icons.transgender, 'Others'),
+                                      const Text(
+                                        'Patient',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Row(
+                                        children: [
+                                          _buildInfoChip(Icons.cake, '25 Yrs'),
+                                          const SizedBox(width: 8),
+                                          _buildInfoChip(
+                                              Icons.transgender, 'Others'),
+                                        ],
+                                      ),
                                     ],
                                   ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            actions: [
-              IconButton(
-                icon: Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(Icons.edit, color: Colors.white),
-                ),
-                onPressed: () {
-                  GetContext.to(EditAbleProfileScreen());
-                },
-              ),
-            ],
-          ),
-
-          // Profile Content
-          SliverPadding(
-            padding: const EdgeInsets.all(20),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                _buildModernSection(
-                  title: 'Personal Details',
-                  icon: Icons.person_outline,
-                  color: accentColor,
-                  children: [
-                    _buildDetailRow('Date of Birth', 'April 22, 2000'),
-                    _buildDetailRow('Blood Group', 'O+', isImportant: true),
-                    _buildDetailRow('Marital Status', 'Single'),
-                  ],
-                ),
-                _buildModernSection(
-                  title: 'Contact Information',
-                  icon: Icons.contact_phone_outlined,
-                  color: AppColors.kPrimaryColor,
-                  children: [
-                    _buildDetailRow('Mobile', '+880 1717926565', isPhone: true),
-                    _buildDetailRow('Doctor Contact', '+880 1717926565',
-                        isPhone: true),
-                    _buildDetailRow('Address', '123 Medical Street, Dhaka'),
-                  ],
-                ),
-
-                _buildModernSection(
-                  title: 'Medical Information',
-                  icon: Icons.medical_information,
-                  color: secondaryColor,
-                  children: [
-                    _buildDetailRow('Allergies', 'Penicillin, Shellfish',
-                        isImportant: true),
-                    _buildDetailRow('Primary Diagnosis', 'Hypertension'),
-                    _buildDetailRow('Co-morbidities', 'Type 2 Diabetes'),
-                  ],
-                ),
-
-                // Emergency Section with Call Button
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.red[50],
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: Colors.red[100]!,
-                      width: 1.5,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(6),
-                              decoration: BoxDecoration(
-                                color: Colors.red[100],
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.emergency,
-                                color: Colors.red,
-                                size: 20,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            const Text(
-                              'Emergency Contacts',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.red,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        _buildDetailRow('Primary Contact', 'Mrs. Rahman'),
-                        _buildDetailRow('Relationship', 'Mother'),
-                        _buildDetailRow('Phone', '+880 1712345678',
-                            isPhone: true),
-                        const SizedBox(height: 12),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton.icon(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red,
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                            ),
-                            icon: const Icon(Icons.call),
-                            label: const Text('Call Emergency Contact'),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-              ]),
-            ),
-          ),
-        ],
+                actions: [
+                  IconButton(
+                    icon: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.2),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.edit, color: Colors.white),
+                    ),
+                    onPressed: () {
+                      GetContext.to(EditAbleProfileScreen());
+                    },
+                  ),
+                ],
+              ),
+
+              // Profile Content
+              SliverPadding(
+                padding: const EdgeInsets.all(20),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate([
+                    _buildModernSection(
+                      title: 'Personal Details',
+                      icon: Icons.person_outline,
+                      color: accentColor,
+                      children: [
+                        _buildDetailRow('Date of Birth', 'April 22, 2000'),
+                        _buildDetailRow('Blood Group', 'O+', isImportant: true),
+                        _buildDetailRow('Marital Status', 'Single'),
+                      ],
+                    ),
+                    _buildModernSection(
+                      title: 'Contact Information',
+                      icon: Icons.contact_phone_outlined,
+                      color: AppColors.kPrimaryColor,
+                      children: [
+                        _buildDetailRow('Mobile', '+880 1717926565',
+                            isPhone: true),
+                        _buildDetailRow('Doctor Contact', '+880 1717926565',
+                            isPhone: true),
+                        _buildDetailRow('Address', '123 Medical Street, Dhaka'),
+                      ],
+                    ),
+
+                    _buildModernSection(
+                      title: 'Medical Information',
+                      icon: Icons.medical_information,
+                      color: secondaryColor,
+                      children: [
+                        _buildDetailRow('Allergies', 'Penicillin, Shellfish',
+                            isImportant: true),
+                        _buildDetailRow('Primary Diagnosis', 'Hypertension'),
+                        _buildDetailRow('Co-morbidities', 'Type 2 Diabetes'),
+                      ],
+                    ),
+
+                    // Emergency Section with Call Button
+                    Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.red[50],
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: Colors.red[100]!,
+                          width: 1.5,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red[100],
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(
+                                    Icons.emergency,
+                                    color: Colors.red,
+                                    size: 20,
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                const Text(
+                                  'Emergency Contacts',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            _buildDetailRow('Primary Contact', 'Mrs. Rahman'),
+                            _buildDetailRow('Relationship', 'Mother'),
+                            _buildDetailRow('Phone', '+880 1712345678',
+                                isPhone: true),
+                            const SizedBox(height: 12),
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton.icon(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 14),
+                                ),
+                                icon: const Icon(Icons.call),
+                                label: const Text('Call Emergency Contact'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ]),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
