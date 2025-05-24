@@ -36,5 +36,15 @@ class ServiceRepositoryImp implements ServiceRepository {
         fromJson: FollowUpModel.fromJson);
   }
 
+@override
+  Future<Either<ApiFailure, FollowUpModel>> createFollowUp(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+        url: ApiUrls.followUp,
+        method: Method.post,
+        params: params,
+        fromJson: FollowUpModel.fromJson);
+  }
+
 
 }

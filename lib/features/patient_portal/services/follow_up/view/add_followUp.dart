@@ -21,43 +21,7 @@ class AddFollowUpScreen extends StatefulWidget {
 }
 
 class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
-  final _formKey = GlobalKey<FormState>();
-  DateTime _selectedDate = DateTime.now();
-  TimeOfDay _selectedTime = TimeOfDay.now();
-
-  // Controllers
   final FollowUpCubit followUpCubit = GetContext.context.read<FollowUpCubit>();
-
-  // Dropdown values
-  String? _shortnessOfBreath;
-  String? _bowelMovement;
-  String? _functionalStatus;
-
-  // Physical symptoms
-  final Map<String, bool> _physicalSymptoms = {
-    'Pain': false,
-    'Nausea': false,
-    'Breathlessness': false,
-    'Constipation': false,
-    'Restlessness': false,
-    'Drowsiness': false,
-    'Dyspepsia': false,
-    'Cough': false,
-    'Swelling': false,
-    'Fever': false,
-    'Urinary Problem': false,
-    'Vomiting': false,
-    'Lymphedema': false,
-    'Bedstore': false,
-    'Poor Appetite': false,
-    'Sleep disturbance': false,
-    'No Complain': false,
-    'Others': false,
-  };
-
-  // Color indicators based on values
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,14 +42,14 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Form(
-          key: _formKey,
+          key: followUpCubit.formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Date Time Card
               BuildDateTimeCard(
-                 selectedDate: _selectedDate,
-                 selectedTime: _selectedTime,
+                 selectedDate: followUpCubit.selectedDate,
+                 selectedTime: followUpCubit.selectedTime,
                 onSelectDate: () => _selectDate(context),
                 onSelectTime: ()=> _selectTime(context),
               ),
@@ -98,9 +62,9 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
               20.verticalSpace,
               BuildHeadSectionWidget(title: 'Functional Status', icon: Icons.accessibility),
               BuildFunctionalStatusCard(
-                functionalStatus: _functionalStatus,
+                functionalStatus: followUpCubit.functionalStatus,
                 onChange: (value) => setState(() {
-                  _functionalStatus = value;
+                  followUpCubit.functionalStatus = value;
                 }),
               ),
               30.verticalSpace,
@@ -128,90 +92,8 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
       ),
     );
   }
-
-  /*Widget _buildDateTimeCard() {
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.white, boxShadow: [AppColors.kBackGroundShadow]),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-             Icon(Icons.calendar_today, color: AppColors.kPrimaryColor),
-            const SizedBox(width: 15),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Date & Time',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      )),
-                  const SizedBox(height: 5),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: FilledButton.icon(
-                          icon:  Icon(Icons.calendar_month, size: 18,color: AppColors.kPrimaryColor.withValues(alpha: 0.8
-                          ),),
-                          label: Text(
-                            DateFormat('MMM dd, yyyy').format(_selectedDate),
-                          ),
-                          style: FilledButton.styleFrom(
-                            backgroundColor: AppColors.kPrimaryColor.withValues(alpha: 0.2
-                            ),
-                            foregroundColor: AppColors.kPrimaryColor.withValues(alpha: 0.8
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                          onPressed: () => _selectDate(context),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: FilledButton.icon(
-                          icon: const Icon(Icons.access_time, size: 18),
-                          label: Text(_selectedTime.format(context)),
-                          style: FilledButton.styleFrom(
-                            backgroundColor: AppColors.kPrimaryColor.withValues(alpha: 0.2
-                            ),
-                            foregroundColor: AppColors.kPrimaryColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                          onPressed: () => _selectTime(context),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }*/
-
-/*  Widget _buildSectionHeader(String title, IconData icon) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8.0, bottom: 8),
-      child: Row(
-        children: [
-          Icon(icon, size: 20, color: AppColors.kPrimaryColor),
-          8.horizontalSpace,
-          Text(title,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: AppColors.kPrimaryColor,
-              )),
-        ],
-      ),
-    );
-  }*/
+  Function validation = (value) =>
+  value.isEmpty ? 'This field is required' : null;
 
   Widget _buildVitalSignsCard() {
     return Container(
@@ -227,11 +109,13 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 controller: followUpCubit.bpHighController,
                 radius: 8.r,
                 hint: "hint",
+                validation: validation,
               ),
               secondField: CustomTextField(
                 controller: followUpCubit.bpLowController,
                 radius: 8.r,
                 hint: "Low",
+                validation: validation,
               ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
@@ -241,11 +125,13 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 controller: followUpCubit.pulseController,
                 radius: 8.r,
                 hint: "Pulse",
+                validation: validation,
               ),
               secondField: CustomTextField(
                 controller: followUpCubit.saturationController,
                 radius: 8.r,
                 hint: "Saturation",
+                validation: validation,
               ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
@@ -255,11 +141,13 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 controller: followUpCubit.oxygenController,
                 radius: 8.r,
                 hint: "Oxygen",
+                validation: validation,
               ),
               secondField: CustomTextField(
                 controller: followUpCubit.tempController,
                 radius: 8.r,
                 hint: "Temp",
+                validation: validation,
               ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
@@ -269,11 +157,13 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 controller: followUpCubit.intakeController,
                 radius: 8.r,
                 hint: "Intake",
+                validation: validation,
               ),
               secondField: CustomTextField(
                 controller: followUpCubit.outputController,
                 radius: 8.r,
                 hint: "Output",
+                validation: validation,
               ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
@@ -284,31 +174,33 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 controller: followUpCubit.insulinController,
                 radius: 8.r,
                 hint: "Insulin",
+                validation: validation,
               ),
               secondField: CustomTextField(
                 controller: followUpCubit.bloodSugarController,
                 radius: 8.r,
                 hint: "Blood Sugar",
+                validation: validation,
               ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
             BuildSmartDropdown(
-              value: _shortnessOfBreath,
+              value: followUpCubit.shortnessOfBreath,
               hint: 'Shortness of Breath',
               items: ['None', 'Mild', 'Moderate', 'Severe'],
               icon: Icons.air,
               onChanged:  (value) => setState(() {
-                  _shortnessOfBreath = value;
+                followUpCubit.shortnessOfBreath = value;
               }),
             ),
             10.verticalSpace,
             BuildSmartDropdown(
-              value: _bowelMovement,
+              value: followUpCubit.bowelMovement,
               hint: 'Bowel Movement',
               items: ['Normal', 'Constipated', 'Diarrhea', 'Irregular'],
               icon: Icons.clean_hands,
               onChanged:  (value) => setState(() {
-                  _bowelMovement = value;
+                followUpCubit.bowelMovement = value;
               }),
             )
           ],
@@ -317,6 +209,29 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
     );
   }
 
+  void _saveFollowUp() {
+    if (followUpCubit.formKey.currentState!.validate()) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Success'),
+            content: const Text('Follow-up record saved successfully.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  context.read<FollowUpCubit>().createFollowUp();
+                  Navigator.pop(context); // Close dialog
+                  Navigator.pop(context); // Return to previous screen
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
   Widget _buildPhysicalSymptomsCard() {
     return Container(
       width: 1.sw,
@@ -332,23 +247,23 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
             Wrap(
               spacing: 10,
               runSpacing: 10,
-              children: _physicalSymptoms.keys.map((symptom) {
+              children: followUpCubit.physicalSymptoms.keys.map((symptom) {
                 return ChoiceChip(
                   label: Text(symptom),
-                  selected: _physicalSymptoms[symptom]!,
+                  selected: followUpCubit.physicalSymptoms[symptom]!,
                   onSelected: (selected) {
                     setState(() {
-                      _physicalSymptoms[symptom] = selected;
+                      followUpCubit.physicalSymptoms[symptom] = selected;
                       if (selected && symptom == 'No Complain') {
                         // If "No Complain" is selected, deselect all others
-                        for (var key in _physicalSymptoms.keys) {
+                        for (var key in followUpCubit.physicalSymptoms.keys) {
                           if (key != 'No Complain') {
-                            _physicalSymptoms[key] = false;
+                            followUpCubit.physicalSymptoms[key] = false;
                           }
                         }
                       } else if (selected && symptom != 'No Complain') {
                         // If any other symptom is selected, deselect "No Complain"
-                        _physicalSymptoms['No Complain'] = false;
+                        followUpCubit.physicalSymptoms['No Complain'] = false;
                       }
                     });
                   },
@@ -356,17 +271,17 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                   selectedColor: AppColors.kPrimaryColor.withValues(alpha: 0.2),
                   backgroundColor: Colors.grey.shade100,
                   labelStyle: TextStyle(
-                    color: _physicalSymptoms[symptom]!
+                    color: followUpCubit.physicalSymptoms[symptom]!
                         ? AppColors.kPrimaryColor
                         : Colors.grey.shade800,
-                    fontWeight: _physicalSymptoms[symptom]!
+                    fontWeight: followUpCubit.physicalSymptoms[symptom]!
                         ? FontWeight.bold
                         : FontWeight.normal,
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                     side: BorderSide(
-                      color: _physicalSymptoms[symptom]!
+                      color: followUpCubit.physicalSymptoms[symptom]!
                           ? AppColors.kPrimaryColor
                           : Colors.grey.shade300,
                     ),
@@ -374,7 +289,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 );
               }).toList(),
             ),
-            if (_physicalSymptoms['Others']!)
+            if (followUpCubit.physicalSymptoms['Others']!)
               Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: TextFormField(
@@ -392,149 +307,10 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
     );
   }
 
-/*  Widget _buildFunctionalStatusCard() {
-    return Container(
-      decoration: BoxDecoration(color: Colors.white,
-
-      boxShadow: [AppColors.kBackGroundShadow],borderRadius: BorderRadius.circular(8.r)
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: BuildSmartDropdown(
-          value: _functionalStatus,
-          hint: 'Select Functional Status',
-          items: [
-            'Independent - No assistance needed',
-            'Requires Assistance - Some help needed',
-            'Dependent - Full assistance required',
-            'Bedridden - Confined to bed',
-            'Wheelchair-bound - Uses wheelchair'
-          ],
-          icon: Icons.directions_walk,
-          onChanged: (value) => setState(() {
-              _functionalStatus = value;
-          }),
-        ),
-      ),
-    );
-  }*/
-
-/*  Widget _buildSmartVitalRow({
-    required String label,
-    required Widget firstField,
-    required Widget secondField,
-    *//*required Color color,*//*
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey.shade700,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const Spacer(),
-            // Icon(Icons.circle, size: 12, color: color),
-          ],
-        ),
-        8.verticalSpace,
-        Row(
-          children: [
-            Expanded(child: firstField),
-            const SizedBox(width: 16),
-            Expanded(child: secondField),
-          ],
-        ),
-      ],
-    );
-  }*/
-
-/*  Widget _buildSmartNumberField(
-    TextEditingController controller,
-    String label,
-    String hint,
-   *//* Color? Function() getColor,*//*
-  ) {
-    return CustomTextField(
-      radius: 8.r,
-      borderThink: 0.5,
-      hint: hint,
-    );
-  }*/
-/*
-  Widget _buildSmartDropdown({
-    required String? value,
-    required String hint,
-    required List<String> items,
-    required IconData icon,
-  }) {
-    return Row(
-      children: [
-        Expanded(
-          child: DropdownButtonFormField<String>(
-            value: value,
-            isExpanded: true,
-            decoration: InputDecoration(
-              labelText: hint,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.grey), // Default border color
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.grey), // Border color when not focused
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: AppColors.kPrimaryColor), // Border color when focused
-              ),
-              prefixIcon: Icon(icon, color: AppColors.kPrimaryColor),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            ),
-            items: items.map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(
-                  value,
-                  maxLines: 1,
-                ),
-              );
-            }).toList(),
-            onChanged: (value) => setState(() {
-              if (hint.contains('Shortness')) {
-                _shortnessOfBreath = value;
-              } else if (hint.contains('Bowel')) {
-                _bowelMovement = value;
-              } else {
-                _functionalStatus = value;
-              }
-            }),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please select an option';
-              }
-              return null;
-            },
-            style: TextStyle(color: Colors.grey.shade800),
-            dropdownColor: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            icon: Icon(Icons.arrow_drop_down, color: AppColors.kPrimaryColor),
-            elevation: 2,
-          ),
-        ),
-      ],
-    );
-  }*/
-
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _selectedDate,
+      initialDate: followUpCubit.selectedDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
       builder: (context, child) {
@@ -550,9 +326,9 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
         );
       },
     );
-    if (picked != null && picked != _selectedDate) {
+    if (picked != null && picked != followUpCubit.selectedDate) {
       setState(() {
-        _selectedDate = picked;
+        followUpCubit.selectedDate = picked;
       });
     }
   }
@@ -560,7 +336,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: _selectedTime,
+      initialTime: followUpCubit.selectedTime,
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
@@ -574,9 +350,9 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
         );
       },
     );
-    if (picked != null && picked != _selectedTime) {
+    if (picked != null && picked != followUpCubit.selectedTime) {
       setState(() {
-        _selectedTime = picked;
+        followUpCubit.selectedTime = picked;
       });
     }
   }
@@ -603,42 +379,5 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
     );
   }
 
-  void _saveFollowUp() {
-    if (_formKey.currentState!.validate()) {
-      // Process and save the data
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Success'),
-            content: const Text('Follow-up record saved successfully.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context); // Close dialog
-                  Navigator.pop(context); // Return to previous screen
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
 
-  @override
-  void dispose() {
-    followUpCubit.bpHighController.dispose();
-    followUpCubit.bpLowController.dispose();
-    followUpCubit.pulseController.dispose();
-    followUpCubit.saturationController.dispose();
-    followUpCubit.oxygenController.dispose();
-    followUpCubit.tempController.dispose();
-    followUpCubit.intakeController.dispose();
-    followUpCubit.outputController.dispose();
-    followUpCubit.insulinController.dispose();
-    followUpCubit.bloodSugarController.dispose();
-    super.dispose();
-  }
 }

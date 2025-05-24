@@ -28,6 +28,8 @@ class BuildSmartVitalRow extends StatelessWidget {
         ),
         8.verticalSpace,
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(child: firstField),
             const SizedBox(width: 16),
