@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/components/custom_date_time_formatter.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
+import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/model/pain_assessment.dart';
+import 'package:medPilot/features/patient_portal/services/pain_clinic/widget/pain_assessment_dialog.dart';
 
 class PainAssessment extends StatefulWidget {
   final AllPainAssessment? entry;
@@ -134,11 +136,7 @@ class _PainAssessmentState extends State<PainAssessment> {
         children: [
           Text(
             label,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 13,
-              color: Colors.grey[700],
-            ),
+            style: kRegular.copyWith(fontSize: 13.sp,color: AppColors.kGrayColor700,fontWeight: FontWeight.w500),
           ),
           SizedBox(width: 8),
           Expanded(
@@ -172,91 +170,11 @@ class _PainAssessmentState extends State<PainAssessment> {
     showDialog(
       context: context,
       builder: (context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Pain Details',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey[800],
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.close),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  ],
-                ),
-                16.verticalSpace,
-                _buildDetailItem(AppStrings.location.tr(), entry?.painLocation??""),
-                _buildDetailItem(AppStrings.radiation.tr(), entry?.radiation??""),
-                _buildDetailItem(AppStrings.severity.tr(), entry?.severity??""),
-                _buildDetailItem(AppStrings.pattern.tr(), entry?.changeOfTime??""),
-                _buildDetailItem(
-                    AppStrings.relievingFactor.tr(), entry?.relievingFactors??""),
-                _buildDetailItem(AppStrings.suspectedCause.tr(), entry?.causeOfPain??""),
-                /*if (entry['notes'].isNotEmpty)
-                  _buildDetailItem('Additional Notes', entry['notes']),*/
-                24.verticalSpace,
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.kPrimaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 14),
-                    ),
-                    onPressed: () => Navigator.pop(context),
-                    child: Text('Close'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
+        return PainAssessmentDialog(entry: entry,);
       },
     );
   }
 
-  Widget _buildDetailItem(String label, String value) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          SizedBox(height: 4),
-          Text(
-            value.isNotEmpty ? value : 'Not specified',
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey[800],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+
 
 }

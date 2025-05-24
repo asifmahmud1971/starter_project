@@ -7,6 +7,7 @@ import 'package:medPilot/data/network/api_urls.dart';
 import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
 import 'package:medPilot/features/patient_portal/home/model/prescription_model.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/model/follow_up.dart';
+import 'package:medPilot/features/patient_portal/services/pain_clinic/model/medication_model.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/model/pain_assessment.dart';
 
 import '../pain_clinic/widget/pain_assessment.dart';
@@ -45,6 +46,15 @@ class ServiceRepositoryImp implements ServiceRepository {
         method: Method.get,
         params: params,
         fromJson: PainAssessmentModel.fromJson);
+  }
+@override
+  Future<Either<ApiFailure, MedicationModel>> getMedication(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+        url: ApiUrls.painMedication,
+        method: Method.get,
+        params: params,
+        fromJson: MedicationModel.fromJson);
   }
 
 

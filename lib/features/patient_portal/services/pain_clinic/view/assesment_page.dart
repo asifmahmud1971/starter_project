@@ -1,8 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/constants/app_strings.dart';
+import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/cubit/painClinic_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/widget/pain_assessment.dart';
 
@@ -60,8 +63,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: Text('Pain Assessment History'),
-      centerTitle: true,
+      title: Text(AppStrings.painAssessmentHistory.tr(),style: kTitleMedium.copyWith(),),
       elevation: 0,
     );
   }

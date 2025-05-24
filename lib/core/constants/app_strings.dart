@@ -47,5 +47,14 @@ class AppStrings {
   static const String relievingFactor = "Relieving Factors";
   static const String suspectedCause = "Suspected Cause";
   static const String viewDetails = "View Details";
+  static const String close = "Close";
+  static const String painDetails = "Pain Details";
+  static const String painAssessmentHistory = "Pain Assessment History";
+  static const String medication = "Medication";
+  static const String assessment = "Assessment";
+  static const String dosage = "Dosage";
+  static const String instructions = "Instructions";
+  static const String doseSchedule = "Dose Schedule";
+  static const String tapToViewSchedule = "Tap to view schedule";
 
 }

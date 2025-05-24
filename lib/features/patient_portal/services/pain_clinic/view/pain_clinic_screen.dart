@@ -6,6 +6,7 @@ import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/home/widgets/service_card.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/view/assesment_page.dart';
+import 'package:medPilot/features/patient_portal/services/pain_clinic/view/medication_details.dart';
 import 'package:medPilot/generated/assets.dart';
 
 class PainClinicScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _PainClinicScreenState extends State<PainClinicScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppStrings.painClinic.tr(),style: kTitleLarge,),),
+      appBar: AppBar(title: Text(AppStrings.painClinic.tr(),style: kTitleMedium,),),
       body: Padding(
         padding:  EdgeInsets.all(16.r),
         child: GridView.count(
@@ -34,16 +35,14 @@ class _PainClinicScreenState extends State<PainClinicScreen> {
             onTap: () {
               GetContext.to(AssessmentPage());
             },
-            title: "Assesment",
+            title: AppStrings.assessment.tr(),
             icon: Assets.medAssessment,
           ),ServiceCard(
             onTap: () {
-              /*GetContext.toNamed(
-                      route: state.dashboardPermission
-                          ?.myPackage?[index].key);*/
+            GetContext.to(AddNewDoseScreen());
             },
-            title: "Assesment",
-            icon: Assets.medAssessment,
+            title: AppStrings.medication.tr(),
+            icon: Assets.medMonitoring,
           )],
         ),
       ),
