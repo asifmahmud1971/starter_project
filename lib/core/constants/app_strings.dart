@@ -19,8 +19,6 @@ class AppStrings {
   static const String home = "home";
 
 
-
-
   static const String forgotPassword = "Forgot Password?";
   static const String login = "Login";
   static const String dontHaveAnAccount = "Don't have an account?";
@@ -56,5 +54,8 @@ class AppStrings {
   static const String instructions = "Instructions";
   static const String doseSchedule = "Dose Schedule";
   static const String tapToViewSchedule = "Tap to view schedule";
+  static const String markTaken = "Mark Taken";
+  static const String newPainAssessment = "New Pain Assessment";
+  static const String recordYourPainDetails = "Record your pain details";
 
 }

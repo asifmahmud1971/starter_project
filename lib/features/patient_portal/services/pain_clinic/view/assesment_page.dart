@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/cubit/painClinic_cubit.dart';
+import 'package:medPilot/features/patient_portal/services/pain_clinic/view/add_pain.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/widget/pain_assessment.dart';
 
 class AssessmentPage extends StatefulWidget {
@@ -54,7 +56,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
           floatingActionButton: FloatingActionButton(
             backgroundColor: AppColors.kPrimaryColor,
             child: Icon(Icons.add, color: Colors.white),
-            onPressed: () => _showAddAssessmentDialog(),
+            onPressed: () => GetContext.to(AddPainAssessmentScreen()),
           ),
         );
       },

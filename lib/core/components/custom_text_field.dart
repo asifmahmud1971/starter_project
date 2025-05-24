@@ -26,7 +26,7 @@ class CustomTextField extends StatefulWidget {
   final Color? fillColor;
   final Color? hintColor;
   final Color? borderColor;
-  final Function? validation;
+  final FormFieldValidator<String>? validator;
   final TextInputType? keyboardType;
   final String? errorText;
   final double? prefixIconSize;
@@ -34,10 +34,12 @@ class CustomTextField extends StatefulWidget {
   final double? suffixIconSizeHeight;
   final double? errorTextHeight;
   final double? hintTextSize;
+  final int? maxLen;
+  final int? maxLine;
   final double? height;
   final double? width;
   final double? radius;
-  final Function(String)? onSaved;
+  final  FormFieldSetter<String>? onSaved;
   final bool? isEmail;
   final bool isPassword;
   final bool isSecure;
@@ -71,7 +73,7 @@ class CustomTextField extends StatefulWidget {
       this.keyboardType,
       this.isEmail,
       this.borderThink,
-      this.validation,
+      this.validator,
       this.prefixIconSize,
       this.suffixIconSizeWidth,
       this.suffixIconSizeHeight,
@@ -96,7 +98,7 @@ class CustomTextField extends StatefulWidget {
       this.isOptional = true,
       this.hintStyle,
       this.titleStyle,
-      this.onTapOutside, this.labelText, this.labelStyle});
+      this.onTapOutside, this.labelText, this.labelStyle, this.maxLen, this.maxLine});
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -164,7 +166,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
           focusNode: widget.focusNode,
           onChanged: widget.onChanged,
           textInputAction: widget.textInputAction ?? TextInputAction.done,
-          // maxLength: 3,
+           maxLength: widget.maxLen?? 50,
+          maxLines: widget.maxLine??1,
           style: kBodyLarge.copyWith(
             color: widget.textColor ?? AppColors.kGrayColor,
             decoration: TextDecoration.none,
@@ -278,8 +281,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
             errorText: widget.errorText,
             fillColor: widget.fillColor ?? AppColors.kGrayColor50,
           ),
-          validator: widget.validation as String? Function(String?)?,
-          onSaved: widget.onSaved as String? Function(String?)?,
+          validator: widget.validator,
+          onSaved: widget.onSaved,
           onTapOutside: widget.onTapOutside,
         ),
       ],

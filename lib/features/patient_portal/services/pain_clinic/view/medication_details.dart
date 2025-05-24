@@ -269,7 +269,7 @@ class _AddNewDoseScreenState extends State<AddNewDoseScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               ),
               onPressed: () {},
-              child: Text('Mark Taken'),
+              child: Text(AppStrings.markTaken.tr()),
             ),
         ],
       ),

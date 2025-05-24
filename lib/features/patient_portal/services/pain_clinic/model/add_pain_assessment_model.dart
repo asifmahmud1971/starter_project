@@ -1,26 +1,23 @@
-class PainAssessmentModel {
-  PainAssessmentModel({
+import 'package:medPilot/features/patient_portal/services/pain_clinic/model/pain_assessment.dart';
+
+class AddPainAssessmentModel {
+  AddPainAssessmentModel({
       this.success, 
       this.patient, 
-      this.allPainAssessment, 
+      this.savedData, 
       this.token, 
       this.tokenType,});
 
-  PainAssessmentModel.fromJson(dynamic json) {
+  AddPainAssessmentModel.fromJson(dynamic json) {
     success = json['success'];
     patient = json['patient'] != null ? Patient.fromJson(json['patient']) : null;
-    if (json['all_pain_assessment'] != null) {
-      allPainAssessment = [];
-      json['all_pain_assessment'].forEach((v) {
-        allPainAssessment?.add(AllPainAssessment.fromJson(v));
-      });
-    }
+    savedData = json['saved_data'] != null ? AllPainAssessment.fromJson(json['saved_data']) : null;
     token = json['token'];
     tokenType = json['token_type'];
   }
   bool? success;
   Patient? patient;
-  List<AllPainAssessment>? allPainAssessment;
+  AllPainAssessment? savedData;
   String? token;
   String? tokenType;
 
@@ -30,8 +27,8 @@ class PainAssessmentModel {
     if (patient != null) {
       map['patient'] = patient?.toJson();
     }
-    if (allPainAssessment != null) {
-      map['all_pain_assessment'] = allPainAssessment?.map((v) => v.toJson()).toList();
+    if (savedData != null) {
+      map['saved_data'] = savedData?.toJson();
     }
     map['token'] = token;
     map['token_type'] = tokenType;
@@ -40,66 +37,6 @@ class PainAssessmentModel {
 
 }
 
-class AllPainAssessment {
-  AllPainAssessment({
-      this.id, 
-      this.companyId, 
-      this.patientId, 
-      this.date, 
-      this.painLocation, 
-      this.radiation, 
-      this.severity, 
-      this.changeOfTime, 
-      this.relievingFactors, 
-      this.causeOfPain, 
-      this.createdAt, 
-      this.updatedAt,});
-
-  AllPainAssessment.fromJson(dynamic json) {
-    id = json['id'];
-    companyId = json['company_id'];
-    patientId = json['patient_id'];
-    date = json['date'];
-    painLocation = json['pain_location'];
-    radiation = json['radiation'];
-    severity = json['severity'];
-    changeOfTime = json['change_of_time'];
-    relievingFactors = json['relieving_factors'];
-    causeOfPain = json['cause_of_pain'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
-  num? id;
-  dynamic companyId;
-  int? patientId;
-  String? date;
-  String? painLocation;
-  String? radiation;
-  String? severity;
-  String? changeOfTime;
-  String? relievingFactors;
-  String? causeOfPain;
-  String? createdAt;
-  String? updatedAt;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['company_id'] = companyId;
-    map['patient_id'] = patientId;
-    map['date'] = date;
-    map['pain_location'] = painLocation;
-    map['radiation'] = radiation;
-    map['severity'] = severity;
-    map['change_of_time'] = changeOfTime;
-    map['relieving_factors'] = relievingFactors;
-    map['cause_of_pain'] = causeOfPain;
-    map['created_at'] = createdAt;
-    map['updated_at'] = updatedAt;
-    return map;
-  }
-
-}
 
 class Patient {
   Patient({
@@ -155,17 +92,17 @@ class Patient {
   String? regNo;
   String? userId;
   String? branchId;
-  String? name;
+  dynamic name;
   String? dob;
   String? age;
   dynamic thana;
   dynamic city;
   String? gender;
   dynamic address;
-  String? mobile;
+  dynamic mobile;
   String? email;
   String? consultingDoctor;
-  String? doctorContractNumber;
+  dynamic doctorContractNumber;
   String? alternativeNumber;
   String? password;
   String? status;
