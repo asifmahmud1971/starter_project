@@ -58,5 +58,6 @@ class AppStrings {
   static const String newPainAssessment = "New Pain Assessment";
   static const String recordYourPainDetails = "Record your pain details";
   static const String savedSuccessfullyCreated = "Follow-up record saved successfully.";
+  static const String submitAssessment = "Submit Assessment";
 
 }

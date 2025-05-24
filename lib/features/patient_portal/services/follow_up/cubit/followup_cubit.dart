@@ -152,8 +152,7 @@ class FollowUpCubit extends Cubit<FollowUpState> {
     'Deteriorating'
   ];
 
-  Function validation = (value) =>
-  value.isEmpty ? 'This field is required' : null;
+  FormFieldValidator<String>? validator = (value) => (value??"").isEmpty ? 'This field is required' : null;
 
   void formFieldClean() {
     bpHighController.clear();

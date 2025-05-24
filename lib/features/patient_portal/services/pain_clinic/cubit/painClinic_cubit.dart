@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/components/custom_progress_loader.dart';
 import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/enum/app_status.dart';
@@ -69,12 +70,13 @@ class PainClinicCubit extends Cubit<PainClinicState> {
       response.fold(
         (failure) {},
         (data) async {
-          state.painAssessmentModel?.allPainAssessment?.add(data.savedData??AllPainAssessment());
+          state.painAssessmentModel?.allPainAssessment?.insert(0,data.savedData??AllPainAssessment());
 
           emit(state.copyWith(
               appStatus: AppStatus.success, painAssessmentModel:  state.painAssessmentModel));
         },
       );
+      GetContext.back();
 
       showCustomSnackBar(message: "Pain assessment submitted successfully");
 
@@ -104,6 +106,15 @@ class PainClinicCubit extends Cubit<PainClinicState> {
     } catch (e) {
       dismissProgressDialog();
     }
+  }
+
+  void resetScreen(){
+    location = null;
+    changeOfTime = null;
+    radiation = null;
+    relievingFactors = null;
+    severity = null;
+    causeOfPain = null;
   }
 
 

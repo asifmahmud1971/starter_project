@@ -71,7 +71,7 @@ class AllPainAssessment {
   }
   num? id;
   dynamic companyId;
-  int? patientId;
+  dynamic patientId;
   String? date;
   String? painLocation;
   String? radiation;
