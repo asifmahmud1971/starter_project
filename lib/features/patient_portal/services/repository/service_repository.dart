@@ -20,5 +20,8 @@ Future<Either<ApiFailure, PainAssessmentModel>> getPainAssessment(
       Map<String, dynamic> params);
 Future<Either<ApiFailure, MedicationModel>> getMedication(
       Map<String, dynamic> params);
+  Future<Either<ApiFailure, Followup>> createFollowUp(
+      Map<String, dynamic> params);
+
 
 }

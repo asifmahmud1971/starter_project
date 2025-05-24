@@ -21,15 +21,15 @@ void configLoading() {
     ..loadingStyle = EasyLoadingStyle.custom
     ..maskColor = Colors.transparent
     ..textStyle = const TextStyle(
-      color: Colors.white,
+      color: AppColors.kBlackColor,
       fontSize: 18,
       letterSpacing: 0.5,
       fontWeight: FontWeight.w400,
     )
     ..backgroundColor =
-        Colors.transparent // Background color of the loading indicator
+        Colors.white // Background color of the loading indicator
     ..indicatorColor =
-        AppColors.kWhiteColor // Color of the loading indicator itself
+        AppColors.kBlackColor // Color of the loading indicator itself
     ..textColor = Colors.white // Color of the text// Color of the mask
 
     ..userInteractions = false

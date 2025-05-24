@@ -28,6 +28,7 @@ class ApiUrls {
   static const String registerSendOtp = 'register/send-otp';
   static const String registerVerifyOtp = 'register/verify-otp';
   static const String registerResendOtp = 'register/resend-otp';
+  static const String profile = 'profile';
 
   //dashboard
 

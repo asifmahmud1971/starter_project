@@ -15,7 +15,8 @@ class FollowUpCard extends StatelessWidget {
      this.dateTime,
      this.place,
      this.vType,
-     this.critical,  this.onTap,
+     this.critical,
+    this.onTap,
   });
 
   @override
