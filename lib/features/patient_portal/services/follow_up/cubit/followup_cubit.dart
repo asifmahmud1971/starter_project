@@ -1,12 +1,18 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:medPilot/core/components/custom_progress_loader.dart';
+import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/constants/app_print.dart';
+import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/model/follow_up.dart';
 import 'package:medPilot/features/patient_portal/services/repository/service_repository.dart';
+
+import '../../../../../core/app/app_context.dart';
+
 part 'followup_state.dart';
 
 @injectable
@@ -32,21 +38,22 @@ class FollowUpCubit extends Cubit<FollowUpState> {
   String? shortnessOfBreath;
   String? bowelMovement;
   String? functionalStatus;
+  String? pain;
   final Map<String, bool> physicalSymptoms = {
     'Pain': false,
     'Nausea': false,
     'Breathlessness': false,
     'Constipation': false,
     'Restlessness': false,
-    'Drowsiness': true,
+    'Drowsiness': false,
     'Dyspepsia': false,
     'Cough': false,
-    'Swelling': true,
+    'Swelling': false,
     'Fever': false,
     'Urinary Problem': false,
     'Vomiting': false,
     'Lymphedema': false,
-    'Bedstore': false,
+    'Bedsore': false,
     'Poor Appetite': false,
     'Sleep disturbance': false,
     'No Complain': false,
@@ -59,10 +66,14 @@ class FollowUpCubit extends Cubit<FollowUpState> {
     try {
       final response = await serviceRepository.getFollowUp({});
       response.fold(
-        (failure) {},
-        (data) async {
+            (failure) {
+          dismissProgressDialog();
+        },
+            (data) async {
           emit(state.copyWith(
-              appStatus: AppStatus.success, followUp: data));
+            appStatus: AppStatus.success,
+            followUp: data,
+            followupList: data.followup,));
         },
       );
       dismissProgressDialog();
@@ -88,20 +99,32 @@ class FollowUpCubit extends Cubit<FollowUpState> {
       "output": outputController.text,
       "insulin": insulinController.text,
       "sugar": bloodSugarController.text,
-      "shortness_of_breath": shortnessOfBreath,
-      "bowel_movement": bowelMovement,
-      "reason": trueSymptoms??[],
+      "shortness_of_breath": shortnessOfBreathValue(shortnessOfBreath),
+      "bowel_movement": bowelMovement == "Moved" ? "1" : "0",
+      "reason": trueSymptoms ?? [],
       "functional_status": functionalStatus,
       "oxygen": oxygenController.text,
-      "pain": painController.text
+      "pain": painValue(pain)
     };
     try {
       final response = await serviceRepository.createFollowUp(data);
       response.fold(
-        (failure) {},
-        (data) async {
+            (failure) {},
+            (data) async {
+              printLog(data.toString());
+              List<Followup> updatedFollowList = [
+                data,
+                ...?state.followupList, // existing follow-ups
+              ];
           emit(state.copyWith(
-              appStatus: AppStatus.success, followUp: data));
+              appStatus: AppStatus.success, followupList: updatedFollowList));
+          formFieldClean();
+          GetContext.back();
+          showCustomSnackBar(
+            context: GetContext.context,
+            message: AppStrings.savedSuccessfullyCreated.tr(),
+          );
+         // getFollowUpReport();
         },
       );
       dismissProgressDialog();
@@ -110,8 +133,29 @@ class FollowUpCubit extends Cubit<FollowUpState> {
     }
   }
 
+  List<String> shortnessOfBreathList = ['N/A', 'Low', 'Medium', 'High'];
 
-  void dispose() {
+  String? shortnessOfBreathValue(String? shortOfBreath) {
+    int index = shortnessOfBreathList.indexOf(shortOfBreath!);
+    return index >= 0 ? "$index" : null;
+  }
+
+  List<String> painList = ['No Pain', 'Low', 'Medium', 'High'];
+
+  String? painValue(String? shortOfBreath) {
+    int index = painList.indexOf(shortOfBreath!);
+    return index >= 0 ? "$index" : null;
+  }
+
+  List<String> functionalList = [
+    'Stable',
+    'Deteriorating'
+  ];
+
+  Function validation = (value) =>
+  value.isEmpty ? 'This field is required' : null;
+
+  void formFieldClean() {
     bpHighController.clear();
     bpLowController.clear();
     pulseController.clear();
@@ -122,6 +166,10 @@ class FollowUpCubit extends Cubit<FollowUpState> {
     outputController.clear();
     insulinController.clear();
     bloodSugarController.clear();
+    physicalSymptoms.updateAll((key, value) => false);
+    shortnessOfBreath = null;
+    bowelMovement = null;
+    functionalStatus = null;
   }
 
 }

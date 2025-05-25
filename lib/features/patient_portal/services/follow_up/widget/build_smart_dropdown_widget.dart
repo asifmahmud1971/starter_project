@@ -20,14 +20,14 @@ class BuildSmartDropdown extends StatelessWidget {
             value: value,
             isExpanded: true,
             decoration: InputDecoration(
-              labelText: hint,
+              hintText: hint,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.grey), // Default border color
+                borderSide: BorderSide(color: AppColors.kBorderColor), // Default border color
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.grey), // Border color when not focused
+                borderSide: BorderSide(color: AppColors.kBorderColor), // Border color when not focused
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),

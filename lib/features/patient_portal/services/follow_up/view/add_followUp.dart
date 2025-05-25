@@ -9,6 +9,7 @@ import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_date_time_card.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_functional_status_card.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_physical_symptoms_card.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_smart_vital_row.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_head_section_widget.dart';
 import '../widget/build_smart_dropdown_widget.dart';
@@ -58,7 +59,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
               _buildVitalSignsCard(),
               20.verticalSpace,
               BuildHeadSectionWidget(title:AppStrings.physicalSymptoms.tr(), icon: Icons.medical_services),
-              _buildPhysicalSymptomsCard(),
+              BuildPhysicalSymptomsCard(),
               20.verticalSpace,
               BuildHeadSectionWidget(title: 'Functional Status', icon: Icons.accessibility),
               BuildFunctionalStatusCard(
@@ -68,14 +69,15 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 }),
               ),
               30.verticalSpace,
+
               Center(
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.save, size: 20),
                   label: const Text('SAVE FOLLOW-UP',
-                      style: TextStyle(letterSpacing: 1)),
+                      style: TextStyle(letterSpacing: 1),),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 15),
+                        horizontal: 50, vertical: 15,),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
                     backgroundColor: AppColors.kPrimaryColor.withValues(alpha: 0.7
@@ -92,8 +94,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
       ),
     );
   }
-  Function validation = (value) =>
-  value.isEmpty ? 'This field is required' : null;
+
 
   Widget _buildVitalSignsCard() {
     return Container(
@@ -109,13 +110,13 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 controller: followUpCubit.bpHighController,
                 radius: 8.r,
                 hint: "hint",
-                validation: validation,
+                validation: followUpCubit.validation,
               ),
               secondField: CustomTextField(
                 controller: followUpCubit.bpLowController,
                 radius: 8.r,
                 hint: "Low",
-                validation: validation,
+                validation: followUpCubit.validation,
               ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
@@ -125,13 +126,13 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 controller: followUpCubit.pulseController,
                 radius: 8.r,
                 hint: "Pulse",
-                validation: validation,
+                validation: followUpCubit.validation,
               ),
               secondField: CustomTextField(
                 controller: followUpCubit.saturationController,
                 radius: 8.r,
                 hint: "Saturation",
-                validation: validation,
+                validation: followUpCubit.validation,
               ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
@@ -141,13 +142,13 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 controller: followUpCubit.oxygenController,
                 radius: 8.r,
                 hint: "Oxygen",
-                validation: validation,
+                validation: followUpCubit.validation,
               ),
               secondField: CustomTextField(
                 controller: followUpCubit.tempController,
                 radius: 8.r,
                 hint: "Temp",
-                validation: validation,
+                validation: followUpCubit.validation,
               ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
@@ -157,13 +158,13 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 controller: followUpCubit.intakeController,
                 radius: 8.r,
                 hint: "Intake",
-                validation: validation,
+                validation: followUpCubit.validation,
               ),
               secondField: CustomTextField(
                 controller: followUpCubit.outputController,
                 radius: 8.r,
                 hint: "Output",
-                validation: validation,
+                validation: followUpCubit.validation,
               ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
@@ -174,20 +175,20 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 controller: followUpCubit.insulinController,
                 radius: 8.r,
                 hint: "Insulin",
-                validation: validation,
+                validation: followUpCubit.validation,
               ),
               secondField: CustomTextField(
                 controller: followUpCubit.bloodSugarController,
                 radius: 8.r,
                 hint: "Blood Sugar",
-                validation: validation,
+                validation: followUpCubit.validation,
               ),
             ),
             Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
             BuildSmartDropdown(
               value: followUpCubit.shortnessOfBreath,
               hint: 'Shortness of Breath',
-              items: ['None', 'Mild', 'Moderate', 'Severe'],
+              items: followUpCubit.shortnessOfBreathList,
               icon: Icons.air,
               onChanged:  (value) => setState(() {
                 followUpCubit.shortnessOfBreath = value;
@@ -197,7 +198,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
             BuildSmartDropdown(
               value: followUpCubit.bowelMovement,
               hint: 'Bowel Movement',
-              items: ['Normal', 'Constipated', 'Diarrhea', 'Irregular'],
+              items: ['Moved', 'Not Moved'],
               icon: Icons.clean_hands,
               onChanged:  (value) => setState(() {
                 followUpCubit.bowelMovement = value;
@@ -211,100 +212,8 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
 
   void _saveFollowUp() {
     if (followUpCubit.formKey.currentState!.validate()) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Success'),
-            content: const Text('Follow-up record saved successfully.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  context.read<FollowUpCubit>().createFollowUp();
-                  Navigator.pop(context); // Close dialog
-                  Navigator.pop(context); // Return to previous screen
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
+      context.read<FollowUpCubit>().createFollowUp();
     }
-  }
-  Widget _buildPhysicalSymptomsCard() {
-    return Container(
-      width: 1.sw,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [AppColors.kBackGroundShadow],
-          borderRadius: BorderRadius.circular(8.r)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              children: followUpCubit.physicalSymptoms.keys.map((symptom) {
-                return ChoiceChip(
-                  label: Text(symptom),
-                  selected: followUpCubit.physicalSymptoms[symptom]!,
-                  onSelected: (selected) {
-                    setState(() {
-                      followUpCubit.physicalSymptoms[symptom] = selected;
-                      if (selected && symptom == 'No Complain') {
-                        // If "No Complain" is selected, deselect all others
-                        for (var key in followUpCubit.physicalSymptoms.keys) {
-                          if (key != 'No Complain') {
-                            followUpCubit.physicalSymptoms[key] = false;
-                          }
-                        }
-                      } else if (selected && symptom != 'No Complain') {
-                        // If any other symptom is selected, deselect "No Complain"
-                        followUpCubit.physicalSymptoms['No Complain'] = false;
-                      }
-                    });
-                  },
-                  checkmarkColor: AppColors.kPrimaryColor,
-                  selectedColor: AppColors.kPrimaryColor.withValues(alpha: 0.2),
-                  backgroundColor: Colors.grey.shade100,
-                  labelStyle: TextStyle(
-                    color: followUpCubit.physicalSymptoms[symptom]!
-                        ? AppColors.kPrimaryColor
-                        : Colors.grey.shade800,
-                    fontWeight: followUpCubit.physicalSymptoms[symptom]!
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    side: BorderSide(
-                      color: followUpCubit.physicalSymptoms[symptom]!
-                          ? AppColors.kPrimaryColor
-                          : Colors.grey.shade300,
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-            if (followUpCubit.physicalSymptoms['Others']!)
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Specify other symptoms',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -378,6 +287,4 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
       },
     );
   }
-
-
 }

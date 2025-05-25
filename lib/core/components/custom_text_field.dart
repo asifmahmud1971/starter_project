@@ -239,8 +239,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
               borderSide: BorderSide(
                 color: widget.isError
                     ? AppColors.kError600
-                    : widget.borderColor ?? AppColors.kBorderColor,
-                width: widget.borderThink ?? 2.0,
+                    : widget.borderColor ?? AppColors.kPrimaryColor,
+                width: widget.borderThink ?? 1.0,
               ),
               borderRadius: BorderRadius.circular(widget.radius ?? 30).r,
             ),
@@ -258,7 +258,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 color: widget.isError
                     ? AppColors.kError950
                     : widget.borderColor ?? AppColors.kBorderColor,
-                width: widget.borderThink ?? 2.0,
+                width: widget.borderThink ?? 1.0,
               ),
               borderRadius: BorderRadius.circular(widget.radius ?? 30).r,
             ),

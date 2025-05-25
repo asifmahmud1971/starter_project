@@ -9,7 +9,7 @@ abstract class ServiceRepository {
       Map<String, dynamic> params);
   Future<Either<ApiFailure, FollowUpModel>> getFollowUp(
       Map<String, dynamic> params);
-  Future<Either<ApiFailure, FollowUpModel>> createFollowUp(
+  Future<Either<ApiFailure, Followup>> createFollowUp(
       Map<String, dynamic> params);
 
 
