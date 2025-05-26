@@ -27,8 +27,8 @@ class ProfileDetails {
   String? gender;
   String? phone;
   String? doctorContactNo;
-  int? cityId;
-  int? thanaId;
+  String? cityId;
+  String? thanaId;
   String? presentAddress;
   String? landMark;
   String? permanentAddress;

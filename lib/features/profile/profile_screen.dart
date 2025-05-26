@@ -79,7 +79,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                                           _buildInfoChip(Icons.cake, '25 Yrs'),
                                           const SizedBox(width: 8),
                                           _buildInfoChip(
-                                              Icons.transgender, 'Others'),
+                                              Icons.transgender, state.profileDetails?.gender??""),
                                         ],
                                       ),
                                     ],
@@ -120,9 +120,9 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                       icon: Icons.person_outline,
                       color: accentColor,
                       children: [
-                        _buildDetailRow('Date of Birth', 'April 22, 2000'),
-                        _buildDetailRow('Blood Group', 'O+', isImportant: true),
-                        _buildDetailRow('Marital Status', 'Single'),
+                        _buildDetailRow('Date of Birth', state.profileDetails?.dob??""),
+                        _buildDetailRow('Blood Group', state.profileDetails?.bloodGroup??"", isImportant: true),
+                        _buildDetailRow('Marital Status', state.profileDetails?.maritalStatus??""),
                       ],
                     ),
                     _buildModernSection(
@@ -130,11 +130,11 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                       icon: Icons.contact_phone_outlined,
                       color: AppColors.kPrimaryColor,
                       children: [
-                        _buildDetailRow('Mobile', '+880 1717926565',
+                        _buildDetailRow('Mobile', state.profileDetails?.phone??"",
                             isPhone: true),
-                        _buildDetailRow('Doctor Contact', '+880 1717926565',
+                        _buildDetailRow('Doctor Contact', state.profileDetails?.doctorContactNo??"",
                             isPhone: true),
-                        _buildDetailRow('Address', '123 Medical Street, Dhaka'),
+                        _buildDetailRow('Address', state.profileDetails?.presentAddress??""),
                       ],
                     ),
 
@@ -143,10 +143,9 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                       icon: Icons.medical_information,
                       color: secondaryColor,
                       children: [
-                        _buildDetailRow('Allergies', 'Penicillin, Shellfish',
+                        _buildDetailRow('Allergies', state.profileDetails?.allergy??'',
                             isImportant: true),
-                        _buildDetailRow('Primary Diagnosis', 'Hypertension'),
-                        _buildDetailRow('Co-morbidities', 'Type 2 Diabetes'),
+                        _buildDetailRow('Primary Diagnosis', state.profileDetails?.primaryDiagnosis??""),
                       ],
                     ),
 

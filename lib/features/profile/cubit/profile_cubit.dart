@@ -90,10 +90,8 @@ class ProfileCubit extends Cubit<ProfileState> {
           emit(state.copyWith(appStatus: AppStatus.failure));
         },
         (r) async {
-          userDataSaveProfile(profileDetails: r.profileDetails);
           emit(state.copyWith(appStatus: AppStatus.success,profileDetails: r.profileDetails));
-
-          printLog("------ ${r.profileDetails.toString()}");
+          userDataSaveProfile(profileDetails: state.profileDetails);
         },
       );
 
@@ -107,10 +105,10 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   void userDataSaveProfile({ProfileDetails? profileDetails}) {
     nameController.text = profileDetails?.patientName ?? "";
-    selectGender = profileDetails?.gender ?? "";
+    selectGender = profileDetails?.gender;
     dateOfBirthController.text = profileDetails?.dob ?? "";
-    selectBloodGroup = profileDetails?.bloodGroup ?? "";
-    selectMaritalStatus = profileDetails?.maritalStatus ?? "";
+    selectBloodGroup = profileDetails?.bloodGroup;
+    selectMaritalStatus = profileDetails?.maritalStatus;
     mobileNoController.text = profileDetails?.phone ?? "";
     doctorContactController.text = profileDetails?.doctorContactNo ?? "";
     cityController.text = profileDetails?.cityId.toString() ?? "";
