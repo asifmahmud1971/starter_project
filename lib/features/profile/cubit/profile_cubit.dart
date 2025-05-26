@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,11 +11,13 @@ import 'package:medPilot/core/app/app_dependency.dart';
 import 'package:medPilot/core/app/app_preference.dart';
 import 'package:medPilot/core/components/custom_progress_loader.dart';
 import 'package:medPilot/core/components/custom_snack_bar.dart';
+import 'package:medPilot/core/constants/app_print.dart';
 import 'package:medPilot/core/enum/app_status.dart';
-import 'package:medPilot/core/router/routes.dart';
 import 'package:medPilot/features/profile/repository/profile_repository_imp.dart';
+
 import '../../../../../core/constants/app_strings.dart';
 import '../models/user_profile_response.dart';
+
 part 'profile_state.dart';
 
 @injectable
@@ -87,8 +90,10 @@ class ProfileCubit extends Cubit<ProfileState> {
           emit(state.copyWith(appStatus: AppStatus.failure));
         },
         (r) async {
-          resetForm();
+          userDataSaveProfile(profileDetails: r.profileDetails);
           emit(state.copyWith(appStatus: AppStatus.success,profileDetails: r.profileDetails));
+
+          printLog("------ ${r.profileDetails.toString()}");
         },
       );
 
@@ -100,6 +105,25 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
+  void userDataSaveProfile({ProfileDetails? profileDetails}) {
+    nameController.text = profileDetails?.patientName ?? "";
+    selectGender = profileDetails?.gender ?? "";
+    dateOfBirthController.text = profileDetails?.dob ?? "";
+    selectBloodGroup = profileDetails?.bloodGroup ?? "";
+    selectMaritalStatus = profileDetails?.maritalStatus ?? "";
+    mobileNoController.text = profileDetails?.phone ?? "";
+    doctorContactController.text = profileDetails?.doctorContactNo ?? "";
+    cityController.text = profileDetails?.cityId.toString() ?? "";
+    thanaController.text = profileDetails?.thanaId.toString() ?? "";
+    presentAddressController.text = profileDetails?.presentAddress ?? "";
+    landMarkController.text = profileDetails?.landMark ?? "";
+    permanentAddressController.text = profileDetails?.permanentAddress ?? "";
+    nIDPassportController.text = profileDetails?.nidPassport ?? "";
+    familyContactNumberController.text = profileDetails?.contactPersonNumber ?? "";
+    familyContactPersonController.text = profileDetails?.familyContactPerson ?? "";
+    allergiesController.text = profileDetails?.allergy ?? "";
+    primaryDiagnosisController.text = profileDetails?.primaryDiagnosis ?? "";
+  }
 
   Future<void> updateProfile() async {
     showProgressDialog();

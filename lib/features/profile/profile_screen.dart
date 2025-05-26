@@ -1,8 +1,5 @@
-import 'dart:io';
-import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/app/app_context.dart';
@@ -26,7 +23,6 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //const primaryColor = Color(0xFFFF904D); // Vibrant orange
     const secondaryColor = Color(0xFF394294); // Deep blue
     const accentColor = Color(0xFF6C63FF); // Purple accent
     return Scaffold(
