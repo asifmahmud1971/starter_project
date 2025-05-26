@@ -8,6 +8,7 @@ import 'package:medPilot/features/patient_portal/home/widgets/service_card.dart'
 import 'package:medPilot/features/patient_portal/services/pain_clinic/view/assesment_page.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/view/medication_screen.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/view/wound_assesment_page.dart';
+import 'package:medPilot/features/patient_portal/services/wound_clinic/view/wound_manage_report.dart';
 import 'package:medPilot/generated/assets.dart';
 
 class WoundClinicHome extends StatelessWidget {
@@ -35,7 +36,7 @@ class WoundClinicHome extends StatelessWidget {
             icon: Assets.medWound,
           ),ServiceCard(
             onTap: () {
-              GetContext.to(MedicationScreen());
+              GetContext.to(WoundManagementScreen());
             },
             title: AppStrings.management.tr(),
             icon: Assets.medWoundDersing,
