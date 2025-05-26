@@ -7,16 +7,12 @@ import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/home/widgets/service_card.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/view/assesment_page.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/view/medication_screen.dart';
+import 'package:medPilot/features/patient_portal/services/wound_clinic/view/wound_assesment_page.dart';
 import 'package:medPilot/generated/assets.dart';
 
-class PainClinicScreen extends StatefulWidget {
-  const PainClinicScreen({super.key});
+class WoundClinicHome extends StatelessWidget {
+  const WoundClinicHome({super.key});
 
-  @override
-  State<PainClinicScreen> createState() => _PainClinicScreenState();
-}
-
-class _PainClinicScreenState extends State<PainClinicScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,16 +29,16 @@ class _PainClinicScreenState extends State<PainClinicScreen> {
           padding: EdgeInsets.all(0),
           children: [ServiceCard(
             onTap: () {
-              GetContext.to(AssessmentPage());
+              GetContext.to(WoundAssessmentPage());
             },
             title: AppStrings.assessment.tr(),
-            icon: Assets.medAssessment,
+            icon: Assets.medWound,
           ),ServiceCard(
             onTap: () {
-            GetContext.to(MedicationScreen());
+              GetContext.to(MedicationScreen());
             },
-            title: AppStrings.medication.tr(),
-            icon: Assets.medMonitoring,
+            title: AppStrings.management.tr(),
+            icon: Assets.medWoundDersing,
           )],
         ),
       ),
