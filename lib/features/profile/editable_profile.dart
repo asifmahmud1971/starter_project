@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/components/custom_button.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_smart_dropdown_widget.dart';
 import 'package:medPilot/features/profile/cubit/profile_cubit.dart';
 import '../../core/components/custom_text_field.dart';
 import '../../core/constants/app_colors.dart';
@@ -19,6 +21,7 @@ class EditAbleProfileScreen extends StatefulWidget {
 }
 
 class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
+  final profileCubit =  GetContext.context.read<ProfileCubit>();
   bool isEditing = false;
   final _formKey = GlobalKey<FormState>();
   File? _image;
@@ -32,16 +35,29 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
       });
     }
   }
+  DateTime? _selectedDate;
 
-  final profileCubit =  GetContext.context.read<ProfileCubit>();
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime(2000), // Default DOB
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(), // Prevent future dates
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        profileCubit.dateOfBirthController.text = DateFormat('yyyy-MM-dd').format(_selectedDate!);
+      });
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
-    const primaryColor = Color(0xFFFF904D);
-    const secondaryColor = Color(0xFF394294);
-
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: AppColors.kGrayColor50,
       appBar: AppBar(
         title: Text('Patient Profile',style: kTitleMedium),
       ),
@@ -51,7 +67,6 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              // Profile Header
               Column(
                 children: [
                   10.verticalSpace,
@@ -97,7 +112,7 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
               _buildEditableSection(
                 icon: Icons.person,
                 title: "Personal Information",
-                color: secondaryColor,
+                color: AppColors.kPrimarySpeechBlue800,
                 children: [
                   CustomTextField(
                     controller: profileCubit.nameController,
@@ -105,89 +120,66 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
                     titleStyle: kBodyMedium,
                     title: "Name",
                     hint: "Full name",
-                    hintColor: AppColors.kGrayColor200,
+                    hintColor: AppColors.kGrayColor400,
                     textColor: AppColors.kGrayColor950,
                     fillColor: AppColors.kWhiteColor,
-                    borderColor: AppColors.kGrayColor400,
                     radius: 10,
                     borderThink: 1,
                     keyboardType: TextInputType.name,
                   ),
                   10.verticalSpace,
-                  CustomTextField(
-                    controller: profileCubit.ageController,
-                    isOptional: false,
-                    titleStyle: kBodyMedium,
-                    title: "Age",
-                    hint: "Age",
-                    hintColor: AppColors.kGrayColor200,
-                    textColor: AppColors.kGrayColor950,
-                    fillColor: AppColors.kWhiteColor,
-                    borderColor: AppColors.kGrayColor400,
-                    radius: 10,
-                    borderThink: 1,
-                    keyboardType: TextInputType.name,
-                  ),
+                  Text('Gender',style: kBodyMedium),
                   10.verticalSpace,
-                  CustomTextField(
-                    controller: profileCubit.genderController,
-                    isOptional: false,
-                    titleStyle: kBodyMedium,
-                    title: "Gender",
-                    hint: "Gender",
-                    hintColor: AppColors.kGrayColor200,
-                    textColor: AppColors.kGrayColor950,
-                    fillColor: AppColors.kWhiteColor,
-                    borderColor: AppColors.kGrayColor400,
-                    radius: 10,
-                    borderThink: 1,
-                    keyboardType: TextInputType.name,
+                  BuildSmartDropdown(
+                    value: profileCubit.selectGender,
+                    hint: 'Select Functional Status',
+                    items: profileCubit.genderList,
+                    onChanged:  (value) => setState(() {
+                      profileCubit.selectGender = value;
+                    }),
                   ),
                   10.verticalSpace,
                   CustomTextField(
                     controller: profileCubit.dateOfBirthController,
                     isOptional: false,
+                    readOnly: true,
                     titleStyle: kBodyMedium,
                     title: "Date of Birth",
                     hint: "Date of Birth",
-                    hintColor: AppColors.kGrayColor200,
+                    hintColor: AppColors.kGrayColor400,
                     textColor: AppColors.kGrayColor950,
                     fillColor: AppColors.kWhiteColor,
-                    borderColor: AppColors.kGrayColor400,
                     radius: 10,
                     borderThink: 1,
                     keyboardType: TextInputType.name,
-                  ),
-
-                  10.verticalSpace,
-                  CustomTextField(
-                    controller: profileCubit.bloodGroupController,
-                    isOptional: false,
-                    titleStyle: kBodyMedium,
-                    title: "Blood Group",
-                    hint: "Blood Group",
-                    hintColor: AppColors.kGrayColor200,
-                    textColor: AppColors.kGrayColor950,
-                    fillColor: AppColors.kWhiteColor,
-                    borderColor: AppColors.kGrayColor400,
-                    radius: 10,
-                    borderThink: 1,
-                    keyboardType: TextInputType.name,
+                      suffixIcon: InkWell(
+                          onTap: (){
+                            _selectDate(context);
+                          },
+                          child: Icon(Icons.calendar_month_sharp,color: AppColors.kGrayColor,),
+                      )
                   ),
                   10.verticalSpace,
-                  CustomTextField(
-                    controller: profileCubit.maritalStatusController,
-                    isOptional: false,
-                    titleStyle: kBodyMedium,
-                    title: "Marital Status",
-                    hint: "Marital Status",
-                    hintColor: AppColors.kGrayColor200,
-                    textColor: AppColors.kGrayColor950,
-                    fillColor: AppColors.kWhiteColor,
-                    borderColor: AppColors.kGrayColor400,
-                    radius: 10,
-                    borderThink: 1,
-                    keyboardType: TextInputType.name,
+                  Text('Blood Group',style: kBodyMedium),
+                  10.verticalSpace,
+                  BuildSmartDropdown(
+                    value: profileCubit.selectBloodGroup,
+                    hint: 'Select Functional Status',
+                    items: profileCubit.bloodGroupList,
+                    onChanged:  (value) => setState(() {
+                      profileCubit.selectBloodGroup = value;
+                    }),
+                  ),
+                  10.verticalSpace,
+                  Text('Marital Status',style: kBodyMedium),
+                  10.verticalSpace,
+                  BuildSmartDropdown(
+                    value: profileCubit.selectMaritalStatus,
+                    hint: 'Select Functional Status',
+                    items: profileCubit.maritalStatusList,
+                    onChanged:  (value) => setState(() {
+                      profileCubit.selectMaritalStatus = value;
+                    }),
                   ),
                 ],
               ),
@@ -196,7 +188,7 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
               _buildEditableSection(
                 icon: Icons.phone,
                 title: "Contact Information",
-                color: primaryColor,
+                color: AppColors.kPrimaryColor,
                 children: [
                   CustomTextField(
                     controller: profileCubit.mobileNoController,
@@ -204,10 +196,9 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
                     titleStyle: kBodyMedium,
                     title: "Mobile No",
                     hint: "Mobile No",
-                    hintColor: AppColors.kGrayColor200,
+                    hintColor: AppColors.kGrayColor400,
                     textColor: AppColors.kGrayColor950,
                     fillColor: AppColors.kWhiteColor,
-                    borderColor: AppColors.kGrayColor400,
                     radius: 10,
                     borderThink: 1,
                     keyboardType: TextInputType.name,
@@ -219,29 +210,83 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
                     titleStyle: kBodyMedium,
                     title: "Doctor Contact",
                     hint: "Doctor Contact",
-                    hintColor: AppColors.kGrayColor200,
+                    hintColor: AppColors.kGrayColor400,
                     textColor: AppColors.kGrayColor950,
                     fillColor: AppColors.kWhiteColor,
-                    borderColor: AppColors.kGrayColor400,
                     radius: 10,
                     borderThink: 1,
                     keyboardType: TextInputType.name,
                   ),
                   10.verticalSpace,
                   CustomTextField(
-                    controller: profileCubit.addressController,
+                    controller: profileCubit.cityController,
                     isOptional: false,
                     titleStyle: kBodyMedium,
-                    title: "Address",
-                    hint: "Address",
-                    hintColor: AppColors.kGrayColor200,
+                    title: "City",
+                    hint: "City",
+                    hintColor: AppColors.kGrayColor400,
                     textColor: AppColors.kGrayColor950,
                     fillColor: AppColors.kWhiteColor,
-                    borderColor: AppColors.kGrayColor400,
                     radius: 10,
                     borderThink: 1,
                     keyboardType: TextInputType.name,
-                  )
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.thanaController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Thana",
+                    hint: "Thana",
+                    hintColor: AppColors.kGrayColor400,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.presentAddressController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Present Address",
+                    hint: "Present Address",
+                    hintColor: AppColors.kGrayColor400,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.landMarkController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Land Mark",
+                    hint: "Land Mark",
+                    hintColor: AppColors.kGrayColor400,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.permanentAddressController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Permanent Address",
+                    hint: "Permanent Address",
+                    hintColor: AppColors.kGrayColor400,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
                 ],
               ),
 
@@ -252,30 +297,42 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
                 color: Colors.red,
                 children: [
                   CustomTextField(
-                    controller: profileCubit.contactPersonController,
+                    controller: profileCubit.nIDPassportController,
                     isOptional: false,
                     titleStyle: kBodyMedium,
-                    title: "Contact Person",
-                    hint: "Contact Person",
-                    hintColor: AppColors.kGrayColor200,
+                    title: "NID/Passport Number",
+                    hint: "NID/Passport Number",
+                    hintColor: AppColors.kGrayColor400,
                     textColor: AppColors.kGrayColor950,
                     fillColor: AppColors.kWhiteColor,
-                    borderColor: AppColors.kGrayColor400,
                     radius: 10,
                     borderThink: 1,
                     keyboardType: TextInputType.name,
                   ),
                   10.verticalSpace,
                   CustomTextField(
-                    controller: profileCubit.contactNumberController,
+                    controller: profileCubit.familyContactPersonController,
                     isOptional: false,
                     titleStyle: kBodyMedium,
-                    title: "Contact Number",
-                    hint: "Contact Number",
-                    hintColor: AppColors.kGrayColor200,
+                    title: "Family Contact Person",
+                    hint: "Family Contact Person",
+                    hintColor: AppColors.kGrayColor400,
                     textColor: AppColors.kGrayColor950,
                     fillColor: AppColors.kWhiteColor,
-                    borderColor: AppColors.kGrayColor400,
+                    radius: 10,
+                    borderThink: 1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: profileCubit.familyContactNumberController,
+                    isOptional: false,
+                    titleStyle: kBodyMedium,
+                    title: "Family Person Number",
+                    hint: "Family Person Number:",
+                    hintColor: AppColors.kGrayColor400,
+                    textColor: AppColors.kGrayColor950,
+                    fillColor: AppColors.kWhiteColor,
                     radius: 10,
                     borderThink: 1,
                     keyboardType: TextInputType.name,
@@ -295,10 +352,9 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
                     titleStyle: kBodyMedium,
                     title: "Allergies",
                     hint: "Allergies",
-                    hintColor: AppColors.kGrayColor200,
+                    hintColor: AppColors.kGrayColor400,
                     textColor: AppColors.kGrayColor950,
                     fillColor: AppColors.kWhiteColor,
-                    borderColor: AppColors.kGrayColor400,
                     radius: 10,
                     borderThink: 1,
                     keyboardType: TextInputType.name,
@@ -310,35 +366,22 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
                     titleStyle: kBodyMedium,
                     title: "Primary Diagnosis",
                     hint: "Primary Diagnosis",
-                    hintColor: AppColors.kGrayColor200,
+                    hintColor: AppColors.kGrayColor400,
                     textColor: AppColors.kGrayColor950,
                     fillColor: AppColors.kWhiteColor,
-                    borderColor: AppColors.kGrayColor400,
                     radius: 10,
                     borderThink: 1,
                     keyboardType: TextInputType.name,
                   ),
                   10.verticalSpace,
-                  CustomTextField(
-                    controller: profileCubit.coMorbidityController,
-                    isOptional: false,
-                    titleStyle: kBodyMedium,
-                    title: "Co-morbidities",
-                    hint: "Co-morbidities",
-                    hintColor: AppColors.kGrayColor200,
-                    textColor: AppColors.kGrayColor950,
-                    fillColor: AppColors.kWhiteColor,
-                    borderColor: AppColors.kGrayColor400,
-                    radius: 10,
-                    borderThink: 1,
-                    keyboardType: TextInputType.name,
-                  )
                 ],
               ),
               20.verticalSpace,
               CustomButton(
                 title: "Confirm",
-                onTap: (){},
+                onTap: (){
+                  profileCubit.updateProfile();
+                },
               )
             ],
           ),

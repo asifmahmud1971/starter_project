@@ -111,20 +111,20 @@ class FollowUpCubit extends Cubit<FollowUpState> {
       response.fold(
             (failure) {},
             (data) async {
-              printLog(data.toString());
+         /*     printLog(data.toString());
               List<Followup> updatedFollowList = [
                 data,
                 ...?state.followupList, // existing follow-ups
-              ];
-          emit(state.copyWith(
-              appStatus: AppStatus.success, followupList: updatedFollowList));
+              ];*/
+          emit(state.copyWith(appStatus: AppStatus.success, /*followupList: updatedFollowList*/));
           formFieldClean();
           GetContext.back();
+          getFollowUpReport();
           showCustomSnackBar(
             context: GetContext.context,
             message: AppStrings.savedSuccessfullyCreated.tr(),
           );
-         // getFollowUpReport();
+
         },
       );
       dismissProgressDialog();

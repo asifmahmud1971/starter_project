@@ -9,7 +9,8 @@ class BuildSmartDropdown extends StatelessWidget {
   final IconData? icon;
   final Function(String?)? onChanged;
   final String? Function(String?)? validator;
-  const BuildSmartDropdown({super.key, this.value, this.hint, this.items, this.icon, this.onChanged, this.validator});
+  final Widget? prefixIcon;
+  const BuildSmartDropdown({super.key, this.value, this.hint, this.items, this.icon, this.onChanged, this.validator, this.prefixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class BuildSmartDropdown extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(color: AppColors.kPrimaryColor), // Border color when focused
               ),
-              prefixIcon: Icon(icon, color: AppColors.kPrimaryColor),
+              prefixIcon: icon!=null? Icon(icon, color: AppColors.kPrimaryColor):null,
               contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             ),
             items: items?.map((String value) {
