@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:medPilot/core/app/app_context.dart';
@@ -24,19 +25,48 @@ class ProfileCubit extends Cubit<ProfileState> {
   final _appPreferences = instance.get<AppPreferences>();
 
   final nameController = TextEditingController();
-  final ageController = TextEditingController();
-  final genderController = TextEditingController();
   final dateOfBirthController = TextEditingController();
-  final bloodGroupController = TextEditingController();
-  final maritalStatusController = TextEditingController();
   final mobileNoController = TextEditingController();
   final doctorContactController = TextEditingController();
-  final addressController = TextEditingController();
-  final contactPersonController = TextEditingController();
-  final contactNumberController = TextEditingController();
+  final cityController = TextEditingController();
+  final thanaController = TextEditingController();
+  final presentAddressController = TextEditingController();
+  final landMarkController = TextEditingController();
+  final permanentAddressController = TextEditingController();
+  final nIDPassportController = TextEditingController();
+  final familyContactPersonController = TextEditingController();
+  final familyContactNumberController = TextEditingController();
   final allergiesController = TextEditingController();
   final primaryDiagnosisController = TextEditingController();
   final coMorbidityController = TextEditingController();
+
+  String? selectBloodGroup;
+  String? selectMaritalStatus;
+  String? selectGender;
+
+  List<String> bloodGroupList = [
+    'A+',
+    'B+',
+    'AB+',
+    'O+',
+    'A-',
+    'B-',
+    'AB-',
+    'O-'
+  ];
+  List<String> maritalStatusList = [
+    'Married',
+    'Single',
+    'Widow',
+    'Separated',
+    'Divorced'
+  ];
+  List<String> genderList = [
+    'Male',
+    'Female',
+    'Other'
+  ];
+
 
   Future<void> faceUserData() async {
     showProgressDialog();
@@ -71,17 +101,32 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
 
-  Future<void> signIn() async {
+  Future<void> updateProfile() async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
 
     try {
-      final formData = <String, dynamic>{};
-      formData['email'] = nameController.text;
-      formData['password'] = ageController.text;
-      // formData['fcm_token'] = _appPreferences.getFcmToken();
-
-      final response = await _profileRepository.login(formData);
+      final formData = <String, dynamic>{
+        "patient_name": nameController.text,
+        "gender": selectGender??"",
+        "dob": dateOfBirthController.text,
+        "blood_group": selectBloodGroup??"",
+        "marital_status": selectMaritalStatus??"",
+        "phone": mobileNoController.text,
+        "doctor_contact_no": doctorContactController.text,
+        "city_id": cityController.text,
+        "thana_id": thanaController.text,
+        "present_address": presentAddressController.text,
+        "land_mark": landMarkController.text,
+        "permanent_address": permanentAddressController.text,
+        "nid_passport": nIDPassportController.text,
+        "contact_person_number": familyContactNumberController.text,
+        "family_contact_person": familyContactPersonController.text,
+        "relation_family_contract_person": "",
+        "allergy": allergiesController.text,
+        "primary_diagnosis": primaryDiagnosisController.text
+      } ;
+      final response = await _profileRepository.updateUserData(formData);
 
       response.fold(
         (l) {
@@ -90,35 +135,29 @@ class ProfileCubit extends Cubit<ProfileState> {
             isError: true,
             message: AppStrings.wrongCredential.tr(),
           );
-
           emit(state.copyWith(appStatus: AppStatus.failure));
         },
         (r) async {
           resetForm();
           emit(state.copyWith(appStatus: AppStatus.success));
-          await _appPreferences.saveUserData(r.user);
-          await _appPreferences.setUserToken(r.token ?? "");
-          await _appPreferences.setIsUserLoggedIn(true);
-          if (r.user?.userType == "Patient") {
-            GetContext.offAll(Routes.patientDashboard);
-          } else {
-            GetContext.offAll(Routes.staffDashboard);
-          }
+          GetContext.back();
+          faceUserData();
+          showCustomSnackBar(
+            context: GetContext.context,
+            message: AppStrings.savedSuccessfully.tr(),
+          );
+
         },
       );
-
       dismissProgressDialog();
     } catch (e) {
       dismissProgressDialog();
       emit(state.copyWith(appStatus: AppStatus.failure));
-      log('$runtimeType:: @signIn => $e');
     }
   }
 
   void resetForm() {
     nameController.clear();
-    ageController.clear();
-
     emit(state.copyWith(appStatus: AppStatus.initial));
   }
 }

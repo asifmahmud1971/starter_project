@@ -40,5 +40,6 @@ class AppStrings {
   static const String vitalSign = "Vital Signs";
   static const String physicalSymptoms = "Physical Symptoms";
   static const String savedSuccessfullyCreated = "Follow-up record saved successfully.";
+  static const String savedSuccessfully = "Saved successfully.";
 
 }

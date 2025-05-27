@@ -38,4 +38,16 @@ class ProfileRepository implements ProfileRepositoryImp {
       return Left(ApiException.handle(error).failure);
     }
   }
+  @override
+  Future<Either<ApiFailure, UserProfileResponse>> updateUserData(
+      Map<String, dynamic> params) async {
+    try {
+      final response = await apiClient.request(
+          url: ApiUrls.profile, method: Method.post, params: params);
+
+      return Right(UserProfileResponse.fromJson(response));
+    } catch (error) {
+      return Left(ApiException.handle(error).failure);
+    }
+  }
 }
