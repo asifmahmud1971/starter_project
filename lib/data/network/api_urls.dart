@@ -38,6 +38,7 @@ class ApiUrls {
   static const String painAssessment = 'all-pain-assessment';
   static const String addPainAssessment = 'add-pain-assessment';
   static const String painMedication = 'pain-medication';
+  static const String woundDescribeReport = 'wound-describe-report';
 
 
 

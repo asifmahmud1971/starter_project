@@ -1,10 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart';
+import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_describe_report.dart';
 
 class WoundManagementScreen extends StatefulWidget {
   @override
@@ -12,6 +15,13 @@ class WoundManagementScreen extends StatefulWidget {
 }
 
 class _WoundManagementScreenState extends State<WoundManagementScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<WoundClinicCubit>().getWoundDescReport();
+    super.initState();
+  }
+
   final List<WoundRecord> _woundRecords = [
     WoundRecord(
       location: 'iyyy',
@@ -51,6 +61,8 @@ class _WoundManagementScreenState extends State<WoundManagementScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<WoundClinicCubit, WoundClinicState>(
+  builder: (context, state) {
     return Scaffold(
       backgroundColor: Color(0xFFF8F9FA),
       appBar: AppBar(
@@ -68,12 +80,14 @@ class _WoundManagementScreenState extends State<WoundManagementScreen> {
           children: [
             _buildSummaryCard(),
             20.verticalSpace,
-            ..._woundRecords.map((record) => _buildWoundCard(record)).toList(),
+            ...(state.woundDescribeReportModel?.woundDescribe??[]).map((record) => _buildWoundCard(record)).toList(),
             20.verticalSpace,
           ],
         ),
       ),
     );
+  },
+);
   }
 
   Widget _buildSummaryCard() {
@@ -147,7 +161,7 @@ class _WoundManagementScreenState extends State<WoundManagementScreen> {
     );
   }
 
-  Widget _buildWoundCard(WoundRecord record) {
+  Widget _buildWoundCard(WoundDescribe record) {
     final dateFormat = DateFormat('MM/dd/yyyy');
 
     return Container(
@@ -158,12 +172,12 @@ class _WoundManagementScreenState extends State<WoundManagementScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (record.woundType != null) ...[
+            if (record.patternOfWound != null) ...[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    record.woundType!,
+                    record.patternOfWound!,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -173,17 +187,17 @@ class _WoundManagementScreenState extends State<WoundManagementScreen> {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: _getWoundColor(record.woundType!).withOpacity(0.1),
+                      color: _getWoundColor(record.patternOfWound!).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: _getWoundColor(record.woundType!),
+                        color: _getWoundColor(record.patternOfWound!),
                         width: 1,
                       ),
                     ),
                     child: Text(
-                      record.woundType!,
+                      record.patternOfWound!,
                       style: TextStyle(
-                        color: _getWoundColor(record.woundType!),
+                        color: _getWoundColor(record.patternOfWound!),
                         fontSize: 12,
                       ),
                     ),
@@ -194,11 +208,11 @@ class _WoundManagementScreenState extends State<WoundManagementScreen> {
               _buildDetailRow('${AppStrings.location.tr()}:', record.location ?? 'Not specified'),
               _buildDetailRow('${AppStrings.site.tr()}:', record.site ?? 'Not specified'),
               _buildDetailRow(
-                  '${AppStrings.firstOccurred.tr()}:', record.firstOccurred ?? 'Not specified'),
+                  '${AppStrings.firstOccurred.tr()}:', record.occured ?? 'Not specified'),
               Divider(height: 24),
             ],
-            _buildDetailRow('${AppStrings.date.tr()}:', dateFormat.format(record.date)),
-            _buildDetailRow('${AppStrings.debridement.tr()}:', record.debridement),
+            _buildDetailRow('${AppStrings.date.tr()}:', dateFormat.format(DateTime.parse(record.date??DateTime.now().toString()))),
+  /*          _buildDetailRow('${AppStrings.debridement.tr()}:', record.location??""),
             _buildDetailRow('${AppStrings.cleaningSolution.tr()}:', record.cleaningSolution),
             if (record.productUsed != null)
               _buildDetailRow('${AppStrings.productUsed.tr()}:', record.productUsed!),
@@ -206,7 +220,7 @@ class _WoundManagementScreenState extends State<WoundManagementScreen> {
               _buildDetailRow('${AppStrings.dressingFrequency.tr()}:', record.dressingFrequency!),
             if (record.nextReviewDate != null)
               _buildDetailRow(
-                  '${AppStrings.nextReview.tr()}:', dateFormat.format(record.nextReviewDate!)),
+                  '${AppStrings.nextReview.tr()}:', dateFormat.format(record.nextReviewDate!)),*/
           ],
         ),
       ),
