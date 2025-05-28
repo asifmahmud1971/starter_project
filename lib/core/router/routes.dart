@@ -31,7 +31,7 @@ class Routes {
   static const String followUp = "follow_up";
   static const String painClinic = "pain_clinic";
   static const String woundClinic = "wound_clinic";
-  static const String psychSocialReport = "psych_social_report";
+  static const String psychSocialReport = "psych_social_clinic";
 
 }
 
