@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 //class PsychoSocialReportPage extends StatelessWidget {
 import 'package:flutter/material.dart';
-import 'package:medPilot/core/app/app_context.dart';
-import 'package:medPilot/features/patient_portal/services/psych_social_clinic/view/add_psych_social_screen.dart';
 
 class PsychoSocialReportPage extends StatelessWidget {
   const PsychoSocialReportPage({super.key});
@@ -83,10 +81,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
-                InkWell(
-                    onTap: ()=> GetContext.to(AddPsychoSocialScreen()),
-
-                    child: const Icon(Icons.notifications_outlined)),
+                const Icon(Icons.notifications_outlined),
                 const SizedBox(width: 16),
                 CircleAvatar(
                   backgroundColor: Colors.blue[800],

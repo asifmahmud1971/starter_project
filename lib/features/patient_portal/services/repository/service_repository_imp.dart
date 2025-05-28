@@ -10,6 +10,7 @@ import 'package:medPilot/features/patient_portal/services/follow_up/model/follow
 import 'package:medPilot/features/patient_portal/services/pain_clinic/model/add_pain_assessment_model.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/model/medication_model.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/model/pain_assessment.dart';
+import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_describe_report.dart';
 
 import '../pain_clinic/widget/pain_assessment.dart';
 import 'service_repository.dart';
@@ -78,6 +79,15 @@ class ServiceRepositoryImp implements ServiceRepository {
         method: Method.post,
         params: params,
         fromJson: Followup.fromJson);
+  }
+@override
+  Future<Either<ApiFailure, WoundDescribeReportModel>> getWoundDescribeReport(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+        url: ApiUrls.woundDescribeReport,
+        method: Method.get,
+        params: params,
+        fromJson: WoundDescribeReportModel.fromJson);
   }
 
 

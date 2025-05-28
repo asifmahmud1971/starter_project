@@ -61,5 +61,19 @@ class AppStrings {
   static const String savedSuccessfully = "Saved successfully.";
   static const String submitAssessment = "Submit Assessment";
   static const String management = "Management";
+  static const String woundManagementReport = "Wound Management Report";
+  static const String woundSummery = "Wound Summary";
+  static const String totalWounds = "Total Wounds";
+  static const String activeCases = "Active Cases";
+  static const String burns = "Burns";
+  static const String bedSores = "Bed Sores";
+  static const String site = "Site";
+  static const String firstOccurred = "First Occurred";
+  static const String date = "Date";
+  static const String debridement = "Debridement";
+  static const String cleaningSolution = "Cleaning Solution";
+  static const String productUsed = "Product Used";
+  static const String dressingFrequency = "Dressing Frequency";
+  static const String nextReview = "Next Review";
 
 }
