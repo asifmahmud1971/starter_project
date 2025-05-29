@@ -376,13 +376,15 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
                   10.verticalSpace,
                 ],
               ),
-              20.verticalSpace,
+              10.verticalSpace,
               CustomButton(
                 title: "Confirm",
                 onTap: (){
                   profileCubit.updateProfile();
                 },
-              )
+                backgroundColor: AppColors.kPrimaryColor,
+              ),
+              20.verticalSpace,
             ],
           ),
         ),

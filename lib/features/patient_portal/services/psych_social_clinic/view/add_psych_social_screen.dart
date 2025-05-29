@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medPilot/core/components/custom_button.dart';
+import 'package:medPilot/core/constants/app_colors.dart';
 
 class AddPsychoSocialScreen extends StatefulWidget {
   const AddPsychoSocialScreen({super.key});
@@ -70,11 +73,15 @@ class _AddPsychoSocialScreenState extends State<AddPsychoSocialScreen> {
               _informationValue,
               (value) => setState(() => _informationValue = value),
             ),
-            const SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: _submitForm,
-              child: const Text('SUBMIT', style: TextStyle(fontSize: 16)),
+            20.verticalSpace,
+            CustomButton(
+              title: "Confirm",
+              onTap: () {
+                //profileCubit.updateProfile();
+              },
+              backgroundColor: AppColors.kPrimaryColor,
             ),
+            20.verticalSpace,
           ],
         ),
       ),
