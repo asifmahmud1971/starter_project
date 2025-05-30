@@ -17,7 +17,18 @@ class ForgotPasswordRepository implements ForgotPasswordRepositoryImp {
       Map<String, dynamic> params) async {
     try {
       final response = await apiClient.request(
-          url: ApiUrls.login, method: Method.post, params: params);
+          url: ApiUrls.checkUser, method: Method.post, params: params);
+      return Right(response);
+    } catch (error) {
+      return Left(ApiException.handle(error).failure);
+    }
+  }
+  @override
+  Future<Either<ApiFailure, dynamic>> setPassword(
+      Map<String, dynamic> params) async {
+    try {
+      final response = await apiClient.request(
+          url: ApiUrls.resetNewPassword, method: Method.post, params: params);
       return Right(response);
     } catch (error) {
       return Left(ApiException.handle(error).failure);

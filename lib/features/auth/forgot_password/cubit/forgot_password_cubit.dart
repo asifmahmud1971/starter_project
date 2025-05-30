@@ -12,6 +12,7 @@ import 'package:medPilot/core/components/custom_progress_loader.dart';
 import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/core/router/routes.dart';
+import 'package:medPilot/features/auth/forgot_password/view/set_password_screen.dart';
 import '../../../../../core/constants/app_strings.dart';
 import '../repository/forgot_password_repository_imp.dart';
 
@@ -26,6 +27,8 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
 
   final emailCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
+  final passwordNewCtrl = TextEditingController();
+  final passwordConfirmCtrl = TextEditingController();
 
   Future<void> forgotPassword() async {
     showProgressDialog();
@@ -34,7 +37,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     try {
       final formData = <String, dynamic>{};
       formData['email'] = emailCtrl.text;
-      formData['password'] = passwordCtrl.text;
+      //formData['password'] = passwordCtrl.text;
       // formData['fcm_token'] = _appPreferences.getFcmToken();
 
       final response = await _forgotRepository.forgotPassword(formData);
@@ -50,16 +53,49 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
           emit(state.copyWith(appStatus: AppStatus.failure));
         },
         (r) async {
+          emit(state.copyWith(appStatus: AppStatus.success));
+          GetContext.to(SetPasswordScreen());
+        },
+      );
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+      emit(state.copyWith(appStatus: AppStatus.failure));
+      log('$runtimeType:: @signIn => $e');
+    }
+  }
+
+  Future<void> setPassword() async {
+    showProgressDialog();
+    emit(state.copyWith(appStatus: AppStatus.loading));
+
+    try {
+      final formData = <String, dynamic>{};
+      formData['email'] = emailCtrl.text;
+      formData['password'] = passwordNewCtrl.text;
+      // formData['fcm_token'] = _appPreferences.getFcmToken();
+
+      final response = await _forgotRepository.setPassword(formData);
+
+      response.fold(
+        (l) {
+          showCustomSnackBar(
+            context: GetContext.context,
+            isError: true,
+            message: AppStrings.wrongCredential.tr(),
+          );
+
+          emit(state.copyWith(appStatus: AppStatus.failure));
+        },
+        (r) async {
           resetForm();
           emit(state.copyWith(appStatus: AppStatus.success));
-          await _appPreferences.saveUserData(r.user);
-          await _appPreferences.setUserToken(r.token ?? "");
-          await _appPreferences.setIsUserLoggedIn(true);
-          if (r.user?.userType == "Patient") {
-            GetContext.offAll(Routes.patientDashboard);
-          } else {
-            GetContext.offAll(Routes.staffDashboard);
-          }
+          GetContext.offAll(Routes.signIn);
+          showCustomSnackBar(
+            context: GetContext.context,
+            message: AppStrings.successFullyChanged.tr(),
+          );
         },
       );
 
@@ -74,6 +110,8 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   void resetForm() {
     emailCtrl.clear();
     passwordCtrl.clear();
+    passwordNewCtrl.clear();
+    passwordConfirmCtrl.clear();
 
     emit(state.copyWith(appStatus: AppStatus.initial));
   }

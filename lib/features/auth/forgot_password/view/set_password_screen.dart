@@ -6,11 +6,12 @@ import 'package:medPilot/core/components/custom_text_field.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/auth/forgot_password/cubit/forgot_password_cubit.dart';
 import 'package:medPilot/features/auth/sign_in/cubit/sign_in_cubit.dart';
 import 'package:medPilot/generated/assets.dart';
 
-class ChangePasswordScreen extends StatelessWidget {
-  const ChangePasswordScreen({super.key});
+class SetPasswordScreen extends StatelessWidget {
+  const SetPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +28,7 @@ class ChangePasswordScreen extends StatelessWidget {
             children: [
               40.verticalSpace,
               CustomTextField(
-                controller: context.read<SignInCubit>().passwordCtrl,
-                radius: 10.r,
-                labelText: AppStrings.enterCurrentPassword.tr(),
-                labelStyle:
-                kBodyMedium.copyWith(color: AppColors.kGrayColor400),
-              ),
-              16.verticalSpace,
-              CustomTextField(
-                controller: context.read<SignInCubit>().passwordCtrl,
+                controller: context.read<ForgotPasswordCubit>().passwordNewCtrl,
                 radius: 10.r,
                 labelText: AppStrings.enterNewPassword.tr(),
                 labelStyle:
@@ -43,7 +36,7 @@ class ChangePasswordScreen extends StatelessWidget {
               ),
               16.verticalSpace,
               CustomTextField(
-                controller: context.read<SignInCubit>().passwordCtrl,
+                controller: context.read<ForgotPasswordCubit>().passwordConfirmCtrl,
                 radius: 10.r,
                 labelText: AppStrings.enterConfirmPassword.tr(),
                 labelStyle:
@@ -53,7 +46,7 @@ class ChangePasswordScreen extends StatelessWidget {
               // Login Button
               ElevatedButton(
                 onPressed: () {
-                  context.read<SignInCubit>().signIn();
+                  context.read<ForgotPasswordCubit>().setPassword();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.kPrimaryColor,

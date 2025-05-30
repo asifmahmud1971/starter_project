@@ -6,8 +6,7 @@ import 'package:medPilot/core/components/custom_text_field.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
-import 'package:medPilot/features/auth/sign_in/cubit/sign_in_cubit.dart';
-import 'package:medPilot/generated/assets.dart';
+import 'package:medPilot/features/auth/forgot_password/cubit/forgot_password_cubit.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
@@ -17,7 +16,11 @@ class ForgotPasswordScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          title: Text(AppStrings.forgotPassword.tr(),style: kBodyLarge,)),
+        title: Text(
+          AppStrings.forgotPassword.tr(),
+          style: kBodyLarge,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -27,25 +30,16 @@ class ForgotPasswordScreen extends StatelessWidget {
             children: [
               40.verticalSpace,
               CustomTextField(
-                controller: context.read<SignInCubit>().passwordCtrl,
+                controller: context.read<ForgotPasswordCubit>().emailCtrl,
                 radius: 10.r,
-                labelText: AppStrings.enterNewPassword.tr(),
-                labelStyle:
-                    kBodyMedium.copyWith(color: AppColors.kGrayColor400),
-              ),
-              16.verticalSpace,
-              CustomTextField(
-                controller: context.read<SignInCubit>().passwordCtrl,
-                radius: 10.r,
-                labelText: AppStrings.enterReNewPassword.tr(),
+                labelText: AppStrings.enterEmail.tr(),
                 labelStyle:
                     kBodyMedium.copyWith(color: AppColors.kGrayColor400),
               ),
               40.verticalSpace,
-              // Login Button
               ElevatedButton(
                 onPressed: () {
-                  context.read<SignInCubit>().signIn();
+                  context.read<ForgotPasswordCubit>().forgotPassword();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.kPrimaryColor,
@@ -60,7 +54,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                   AppStrings.submit.tr(),
                   style: kTitleMedium.copyWith(color: AppColors.kWhiteColor),
                 ),
-              ),
+              )   ,
               30.verticalSpace,
             ],
           ),

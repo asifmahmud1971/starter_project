@@ -23,6 +23,8 @@ class ApiUrls {
   }
    //auth
   static const String login = 'login';
+  static const String checkUser = 'check-user';
+  static const String resetNewPassword = 'reset-new-password';
   static const String register = 'register';
   static const String checkEmailExists = 'check-email-exists';
   static const String registerSendOtp = 'register/send-otp';

@@ -27,11 +27,12 @@ class AppStrings {
   static const String enterPassword = "Enter Password";
   static const String enterCurrentPassword = "Enter Current Password";
   static const String enterNewPassword = "Enter New Password";
-  static const String enterReNewPassword = "Enter Re-New Password";
+  static const String enterConfirmPassword = "Enter Confirm Password";
   static const String or = "OR";
   static const String wrongCredential = "Email or Password Incorrect";
   static const String somethingWentWrong = "Something went wrong";
   static const String myCart = "My Cart";
+  static const String successFullyChanged = "Successfully Changed";
 
   // prescription
   static const String years = "years";
