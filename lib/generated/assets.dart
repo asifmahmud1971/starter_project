@@ -63,11 +63,11 @@ class Assets {
   static const String imagesLoader = 'assets/images/loader.json';
   static const String imagesLogo = 'assets/images/logo.png';
   static const String imagesMeditationThumb = 'assets/images/meditation_thumb.png';
+  static const String imagesSplashLogo = 'assets/images/splash_logo.png';
   static const String imagesMusicEmpty = 'assets/images/music_empty.png';
   static const String imagesOutdoor = 'assets/images/outdoor.png';
   static const String imagesPlaceholderImage = 'assets/images/placeholder-image.png';
   static const String imagesRocket = 'assets/images/rocket.png';
-  static const String imagesSplashLogo = 'assets/images/splash_logo.png';
   static const String imagesTermsAndConditions = 'assets/images/terms_and_conditions.png';
   static const String medAlliedHealth = 'assets/icons/med/AlliedHealth.svg';
   static const String medAmbulance = 'assets/icons/med/Ambulance.svg';
@@ -90,7 +90,7 @@ class Assets {
   static const String medInvestigationsup = 'assets/icons/med/investigationsup.svg';
   static const String medLabReport = 'assets/icons/med/lab_report.svg';
   static const String medMedicine = 'assets/icons/med/medicine.svg';
-  static const String medMedpilot = 'assets/icons/med/medpilot.png';
+  static const String medMedpilot = 'assets/icons/med/splash_logo.png';
   static const String medMonitoring = 'assets/icons/med/Monitoring.svg';
   static const String medMore = 'assets/icons/med/more.svg';
   static const String medPainClinic = 'assets/icons/med/painClinic.svg';

@@ -27,13 +27,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _navigation() async {
     if (widget._appPreferences.isUserLoggedIn()) {
-
-      if(widget._appPreferences.getUserData().userType == "Patient") {
+      if (widget._appPreferences.getUserData().userType == "Patient") {
         GetContext.offAll(Routes.patientDashboard);
-      }else{
+      } else {
         GetContext.offAll(Routes.staffDashboard);
       }
-
     } else {
       Navigator.pushNamedAndRemoveUntil(
           context, Routes.signIn, (route) => false);
@@ -56,21 +54,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.kPriceColor,
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(Assets.imagesBackround),
-            fit: BoxFit.fill,
-          ),
-        ),
+
         child: Center(
           child: Hero(
             tag: 'logo',
             child: Image.asset(
               Assets.imagesSplashLogo,
-              width: 200.r,
-              height: 72.r,
+              width: 300.r,
+              height: 100.r,
             ),
           ),
         ),
