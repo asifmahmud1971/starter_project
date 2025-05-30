@@ -18,15 +18,20 @@ class AppStrings {
   static const String logOut = "logOut";
   static const String home = "home";
 
-  static const String forgotPassword = "Forgot Password?";
+  static const String forgotPassword = "Forgot Password";
   static const String login = "Login";
   static const String dontHaveAnAccount = "Don't have an account?";
   static const String signUp = "Sign Up";
   static const String enterEmail = "Enter Email";
   static const String enterPassword = "Enter Password";
+  static const String enterCurrentPassword = "Enter Current Password";
+  static const String enterNewPassword = "Enter New Password";
+  static const String enterConfirmPassword = "Enter Confirm Password";
   static const String or = "OR";
   static const String wrongCredential = "Email or Password Incorrect";
+  static const String somethingWentWrong = "Something went wrong";
   static const String myCart = "My Cart";
+  static const String successFullyChanged = "Successfully Changed";
 
   // prescription
   static const String years = "years";
@@ -83,4 +88,6 @@ class AppStrings {
   static const String noMedicationAvailable = "No medication data available.";
   static const String anUnExpectedErrorOccur = "An unexpected error occurred.";
   static const String painAssessmentSubmittedSuccessfully = "Pain assessment submitted successfully";
+  static const String submit = "Submit";
+
 }

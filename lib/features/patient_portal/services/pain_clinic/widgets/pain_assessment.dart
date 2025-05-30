@@ -6,7 +6,7 @@ import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/model/pain_assessment.dart';
-import 'package:medPilot/features/patient_portal/services/pain_clinic/widget/pain_assessment_dialog.dart';
+import 'package:medPilot/features/patient_portal/services/pain_clinic/widgets/pain_assessment_dialog.dart';
 
 class PainAssessment extends StatefulWidget {
   final AllPainAssessment? entry;

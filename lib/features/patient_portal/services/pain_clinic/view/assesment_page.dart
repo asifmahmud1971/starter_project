@@ -9,7 +9,7 @@ import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/cubit/painClinic_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/view/add_pain.dart';
-import 'package:medPilot/features/patient_portal/services/pain_clinic/widget/pain_assessment.dart';
+import 'package:medPilot/features/patient_portal/services/pain_clinic/widgets/pain_assessment.dart';
 
 class AssessmentPage extends StatefulWidget {
   @override

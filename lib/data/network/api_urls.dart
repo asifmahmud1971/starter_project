@@ -23,6 +23,8 @@ class ApiUrls {
   }
    //auth
   static const String login = 'login';
+  static const String checkUser = 'check-user';
+  static const String resetNewPassword = 'reset-new-password';
   static const String register = 'register';
   static const String checkEmailExists = 'check-email-exists';
   static const String registerSendOtp = 'register/send-otp';
@@ -40,6 +42,8 @@ class ApiUrls {
   static const String painMedication = 'pain-medication';
   static const String givenMedicine = 'given-medicine';
   static const String woundDescribeReport = 'wound-describe-report';
+  static const String rehabPullCareReport = 'rehabilitative-pall-menu';
+  static const String rehabilitativePallVideo = 'rehabilitative-pall-video';
   static const String showUploadDocument = 'show-upload-document';
   static const String uploadDoc = 'show-upload-document';
 

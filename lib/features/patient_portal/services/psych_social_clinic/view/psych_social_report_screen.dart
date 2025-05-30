@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/constants/app_text_style.dart';
+
+import 'add_psych_social_screen.dart';
 
 class PsychoSocialReportPage extends StatelessWidget {
   final List<PsychoSocialRecord> records = [
@@ -35,41 +40,38 @@ class PsychoSocialReportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF8F9FA),
-      appBar: AppBar(
-        title: Text('Psycho Social Report'),
-        centerTitle: true,
-        backgroundColor: Color(0xFFFF904D), // Your primary color
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
-        ),
-      ),
-      body: Column(
-        children: [
-          // Summary Section
-          _buildSummaryCard(),
-
-          // Records List
-          Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.all(16),
-              itemCount: records.length,
-              itemBuilder: (context, index) {
-                return _buildRecordCard(records[index], index + 1);
-              },
-            ),
+        backgroundColor: Color(0xFFF8F9FA),
+        appBar: AppBar(
+          title: Text(
+            'Psycho Social Report',
+            style: kTitleLarge.copyWith(color: AppColors.white),
           ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFFFF904D),
-        child: Icon(Icons.add),
-        onPressed: () {
-          // Add new record
-        },
-      ),
-    );
+          centerTitle: true,
+          iconTheme: IconThemeData(color: AppColors.white),
+          backgroundColor: Color(0xFFFF904D),
+          // Your primary color
+          elevation: 0,
+        ),
+        body: Column(
+          children: [
+            _buildSummaryCard(),
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.all(16),
+                itemCount: records.length,
+                itemBuilder: (context, index) {
+                  return _buildRecordCard(records[index], index + 1);
+                },
+              ),
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: Color(0xFFFF904D),
+            child: Icon(Icons.add),
+            onPressed: () {
+              GetContext.to(AddPsychoSocialScreen());
+            }));
   }
 
   Widget _buildSummaryCard() {
@@ -96,9 +98,11 @@ class PsychoSocialReportPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildSummaryItem('Positive Days', '12', Icons.sentiment_satisfied_alt),
+                _buildSummaryItem(
+                    'Positive Days', '12', Icons.sentiment_satisfied_alt),
                 _buildSummaryItem('Neutral Days', '5', Icons.sentiment_neutral),
-                _buildSummaryItem('Challenging Days', '3', Icons.sentiment_dissatisfied),
+                _buildSummaryItem(
+                    'Challenging Days', '3', Icons.sentiment_dissatisfied),
               ],
             ),
           ],
@@ -177,8 +181,10 @@ class PsychoSocialReportPage extends StatelessWidget {
             SizedBox(height: 12),
             Divider(height: 1),
             SizedBox(height: 12),
-            _buildEmotionRow('Feeling anxious or worried:', record.feelingAnxious),
-            _buildEmotionRow('Friends anxious or worried:', record.friendsAnxious),
+            _buildEmotionRow(
+                'Feeling anxious or worried:', record.feelingAnxious),
+            _buildEmotionRow(
+                'Friends anxious or worried:', record.friendsAnxious),
             _buildEmotionRow('Feeling depressed:', record.feelingDepressed),
             _buildEmotionRow('Felt at peace:', record.feltAtPeace),
             _buildEmotionRow('Able to share feelings:', record.ableToShare),

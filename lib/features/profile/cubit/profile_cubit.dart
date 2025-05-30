@@ -84,7 +84,7 @@ class ProfileCubit extends Cubit<ProfileState> {
           showCustomSnackBar(
             context: GetContext.context,
             isError: true,
-            message: AppStrings.wrongCredential.tr(),
+            message: AppStrings.somethingWentWrong.tr(),
           );
 
           emit(state.copyWith(appStatus: AppStatus.failure));
