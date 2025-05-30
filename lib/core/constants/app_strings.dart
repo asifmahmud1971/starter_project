@@ -82,4 +82,5 @@ class AppStrings {
   static const String doesNotFoundInChart = "Dose not found in chart.";
   static const String noMedicationAvailable = "No medication data available.";
   static const String anUnExpectedErrorOccur = "An unexpected error occurred.";
+  static const String painAssessmentSubmittedSuccessfully = "Pain assessment submitted successfully";
 }

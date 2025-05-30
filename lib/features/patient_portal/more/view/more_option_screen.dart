@@ -38,19 +38,6 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
             // Medical Profile Header
             _buildMedicalProfileHeader(),
             24.verticalSpace,
-
-          /*  // Quick Actions
-            Text('QUICK ACTIONS',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[500],
-                  letterSpacing: 1.2,
-                )),*/
-            /*SizedBox(height: 12),
-            _buildQuickActions(),*/
-
-            // Account Settings
             Text('ACCOUNT SETTINGS',
                 style: TextStyle(
                   fontSize: 12,
@@ -69,7 +56,7 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
                 children: [
                   _buildSettingsItem(
                     icon: FontAwesomeIcons.user,
-                    title: 'Medical Profile',
+                    title: 'My Profile',
                     subtitle: 'Complete your professional details',
                     isComplete: false,
                   ),
@@ -82,14 +69,21 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
                   ),
                   Divider(height: 1, indent: 20, endIndent: 20,color: AppColors.kGrayColor300,),
                   _buildSettingsItem(
-                    icon: FontAwesomeIcons.briefcaseMedical,
-                    title: 'Medical Tools',
+                    icon: FontAwesomeIcons.boxesPacking,
+                    title: 'My Package',
                     subtitle: 'Access your diagnostic tools',
                     isComplete: true,
                   ),
                   Divider(height: 1, indent: 20, endIndent: 20,color: AppColors.kGrayColor300,),
                   _buildSettingsItem(
-                    icon: Icons.notifications_active,
+                    icon: FontAwesomeIcons.internetExplorer,
+                    title: 'Website',
+                    subtitle: 'Browse our website',
+                    isComplete: false,
+                  ),
+                  Divider(height: 1, indent: 20, endIndent: 20,color: AppColors.kGrayColor300,),
+                  _buildSettingsItem(
+                    icon: FontAwesomeIcons.bell,
                     title: 'Notifications',
                     subtitle: 'Alerts and reminders',
                     isComplete: true,
@@ -101,28 +95,17 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
                       });
                     },
                   ),
-                  Divider(height: 1, indent: 20, endIndent: 20,color: AppColors.kGrayColor300,),
-                  _buildSettingsItem(
-                    icon: Icons.dark_mode,
-                    title: 'Dark Mode',
-                    subtitle: 'Better for low-light environments',
-                    isComplete: true,
-                    isToggle: true,
-                    toggleValue: _darkModeEnabled,
-                    onToggle: (value) {
-                      setState(() {
-                        _darkModeEnabled = value;
-                      });
-                    },
-                  ),
+
+
                 ],
               ),
             ),
-            SizedBox(height: 24),
-
+            24.verticalSpace,
+            _buildExpiryNotice(),
+            24.verticalSpace,
             // Support Section
             _buildSupportSection(),
-            SizedBox(height: 16),
+          16.verticalSpace,
 
             // Logout Button
             Center(
@@ -169,7 +152,7 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Dr. Hasan',
+                'David Jhone',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -177,25 +160,19 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
               ),
               SizedBox(height: 4),
               Text(
-                'Cardiologist',
+                'patient1@hphospital.com',
                 style: TextStyle(
                   color: Colors.grey[600],
                   fontSize: 14,
                 ),
               ),
-              SizedBox(height: 8),
-              Row(
-                children: [
-                  Icon(Icons.star, color: Colors.amber, size: 16),
-                  SizedBox(width: 4),
-                  Text(
-                    '4.8 (125 reviews)',
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
+              8.verticalSpace,
+              Text(
+                'Male • 54 Years',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 13,
+                ),
               ),
             ],
           ),
@@ -203,6 +180,45 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
       ],
     );
   }
+
+  Widget _buildExpiryNotice() {
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.amber[50],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.amber[100]!),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.warning_amber_outlined, color: Colors.amber),
+          SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Subscription Expiring Soon',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  'Your premium membership will expire in 7 days',
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 
 
 
@@ -218,15 +234,17 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       leading: Container(
-        width: 40,
-        height: 40,
+        padding: EdgeInsets.all(5.r),
+        alignment: Alignment.center,
+        width: 40.r,
+        height: 40.r,
         decoration: BoxDecoration(
-          color: Color(0xFF0D47A1).withOpacity(0.1),
+          color: AppColors.kPrimaryColor.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(12),
         ),
         child: FaIcon(
           icon,
-          color: Color(0xFF0D47A1),
+          color: AppColors.kPrimaryColor,
         ),
       ),
       title: Text(
@@ -246,7 +264,7 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
           ? Switch(
         value: toggleValue,
         onChanged: onToggle,
-        activeColor: Color(0xFF0D47A1),
+        activeColor: AppColors.kPrimaryColor,
       )
           : Row(
         mainAxisSize: MainAxisSize.min,
@@ -257,7 +275,7 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
               color: Colors.green,
               size: 20,
             ),
-          SizedBox(width: 8),
+          8.horizontalSpace,
           FaIcon(
             Icons.chevron_right,
             color: Colors.grey,

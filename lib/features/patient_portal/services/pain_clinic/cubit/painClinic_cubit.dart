@@ -80,7 +80,7 @@ class PainClinicCubit extends Cubit<PainClinicState> {
       );
       GetContext.back();
 
-      showCustomSnackBar(message: "Pain assessment submitted successfully");
+      showCustomSnackBar(message: AppStrings.painAssessmentSubmittedSuccessfully.tr());
 
       dismissProgressDialog();
     } catch (e) {
