@@ -48,6 +48,7 @@ const String kBankAddress =
 const String kBankName = "ProCredit Bank, Kosovo";
 const String kBankAC = "XK05 1189008787000122";
 const String kBankBIC = "MBKOXKPRXXX";
+const String appBaseUrl = "https://my.medpilot.app/";
 
 ///DEV Key
 /*const String consumerKey = "ck_3c6d81a7deca27c7dc85776f6f02d255e3250010";

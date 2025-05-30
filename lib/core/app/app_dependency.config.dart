@@ -11,25 +11,25 @@
 import 'package:dio/dio.dart' as _i5;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:medPilot/core/app/app_dependency.dart' as _i29;
+import 'package:medPilot/core/app/app_dependency.dart' as _i30;
 import 'package:medPilot/core/app/app_preference.dart' as _i3;
-import 'package:medPilot/data/network/api_client.dart' as _i19;
+import 'package:medPilot/data/network/api_client.dart' as _i20;
 import 'package:medPilot/data/network/api_request.dart' as _i10;
 import 'package:medPilot/features/auth/sign_in/cubit/sign_in_cubit.dart'
-    as _i28;
+    as _i29;
 import 'package:medPilot/features/auth/sign_in/repository/sign_in_repository.dart'
-    as _i26;
+    as _i27;
 import 'package:medPilot/features/auth/sign_in/repository/sign_in_repository_imp.dart'
-    as _i25;
+    as _i26;
 import 'package:medPilot/features/auth/sign_up/cubit/sign_up_cubit.dart' as _i6;
 import 'package:medPilot/features/auth/sign_up/repository/sign_up_repository.dart'
-    as _i20;
-import 'package:medPilot/features/auth/sign_up/repository/sign_up_repository_imp.dart'
     as _i21;
+import 'package:medPilot/features/auth/sign_up/repository/sign_up_repository_imp.dart'
+    as _i22;
 import 'package:medPilot/features/dashboard/cubit/dashboard_cubit.dart' as _i7;
 import 'package:medPilot/features/no_internet/cubit/internet_cubit.dart' as _i9;
 import 'package:medPilot/features/patient_portal/home/cubit/home_cubit.dart'
-    as _i24;
+    as _i25;
 import 'package:medPilot/features/patient_portal/home/repository/home_repository.dart'
     as _i13;
 import 'package:medPilot/features/patient_portal/home/repository/home_repository_imp.dart'
@@ -44,13 +44,15 @@ import 'package:medPilot/features/patient_portal/services/repository/service_rep
     as _i11;
 import 'package:medPilot/features/patient_portal/services/repository/service_repository_imp.dart'
     as _i12;
+import 'package:medPilot/features/patient_portal/services/upload_document/cubit/document_cubit.dart'
+    as _i19;
 import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart'
     as _i18;
-import 'package:medPilot/features/profile/cubit/profile_cubit.dart' as _i27;
+import 'package:medPilot/features/profile/cubit/profile_cubit.dart' as _i28;
 import 'package:medPilot/features/profile/repository/profile_repository.dart'
-    as _i23;
+    as _i24;
 import 'package:medPilot/features/profile/repository/profile_repository_imp.dart'
-    as _i22;
+    as _i23;
 import 'package:medPilot/features/theme/cubit/theme_cubit.dart' as _i8;
 import 'package:shared_preferences/shared_preferences.dart' as _i4;
 
@@ -89,19 +91,21 @@ Future<_i1.GetIt> $initGetIt(
       () => _i17.PainClinicCubit(gh<_i11.ServiceRepository>()));
   gh.factory<_i18.WoundClinicCubit>(
       () => _i18.WoundClinicCubit(gh<_i11.ServiceRepository>()));
-  gh.factory<_i19.ApiClient>(() => _i19.ApiClient(gh<_i5.Dio>()));
-  gh.factory<_i20.SignUpRepository>(
-      () => _i21.SignUpRepositoryImp(apiRequest: gh<_i10.ApiRequest>()));
-  gh.factory<_i22.ProfileRepositoryImp>(
-      () => _i23.ProfileRepository(apiClient: gh<_i19.ApiClient>()));
-  gh.factory<_i24.HomeCubit>(() => _i24.HomeCubit(gh<_i13.HomeRepository>()));
-  gh.factory<_i25.SignInRepositoryImp>(
-      () => _i26.SignInRepository(apiClient: gh<_i19.ApiClient>()));
-  gh.factory<_i27.ProfileCubit>(
-      () => _i27.ProfileCubit(gh<_i22.ProfileRepositoryImp>()));
-  gh.factory<_i28.SignInCubit>(
-      () => _i28.SignInCubit(gh<_i25.SignInRepositoryImp>()));
+  gh.factory<_i19.DocumentCubit>(
+      () => _i19.DocumentCubit(gh<_i11.ServiceRepository>()));
+  gh.factory<_i20.ApiClient>(() => _i20.ApiClient(gh<_i5.Dio>()));
+  gh.factory<_i21.SignUpRepository>(
+      () => _i22.SignUpRepositoryImp(apiRequest: gh<_i10.ApiRequest>()));
+  gh.factory<_i23.ProfileRepositoryImp>(
+      () => _i24.ProfileRepository(apiClient: gh<_i20.ApiClient>()));
+  gh.factory<_i25.HomeCubit>(() => _i25.HomeCubit(gh<_i13.HomeRepository>()));
+  gh.factory<_i26.SignInRepositoryImp>(
+      () => _i27.SignInRepository(apiClient: gh<_i20.ApiClient>()));
+  gh.factory<_i28.ProfileCubit>(
+      () => _i28.ProfileCubit(gh<_i23.ProfileRepositoryImp>()));
+  gh.factory<_i29.SignInCubit>(
+      () => _i29.SignInCubit(gh<_i26.SignInRepositoryImp>()));
   return getIt;
 }
 
-class _$AppModule extends _i29.AppModule {}
+class _$AppModule extends _i30.AppModule {}

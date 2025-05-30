@@ -76,21 +76,25 @@ class PainMedications {
 
 class Chart {
   Chart({
+    this.id,
     this.date,
     this.time,
     this.taken,});
 
   Chart.fromJson(dynamic json) {
+    id = json['id'];
     date = json['date'];
     time = json['time'];
     taken = json['taken'];
   }
+  int? id;
   String? date;
   String? time;
   String? taken;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['id'] = id;
     map['date'] = date;
     map['time'] = time;
     map['taken'] = taken;

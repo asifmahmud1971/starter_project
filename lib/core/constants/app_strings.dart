@@ -18,7 +18,6 @@ class AppStrings {
   static const String logOut = "logOut";
   static const String home = "home";
 
-
   static const String forgotPassword = "Forgot Password?";
   static const String login = "Login";
   static const String dontHaveAnAccount = "Don't have an account?";
@@ -57,7 +56,8 @@ class AppStrings {
   static const String markTaken = "Mark Taken";
   static const String newPainAssessment = "New Pain Assessment";
   static const String recordYourPainDetails = "Record your pain details";
-  static const String savedSuccessfullyCreated = "Follow-up record saved successfully.";
+  static const String savedSuccessfullyCreated =
+      "Follow-up record saved successfully.";
   static const String savedSuccessfully = "Saved successfully.";
   static const String submitAssessment = "Submit Assessment";
   static const String management = "Management";
@@ -75,5 +75,11 @@ class AppStrings {
   static const String productUsed = "Product Used";
   static const String dressingFrequency = "Dressing Frequency";
   static const String nextReview = "Next Review";
-
+  static const String uploadDocument = "Upload Document";
+  static const String allDocuments = "All Documents";
+  static const String failedToUpdateMedication =
+      "Failed to update medication. Please try again.";
+  static const String doesNotFoundInChart = "Dose not found in chart.";
+  static const String noMedicationAvailable = "No medication data available.";
+  static const String anUnExpectedErrorOccur = "An unexpected error occurred.";
 }

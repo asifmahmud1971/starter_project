@@ -5,6 +5,7 @@ import 'package:medPilot/features/patient_portal/home/cubit/home_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/cubit/services_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/cubit/painClinic_cubit.dart';
+import 'package:medPilot/features/patient_portal/services/upload_document/cubit/document_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart';
 import 'package:medPilot/features/theme/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,9 @@ class AppProviders {
     ),
     BlocProvider<WoundClinicCubit>(
       create: (BuildContext context) => instance<WoundClinicCubit>(),
+    ),
+    BlocProvider<DocumentCubit>(
+      create: (BuildContext context) => instance<DocumentCubit>(),
     ),
 
     // =========== [ Auth End ] ===========

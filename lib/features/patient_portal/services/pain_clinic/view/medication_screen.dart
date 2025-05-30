@@ -6,6 +6,7 @@ import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/cubit/painClinic_cubit.dart';
+import 'package:medPilot/features/patient_portal/services/pain_clinic/model/medication_model.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/view/medication_screen_dialog.dart';
 
 class MedicationScreen extends StatefulWidget {
@@ -122,6 +123,7 @@ class _MedicationScreenState extends State<MedicationScreen> {
                         schedule.date??"",
                         schedule.time??"",
                         schedule.taken == "Yes",
+                        schedule.id??0
                       );
                     }).toList(),
                     /* SizedBox(height: 16),
@@ -204,7 +206,7 @@ class _MedicationScreenState extends State<MedicationScreen> {
     );
   }
 
-  Widget _buildScheduleItem(String date, String time, bool taken) {
+  Widget _buildScheduleItem(String date, String time, bool taken,int id) {
     return Container(
       margin: EdgeInsets.only(bottom: 12),
       padding: EdgeInsets.all(12),
@@ -263,7 +265,9 @@ class _MedicationScreenState extends State<MedicationScreen> {
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               ),
-              onPressed: () {},
+              onPressed: () {
+                context.read<PainClinicCubit>().givenMedicine(id.toString(),_expandedIndex);
+              },
               child: Text(AppStrings.markTaken.tr()),
             ),
         ],
