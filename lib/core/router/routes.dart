@@ -7,6 +7,7 @@ import 'package:medPilot/features/patient_portal/services/follow_up/view/followU
 import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_description_page.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/view/pain_clinic_screen.dart';
 import 'package:medPilot/features/patient_portal/services/psych_social_clinic/view/psych_social_report_screen.dart';
+import 'package:medPilot/features/patient_portal/services/rehav_pall_care/view/rehab_pall_care_screen.dart';
 import 'package:medPilot/features/patient_portal/services/view/pescription_page.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/view/wound_clinic_home.dart';
 import 'package:medPilot/features/splash/view/splash_screen.dart';
@@ -32,6 +33,7 @@ class Routes {
   static const String painClinic = "pain_clinic";
   static const String woundClinic = "wound_clinic";
   static const String psychSocialReport = "psych_social_clinic";
+  static const String rehabilitativePallCare = "rehabilitative_pall_care";
 
 }
 
@@ -98,6 +100,11 @@ case Routes.painClinic:
   case Routes.psychSocialReport:
         return CupertinoPageRoute(
           builder: (_) =>  PsychoSocialReportPage(),
+          settings: routeSettings,
+        );
+  case Routes.rehabilitativePallCare:
+        return CupertinoPageRoute(
+          builder: (_) =>  RehabPallCareScreen(),
           settings: routeSettings,
         );
       // global routes end

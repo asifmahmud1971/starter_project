@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/components/custom_image.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/components/custom_text_field.dart';
@@ -11,6 +12,8 @@ import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/auth/sign_in/cubit/sign_in_cubit.dart';
 import 'package:medPilot/generated/assets.dart';
+
+import '../../forgot_password/view/forgot_password_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -73,9 +76,11 @@ class SignInScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    GetContext.to(ForgotPasswordScreen());
+                  },
                   child: Text(
-                    AppStrings.forgotPassword.tr(),
+                    "${AppStrings.forgotPassword.tr()}?",
                     style: kBodyLarge.copyWith(color: AppColors.kPrimaryColor),
                   ),
                 ),

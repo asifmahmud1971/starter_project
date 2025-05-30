@@ -8,7 +8,7 @@ import 'package:medPilot/features/patient_portal/services/pain_clinic/model/medi
 import 'package:medPilot/features/patient_portal/services/pain_clinic/model/pain_assessment.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_describe_report.dart';
 
-import '../pain_clinic/widget/pain_assessment.dart';
+import '../pain_clinic/widgets/pain_assessment.dart';
 
 abstract class ServiceRepository {
   Future<Either<ApiFailure, PrescriptionModel>> getPrescription(

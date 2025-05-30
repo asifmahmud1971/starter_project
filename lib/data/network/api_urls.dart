@@ -39,6 +39,8 @@ class ApiUrls {
   static const String addPainAssessment = 'add-pain-assessment';
   static const String painMedication = 'pain-medication';
   static const String woundDescribeReport = 'wound-describe-report';
+  static const String rehabPullCareReport = 'rehabilitative-pall-menu';
+  static const String rehabilitativePallVideo = 'rehabilitative-pall-video';
 
 
 

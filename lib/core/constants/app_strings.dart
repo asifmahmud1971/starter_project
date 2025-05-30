@@ -19,14 +19,18 @@ class AppStrings {
   static const String home = "home";
 
 
-  static const String forgotPassword = "Forgot Password?";
+  static const String forgotPassword = "Forgot Password";
   static const String login = "Login";
   static const String dontHaveAnAccount = "Don't have an account?";
   static const String signUp = "Sign Up";
   static const String enterEmail = "Enter Email";
   static const String enterPassword = "Enter Password";
+  static const String enterCurrentPassword = "Enter Current Password";
+  static const String enterNewPassword = "Enter New Password";
+  static const String enterReNewPassword = "Enter Re-New Password";
   static const String or = "OR";
   static const String wrongCredential = "Email or Password Incorrect";
+  static const String somethingWentWrong = "Something went wrong";
   static const String myCart = "My Cart";
 
   // prescription
@@ -75,5 +79,6 @@ class AppStrings {
   static const String productUsed = "Product Used";
   static const String dressingFrequency = "Dressing Frequency";
   static const String nextReview = "Next Review";
+  static const String submit = "Submit";
 
 }
