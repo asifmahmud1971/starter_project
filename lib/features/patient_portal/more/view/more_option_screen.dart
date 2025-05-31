@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/features/patient_portal/more/view/my_package_screen.dart';
 
 class MoreOptionScreen extends StatefulWidget {
   @override
@@ -17,18 +19,17 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
     return Scaffold(
       backgroundColor: _darkModeEnabled ? Colors.grey[900] : Colors.grey[50],
       appBar: AppBar(
-        title: Text('Medical Profile',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: _darkModeEnabled ? Colors.white : Colors.white,
-            )),
-        centerTitle: true,
-        backgroundColor: AppColors.kPrimaryColor, // Medical blue color
-        elevation: 0,
-        iconTheme: IconThemeData(
-          color: Colors.white,
+        title: Text(
+          'Medical Profile',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: _darkModeEnabled ? Colors.white : Colors.white,
+          ),
         ),
-
+        centerTitle: true,
+        backgroundColor: AppColors.kPrimaryColor,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
@@ -60,28 +61,51 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
                     subtitle: 'Complete your professional details',
                     isComplete: false,
                   ),
-                  Divider(height: 1, indent: 20, endIndent: 20,color: AppColors.kGrayColor300,),
+                  Divider(
+                    height: 1,
+                    indent: 20,
+                    endIndent: 20,
+                    color: AppColors.kGrayColor300,
+                  ),
                   _buildSettingsItem(
                     icon: FontAwesomeIcons.creditCard,
                     title: 'Payments & Billing',
                     subtitle: 'Manage subscription and invoices',
                     isComplete: true,
                   ),
-                  Divider(height: 1, indent: 20, endIndent: 20,color: AppColors.kGrayColor300,),
+                  Divider(
+                    height: 1,
+                    indent: 20,
+                    endIndent: 20,
+                    color: AppColors.kGrayColor300,
+                  ),
                   _buildSettingsItem(
+                    onTap: () {
+                      GetContext.to(TelePackageScreen());
+                    },
                     icon: FontAwesomeIcons.boxesPacking,
                     title: 'My Package',
                     subtitle: 'Access your diagnostic tools',
                     isComplete: true,
                   ),
-                  Divider(height: 1, indent: 20, endIndent: 20,color: AppColors.kGrayColor300,),
+                  Divider(
+                    height: 1,
+                    indent: 20,
+                    endIndent: 20,
+                    color: AppColors.kGrayColor300,
+                  ),
                   _buildSettingsItem(
                     icon: FontAwesomeIcons.internetExplorer,
                     title: 'Website',
                     subtitle: 'Browse our website',
                     isComplete: false,
                   ),
-                  Divider(height: 1, indent: 20, endIndent: 20,color: AppColors.kGrayColor300,),
+                  Divider(
+                    height: 1,
+                    indent: 20,
+                    endIndent: 20,
+                    color: AppColors.kGrayColor300,
+                  ),
                   _buildSettingsItem(
                     icon: FontAwesomeIcons.bell,
                     title: 'Notifications',
@@ -95,8 +119,6 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
                       });
                     },
                   ),
-
-
                 ],
               ),
             ),
@@ -105,7 +127,7 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
             24.verticalSpace,
             // Support Section
             _buildSupportSection(),
-          16.verticalSpace,
+            16.verticalSpace,
 
             // Logout Button
             Center(
@@ -141,7 +163,8 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
               width: 2,
             ),
             image: DecorationImage(
-              image: NetworkImage('https://randomuser.me/api/portraits/men/1.jpg'),
+              image:
+                  NetworkImage('https://randomuser.me/api/portraits/men/1.jpg'),
               fit: BoxFit.cover,
             ),
           ),
@@ -219,9 +242,6 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
     );
   }
 
-
-
-
   Widget _buildSettingsItem({
     required IconData icon,
     required String title,
@@ -230,6 +250,7 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
     bool isToggle = false,
     bool toggleValue = false,
     Function(bool)? onToggle,
+    Function()? onTap,
   }) {
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -262,29 +283,27 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
       ),
       trailing: isToggle
           ? Switch(
-        value: toggleValue,
-        onChanged: onToggle,
-        activeColor: AppColors.kPrimaryColor,
-      )
+              value: toggleValue,
+              onChanged: onToggle,
+              activeColor: AppColors.kPrimaryColor,
+            )
           : Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (isComplete)
-            FaIcon(
-              Icons.check_circle,
-              color: Colors.green,
-              size: 20,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (isComplete)
+                  FaIcon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                    size: 20,
+                  ),
+                8.horizontalSpace,
+                FaIcon(
+                  Icons.chevron_right,
+                  color: Colors.grey,
+                ),
+              ],
             ),
-          8.horizontalSpace,
-          FaIcon(
-            Icons.chevron_right,
-            color: Colors.grey,
-          ),
-        ],
-      ),
-      onTap: () {
-        // Handle navigation
-      },
+      onTap: onTap,
     );
   }
 
