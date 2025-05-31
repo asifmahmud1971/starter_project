@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/features/patient_portal/more/view/my_package_screen.dart';
+import 'package:medPilot/features/patient_portal/more/view/payment_screen.dart';
 
 class MoreOptionScreen extends StatefulWidget {
   @override
@@ -68,6 +69,9 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
                     color: AppColors.kGrayColor300,
                   ),
                   _buildSettingsItem(
+                    onTap: (){
+                      GetContext.to(PaymentScreen());
+                    },
                     icon: FontAwesomeIcons.creditCard,
                     title: 'Payments & Billing',
                     subtitle: 'Manage subscription and invoices',
