@@ -61,6 +61,11 @@ class _ServiceListState extends State<ServiceList> {
                     : List.generate(
                         (state.dashboardPermission?.onDemand ?? []).length,
                         (index) => ServiceCard(
+                          onTap: (){
+                            GetContext.toNamed(
+                                route: state.dashboardPermission
+                                    ?.onDemand?[index].key);
+                          },
                               title: state.dashboardPermission?.onDemand?[index]
                                   .serviceName,
                               icon: state.dashboardPermission?.onDemand?[index]

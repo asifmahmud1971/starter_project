@@ -3,6 +3,11 @@ import 'package:medPilot/features/auth/sign_up/view/sign_up_screen.dart';
 import 'package:medPilot/features/dashboard/view/patient_dashboard_screen.dart';
 import 'package:medPilot/features/dashboard/view/staff_dashboard_screen.dart';
 import 'package:medPilot/features/patient_portal/cart/view/patient_cart_homescreen.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/allied_health_page.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/diagonostic_lab_page.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/home_visit_page.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/pharmacy_page.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/procedure_page.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_list_page.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_description_page.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/view/pain_clinic_screen.dart';
@@ -36,6 +41,11 @@ class Routes {
   static const String psychSocialReport = "psych_social_clinic";
   static const String rehabilitativePallCare = "rehabilitative_pall_care";
   static const String allUploads = "upload_document";
+  static const String homeVisit = "home_visit";
+  static const String procedure = "procedure";
+  static const String alliedHealth = "allied_health";
+  static const String diagnosticLab = "diagnostic_lab";
+  static const String pharmacy = "pharmacy";
 
 }
 
@@ -116,6 +126,38 @@ case Routes.allUploads:
           settings: routeSettings,
         );
       // global routes end
+    case Routes.homeVisit:
+        return CupertinoPageRoute(
+          builder: (_) =>  HomeVisitPage(),
+          settings: routeSettings,
+        );
+      // global routes end
+ case Routes.procedure:
+        return CupertinoPageRoute(
+          builder: (_) =>  ProcedurePage(),
+          settings: routeSettings,
+        );
+      // global routes end
+case Routes.alliedHealth:
+        return CupertinoPageRoute(
+          builder: (_) =>  AlliedHealthPage(),
+          settings: routeSettings,
+        );
+      // global routes end
+case Routes.diagnosticLab:
+        return CupertinoPageRoute(
+          builder: (_) =>  DiagnosticLabPage(),
+          settings: routeSettings,
+        );
+      // global routes end
+case Routes.pharmacy:
+        return CupertinoPageRoute(
+          builder: (_) =>  PharmacyPage(),
+          settings: routeSettings,
+        );
+      // global routes end
+
+
 
       default:
         return unDefinedRoute();

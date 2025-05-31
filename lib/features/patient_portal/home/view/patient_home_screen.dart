@@ -89,7 +89,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
             ),
             selectedTabIndex == 0
                 ? ServiceList(type: "myPackage")
-                : ServiceList(),
+                : ServiceList(type: "onDemand"),
             15.verticalSpace,
             const BlogList(),
             15.verticalSpace,

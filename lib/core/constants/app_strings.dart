@@ -89,5 +89,10 @@ class AppStrings {
   static const String anUnExpectedErrorOccur = "An unexpected error occurred.";
   static const String painAssessmentSubmittedSuccessfully = "Pain assessment submitted successfully";
   static const String submit = "Submit";
+  static const String homeVisit = "Home Visit";
+  static const String procedure = "Procedure";
+  static const String alliedHealth = "Allied Health";
+  static const String diagnosticLab = "Diagnostic Lab";
+  static const String pharmacy = "Pharmacy";
 
 }
