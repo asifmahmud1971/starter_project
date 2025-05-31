@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/constants/app_text_style.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -75,9 +76,10 @@ class _PaymentCardScreenState extends State<PaymentScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Payments'),
+        title: Text('My Payments',style: kTitleMedium.copyWith(color: Colors.white),),
         centerTitle: true,
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: AppColors.kPrimaryColor,
       ),
       body: Column(
