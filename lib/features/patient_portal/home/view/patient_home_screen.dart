@@ -55,8 +55,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
             const TopBar(),
             30.verticalSpace,
             CallCard(),
-            20.verticalSpace,
-             AppSlider(imageUrls: sliderList,),
+           /* 20.verticalSpace,
+             AppSlider(imageUrls: sliderList,),*/
             20.verticalSpace,
             DefaultTabController(
               length: 2,

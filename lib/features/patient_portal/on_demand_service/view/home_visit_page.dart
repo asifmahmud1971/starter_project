@@ -50,15 +50,15 @@ class _HomeVisitPageState extends State<HomeVisitPage> {
         backgroundColor: AppColors.kPrimaryColor,
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 16.w,vertical: 12.h),
-        child: MasonryGridView.count(
-          crossAxisCount: 2,
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
+      body: SizedBox(
+        child: ListView.builder(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           itemCount: products.length,
           itemBuilder: (context, index) {
-            return ServiceProductCard(product: products[index]);
+            return ServiceProductCard(
+              product: products[index],
+              onTap: () => {},
+            );
           },
         ),
       ),

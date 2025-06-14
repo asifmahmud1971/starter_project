@@ -4,7 +4,6 @@ import 'package:medPilot/core/components/custom_image.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/product.dart';
-import 'package:medPilot/features/patient_portal/on_demand_service/view/home_visit_page.dart';
 
 class ServiceProductCard extends StatelessWidget {
   final Product product;
@@ -19,89 +18,185 @@ class ServiceProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 280.w,
+      margin: EdgeInsets.only(right: 16.w),
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: Colors.white,
-
-        borderRadius: BorderRadius.circular(8),
-        boxShadow:  [
-          AppColors.kBackGroundShadow
+        borderRadius: BorderRadius.circular(12.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blueGrey.withOpacity(0.1),
+            blurRadius: 10,
+            spreadRadius: 2,
+          )
         ],
       ),
-      child: Column(
-
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Brand Logo or Image
-          CustomImage(
-            baseUrl:
-            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEij2tWZE7ZIDpQogZOf5lGgQk4xnxBVFGV8jke1qO_FE7Gb0fFMTb_1tWDPBmjNYmQazZBu2lkxpeoslP7uAlN-oBkbD28sUuRhQGcHxFWsJJTDC0QWKgX8yskL1cSlVFSGaO0YH9Rptu8/s1600/Home_Visit_Physiotherapy_Odhav.jpg",
+          // Medical Image Badge
+          Container(
+            width: 100.w,
+            decoration: BoxDecoration(
+              color: AppColors.kPrimaryColor.withOpacity(0.1),
+            ),
+            child: Stack(
+              children: [
+                CustomImage(
+                  baseUrl: product.imageUrl ?? "https://img.freepik.com/free-vector/medical-treatment-icons-set_1284-14222.jpg",
+                  fit: BoxFit.cover,
+                ),
+                Positioned(
+                  top: 8.h,
+                  left: 8.w,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.w,
+                      vertical: 4.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.kPrimaryColor,
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                    child: Text(
+                      "MEDICAL",
+                      style: kBodySmall.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
 
-          // Title
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 12.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  product.name,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-
-                const SizedBox(height: 6),
-
-                // Description
-                Text(
-                  product.description,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: Colors.black54,
-                    height: 1.4,
-                  ),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
-
-                const SizedBox(height: 12),
-
-                // Price and Button
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '৳ ${product.price.toStringAsFixed(0)}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
+          // Service Details
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(12.r),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.medical_services_outlined,
+                            size: 16.r,
+                            color: AppColors.kPrimaryColor,
+                          ),
+                          SizedBox(width: 4.w),
+                          Text(
+                            product.name,
+                            style: kBodyLarge.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.blueGrey[800],
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       ),
-                    ),
-                    ElevatedButton.icon(
-                      onPressed: onTap,
-                      icon:  Icon(Icons.add_shopping_cart, size: 18.r,color: Colors.white),
-                      label:  Text("Add",style: kBodyMedium.copyWith(color: Colors.white),),
-                      style: ElevatedButton.styleFrom(
-                        disabledBackgroundColor: AppColors.kPrimaryColor,
-                        backgroundColor: AppColors.kPrimaryColor,
-                        foregroundColor: AppColors.kPrimaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                      SizedBox(height: 8.h),
+                      Text(
+                        product.description,
+                        style: kBodyMedium.copyWith(
+                          color: Colors.blueGrey[600],
+                          height: 1.4,
                         ),
-                        elevation: 1,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 14,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: 8.h),
+                      _buildServiceFeatures(),
+                    ],
+                  ),
+
+                  // Action Row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '৳ ${product.price.toStringAsFixed(0)}',
+                        style: kBodyLarge.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.kPrimaryColor,
                         ),
                       ),
-                    ),
-                  ],
-                )
-              ],),
-          )
+                      ElevatedButton(
+                        onPressed: onTap,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.kPrimaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12.w,
+                            vertical: 8.h,
+                          ),
+                          minimumSize: Size.zero,
+                        ),
+                        child: Text(
+                          "Book Now",
+                          style: kBodyMedium.copyWith(
+                            color: Colors.white,
+                            fontSize: 12.sp,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildServiceFeatures() {
+    return Wrap(
+      spacing: 8.w,
+      runSpacing: 4.h,
+      children: [
+        _buildFeatureChip(Icons.access_time_filled, "30-60 mins"),
+        _buildFeatureChip(Icons.person_outline, "Specialist"),
+        _buildFeatureChip(Icons.home_outlined, "At Home"),
+      ],
+    );
+  }
+
+  Widget _buildFeatureChip(IconData icon, String text) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 8.w,
+        vertical: 4.h,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.blueGrey[50],
+        borderRadius: BorderRadius.circular(20.r),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            size: 12.r,
+            color: AppColors.kPrimaryColor,
+          ),
+          SizedBox(width: 4.w),
+          Text(
+            text,
+            style: kBodySmall.copyWith(
+              color: Colors.blueGrey[600],
+            ),
+          ),
         ],
       ),
     );
