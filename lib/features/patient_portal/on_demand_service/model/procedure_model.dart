@@ -1,0 +1,37 @@
+import 'package:medPilot/features/patient_portal/on_demand_service/model/product.dart';
+
+class ProcedureModel {
+  ProcedureModel({
+      this.success, 
+      this.product,
+      this.token, 
+      this.tokenType,});
+
+  ProcedureModel.fromJson(dynamic json) {
+    success = json['success'];
+    if (json['procedure'] != null) {
+      product = [];
+      json['procedure'].forEach((v) {
+        product?.add(Product.fromJson(v));
+      });
+    }
+    token = json['token'];
+    tokenType = json['token_type'];
+  }
+  bool? success;
+  List<Product>? product;
+  String? token;
+  String? tokenType;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['success'] = success;
+    if (product != null) {
+      map['procedure'] = product?.map((v) => v.toJson()).toList();
+    }
+    map['token'] = token;
+    map['token_type'] = tokenType;
+    return map;
+  }
+
+}

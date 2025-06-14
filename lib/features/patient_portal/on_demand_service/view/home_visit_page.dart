@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:medPilot/core/components/custom_image.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/cubit/onDemand_service_cubit.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/product.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/widget/service_product_card.dart';
 
@@ -17,55 +19,42 @@ class HomeVisitPage extends StatefulWidget {
 }
 
 class _HomeVisitPageState extends State<HomeVisitPage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<OnDemandServiceCubit>().getHomeVisit();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final List<Product> products = [
-      Product(
-        name: 'Test 1',
-        description: 'thjtyrjuh ujgtyruyrtu rutyrtrtrtrtyyuytr',
-        price: 10,
-        imageUrl:
-            'https://i.imgur.com/WaR1kK2.png', // Replace with your image asset or network image
-      ),
-      Product(
-        name: 'Test 1',
-        description: 'thjtyrjuh ujgtyruyrtu rutyrtrtrtrtyyuytr',
-        price: 10,
-        imageUrl:
-        'https://i.imgur.com/WaR1kK2.png', // Replace with your image asset or network image
-      ),
-      Product(
-        name: 'Test 1',
-        description: 'thjtyrjuh ujgtyruyrtu rutyrtrtrtrtyyuytr',
-        price: 10,
-        imageUrl:
-        'https://i.imgur.com/WaR1kK2.png', // Replace with your image asset or network image
-      ),
-      // Add more products here if needed
-    ];
-
-    return Scaffold(
-      appBar: AppBar(
-        title:  Text(AppStrings.homeVisit.tr(),style: kTitleMedium.copyWith(color: Colors.white),),
-        backgroundColor: AppColors.kPrimaryColor,
-        iconTheme: IconThemeData(color: Colors.white),
-      ),
-      body: SizedBox(
-        child: ListView.builder(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          itemCount: products.length,
-          itemBuilder: (context, index) {
-            return ServiceProductCard(
-              product: products[index],
-              onTap: () => {},
-            );
-          },
-        ),
-      ),
+    return BlocBuilder<OnDemandServiceCubit, OnDemandServiceState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              AppStrings.homeVisit.tr(),
+              style: kTitleMedium.copyWith(color: Colors.white),
+            ),
+            backgroundColor: AppColors.kPrimaryColor,
+            iconTheme: IconThemeData(color: Colors.white),
+          ),
+          body: ListView.separated(
+            padding: EdgeInsets.all(16.r),
+            itemCount: (state.homeVisitModel?.product??[]).length,
+            itemBuilder: (context, index) {
+              return ServiceProductCard(
+                service: state.homeVisitModel?.product?[index],
+                onAddToCart: () {},
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return 10.verticalSpace;
+            },
+          ),
+        );
+      },
     );
   }
 }
-
-
-
-

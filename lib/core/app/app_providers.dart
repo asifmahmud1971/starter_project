@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/auth/sign_up/cubit/sign_up_cubit.dart';
+import '../../features/patient_portal/on_demand_service/cubit/onDemand_service_cubit.dart';
 import '../../features/profile/cubit/profile_cubit.dart';
 import 'app_dependency.dart';
 
@@ -38,7 +39,6 @@ class AppProviders {
     BlocProvider<ServiceCubit>(
       create: (BuildContext context) => instance<ServiceCubit>(),
     ),
-
     BlocProvider<DashboardCubit>(
       create: (BuildContext context) => instance<DashboardCubit>(),
     ),
@@ -64,7 +64,9 @@ class AppProviders {
     BlocProvider<ForgotPasswordCubit>(
       create: (BuildContext context) => instance<ForgotPasswordCubit>(),
     ),
-
+    BlocProvider<OnDemandServiceCubit>(
+      create: (BuildContext context) => instance<OnDemandServiceCubit>(),
+    )
     // =========== [ Auth End ] ===========
   ];
 }
