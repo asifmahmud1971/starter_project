@@ -100,5 +100,8 @@ class AppStrings {
   static const String critical = "Critical";
   static const String woundAssessment = "Wound Assessment";
   static const String notSpecified = "Not specified";
+  static const String investigationReport = "Investigation Report";
+  static const String patientInformation = "Patient Information";
+  static const String diagnosisReport = "Diagnosis Report";
 
 }

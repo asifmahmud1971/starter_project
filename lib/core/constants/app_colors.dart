@@ -321,4 +321,17 @@ class AppColors {
     blurRadius: 52,
     offset: const Offset(0, 4),
   );
+
+  static final kDecoration = BoxDecoration(
+    color: AppColors.white,
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.grey.withValues(alpha: 0.15),
+        spreadRadius: 3,
+        blurRadius: 15,
+        offset: Offset(0, 0), // changes position of shadow
+      ),
+    ],
+  );
 }

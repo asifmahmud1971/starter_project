@@ -12,7 +12,6 @@ import 'package:medPilot/core/components/custom_progress_loader.dart';
 import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/services/invesigation/model/investigation_response.dart';
-import 'package:medPilot/features/profile/models/user_profile_response.dart';
 import '../../../../../core/constants/app_strings.dart';
 import '../repository/investigation_repository_imp.dart';
 
