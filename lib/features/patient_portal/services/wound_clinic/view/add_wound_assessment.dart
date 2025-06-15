@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:io';
 
 import 'package:medPilot/core/constants/app_text_style.dart';
@@ -129,7 +130,7 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
             backgroundColor: Colors.grey[200],
             valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFF904D)),
           ),
-          SizedBox(height: 8),
+          8.verticalSpace,
           Text(
           state.uploadProgressString??"",
             style: TextStyle(
