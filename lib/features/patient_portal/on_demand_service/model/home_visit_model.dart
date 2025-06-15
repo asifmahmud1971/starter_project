@@ -10,9 +10,9 @@ class HomeVisitModel {
 
   HomeVisitModel.fromJson(dynamic json) {
     success = json['success'];
-    if (json['home_visit'] != null) {
+    if (json['data'] != null) {
       product = [];
-      json['home_visit'].forEach((v) {
+      json['data'].forEach((v) {
         product?.add(Product.fromJson(v));
       });
     }
@@ -28,7 +28,7 @@ class HomeVisitModel {
     final map = <String, dynamic>{};
     map['success'] = success;
     if (product != null) {
-      map['home_visit'] = product?.map((v) => v.toJson()).toList();
+      map['data'] = product?.map((v) => v.toJson()).toList();
     }
     map['token'] = token;
     map['token_type'] = tokenType;

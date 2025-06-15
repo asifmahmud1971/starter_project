@@ -4,6 +4,7 @@ import 'package:medPilot/features/dashboard/view/patient_dashboard_screen.dart';
 import 'package:medPilot/features/dashboard/view/staff_dashboard_screen.dart';
 import 'package:medPilot/features/patient_portal/cart/view/patient_cart_homescreen.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/allied_health_page.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/consultation_screen.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/diagonostic_lab_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/home_visit_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/pharmacy_page.dart';
@@ -46,6 +47,7 @@ class Routes {
   static const String alliedHealth = "allied_health";
   static const String diagnosticLab = "diagnostic_lab";
   static const String pharmacy = "pharmacy";
+  static const String consultation = "consultant";
 
 }
 
@@ -153,6 +155,12 @@ case Routes.diagnosticLab:
 case Routes.pharmacy:
         return CupertinoPageRoute(
           builder: (_) =>  PharmacyPage(),
+          settings: routeSettings,
+        );
+      // global routes end
+case Routes.consultation:
+        return CupertinoPageRoute(
+          builder: (_) =>  ConsultationScreen(),
           settings: routeSettings,
         );
       // global routes end

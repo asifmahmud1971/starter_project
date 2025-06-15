@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medPilot/core/components/custom_button.dart';
 import 'package:medPilot/core/components/custom_image.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
@@ -59,17 +61,31 @@ class ServiceProductCard extends StatelessWidget {
                     SizedBox(height: 8.h),
 
                     // Product description
-                    Text(
-                      service?.description??"",
-                      style: kBodyMedium.copyWith(
-                        color: AppColors.kSecondaryIndigo,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    Html(
+                      data: """${service?.description}""", // Added null check with fallback
+                      extensions: [
+                        TagExtension(
+                          tagsToExtend: {"flutter"},
+                          builder: (extensionContext) {  // Changed 'child' to 'builder' which is the correct parameter
+                            return const FlutterLogo();
+                          },
+                        ),
+                      ],
+                      style: {
+                        "p.fancy": Style(
+                          textAlign: TextAlign.center,
+                          backgroundColor: Colors.grey,
+                          margin: Margins(  // Added const
+                            left: Margin(50, Unit.px),
+                            right: Margin.auto(),
+                          ),
+                          width:  Width(300, Unit.px),  // Added const
+                          fontWeight: FontWeight.bold,
+                        ),
+                      },
                     ),
-                    SizedBox(height: 16.h),
                     Text(
-                      '${20.234.toStringAsFixed(2)} BDT',
+                      '${service?.price} BDT',
                       style: kHeadLineSmall.copyWith(
                         color: AppColors.kPrimaryColor,
                         fontWeight: FontWeight.bold,
@@ -83,34 +99,12 @@ class ServiceProductCard extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.centerRight,
-            child: TextButton.icon(
-              icon: Icon(
-                isInCart ? Icons.shopping_cart : Icons.add_shopping_cart,
-                color: AppColors.kPrimaryColor,
-                size: 24.sp,
-              ),
-              onPressed: onAddToCart,
-              label: Text(
-                'Add to cart',
-                style: kLabelLarge.copyWith(
-                  color: AppColors.kPrimaryColor,
-                ),
-              ),
-              style: TextButton.styleFrom(
-                backgroundColor: isInCart ? AppColors.kPrimaryColor : Colors.transparent, // Background changes when in cart
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                  side: BorderSide(
-                    color: AppColors.kPrimaryColor,
-                    width: 1.w,
-                  ),
-                ),
-                // Visual feedback effects
-                // Elevation/shadow
-                elevation: 0,
-                shadowColor: Colors.transparent,
-              ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CustomButton(title: "Add",backgroundColor: AppColors.kPrimaryColor,padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 20.w),),
+              ],
             ),
           ),
         ],
