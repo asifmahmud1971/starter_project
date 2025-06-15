@@ -5,6 +5,7 @@ import 'package:medPilot/features/no_internet/cubit/internet_cubit.dart';
 import 'package:medPilot/features/patient_portal/home/cubit/home_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/cubit/services_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart';
+import 'package:medPilot/features/patient_portal/services/invesigation/cubit/investigation_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/cubit/painClinic_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/upload_document/cubit/document_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/rehav_pall_care/cubit/rehab_pall_cubit.dart';
@@ -63,6 +64,10 @@ class AppProviders {
     ),
     BlocProvider<ForgotPasswordCubit>(
       create: (BuildContext context) => instance<ForgotPasswordCubit>(),
+    ),
+
+    BlocProvider<InvestigationCubit>(
+      create: (BuildContext context) => instance<InvestigationCubit>(),
     ),
 
     // =========== [ Auth End ] ===========
