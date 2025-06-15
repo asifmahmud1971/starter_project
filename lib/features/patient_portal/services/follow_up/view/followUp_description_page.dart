@@ -271,20 +271,24 @@ class FollowUpDetailsCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.baseline,
             textBaseline: TextBaseline.alphabetic,
             children: [
-              Text(
-                value,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: valueColor,
+              Flexible(
+                child: Text(
+                  value,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: valueColor,
+                  ),
                 ),
               ),
               const SizedBox(width: 4),
-              Text(
-                unit,
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.grey[500],
+              Flexible(
+                child: Text(
+                  unit,
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.grey[500],
+                  ),
                 ),
               ),
             ],

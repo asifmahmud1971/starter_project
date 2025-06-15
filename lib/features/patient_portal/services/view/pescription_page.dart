@@ -3,15 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/components/custom_date_time_formatter.dart';
-import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/core/utils/extension.dart';
-import 'package:medPilot/features/patient_portal/home/cubit/home_cubit.dart';
 import 'package:medPilot/features/patient_portal/home/widgets/medication_card.dart';
 import 'package:medPilot/features/patient_portal/services/cubit/services_cubit.dart';
-import 'package:medPilot/generated/assets.dart';
 
 class PrescriptionScreen extends StatefulWidget {
   const PrescriptionScreen({super.key});
@@ -23,7 +20,6 @@ class PrescriptionScreen extends StatefulWidget {
 class _PrescriptionScreenState extends State<PrescriptionScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     context.read<ServiceCubit>().getPrescription();
     super.initState();
   }
@@ -34,7 +30,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('PRESCRIPTION'),
+            title: Text(AppStrings.prescription.tr()),
             centerTitle: true,
             actions: [
               Padding(
@@ -49,11 +45,10 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
             ],
           ),
           body: SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Patient Info Card
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(16.0),
@@ -123,7 +118,6 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                   ),
                 ),
                 24.verticalSpace,
-
                 // Diagnosis Section
                 Text(
                   AppStrings.diagnosis.tr(),
@@ -138,7 +132,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    'No diagnosis notes',
+                    AppStrings.noDiagnosisNotes.tr(),
                     style: kBodySmall.copyWith(color: AppColors.kGrayColor500),
                   ),
                 ),
@@ -185,7 +179,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                       padding: EdgeInsets.symmetric(
                           horizontal: 16.w, vertical: 10.h),
                       child: Text(
-                        'No additional advice',
+                        AppStrings.noAdditionalAdvice.tr(),
                         style: kBodyMedium.copyWith(
                             color: AppColors.kGrayColor500),
                       ),

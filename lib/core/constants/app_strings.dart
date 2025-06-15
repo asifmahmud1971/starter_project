@@ -94,5 +94,11 @@ class AppStrings {
   static const String alliedHealth = "Allied Health";
   static const String diagnosticLab = "Diagnostic Lab";
   static const String pharmacy = "Pharmacy";
+  static const String noDiagnosisNotes = "No diagnosis notes";
+  static const String noAdditionalAdvice = "No additional advice";
+  static const String prescription = "PRESCRIPTION";
+  static const String critical = "Critical";
+  static const String woundAssessment = "Wound Assessment";
+  static const String notSpecified = "Not specified";
 
 }
