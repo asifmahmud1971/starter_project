@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:io';
 
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/core/enum/app_status.dart';
+import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart';
 
 class AddWoundAssessment extends StatefulWidget {
   const AddWoundAssessment({super.key});
@@ -30,7 +33,8 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
           _fileName = result.files.single.name;
           _uploadProgress = 0;
         });
-        _simulateUpload();
+        context.read<WoundClinicCubit>().uploadWoundDocument(imagePath: _selectedFile?.path);
+        //_simulateUpload();
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -63,7 +67,7 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
     IconData icon;
     Color iconColor;
 
-    if (['jpg', 'jpeg', 'png', 'gif'].contains(extension)) {
+    if (['jpg', 'jpeg', 'png', 'gif', 'heic', 'heif'].contains(extension)) {
       icon = Icons.image;
       iconColor = Colors.blue;
     } else if (['pdf'].contains(extension)) {
@@ -77,6 +81,8 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
       iconColor = Colors.grey;
     }
 
+    return BlocBuilder<WoundClinicCubit, WoundClinicState>(
+  builder: (context, state) {
     return Column(
       children: [
         SizedBox(height: 20),
@@ -134,16 +140,16 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
             ],
           ),
         ),
-        if (_isUploading) ...[
+        if (state.appStatus ==  AppStatus.loading) ...[
           SizedBox(height: 16),
           LinearProgressIndicator(
-            value: _uploadProgress,
+            value: state.uploadProgress,
             backgroundColor: Colors.grey[200],
             valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFF904D)),
           ),
           SizedBox(height: 8),
           Text(
-            '${(_uploadProgress * 100).toStringAsFixed(0)}%',
+          state.uploadProgressString??"",
             style: TextStyle(
               color: Colors.grey[600],
               fontSize: 12,
@@ -152,6 +158,8 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
         ],
       ],
     );
+  },
+);
   }
 
   @override

@@ -15,7 +15,7 @@ class WoundClinicHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppStrings.painClinic.tr(),style: kTitleMedium,),),
+      appBar: AppBar(title: Text(AppStrings.woundClinic.tr(),style: kTitleMedium,),),
       body: Padding(
         padding:  EdgeInsets.all(16.r),
         child: GridView.count(

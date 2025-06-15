@@ -45,7 +45,9 @@ class ApiUrls {
   static const String woundDescribeReport = 'wound-describe-report';
   static const String rehabPullCareReport = 'rehabilitative-pall-menu';
   static const String rehabilitativePallVideo = 'rehabilitative-pall-video';
+  static const String uploadWoundImage = 'upload-wound-image';
   static const String showUploadDocument = 'show-upload-document';
+  static const String showAllWoundAssessment = 'show-all-wound-assessment';
   static const String uploadDoc = 'show-upload-document';
   static const String homeVisit = 'home-visit';
   static const String procedure = 'procedure';
