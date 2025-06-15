@@ -17,8 +17,7 @@ class AddWoundAssessment extends StatefulWidget {
 class _AddWoundAssessmentState extends State<AddWoundAssessment> {
   File? _selectedFile;
   String _fileName = 'No file chosen';
-  bool _isUploading = false;
-  double _uploadProgress = 0;
+
 
   Future<void> _pickFile() async {
     try {
@@ -31,10 +30,8 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
         setState(() {
           _selectedFile = File(result.files.single.path!);
           _fileName = result.files.single.name;
-          _uploadProgress = 0;
         });
         context.read<WoundClinicCubit>().uploadWoundDocument(imagePath: _selectedFile?.path);
-        //_simulateUpload();
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -43,20 +40,6 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
     }
   }
 
-  void _simulateUpload() async {
-    setState(() => _isUploading = true);
-
-    // Simulate upload progress
-    for (int i = 0; i <= 100; i += 5) {
-      await Future.delayed(Duration(milliseconds: 100));
-      setState(() => _uploadProgress = i / 100);
-    }
-
-    setState(() => _isUploading = false);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('File uploaded successfully!')),
-    );
-  }
 
   Widget _buildFileInfo() {
     if (_selectedFile == null) return SizedBox();
@@ -133,7 +116,6 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
                   setState(() {
                     _selectedFile = null;
                     _fileName = 'No file chosen';
-                    _uploadProgress = 0;
                   });
                 },
               ),

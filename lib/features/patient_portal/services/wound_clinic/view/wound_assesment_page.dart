@@ -17,16 +17,6 @@ class WoundAssessmentPage extends StatefulWidget {
 }
 
 class _WoundAssessmentPageState extends State<WoundAssessmentPage> {
-  // Sample image URLs - replace with your actual image sources
-  final List<String> imageUrls = [
-    'https://picsum.photos/id/10/800/600',
-    'https://picsum.photos/id/11/800/600',
-    'https://picsum.photos/id/12/800/600',
-    'https://picsum.photos/id/13/800/600',
-    'https://picsum.photos/id/14/800/600',
-    'https://picsum.photos/id/15/800/600',
-  ];
-
   @override
   void initState() {
     // TODO: implement initState
