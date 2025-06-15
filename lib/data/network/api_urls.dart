@@ -47,6 +47,8 @@ class ApiUrls {
   static const String rehabilitativePallVideo = 'rehabilitative-pall-video';
   static const String showUploadDocument = 'show-upload-document';
   static const String uploadDoc = 'show-upload-document';
+  static const String homeVisit = 'home-visit';
+  static const String procedure = 'procedure';
 
 
 
