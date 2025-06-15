@@ -48,8 +48,7 @@ class PsychoSocialReportPage extends StatelessWidget {
           ),
           centerTitle: true,
           iconTheme: IconThemeData(color: AppColors.white),
-          backgroundColor: Color(0xFFFF904D),
-          // Your primary color
+          backgroundColor: AppColors.kPrimaryColor,
           elevation: 0,
         ),
         body: Column(

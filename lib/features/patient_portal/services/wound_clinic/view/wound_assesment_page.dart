@@ -1,14 +1,17 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/view/add_wound_assessment.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/view/image_view_screen.dart';
-import 'package:photo_view/photo_view.dart';
 
 class WoundAssessmentPage extends StatefulWidget {
+  const WoundAssessmentPage({super.key});
+
   @override
-  _WoundAssessmentPageState createState() => _WoundAssessmentPageState();
+  State createState() => _WoundAssessmentPageState();
 }
 
 class _WoundAssessmentPageState extends State<WoundAssessmentPage> {
@@ -26,7 +29,10 @@ class _WoundAssessmentPageState extends State<WoundAssessmentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Wound Assessment',style: kTitleLarge.copyWith(color: Colors.white),),
+        title: Text(
+          AppStrings.woundAssessment.tr(),
+          style: kTitleLarge.copyWith(color: Colors.white),
+        ),
         backgroundColor: Color(0xFFFF904D),
         iconTheme: IconThemeData(color: Colors.white),
         centerTitle: true,
@@ -66,7 +72,7 @@ class _WoundAssessmentPageState extends State<WoundAssessmentPage> {
                       child: CircularProgressIndicator(
                         value: loadingProgress.expectedTotalBytes != null
                             ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
+                                loadingProgress.expectedTotalBytes!
                             : null,
                         color: Color(0xFFFF904D),
                       ),
@@ -87,4 +93,3 @@ class _WoundAssessmentPageState extends State<WoundAssessmentPage> {
     );
   }
 }
-

@@ -10,8 +10,10 @@ import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/wou
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_describe_report.dart';
 
 class WoundManagementScreen extends StatefulWidget {
+  const WoundManagementScreen({super.key});
+
   @override
-  _WoundManagementScreenState createState() => _WoundManagementScreenState();
+  State createState() => _WoundManagementScreenState();
 }
 
 class _WoundManagementScreenState extends State<WoundManagementScreen> {
@@ -205,10 +207,10 @@ class _WoundManagementScreenState extends State<WoundManagementScreen> {
                 ],
               ),
               SizedBox(height: 12),
-              _buildDetailRow('${AppStrings.location.tr()}:', record.location ?? 'Not specified'),
-              _buildDetailRow('${AppStrings.site.tr()}:', record.site ?? 'Not specified'),
+              _buildDetailRow('${AppStrings.location.tr()}:', record.location ?? AppStrings.notSpecified.tr()),
+              _buildDetailRow('${AppStrings.site.tr()}:', record.site ?? AppStrings.notSpecified.tr()),
               _buildDetailRow(
-                  '${AppStrings.firstOccurred.tr()}:', record.occured ?? 'Not specified'),
+                  '${AppStrings.firstOccurred.tr()}:', record.occured ?? AppStrings.notSpecified.tr()),
               Divider(height: 24),
             ],
             _buildDetailRow('${AppStrings.date.tr()}:', dateFormat.format(DateTime.parse(record.date??DateTime.now().toString()))),

@@ -31,6 +31,7 @@ class ApiUrls {
   static const String registerVerifyOtp = 'register/verify-otp';
   static const String registerResendOtp = 'register/resend-otp';
   static const String profile = 'profile';
+  static const String investigation = 'investigation';
 
   //dashboard
 

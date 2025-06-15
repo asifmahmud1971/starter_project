@@ -5,8 +5,6 @@ import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/home/widgets/service_card.dart';
-import 'package:medPilot/features/patient_portal/services/pain_clinic/view/assesment_page.dart';
-import 'package:medPilot/features/patient_portal/services/pain_clinic/view/medication_screen.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/view/wound_assesment_page.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/view/wound_manage_report.dart';
 import 'package:medPilot/generated/assets.dart';

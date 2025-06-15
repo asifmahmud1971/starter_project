@@ -11,6 +11,7 @@ import 'package:medPilot/features/patient_portal/on_demand_service/view/pharmacy
 import 'package:medPilot/features/patient_portal/on_demand_service/view/procedure_page.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_list_page.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_description_page.dart';
+import 'package:medPilot/features/patient_portal/services/invesigation/view/investigation_screen.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/view/pain_clinic_screen.dart';
 import 'package:medPilot/features/patient_portal/services/psych_social_clinic/view/psych_social_report_screen.dart';
 import 'package:medPilot/features/patient_portal/services/upload_document/view/all_upload_page.dart';
@@ -37,6 +38,7 @@ class Routes {
   static const String patientDashboard = "/patientDashboard";
   static const String prescription = "prescription";
   static const String followUp = "follow_up";
+  static const String investigation = "investigation";
   static const String painClinic = "pain_clinic";
   static const String woundClinic = "wound_clinic";
   static const String psychSocialReport = "psych_social_clinic";
@@ -98,6 +100,12 @@ class RouteGenerator {
  case Routes.followUp:
         return CupertinoPageRoute(
           builder: (_) =>  FollowupListPage(),
+          settings: routeSettings,
+        );
+
+        case Routes.investigation:
+        return CupertinoPageRoute(
+          builder: (_) =>  InvestigationReportScreen(),
           settings: routeSettings,
         );
       // global routes end

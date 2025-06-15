@@ -5,13 +5,13 @@ class GalleryViewerScreen extends StatefulWidget {
   final List<String> imageUrls;
   final int initialIndex;
 
-  const GalleryViewerScreen({
+  const GalleryViewerScreen({super.key,
     required this.imageUrls,
     required this.initialIndex,
   });
 
   @override
-  _GalleryViewerScreenState createState() => _GalleryViewerScreenState();
+  State createState() => _GalleryViewerScreenState();
 }
 
 class _GalleryViewerScreenState extends State<GalleryViewerScreen> {

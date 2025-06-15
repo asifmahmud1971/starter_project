@@ -5,8 +5,10 @@ import 'dart:io';
 import 'package:medPilot/core/constants/app_text_style.dart';
 
 class AddWoundAssessment extends StatefulWidget {
+  const AddWoundAssessment({super.key});
+
   @override
-  _AddWoundAssessmentState createState() => _AddWoundAssessmentState();
+  State createState() => _AddWoundAssessmentState();
 }
 
 class _AddWoundAssessmentState extends State<AddWoundAssessment> {

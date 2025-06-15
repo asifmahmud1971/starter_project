@@ -11,18 +11,18 @@
 import 'package:dio/dio.dart' as _i5;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:medPilot/core/app/app_dependency.dart' as _i39;
+import 'package:medPilot/core/app/app_dependency.dart' as _i42;
 import 'package:medPilot/core/app/app_preference.dart' as _i3;
 import 'package:medPilot/data/network/api_client.dart' as _i22;
 import 'package:medPilot/data/network/api_request.dart' as _i10;
 import 'package:medPilot/features/auth/forgot_password/cubit/forgot_password_cubit.dart'
-    as _i37;
+    as _i39;
 import 'package:medPilot/features/auth/forgot_password/repository/forgot_password_repository.dart'
-    as _i36;
-import 'package:medPilot/features/auth/forgot_password/repository/forgot_password_repository_imp.dart'
-    as _i35;
-import 'package:medPilot/features/auth/sign_in/cubit/sign_in_cubit.dart'
     as _i38;
+import 'package:medPilot/features/auth/forgot_password/repository/forgot_password_repository_imp.dart'
+    as _i37;
+import 'package:medPilot/features/auth/sign_in/cubit/sign_in_cubit.dart'
+    as _i40;
 import 'package:medPilot/features/auth/sign_in/repository/sign_in_repository.dart'
     as _i32;
 import 'package:medPilot/features/auth/sign_in/repository/sign_in_repository_imp.dart'
@@ -41,7 +41,7 @@ import 'package:medPilot/features/patient_portal/home/repository/home_repository
 import 'package:medPilot/features/patient_portal/home/repository/home_repository_imp.dart'
     as _i16;
 import 'package:medPilot/features/patient_portal/on_demand_service/cubit/onDemand_service_cubit.dart'
-    as _i33;
+    as _i35;
 import 'package:medPilot/features/patient_portal/on_demand_service/repository/onDemandService_repository.dart'
     as _i13;
 import 'package:medPilot/features/patient_portal/on_demand_service/repository/onDemandService_repository_imp.dart'
@@ -50,6 +50,12 @@ import 'package:medPilot/features/patient_portal/services/cubit/services_cubit.d
     as _i18;
 import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart'
     as _i17;
+import 'package:medPilot/features/patient_portal/services/invesigation/cubit/investigation_cubit.dart'
+    as _i41;
+import 'package:medPilot/features/patient_portal/services/invesigation/repository/investigation_repository.dart'
+    as _i34;
+import 'package:medPilot/features/patient_portal/services/invesigation/repository/investigation_repository_imp.dart'
+    as _i33;
 import 'package:medPilot/features/patient_portal/services/pain_clinic/cubit/painClinic_cubit.dart'
     as _i20;
 import 'package:medPilot/features/patient_portal/services/rehav_pall_care/cubit/rehab_pall_cubit.dart'
@@ -66,7 +72,7 @@ import 'package:medPilot/features/patient_portal/services/upload_document/cubit/
     as _i19;
 import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart'
     as _i21;
-import 'package:medPilot/features/profile/cubit/profile_cubit.dart' as _i34;
+import 'package:medPilot/features/profile/cubit/profile_cubit.dart' as _i36;
 import 'package:medPilot/features/profile/repository/profile_repository.dart'
     as _i28;
 import 'package:medPilot/features/profile/repository/profile_repository_imp.dart'
@@ -125,17 +131,21 @@ Future<_i1.GetIt> $initGetIt(
       () => _i30.RehabPallCubit(gh<_i25.RehabPallRepositoryImp>()));
   gh.factory<_i31.SignInRepositoryImp>(
       () => _i32.SignInRepository(apiClient: gh<_i22.ApiClient>()));
-  gh.factory<_i33.OnDemandServiceCubit>(
-      () => _i33.OnDemandServiceCubit(gh<_i13.OnDemandServiceRepository>()));
-  gh.factory<_i34.ProfileCubit>(
-      () => _i34.ProfileCubit(gh<_i27.ProfileRepositoryImp>()));
-  gh.factory<_i35.ForgotPasswordRepositoryImp>(
-      () => _i36.ForgotPasswordRepository(apiClient: gh<_i22.ApiClient>()));
-  gh.factory<_i37.ForgotPasswordCubit>(
-      () => _i37.ForgotPasswordCubit(gh<_i35.ForgotPasswordRepositoryImp>()));
-  gh.factory<_i38.SignInCubit>(
-      () => _i38.SignInCubit(gh<_i31.SignInRepositoryImp>()));
+  gh.factory<_i33.InvestigationRepositoryImp>(
+      () => _i34.InvestigationRepository(apiClient: gh<_i22.ApiClient>()));
+  gh.factory<_i35.OnDemandServiceCubit>(
+      () => _i35.OnDemandServiceCubit(gh<_i13.OnDemandServiceRepository>()));
+  gh.factory<_i36.ProfileCubit>(
+      () => _i36.ProfileCubit(gh<_i27.ProfileRepositoryImp>()));
+  gh.factory<_i37.ForgotPasswordRepositoryImp>(
+      () => _i38.ForgotPasswordRepository(apiClient: gh<_i22.ApiClient>()));
+  gh.factory<_i39.ForgotPasswordCubit>(
+      () => _i39.ForgotPasswordCubit(gh<_i37.ForgotPasswordRepositoryImp>()));
+  gh.factory<_i40.SignInCubit>(
+      () => _i40.SignInCubit(gh<_i31.SignInRepositoryImp>()));
+  gh.factory<_i41.InvestigationCubit>(
+      () => _i41.InvestigationCubit(gh<_i33.InvestigationRepositoryImp>()));
   return getIt;
 }
 
-class _$AppModule extends _i39.AppModule {}
+class _$AppModule extends _i42.AppModule {}

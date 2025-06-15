@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/constants/app_strings.dart';
 
 class FollowUpCard extends StatelessWidget {
   final String? dateTime;
@@ -67,13 +68,13 @@ class FollowUpCard extends StatelessWidget {
                         color: Colors.red[100],
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(Icons.warning, size: 14, color: Colors.red),
                           SizedBox(width: 4),
                           Text(
-                            'Critical',
+                            AppStrings.critical.tr(),
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -103,7 +104,6 @@ class FollowUpCard extends StatelessWidget {
                   ),
                 ],
               ),
-
             ],
           ),
         ),
