@@ -49,6 +49,9 @@ class ApiUrls {
   static const String uploadDoc = 'show-upload-document';
   static const String homeVisit = 'home-visit';
   static const String procedure = 'procedure';
+  static const String inPatientPackage = 'in-patient-package';
+  static const String city = 'city';
+  static const String thana = 'thana';
 
 
 
