@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/core/app/app_dependency.dart';
+import 'package:medPilot/core/app/app_preference.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/router/routes.dart';
 import 'package:medPilot/features/patient_portal/more/view/my_package_screen.dart';
 import 'package:medPilot/features/patient_portal/more/view/payment_screen.dart';
 
@@ -14,6 +17,7 @@ class MoreOptionScreen extends StatefulWidget {
 class _MoreOptionScreenState extends State<MoreOptionScreen> {
   bool _notificationsEnabled = true;
   bool _darkModeEnabled = false;
+  AppPreferences appPreferences = instance.get();
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +147,8 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
                       fontWeight: FontWeight.bold,
                     )),
                 onPressed: () {
-                  // Handle logout
+                  appPreferences.logout();
+                  GetContext.offAll(Routes.signIn);
                 },
               ),
             ),

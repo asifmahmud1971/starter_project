@@ -104,5 +104,6 @@ class AppStrings {
   static const String investigationReport = "Investigation Report";
   static const String patientInformation = "Patient Information";
   static const String diagnosisReport = "Diagnosis Report";
+  static const String quickActions = "Quick Actions";
 
 }

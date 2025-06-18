@@ -83,7 +83,7 @@ class RouteGenerator {
 
       case Routes.staffDashboard:
         return CupertinoPageRoute(
-          builder: (_) => const StaffDashboardScreen(),
+          builder: (_) =>  StaffDashboardScreen(),
           settings: routeSettings,
         );
       case Routes.patientDashboard:
