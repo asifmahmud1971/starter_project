@@ -336,6 +336,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
 class _BuildSmartVitalRow extends StatelessWidget {
   final String? label;
   final Widget firstField;
+  final bool isOptional=false;
 
   const _BuildSmartVitalRow({
     super.key,
@@ -358,8 +359,17 @@ class _BuildSmartVitalRow extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            const Spacer(),
-            // Icon(Icons.circle, size: 12, color: color),
+            isOptional?Padding(
+              padding: const EdgeInsets.only(left: 4),
+              child: Text(
+                "*",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: AppColors.kError400,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ):SizedBox.shrink()
           ],
         ),
         8.verticalSpace,

@@ -1,76 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/patient_portal/services/psych_social_clinic/cubit/psych_social_cubit.dart';
+import 'package:medPilot/features/patient_portal/services/psych_social_clinic/model/all_psych_social_response.dart';
 
 import 'add_psych_social_screen.dart';
 
-class PsychoSocialReportPage extends StatelessWidget {
-  final List<PsychoSocialRecord> records = [
-    PsychoSocialRecord(
-      date: DateTime(2025, 5, 27),
-      feelingAnxious: 'Slightly',
-      friendsAnxious: 'Not at All',
-      feelingDepressed: 'Not at All',
-      feltAtPeace: 'Not at All',
-      ableToShare: 'Not at All',
-      muchInformation: 'Not at All',
-    ),
-    PsychoSocialRecord(
-      date: DateTime(2025, 5, 8),
-      feelingAnxious: 'a',
-      friendsAnxious: 'a',
-      feelingDepressed: 'a',
-      feltAtPeace: 'a',
-      ableToShare: 'a',
-      muchInformation: 'a',
-    ),
-    PsychoSocialRecord(
-      date: DateTime(2025, 5, 8),
-      feelingAnxious: 'a',
-      friendsAnxious: 'a',
-      feelingDepressed: 'a',
-      feltAtPeace: 'a',
-      ableToShare: 'a',
-      muchInformation: 'a',
-    ),
-  ];
+class PsychoSocialReportPage extends StatefulWidget {
+  const PsychoSocialReportPage({super.key});
+
+  @override
+  State<PsychoSocialReportPage> createState() => _PsychoSocialReportPageState();
+}
+
+class _PsychoSocialReportPageState extends State<PsychoSocialReportPage> {
+  @override
+  void initState() {
+    GetContext.context.read<PsychSocialCubit>().getPsychoSocial();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFF8F9FA),
-        appBar: AppBar(
-          title: Text(
-            'Psycho Social Report',
-            style: kTitleLarge.copyWith(color: AppColors.white),
-          ),
-          centerTitle: true,
-          iconTheme: IconThemeData(color: AppColors.white),
-          backgroundColor: AppColors.kPrimaryColor,
-          elevation: 0,
+      backgroundColor: Color(0xFFF8F9FA),
+      appBar: AppBar(
+        title: Text(
+          'Psycho Social Report',
+          style: kTitleLarge.copyWith(color: AppColors.white),
         ),
-        body: Column(
-          children: [
-            _buildSummaryCard(),
-            Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.all(16),
-                itemCount: records.length,
-                itemBuilder: (context, index) {
-                  return _buildRecordCard(records[index], index + 1);
-                },
+        centerTitle: true,
+        iconTheme: IconThemeData(color: AppColors.white),
+        backgroundColor: AppColors.kPrimaryColor,
+        elevation: 0,
+      ),
+      body: BlocBuilder<PsychSocialCubit, PsychSocialState>(
+        builder: (context, state) {
+          return state.psychoSocialReportResponse!=null? Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.all(16),
+                  itemCount:
+                      state.psychoSocialReportResponse?.psychosocial?.length,
+                  itemBuilder: (context, index) {
+                    Psychosocial? psychSocial = state
+                        .psychoSocialReportResponse?.psychosocial
+                        ?.elementAt(index);
+                    return _buildRecordCard(psychSocial, index + 1);
+                  },
+                ),
               ),
-            ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: Color(0xFFFF904D),
-            child: Icon(Icons.add),
-            onPressed: () {
-              GetContext.to(AddPsychoSocialScreen());
-            }));
+            ],
+          ):SizedBox.shrink();
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Color(0xFFFF904D),
+          child: Icon(Icons.add),
+          onPressed: () {
+            GetContext.to(AddPsychoSocialScreen());
+          }),
+    );
   }
 
   Widget _buildSummaryCard() {
@@ -145,7 +139,7 @@ class PsychoSocialReportPage extends StatelessWidget {
     );
   }
 
-  Widget _buildRecordCard(PsychoSocialRecord record, int slNo) {
+  Widget _buildRecordCard(Psychosocial? record, int slNo) {
     final dateFormat = DateFormat('dd MMM yyyy');
 
     return Card(
@@ -170,7 +164,7 @@ class PsychoSocialReportPage extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  dateFormat.format(record.date),
+                  dateFormat.format(DateTime.parse(record?.date ?? "")),
                   style: TextStyle(
                     color: Colors.grey.shade600,
                   ),
@@ -178,16 +172,19 @@ class PsychoSocialReportPage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 12),
-            Divider(height: 1),
+            Divider(height: 1,color: AppColors.kDividerColor),
             SizedBox(height: 12),
             _buildEmotionRow(
-                'Feeling anxious or worried:', record.feelingAnxious),
+                'Feeling anxious or worried:', record?.anxiousOrWorried ?? ""),
+            _buildEmotionRow('Friends anxious or worried:',
+                record?.familyAnxiousOrWorried ?? ""),
             _buildEmotionRow(
-                'Friends anxious or worried:', record.friendsAnxious),
-            _buildEmotionRow('Feeling depressed:', record.feelingDepressed),
-            _buildEmotionRow('Felt at peace:', record.feltAtPeace),
-            _buildEmotionRow('Able to share feelings:', record.ableToShare),
-            _buildEmotionRow('Much information:', record.muchInformation),
+                'Feeling depressed:', record?.feelingDepressed ?? ""),
+            _buildEmotionRow('Felt at peace:', record?.feltAtPeace ?? ""),
+            _buildEmotionRow(
+                'Able to share feelings:', record?.shareFeeling ?? ''),
+            _buildEmotionRow(
+                'Much information:', record?.muchInformation ?? ""),
           ],
         ),
       ),

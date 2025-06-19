@@ -159,7 +159,7 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
     }
   }
 
-  Future<void> signIn() async {
+  Future<void> addClinic() async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
 
