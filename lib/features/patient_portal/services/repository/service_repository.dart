@@ -8,6 +8,7 @@ import 'package:medPilot/features/patient_portal/services/pain_clinic/model/add_
 import 'package:medPilot/features/patient_portal/services/pain_clinic/model/medication_model.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/model/pain_assessment.dart';
 import 'package:medPilot/features/patient_portal/services/upload_document/model/document_model.dart';
+import 'package:medPilot/features/patient_portal/services/upload_document/model/upload_data_model.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/all_wound_data.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_describe_report.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_document_data.dart';
@@ -41,13 +42,17 @@ abstract class ServiceRepository {
 
   Future<Either<ApiFailure, DocumentModel>> getAllDocument(
       Map<String, dynamic> params);
-Future<Either<ApiFailure, AllWoundData>> showAllWoundAssessment(
-      Map<String, dynamic> params);
 
-  Future<Either<ApiFailure, DocumentModel>> documentUpload(
+  Future<Either<ApiFailure, AllWoundData>> showAllWoundAssessment(
       Map<String, dynamic> params);
 
   Future<Either<ApiFailure, WoundDocumentData>> woundDocumentUpload(
+      Map<String, dynamic> params,
+      ProgressCallback? onSendProgress,
+      // Added callback for upload progress
+      ProgressCallback? onReceiveProgress);
+
+  Future<Either<ApiFailure, UploadDataModel>> uploadDocument(
       Map<String, dynamic> params,
       ProgressCallback? onSendProgress,
       // Added callback for upload progress

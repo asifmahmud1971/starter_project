@@ -76,11 +76,13 @@ class _AllUploadPageState extends State<AllUploadPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Hero(
-                      tag: 'image_$index',
-                      child: CustomImage(
-                        baseUrl: state.documentModel?.uploadDocument?[index].file??"",
-                        placeHolder: Assets.imagesCardImageThumb,
+                    Flexible(
+                      child: Hero(
+                        tag: 'image_$index',
+                        child: CustomImage(
+                          baseUrl: state.documentModel?.uploadDocument?[index].file??"",
+                          placeHolder: Assets.imagesCardImageThumb,
+                        ),
                       ),
                     ),
                     8.verticalSpace,

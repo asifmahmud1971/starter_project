@@ -1,10 +1,16 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:medPilot/core/constants/app_strings.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/core/components/custom_snack_bar.dart';
+import 'package:medPilot/core/components/custom_text_field.dart';
+import 'package:medPilot/core/constants/app_colors.dart';
 import 'dart:io';
-
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/core/enum/app_status.dart';
+import 'package:medPilot/features/patient_portal/services/upload_document/cubit/document_cubit.dart';
+import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart';
 
 class UploadDocument extends StatefulWidget {
   const UploadDocument({super.key});
@@ -16,8 +22,12 @@ class UploadDocument extends StatefulWidget {
 class _UploadDocumentState extends State<UploadDocument> {
   File? _selectedFile;
   String _fileName = 'No file chosen';
-  bool _isUploading = false;
-  double _uploadProgress = 0;
+
+  @override
+  void initState() {
+    context.read<DocumentCubit>().titleController.clear();
+    super.initState();
+  }
 
   Future<void> _pickFile() async {
     try {
@@ -30,9 +40,8 @@ class _UploadDocumentState extends State<UploadDocument> {
         setState(() {
           _selectedFile = File(result.files.single.path!);
           _fileName = result.files.single.name;
-          _uploadProgress = 0;
         });
-        _simulateUpload();
+
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -41,20 +50,6 @@ class _UploadDocumentState extends State<UploadDocument> {
     }
   }
 
-  void _simulateUpload() async {
-    setState(() => _isUploading = true);
-
-    // Simulate upload progress
-    for (int i = 0; i <= 100; i += 5) {
-      await Future.delayed(Duration(milliseconds: 100));
-      setState(() => _uploadProgress = i / 100);
-    }
-
-    setState(() => _isUploading = false);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('File uploaded successfully!')),
-    );
-  }
 
   Widget _buildFileInfo() {
     if (_selectedFile == null) return SizedBox();
@@ -65,7 +60,7 @@ class _UploadDocumentState extends State<UploadDocument> {
     IconData icon;
     Color iconColor;
 
-    if (['jpg', 'jpeg', 'png', 'gif'].contains(extension)) {
+    if (['jpg', 'jpeg', 'png', 'gif', 'heic', 'heif'].contains(extension)) {
       icon = Icons.image;
       iconColor = Colors.blue;
     } else if (['pdf'].contains(extension)) {
@@ -79,80 +74,83 @@ class _UploadDocumentState extends State<UploadDocument> {
       iconColor = Colors.grey;
     }
 
-    return Column(
-      children: [
-        SizedBox(height: 20),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.grey[50],
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.grey[200]!),
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: iconColor.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(icon, color: iconColor, size: 28),
+    return BlocBuilder<WoundClinicCubit, WoundClinicState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            SizedBox(height: 20),
+            Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.grey[50],
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.grey[200]!),
               ),
-              SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      _fileName,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: iconColor.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    SizedBox(height: 4),
-                    Text(
-                      '$fileSize KB • ${extension.toUpperCase()}',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 12,
-                      ),
+                    child: Icon(icon, color: iconColor, size: 28),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _fileName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '$fileSize KB • ${extension.toUpperCase()}',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.close, color: Colors.grey),
+                    onPressed: () {
+                      setState(() {
+                        _selectedFile = null;
+                        _fileName = 'No file chosen';
+                      });
+                    },
+                  ),
+                ],
               ),
-              IconButton(
-                icon: Icon(Icons.close, color: Colors.grey),
-                onPressed: () {
-                  setState(() {
-                    _selectedFile = null;
-                    _fileName = 'No file chosen';
-                    _uploadProgress = 0;
-                  });
-                },
+            ),
+            if (state.appStatus ==  AppStatus.loading) ...[
+              SizedBox(height: 16),
+              LinearProgressIndicator(
+                value: state.uploadProgress,
+                backgroundColor: Colors.grey[200],
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFF904D)),
+              ),
+              8.verticalSpace,
+              Text(
+                state.uploadProgressString??"",
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 12,
+                ),
               ),
             ],
-          ),
-        ),
-        if (_isUploading) ...[
-          SizedBox(height: 16),
-          LinearProgressIndicator(
-            value: _uploadProgress,
-            backgroundColor: Colors.grey[200],
-            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFF904D)),
-          ),
-          SizedBox(height: 8),
-          Text(
-            '${(_uploadProgress * 100).toStringAsFixed(0)}%',
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 12,
-            ),
-          ),
-        ],
-      ],
+          ],
+        );
+      },
     );
   }
 
@@ -161,7 +159,7 @@ class _UploadDocumentState extends State<UploadDocument> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(AppStrings.uploadDocument.tr(),style: kTitleLarge.copyWith(color:Colors.white),),
+        title: Text('Add wound assessment',style: kTitleLarge.copyWith(color:Colors.white),),
         centerTitle: true,
         backgroundColor: Color(0xFFFF904D),
         iconTheme: IconThemeData(color: Colors.white),
@@ -170,60 +168,98 @@ class _UploadDocumentState extends State<UploadDocument> {
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: Color(0xFFFF904D).withOpacity(0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.cloud_upload,
-                  size: 48,
-                  color: Color(0xFFFF904D),
-                ),
-              ),
-              SizedBox(height: 24),
-              Text(
-                'Upload Your File',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[800],
-                ),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Supported formats: JPG, PNG, PDF, DOC, etc.',
-                style: TextStyle(
-                  color: Colors.grey[600],
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 32),
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFFF904D),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: (){
+                    _pickFile();
+                  },
+                  borderRadius: BorderRadius.circular(90),
+                  child: Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFFF904D).withOpacity(0.1),
+                      shape: BoxShape.circle,
                     ),
-                    elevation: 0,
-                  ),
-                  onPressed: _pickFile,
-                  child: Text(
-                    'Choose File',
-                    style: TextStyle(fontSize: 16),
+                    child: Icon(
+                      Icons.cloud_upload,
+                      size: 48,
+                      color: Color(0xFFFF904D),
+                    ),
                   ),
                 ),
-              ),
-              _buildFileInfo(),
-            ],
+                SizedBox(height: 24),
+                Text(
+                  'Upload Your File',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[800],
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'Supported formats: JPG, PNG, PDF, DOC, etc.',
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                _buildFileInfo(),
+                SizedBox(height: 32),
+                CustomTextField(
+                  controller: GetContext.context.read<DocumentCubit>().titleController,
+                  isOptional: true,
+                  titleStyle: kBodyMedium,
+                  title: "Title",
+                  hint: "Title",
+                  hintColor: AppColors.kGrayColor400,
+                  textColor: AppColors.kGrayColor950,
+                  fillColor: AppColors.kWhiteColor,
+                  radius: 10,
+                  borderThink: 1,
+                  keyboardType: TextInputType.name,
+                ),
+                SizedBox(height: 32),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFFFF904D),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      elevation: 0,
+                    ),
+                    onPressed: (){
+                      final document = GetContext.context.read<DocumentCubit>();
+                      if((_selectedFile?.path??"").isEmpty){
+                        showCustomSnackBar(
+                          context: GetContext.context,
+                          isError: true,
+                          message: "Image is Required",
+                        );
+                      }else if(document.titleController.text.isEmpty){
+                        showCustomSnackBar(
+                          context: GetContext.context,
+                          isError: true,
+                          message: "Title is Required",
+                        );
+                      } else{
+                        context.read<DocumentCubit>().uploadDocument(imagePath: _selectedFile?.path);
+                    }},
+                    child: Text(
+                      'Submit',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

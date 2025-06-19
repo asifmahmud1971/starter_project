@@ -11,6 +11,7 @@ import 'package:medPilot/features/patient_portal/services/pain_clinic/model/add_
 import 'package:medPilot/features/patient_portal/services/pain_clinic/model/medication_model.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/model/pain_assessment.dart';
 import 'package:medPilot/features/patient_portal/services/upload_document/model/document_model.dart';
+import 'package:medPilot/features/patient_portal/services/upload_document/model/upload_data_model.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/all_wound_data.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_describe_report.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_document_data.dart';
@@ -128,6 +129,20 @@ class ServiceRepositoryImp implements ServiceRepository {
         onSendProgress: onReceiveProgress,
         isMultipart: true,
         fromJson: WoundDocumentData.fromJson);
+  }
+
+  @override
+  Future<Either<ApiFailure, UploadDataModel>> uploadDocument(
+      Map<String, dynamic> params,ProgressCallback? onSendProgress, // Added callback for upload progress
+      ProgressCallback? onReceiveProgress,) {
+    return apiRequest.performRequest(
+        url: ApiUrls.uploadDocument,
+        method: Method.post,
+        params: params,
+        onReceiveProgress: onReceiveProgress,
+        onSendProgress: onReceiveProgress,
+        isMultipart: true,
+        fromJson: UploadDataModel.fromJson);
   }
 @override
   Future<Either<ApiFailure, AllWoundData>> showAllWoundAssessment(
