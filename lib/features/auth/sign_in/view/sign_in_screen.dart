@@ -89,7 +89,6 @@ class SignInScreen extends StatelessWidget {
               // Login Button
               ElevatedButton(
                 onPressed: () {
-
                   context.read<SignInCubit>().signIn();
                 },
                 style: ElevatedButton.styleFrom(

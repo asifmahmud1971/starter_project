@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:io';
-
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/core/enum/app_status.dart';
+import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart';
 
 class AddWoundAssessment extends StatefulWidget {
   const AddWoundAssessment({super.key});
@@ -14,8 +17,7 @@ class AddWoundAssessment extends StatefulWidget {
 class _AddWoundAssessmentState extends State<AddWoundAssessment> {
   File? _selectedFile;
   String _fileName = 'No file chosen';
-  bool _isUploading = false;
-  double _uploadProgress = 0;
+
 
   Future<void> _pickFile() async {
     try {
@@ -28,9 +30,8 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
         setState(() {
           _selectedFile = File(result.files.single.path!);
           _fileName = result.files.single.name;
-          _uploadProgress = 0;
         });
-        _simulateUpload();
+        context.read<WoundClinicCubit>().uploadWoundDocument(imagePath: _selectedFile?.path);
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -39,20 +40,6 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
     }
   }
 
-  void _simulateUpload() async {
-    setState(() => _isUploading = true);
-
-    // Simulate upload progress
-    for (int i = 0; i <= 100; i += 5) {
-      await Future.delayed(Duration(milliseconds: 100));
-      setState(() => _uploadProgress = i / 100);
-    }
-
-    setState(() => _isUploading = false);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('File uploaded successfully!')),
-    );
-  }
 
   Widget _buildFileInfo() {
     if (_selectedFile == null) return SizedBox();
@@ -63,7 +50,7 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
     IconData icon;
     Color iconColor;
 
-    if (['jpg', 'jpeg', 'png', 'gif'].contains(extension)) {
+    if (['jpg', 'jpeg', 'png', 'gif', 'heic', 'heif'].contains(extension)) {
       icon = Icons.image;
       iconColor = Colors.blue;
     } else if (['pdf'].contains(extension)) {
@@ -77,6 +64,8 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
       iconColor = Colors.grey;
     }
 
+    return BlocBuilder<WoundClinicCubit, WoundClinicState>(
+  builder: (context, state) {
     return Column(
       children: [
         SizedBox(height: 20),
@@ -127,23 +116,22 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
                   setState(() {
                     _selectedFile = null;
                     _fileName = 'No file chosen';
-                    _uploadProgress = 0;
                   });
                 },
               ),
             ],
           ),
         ),
-        if (_isUploading) ...[
+        if (state.appStatus ==  AppStatus.loading) ...[
           SizedBox(height: 16),
           LinearProgressIndicator(
-            value: _uploadProgress,
+            value: state.uploadProgress,
             backgroundColor: Colors.grey[200],
             valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFF904D)),
           ),
-          SizedBox(height: 8),
+          8.verticalSpace,
           Text(
-            '${(_uploadProgress * 100).toStringAsFixed(0)}%',
+          state.uploadProgressString??"",
             style: TextStyle(
               color: Colors.grey[600],
               fontSize: 12,
@@ -152,6 +140,8 @@ class _AddWoundAssessmentState extends State<AddWoundAssessment> {
         ],
       ],
     );
+  },
+);
   }
 
   @override

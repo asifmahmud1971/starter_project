@@ -42,6 +42,7 @@ class AppStrings {
   static const String vitalSign = "Vital Signs";
   static const String physicalSymptoms = "Physical Symptoms";
   static const String painClinic = "Pain Clinic";
+  static const String woundClinic = "Wound Clinic";
   static const String location = "Location";
   static const String radiation = "Radiation";
   static const String severity = "Severity";
@@ -103,5 +104,6 @@ class AppStrings {
   static const String investigationReport = "Investigation Report";
   static const String patientInformation = "Patient Information";
   static const String diagnosisReport = "Diagnosis Report";
+  static const String quickActions = "Quick Actions";
 
 }

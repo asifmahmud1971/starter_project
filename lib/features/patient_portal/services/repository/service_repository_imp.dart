@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:medPilot/data/network/api_client.dart';
 import 'package:medPilot/data/network/api_failure.dart';
@@ -10,7 +11,9 @@ import 'package:medPilot/features/patient_portal/services/pain_clinic/model/add_
 import 'package:medPilot/features/patient_portal/services/pain_clinic/model/medication_model.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/model/pain_assessment.dart';
 import 'package:medPilot/features/patient_portal/services/upload_document/model/document_model.dart';
+import 'package:medPilot/features/patient_portal/services/wound_clinic/model/all_wound_data.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_describe_report.dart';
+import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_document_data.dart';
 import 'service_repository.dart';
 
 @Injectable(as: ServiceRepository)
@@ -113,8 +116,27 @@ class ServiceRepositoryImp implements ServiceRepository {
         params: params,
         fromJson: DocumentModel.fromJson);
   }
-
-
-
+@override
+  Future<Either<ApiFailure, WoundDocumentData>> woundDocumentUpload(
+      Map<String, dynamic> params,ProgressCallback? onSendProgress, // Added callback for upload progress
+    ProgressCallback? onReceiveProgress,) {
+    return apiRequest.performRequest(
+        url: ApiUrls.uploadWoundImage,
+        method: Method.post,
+        params: params,
+        onReceiveProgress: onReceiveProgress,
+        onSendProgress: onReceiveProgress,
+        isMultipart: true,
+        fromJson: WoundDocumentData.fromJson);
+  }
+@override
+  Future<Either<ApiFailure, AllWoundData>> showAllWoundAssessment(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+        url: ApiUrls.showAllWoundAssessment,
+        method: Method.get,
+        params: params,
+        fromJson: AllWoundData.fromJson);
+  }
 
 }

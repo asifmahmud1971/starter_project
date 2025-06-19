@@ -50,14 +50,18 @@ class SignInCubit extends Cubit<SignInState> {
           emit(state.copyWith(appStatus: AppStatus.failure));
         },
         (r) async {
+          log("user type.........${r.user?.userType}");
           resetForm();
           emit(state.copyWith(appStatus: AppStatus.success));
           await _appPreferences.saveUserData(r.user);
           await _appPreferences.setUserToken(r.token ?? "");
           await _appPreferences.setIsUserLoggedIn(true);
+
           if (r.user?.userType == "Patient") {
             GetContext.offAll(Routes.patientDashboard);
           } else {
+            log("staff portal login.........");
+
             GetContext.offAll(Routes.staffDashboard);
           }
         },

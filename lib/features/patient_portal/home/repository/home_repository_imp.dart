@@ -6,6 +6,7 @@ import 'package:medPilot/data/network/api_request.dart';
 import 'package:medPilot/data/network/api_urls.dart';
 import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
 import 'package:medPilot/features/patient_portal/home/model/prescription_model.dart';
+import 'package:medPilot/features/patient_portal/home/model/staff_permission_model.dart';
 
 import 'home_repository.dart';
 
@@ -24,6 +25,17 @@ class HomeRepositoryImp implements HomeRepository {
         params: params,
         fromJson: DashboardPermission.fromJson);
   }
+  @override
+  Future<Either<ApiFailure, StaffPermissionModel>> getStaffPermission(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+        url: ApiUrls.permission,
+        method: Method.get,
+        params: params,
+        fromJson: StaffPermissionModel.fromJson);
+  }
+
+
   @override
   Future<Either<ApiFailure, PrescriptionModel>> getPrescription(
       Map<String, dynamic> params) {

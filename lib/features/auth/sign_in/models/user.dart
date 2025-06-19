@@ -41,14 +41,14 @@ class User {
     darkMode = json['dark_mode'];
     messengerColor = json['messenger_color'];
   }
-  num? id;
+  dynamic id;
   String? name;
   String? email;
   String? phone;
   String? emailVerifiedAt;
   String? userType;
   String? status;
-  num? roleId;
+  dynamic roleId;
   String? package;
   String? companyId;
   String? branchId;
@@ -56,9 +56,9 @@ class User {
   String? address;
   String? createdAt;
   String? updatedAt;
-  num? activeStatus;
+  dynamic activeStatus;
   String? avatar;
-  num? darkMode;
+  dynamic darkMode;
   String? messengerColor;
 
   Map<String, dynamic> toJson() {

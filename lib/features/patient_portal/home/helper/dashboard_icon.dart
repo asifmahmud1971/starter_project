@@ -49,6 +49,16 @@ extension MedIconExtension on String {
         return Assets.medPsychSocialClinic;
       case "clinic":
         return Assets.medInPatientRequest;
+      case "roster":
+        return Assets.medWoundDersing;
+      case "attendance":
+        return Assets.medInPatientRequest;
+      case "tracking":
+        return Assets.medInPatientRequest;
+      case "task":
+        return Assets.medInPatientRequest;
+      case "medicine_alert":
+        return Assets.medInPatientRequest;
 
       default:
         return null;

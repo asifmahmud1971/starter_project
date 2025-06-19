@@ -22,8 +22,8 @@ const String prefsKeySessionTutorial = "prefsKeySessionTutorial";
 const String prefsLastPlayList = "prefsLastPlayList";
 const String prefsCurrentSession = "prefsCurrentSession";
 const String prefsKeyFcmToken = "prefsKeyFcmToken";
-const String prefsKeyAppOpen = "prefsKeyAppOpen";
-const String prefsKeyPlayedAudio = "prefsKeyPlayedAudio";
+const String prefsLoginPortal = "prefsLoginPortal";
+
 
 @injectable
 class AppPreferences {
@@ -38,10 +38,10 @@ class AppPreferences {
   Future<void> setUserToken(String token) async {
     await _sharedPreferences.setString(prefsKeyUserToken, token);
   }
-
-  Future<void> setPlayedAudio(List<String> playedAudio) async {
-    await _sharedPreferences.setStringList(prefsKeyPlayedAudio, playedAudio);
+  void setUserPortal(String portal)  {
+     _sharedPreferences.setString(prefsLoginPortal, portal);
   }
+
 
   void setCurrentSession(String id) {
     _sharedPreferences.setString(prefsCurrentSession, id);
@@ -109,25 +109,12 @@ class AppPreferences {
     }
   }
 
-  Future<void> clearAudio() async {
-    try {
-      await _sharedPreferences.reload();
-
-      await _sharedPreferences.remove(prefsKeyPlayedAudio);
-    } catch (e) {
-      log('$runtimeType:: @removeUserData => $e');
-    }
-  }
-
-  /// set preferences data end here ///
-
-  List<String> getPlayedAudioList() {
-    List<String>? list = _sharedPreferences.getStringList(prefsKeyPlayedAudio);
-    return list ?? [];
-  }
 
   Future<String> getUserToken() async {
     return _sharedPreferences.getString(prefsKeyUserToken) ?? "";
+  }
+  String getUserPortal()  {
+    return _sharedPreferences.getString(prefsLoginPortal) ?? "";
   }
 
   String getCurrentSession() {
@@ -152,15 +139,6 @@ class AppPreferences {
 
   String getFcmToken() {
     return _sharedPreferences.getString(prefsKeyFcmToken) ?? "";
-  }
-
-  int getAppOpens() {
-    return _sharedPreferences.getInt(prefsKeyAppOpen) ?? 0;
-  }
-
-  Future<void> setAppOpenCount() async {
-    int currentCount = getAppOpens();
-    await _sharedPreferences.setInt(prefsKeyAppOpen, currentCount + 1);
   }
 
   bool isUserLoggedIn() {
