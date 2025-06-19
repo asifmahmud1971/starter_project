@@ -7,8 +7,10 @@ import 'dart:io';
 import 'package:medPilot/core/constants/app_text_style.dart';
 
 class UploadDocument extends StatefulWidget {
+  const UploadDocument({super.key});
+
   @override
-  _UploadDocumentState createState() => _UploadDocumentState();
+  State createState() => _UploadDocumentState();
 }
 
 class _UploadDocumentState extends State<UploadDocument> {
