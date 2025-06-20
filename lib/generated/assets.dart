@@ -5,8 +5,7 @@ class Assets {
   static const String assetsIconsAddCircle = 'assets/icons/add_circle.svg';
   static const String assetsIconsLogo = 'assets/icons/logo_.svg';
   static const String assetsIconsPlusSign = 'assets/icons/plus_sign.svg';
-  static const String fontsHankenGroteskRegular =
-      'assets/fonts/HankenGrotesk-Regular.ttf';
+  static const String fontsHankenGroteskRegular = 'assets/fonts/HankenGrotesk-Regular.ttf';
   static const String iconsAddCircle = 'assets/icons/add-circle.svg';
   static const String iconsAlbanian = 'assets/icons/albanian.png';
   static const String iconsArrowBack = 'assets/icons/arrow_back.svg';
@@ -14,17 +13,12 @@ class Assets {
   static const String iconsArrowDown01 = 'assets/icons/arrow-down-01.svg';
   static const String iconsArrowRight01 = 'assets/icons/arrow-right-01.svg';
   static const String iconsArrowUp01 = 'assets/icons/arrow-up-01.svg';
-  static const String iconsArrowUpRight03 =
-      'assets/icons/arrow-up-right-03.svg';
-  static const String iconsAudioBook01 = 'assets/icons/audio-book-01.svg';
-  static const String iconsAudioPause = 'assets/icons/audio_pause.svg';
-  static const String iconsAudioPlay = 'assets/icons/audio_play.svg';
+  static const String iconsArrowUpRight03 = 'assets/icons/arrow-up-right-03.svg';
   static const String iconsBG = 'assets/icons/BG.svg';
   static const String iconsBackButton = 'assets/icons/back_button.svg';
   static const String iconsBackward = 'assets/icons/backward.svg';
   static const String iconsCalendar = 'assets/icons/calendar.svg';
-  static const String iconsCalendarSettingSfill =
-      'assets/icons/calendar-setting-sfill.svg';
+  static const String iconsCalendarSettingSfill = 'assets/icons/calendar-setting-sfill.svg';
   static const String iconsCancel = 'assets/icons/cancel.svg';
   static const String iconsCheckmark = 'assets/icons/checkmark.svg';
   static const String iconsClose = 'assets/icons/close.svg';
@@ -35,8 +29,7 @@ class Assets {
   static const String iconsDelete03 = 'assets/icons/delete-03.svg';
   static const String iconsDelete04 = 'assets/icons/delete-04.svg';
   static const String iconsDelete3 = 'assets/icons/delete_3.svg';
-  static const String iconsDragDropHorizontal =
-      'assets/icons/drag_drop_horizontal.svg';
+  static const String iconsDragDropHorizontal = 'assets/icons/drag_drop_horizontal.svg';
   static const String iconsEllipse = 'assets/icons/ellipse.svg';
   static const String iconsError = 'assets/icons/error.svg';
   static const String iconsExchange = 'assets/icons/Exchange.svg';
@@ -44,8 +37,7 @@ class Assets {
   static const String iconsFavourite = 'assets/icons/favourite.svg';
   static const String iconsFemaleAvator = 'assets/icons/female_avator.svg';
   static const String iconsFemaleVoice = 'assets/icons/female_voice.svg';
-  static const String iconsFilterHorizontal =
-      'assets/icons/filter-horizontal.svg';
+  static const String iconsFilterHorizontal = 'assets/icons/filter-horizontal.svg';
   static const String iconsForward = 'assets/icons/forward.svg';
   static const String iconsHeart = 'assets/icons/heart.svg';
   static const String iconsHeartFilled = 'assets/icons/heart_filled.svg';
@@ -55,14 +47,12 @@ class Assets {
   static const String iconsHomeWatermark = 'assets/icons/home_watermark.svg';
   static const String iconsImageAdd01 = 'assets/icons/image-add-01.svg';
   static const String iconsInfo1 = 'assets/icons/info_1.svg';
-  static const String iconsInformationSquare =
-      'assets/icons/information-square.svg';
+  static const String iconsInformationSquare = 'assets/icons/information-square.svg';
   static const String iconsLogo = 'assets/icons/logo.png';
   static const String iconsLogo2 = 'assets/icons/logo2.svg';
   static const String iconsLogout05 = 'assets/icons/logout-05.svg';
   static const String iconsMaleVoice = 'assets/icons/male_voice.svg';
-  static const String iconsMessageQuestion =
-      'assets/icons/message-question.svg';
+  static const String iconsMessageQuestion = 'assets/icons/message-question.svg';
   static const String iconsMic02 = 'assets/icons/mic-02.svg';
   static const String iconsMore = 'assets/icons/more.svg';
   static const String iconsMusicNote02 = 'assets/icons/music-note-02.svg';
@@ -76,8 +66,7 @@ class Assets {
   static const String iconsPauseCircle2 = 'assets/icons/pauseCircle2.svg';
   static const String iconsPauseGrey = 'assets/icons/pause_grey.svg';
   static const String iconsPencilEdit = 'assets/icons/pencil_edit.svg';
-  static const String iconsPlaceholderViewVector =
-      'assets/icons/Placeholder_view_vector.svg';
+  static const String iconsPlaceholderViewVector = 'assets/icons/Placeholder_view_vector.svg';
   static const String iconsPlay = 'assets/icons/play.svg';
   static const String iconsPlayCircle = 'assets/icons/play-circle.svg';
   static const String iconsPlayCircle2 = 'assets/icons/play_circle_2.svg';
@@ -114,29 +103,12 @@ class Assets {
   static const String iconsWallet = 'assets/icons/wallet.svg';
   static const String imagesAudioLoader = 'assets/images/audioLoader.json';
   static const String imagesBackround = 'assets/images/backround.png';
-  static const String imagesCardImageThumb =
-      'assets/images/card_image_thumb.png';
-  static const String imagesDemoAbout = 'assets/images/demo_about.png';
-  static const String imagesFilterHorizontalGradient =
-      'assets/images/filter-horizontal-gradient.png';
-  static const String imagesGents = 'assets/images/gents.png';
-  static const String imagesHi = 'assets/images/hi.png';
-  static const String imagesHomeWatermark = 'assets/images/home_watermark.png';
-  static const String imagesImage44 = 'assets/images/image44.png';
-  static const String imagesImage45 = 'assets/images/image45.png';
-  static const String imagesLady = 'assets/images/lady.png';
+  static const String imagesCardImageThumb = 'assets/images/card_image_thumb.png';
   static const String imagesLoader = 'assets/images/loader.json';
   static const String imagesLogo = 'assets/images/logo.png';
-  static const String imagesMeditationThumb =
-      'assets/images/meditation_thumb.png';
-  static const String imagesMusicEmpty = 'assets/images/music_empty.png';
-  static const String imagesOutdoor = 'assets/images/outdoor.png';
-  static const String imagesPlaceholderImage =
-      'assets/images/placeholder-image.png';
-  static const String imagesRocket = 'assets/images/rocket.png';
+  static const String imagesPlaceholderImage = 'assets/images/placeholder_image.svg';
   static const String imagesSplashLogo = 'assets/images/splash_logo.png';
-  static const String imagesTermsAndConditions =
-      'assets/images/terms_and_conditions.png';
   static const String translationsDe = 'assets/translations/de.json';
   static const String translationsEn = 'assets/translations/en.json';
+
 }
