@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/components/custom_button.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/features/patient_portal/services/psych_social_clinic/cubit/psych_social_cubit.dart';
 
 class AddPsychoSocialScreen extends StatefulWidget {
   const AddPsychoSocialScreen({super.key});
@@ -11,19 +14,12 @@ class AddPsychoSocialScreen extends StatefulWidget {
 }
 
 class _AddPsychoSocialScreenState extends State<AddPsychoSocialScreen> {
-  String? _anxiousValue;
-  String? _friendsAnxiousValue;
-  String? _depressedValue;
-  String? _peaceValue;
-  String? _shareFeelingsValue;
-  String? _informationValue;
-
-  final List<String> _options = [
-    'Not at All',
-    'Slightly',
-    'Moderately',
-    'Severely',
-  ];
+  final PsychSocialCubit psychSocialCubit = GetContext.context.read<PsychSocialCubit>();
+  @override
+  void initState() {
+    psychSocialCubit.clearOptionData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,44 +36,44 @@ class _AddPsychoSocialScreenState extends State<AddPsychoSocialScreen> {
           children: [
             _buildQuestionDropdown(
               'Have you been feeling anxious or worried about your illness or treatment?',
-              _anxiousValue,
-              (value) => setState(() => _anxiousValue = value),
+              psychSocialCubit.anxiousValue,
+              (value) => setState(() => psychSocialCubit.anxiousValue = value),
             ),
             const SizedBox(height: 16),
             _buildQuestionDropdown(
               'Have any of your family or friends been anxious or worried about you?',
-              _friendsAnxiousValue,
-              (value) => setState(() => _friendsAnxiousValue = value),
+              psychSocialCubit.familyAnxiousValue,
+              (value) => setState(() => psychSocialCubit.familyAnxiousValue = value),
             ),
             const SizedBox(height: 16),
             _buildQuestionDropdown(
               'Have you been feeling depressed?',
-              _depressedValue,
-              (value) => setState(() => _depressedValue = value),
+              psychSocialCubit.depressedValue,
+              (value) => setState(() => psychSocialCubit.depressedValue = value),
             ),
             const SizedBox(height: 16),
             _buildQuestionDropdown(
               'Have you felt at peace?',
-              _peaceValue,
-              (value) => setState(() => _peaceValue = value),
+              psychSocialCubit.flatPeaceValue,
+              (value) => setState(() => psychSocialCubit.flatPeaceValue = value),
             ),
             const SizedBox(height: 16),
             _buildQuestionDropdown(
               'Have you been able to share how you are feeling with your family or friends as much as you wanted?',
-              _shareFeelingsValue,
-              (value) => setState(() => _shareFeelingsValue = value),
+              psychSocialCubit.shareFeelingsValue,
+              (value) => setState(() => psychSocialCubit.shareFeelingsValue = value),
             ),
             const SizedBox(height: 16),
             _buildQuestionDropdown(
               'Have you had as much information as you wanted?',
-              _informationValue,
-              (value) => setState(() => _informationValue = value),
+              psychSocialCubit.informationValue,
+              (value) => setState(() => psychSocialCubit.informationValue = value),
             ),
             20.verticalSpace,
             CustomButton(
               title: "Confirm",
               onTap: () {
-                //profileCubit.updateProfile();
+                psychSocialCubit.addPsychoSocial();
               },
               backgroundColor: AppColors.kPrimaryColor,
             ),
@@ -117,7 +113,7 @@ class _AddPsychoSocialScreenState extends State<AddPsychoSocialScreen> {
                 ),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12),
               ),
-              items: _options.map((String value) {
+              items: psychSocialCubit.optionsList.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
@@ -132,7 +128,7 @@ class _AddPsychoSocialScreenState extends State<AddPsychoSocialScreen> {
     );
   }
 
-  void _submitForm() {
+ /* void _submitForm() {
     if (_anxiousValue == null ||
         _friendsAnxiousValue == null ||
         _depressedValue == null ||
@@ -178,5 +174,5 @@ class _AddPsychoSocialScreenState extends State<AddPsychoSocialScreen> {
       _shareFeelingsValue = null;
       _informationValue = null;
     });
-  }
+  }*/
 }

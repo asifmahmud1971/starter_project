@@ -7,6 +7,7 @@ import 'package:medPilot/features/patient_portal/services/cubit/services_cubit.d
 import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/invesigation/cubit/investigation_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/cubit/painClinic_cubit.dart';
+import 'package:medPilot/features/patient_portal/services/psych_social_clinic/cubit/psych_social_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/upload_document/cubit/document_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/rehav_pall_care/cubit/rehab_pall_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart';
@@ -72,6 +73,9 @@ class AppProviders {
 
     BlocProvider<OnDemandServiceCubit>(
       create: (BuildContext context) => instance<OnDemandServiceCubit>(),
+    ),
+    BlocProvider<PsychSocialCubit>(
+      create: (BuildContext context) => instance<PsychSocialCubit>(),
     )
     // =========== [ Auth End ] ===========
   ];

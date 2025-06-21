@@ -146,7 +146,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       )*/
                           Text(
                         "*",
-                        style: kLabelExtraLargeProminent,
+                        style: kLabelExtraLargeProminent.copyWith(color: AppColors.kError400),
                       ))
                   : const SizedBox.shrink()
             ],

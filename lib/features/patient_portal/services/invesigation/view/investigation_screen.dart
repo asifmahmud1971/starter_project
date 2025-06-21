@@ -2,12 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medPilot/core/components/custom_date_time_formatter.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/services/invesigation/cubit/investigation_cubit.dart';
-import 'package:medPilot/features/patient_portal/services/invesigation/model/investigation_response.dart';
 import 'package:medPilot/features/patient_portal/services/invesigation/shimmer/patient_info_shimmer.dart';
 import 'package:medPilot/features/patient_portal/services/invesigation/widgets/patient_information.dart';
 

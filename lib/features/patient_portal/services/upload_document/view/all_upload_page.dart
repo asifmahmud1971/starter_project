@@ -68,19 +68,20 @@ class _AllUploadPageState extends State<AllUploadPage> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  GetContext.to(GalleryViewerScreen(
-                    imageUrls: [state.documentModel?.uploadDocument?[index].file??""],
+                  GetContext.to(GalleryViewerScreen(                    imageUrls: [state.documentModel?.uploadDocument?[index].file??""],
                     initialIndex: index,
                   ));
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Hero(
-                      tag: 'image_$index',
-                      child: CustomImage(
-                        baseUrl: state.documentModel?.uploadDocument?[index].file??"",
-                        placeHolder: Assets.imagesCardImageThumb,
+                    Flexible(
+                      child: Hero(
+                        tag: 'image_$index',
+                        child: CustomImage(
+                          baseUrl: state.documentModel?.uploadDocument?[index].file??"",
+                          placeHolder: Assets.imagesCardImageThumb,
+                        ),
                       ),
                     ),
                     8.verticalSpace,

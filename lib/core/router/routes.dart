@@ -3,6 +3,7 @@ import 'package:medPilot/features/auth/sign_up/view/sign_up_screen.dart';
 import 'package:medPilot/features/dashboard/view/patient_dashboard_screen.dart';
 import 'package:medPilot/features/dashboard/view/staff_dashboard_screen.dart';
 import 'package:medPilot/features/patient_portal/cart/view/patient_cart_homescreen.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/add_clinic_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/allied_health_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/consultation_screen.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/diagonostic_lab_page.dart';
@@ -52,6 +53,7 @@ class Routes {
   static const String pharmacy = "pharmacy";
   static const String consultation = "consultant";
   static const String roster = "roster";
+  static const String clinic = "clinic";
 
 }
 
@@ -171,6 +173,12 @@ case Routes.pharmacy:
 case Routes.consultation:
         return CupertinoPageRoute(
           builder: (_) =>  ConsultationScreen(),
+          settings: routeSettings,
+        );
+
+        case Routes.clinic:
+        return CupertinoPageRoute(
+          builder: (_) =>  AddClinicPage(),
           settings: routeSettings,
         );
       // global routes end
