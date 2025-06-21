@@ -57,6 +57,7 @@ class ApiUrls {
   static const String reportPsychoSocial = 'report-psycho-social';
   static const String addPsychoSocial = 'add-psycho-social';
   static const String uploadDocument = 'upload-document';
+  static const String rosterStaff = 'roster-staff';
 
 
 

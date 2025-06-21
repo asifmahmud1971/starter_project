@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:medPilot/features/staff_portal/roaster/model/roster_model.dart';
 import 'package:medPilot/features/staff_portal/roaster/view/roaster_screen_view.dart';
 
 class ShiftCard extends StatelessWidget {
-  final RosterEntry entry;
+  final RosterEntries entry;
 
   const ShiftCard({super.key, required this.entry});
 
@@ -56,7 +57,7 @@ class ShiftCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${_formatTime(entry.startTime)} - ${_formatTime(entry.endTime)}',
+                  '${_formatTime(entry.startTime??"")} - ${_formatTime(entry.endTime??"")}',
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -77,7 +78,7 @@ class ShiftCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  entry.staffName,
+                  entry.staffName??"",
                   style: const TextStyle(
                     fontSize: 14,
                     color: Color(0xFF7F8FA4),
@@ -109,7 +110,7 @@ class ShiftCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    entry.location,
+                    entry.location??"",
                     style: const TextStyle(
                       fontSize: 13,
                       color: Color(0xFF7F8FA4),

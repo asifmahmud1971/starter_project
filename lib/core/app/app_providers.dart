@@ -11,6 +11,7 @@ import 'package:medPilot/features/patient_portal/services/psych_social_clinic/cu
 import 'package:medPilot/features/patient_portal/services/upload_document/cubit/document_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/rehav_pall_care/cubit/rehab_pall_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart';
+import 'package:medPilot/features/staff_portal/roaster/cubit/roster_cubit.dart';
 import 'package:medPilot/features/theme/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,6 +77,10 @@ class AppProviders {
     ),
     BlocProvider<PsychSocialCubit>(
       create: (BuildContext context) => instance<PsychSocialCubit>(),
+    ),
+    // =========== [ Auth End ] ===========
+    BlocProvider<RosterCubit>(
+      create: (BuildContext context) => instance<RosterCubit>(),
     )
     // =========== [ Auth End ] ===========
   ];

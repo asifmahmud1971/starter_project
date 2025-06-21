@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:medPilot/core/utils/extension.dart';
+import 'package:medPilot/features/staff_portal/roaster/model/roster_model.dart';
 import 'package:medPilot/features/staff_portal/roaster/view/roaster_screen_view.dart';
 import 'package:medPilot/features/staff_portal/roaster/widget/shift_card.dart';
 
 class DayScheduleCard extends StatelessWidget {
-  final Roster roster;
+  final Rosters roster;
 
   const DayScheduleCard({super.key, required this.roster});
 
@@ -32,7 +34,7 @@ class DayScheduleCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 14),
             decoration: BoxDecoration(
-              color: roster.isToday
+              color: roster.date?.isToday??false
                   ? const Color(0xFFF67F26)
                   : const Color(0xFFF4F4F4),
               borderRadius: const BorderRadius.only(
@@ -42,13 +44,12 @@ class DayScheduleCard extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                roster.isToday
-                    ? "TODAY | ${roster.label.toUpperCase()}"
-                    : roster.label,
+                /*roster.date!.isToday ? "TODAY | ${roster.toUpperCase()}":roster.label,*/
+                roster.date?.isToday??false ? "TODAY | ${roster.label}":roster.label??"",
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 15,
-                  color: roster.isToday ? Colors.white : const Color(0xFF1A2B3C),
+                  color: roster.date?.isToday??false ? Colors.white : const Color(0xFF1A2B3C),
                   letterSpacing: 0.5,
                 ),
               ),
@@ -89,9 +90,7 @@ class DayScheduleCard extends StatelessWidget {
               ),
             ),
             child: Column(
-              children: roster.entries
-                  .map((entry) => ShiftCard(entry: entry))
-                  .toList(),
+              children: (roster.entries??[]).map((entry) => ShiftCard(entry: entry)).toList(),
             ),
           ),
         ],

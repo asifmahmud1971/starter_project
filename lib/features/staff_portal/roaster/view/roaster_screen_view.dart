@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medPilot/features/staff_portal/roaster/cubit/roster_cubit.dart';
 import 'package:medPilot/features/staff_portal/roaster/model/shift_model.dart';
 import 'package:medPilot/features/staff_portal/roaster/widget/roster_content.dart';
 import 'package:medPilot/features/staff_portal/roaster/widget/shift_card.dart';
 
-class RosterScreen extends StatelessWidget {
+class RosterScreen extends StatefulWidget {
   const RosterScreen({super.key});
 
+  @override
+  State<RosterScreen> createState() => _RosterScreenState();
+}
+
+class _RosterScreenState extends State<RosterScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<RosterCubit>().getRosterData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,39 +50,4 @@ class RosterScreen extends StatelessWidget {
       body: const RosterContent(),
     );
   }
-}
-
-// API Response Models
-class Roster {
-  final String date;
-  final String label;
-  final bool isToday;
-  final List<RosterEntry> entries;
-
-  Roster({
-    required this.date,
-    required this.label,
-    required this.isToday,
-    required this.entries,
-  });
-}
-
-class RosterEntry {
-  final String type;
-  final String startTime;
-  final String endTime;
-  final String shiftName;
-  final String staffName;
-  final String workTime;
-  final String location;
-
-  RosterEntry({
-    required this.type,
-    required this.startTime,
-    required this.endTime,
-    required this.shiftName,
-    required this.staffName,
-    required this.workTime,
-    required this.location,
-  });
 }
