@@ -22,6 +22,7 @@ import 'package:medPilot/features/splash/view/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:medPilot/features/staff_portal/roaster/view/roaster_screen_view.dart';
 
 import '../../core/constants/app_strings.dart';
 
@@ -50,6 +51,7 @@ class Routes {
   static const String diagnosticLab = "diagnostic_lab";
   static const String pharmacy = "pharmacy";
   static const String consultation = "consultant";
+  static const String roster = "roster";
 
 }
 
@@ -169,6 +171,12 @@ case Routes.pharmacy:
 case Routes.consultation:
         return CupertinoPageRoute(
           builder: (_) =>  ConsultationScreen(),
+          settings: routeSettings,
+        );
+      // global routes end
+case Routes.roster:
+        return CupertinoPageRoute(
+          builder: (_) =>  RosterScreen(),
           settings: routeSettings,
         );
       // global routes end

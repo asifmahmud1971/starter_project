@@ -41,8 +41,8 @@ class _StaffPortalServiceListState extends State<StaffPortalServiceList> {
               physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 3,
               childAspectRatio: 1.0,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
+              mainAxisSpacing: 8.w,
+              crossAxisSpacing: 8.h,
               padding: EdgeInsets.all(0),
               children: List.generate(
                   (state.staffPermissionModel?.staffPermission ?? []).length,

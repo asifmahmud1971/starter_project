@@ -64,8 +64,4 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       dismissProgressDialog();
     }
   }
-
-
-
-
 }

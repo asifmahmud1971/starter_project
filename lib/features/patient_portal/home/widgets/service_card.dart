@@ -5,7 +5,6 @@ import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 
-
 class ServiceCard extends StatelessWidget {
   final String? title;
   final String? icon;
@@ -26,16 +25,19 @@ class ServiceCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomSvg(
-              icon: icon ?? "",
-              size: 50.r,
+            Container(
+              padding: EdgeInsets.all(12.0),
+              decoration: BoxDecoration(
+                  color: AppColors.kPrimaryColor.withValues(alpha: 0.2),shape: BoxShape.circle),
+              child: CustomSvg(
+                icon: icon ?? "",
+                size: 50.r,
+              ),
             ),
             10.verticalSpace,
-            Text(
-              title ?? "",
-              textAlign: TextAlign.center,
-              style: kBodyLarge.copyWith(color: Colors.black)
-            )
+            Text(title ?? "",
+                textAlign: TextAlign.center,
+                style: kBodyLarge.copyWith(color: Colors.black))
           ],
         ),
       ),

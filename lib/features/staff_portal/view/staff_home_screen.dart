@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/components/common_background.dart';
+import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/features/patient_portal/home/widgets/call_card.dart';
 import 'package:medPilot/features/patient_portal/home/widgets/top_bar.dart';
 import 'package:medPilot/features/staff_portal/view/staff_portal_service_list.dart';
@@ -88,11 +89,7 @@ class _StaffHomeScreenState extends State<StaffHomeScreen> {
                 ],
               ),
             ),
-            Image.asset(
-              Assets.imagesGents,
-              width: 100.w,
-              height: 100.w,
-            ),
+            CustomSvg(icon: Assets.medGoodMorning,size: 100.r,),
           ],
         ),
       ),

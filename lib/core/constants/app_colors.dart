@@ -7,6 +7,7 @@ class AppColors {
   static const kPrimarySpeechBlue = Color(0xFFFF904D);
   static const kPrimarySpeechBlue950 = Color(0xFF222649);
   static const kPrimarySpeechBlue900 = Color(0xFF323B76);
+
   static const kPrimarySpeechBlue800 = Color(0xFF394294);
   static const kPrimarySpeechBlue700 = Color(0xFF4050B5);
   static const kPrimarySpeechBlue600 = Color(0xFF475EC5);
