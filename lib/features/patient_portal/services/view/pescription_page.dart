@@ -53,7 +53,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
-                    color: AppColors.kPrimaryColor.withValues(alpha: 0.3),
+                    color: AppColors.kPrimaryColor.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(

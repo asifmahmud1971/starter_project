@@ -68,8 +68,7 @@ class _AllUploadPageState extends State<AllUploadPage> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  GetContext.to(GalleryViewerScreen(
-                    imageUrls: [state.documentModel?.uploadDocument?[index].file??""],
+                  GetContext.to(GalleryViewerScreen(                    imageUrls: [state.documentModel?.uploadDocument?[index].file??""],
                     initialIndex: index,
                   ));
                 },
