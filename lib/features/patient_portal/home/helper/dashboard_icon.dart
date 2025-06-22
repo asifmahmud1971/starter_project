@@ -50,15 +50,16 @@ extension MedIconExtension on String {
       case "clinic":
         return Assets.medInPatientRequest;
       case "roster":
-        return Assets.medWoundDersing;
+        return Assets.medRoster;
       case "attendance":
-        return Assets.medInPatientRequest;
+        return Assets.medAttendance;
       case "tracking":
-        return Assets.medInPatientRequest;
+        return Assets.medTracking;
       case "task":
-        return Assets.medInPatientRequest;
+        return Assets.medTask;
       case "medicine_alert":
-        return Assets.medInPatientRequest;
+        return Assets.medMedicalAlert;
+
 
       default:
         return null;

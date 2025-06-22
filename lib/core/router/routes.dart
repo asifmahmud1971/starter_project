@@ -1,3 +1,5 @@
+import 'package:medPilot/core/app/app_dependency.dart';
+import 'package:medPilot/core/app/app_preference.dart';
 import 'package:medPilot/features/auth/sign_in/view/sign_in_screen.dart';
 import 'package:medPilot/features/auth/sign_up/view/sign_up_screen.dart';
 import 'package:medPilot/features/dashboard/view/patient_dashboard_screen.dart';
@@ -24,6 +26,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medPilot/features/staff_portal/medicine_alert/view/medicine_alert_page.dart';
+import 'package:medPilot/features/staff_portal/pescription/view/staff_prescription_page.dart';
 import 'package:medPilot/features/staff_portal/roaster/view/roaster_screen_view.dart';
 
 import '../../core/constants/app_strings.dart';
@@ -60,7 +63,11 @@ class Routes {
 }
 
 class RouteGenerator {
+
+
+
   static Route<dynamic> getRoute(RouteSettings routeSettings) {
+    AppPreferences appPreferences = instance.get();
     switch (routeSettings.name) {
       // global routes start
       case Routes.splash:
@@ -98,10 +105,15 @@ class RouteGenerator {
           settings: routeSettings,
         );
         case Routes.prescription:
-        return CupertinoPageRoute(
+        return
+          (appPreferences.getUserData().userType == "Patient")?
+          CupertinoPageRoute(
           builder: (_) =>  PrescriptionScreen(),
           settings: routeSettings,
-        );
+        ):CupertinoPageRoute(
+            builder: (_) =>  StaffPrescriptionScreen(),
+            settings: routeSettings,
+          );
       // global routes end
  case Routes.followUp:
         return CupertinoPageRoute(

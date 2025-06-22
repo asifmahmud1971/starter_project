@@ -39,7 +39,7 @@ class _StaffHomeScreenState extends State<StaffHomeScreen> {
             _buildPriorityAlerts(),
             SizedBox(height: 24.h),
             StaffPortalServiceList(),
-            SizedBox(height: 24.h),
+            SizedBox(height: 16.h),
             _buildTaskOverview(),
           ],
         ),
@@ -159,55 +159,6 @@ class _StaffHomeScreenState extends State<StaffHomeScreen> {
   }
 
 
-
-  Widget _buildSmartActionButton(IconData icon, String label, Color color) {
-    return Material(
-      borderRadius: BorderRadius.circular(12.r),
-      color: Colors.white,
-      elevation: 2,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12.r),
-        onTap: () {},
-        child: Container(
-          padding: EdgeInsets.all(12.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.all(12.w),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      color.withOpacity(0.2),
-                      color.withOpacity(0.1),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  icon,
-                  color: color,
-                  size: 24.sp,
-                ),
-              ),
-              SizedBox(height: 8.h),
-              Text(
-                label,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildTaskOverview() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,21 +179,15 @@ class _StaffHomeScreenState extends State<StaffHomeScreen> {
             ),
           ],
         ),
-        SizedBox(height: 12.h),
-        Card(
-          elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.r),
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(16.w),
-            child: Column(
-              children: [
-                _buildTaskItem('Morning Rounds', '8:00 AM', true),
-                _buildTaskItem('Patient Consultations', '9:30 AM', false),
-                _buildTaskItem('Team Meeting', '2:00 PM', false),
-              ],
-            ),
+        SizedBox(height: 8.h),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: Column(
+            children: [
+              _buildTaskItem('Morning Rounds', '8:00 AM', true),
+              _buildTaskItem('Patient Consultations', '9:30 AM', false),
+              _buildTaskItem('Team Meeting', '2:00 PM', false),
+            ],
           ),
         ),
       ],
@@ -290,10 +235,6 @@ class _StaffHomeScreenState extends State<StaffHomeScreen> {
                 ),
               ],
             ),
-          ),
-          IconButton(
-            icon: Icon(Icons.more_vert, size: 20.sp),
-            onPressed: () {},
           ),
         ],
       ),

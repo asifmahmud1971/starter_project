@@ -21,6 +21,18 @@ class StaffPortalServiceList extends StatefulWidget {
 }
 
 class _StaffPortalServiceListState extends State<StaffPortalServiceList> {
+
+  final List<Map<String, dynamic>> services = [
+    {'icon': Icons.video_call, 'label': 'Video Consult'},
+    {'icon': Icons.home, 'label': 'Doctor Home Visit'},
+    {'icon': Icons.medical_services, 'label': 'Nurse Home Visit'},
+    {'icon': Icons.local_dining, 'label': 'Dietitian'},
+    {'icon': Icons.local_hospital, 'label': 'Ambulance'},
+    {'icon': Icons.favorite, 'label': 'Health Screening'},
+    {'icon': Icons.no_food, 'label': 'IgG Food Allergy'},
+    {'icon': Icons.medication, 'label': 'IgE Skin Prick Test'},
+  ];
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
@@ -36,26 +48,27 @@ class _StaffPortalServiceListState extends State<StaffPortalServiceList> {
               ),
             ),
             SizedBox(height: 12.h),
-            GridView.count(
+            GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              crossAxisCount: 3,
-              childAspectRatio: 1.0,
-              mainAxisSpacing: 8.w,
-              crossAxisSpacing: 8.h,
+              itemCount: (state.staffPermissionModel?.staffPermission??[]).length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                mainAxisSpacing: 12.w,
+                crossAxisSpacing: 12.h,
+                childAspectRatio: 0.75,
+              ),
               padding: EdgeInsets.all(0),
-              children: List.generate(
-                  (state.staffPermissionModel?.staffPermission ?? []).length,
-                      (index) => ServiceCard(
-                    onTap: (){
-                      GetContext.toNamed(
-                          route: state.staffPermissionModel?.staffPermission?[index].key);
-                    },
-                    title: state.staffPermissionModel?.staffPermission?[index]
-                        .serviceName,
-                    icon: state.staffPermissionModel?.staffPermission?[index]
-                        .staticIcon,
-                  )),
+              itemBuilder: (BuildContext context, int index) { return ServiceCard(
+                onTap: (){
+                  GetContext.toNamed(
+                      route: state.staffPermissionModel?.staffPermission?[index].key);
+                },
+                title: state.staffPermissionModel?.staffPermission?[index]
+                    .serviceName,
+                icon: state.staffPermissionModel?.staffPermission?[index]
+                    .staticIcon,
+              ); },
             ),
           ],
         );

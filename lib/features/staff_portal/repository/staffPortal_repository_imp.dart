@@ -10,6 +10,7 @@ import 'package:medPilot/features/patient_portal/on_demand_service/model/home_vi
 import 'package:medPilot/features/patient_portal/on_demand_service/model/procedure_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/thana_response.dart';
 import 'package:medPilot/features/staff_portal/medicine_alert/model/medicine_alert_model.dart';
+import 'package:medPilot/features/staff_portal/pescription/model/staff_pescription.dart';
 import 'package:medPilot/features/staff_portal/roaster/model/roster_model.dart';
 import 'staffPortal_repository.dart';
 
@@ -29,7 +30,8 @@ class StaffPortalRepositoryImp implements StaffPortalRepository {
       fromJson: RosterModel.fromJson,
     );
   }
-   @override
+
+  @override
   Future<Either<ApiFailure, MedicineAlertModel>> getMedicineAlertData(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -40,6 +42,14 @@ class StaffPortalRepositoryImp implements StaffPortalRepository {
     );
   }
 
-
-
+  @override
+  Future<Either<ApiFailure, StaffPrescription>> getStaffPrescription(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+      url: ApiUrls.patientPrescription,
+      method: Method.post,
+      params: params,
+      fromJson: StaffPrescription.fromJson,
+    );
+  }
 }
