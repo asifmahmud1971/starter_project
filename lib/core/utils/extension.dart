@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 extension MedicineParser on String {
   String get medicineName {
     final parts = split('<br>');
@@ -24,4 +26,15 @@ extension StringDateTimeChecker on String {
       return false;
     }
   }
+  String get toTimeHmA {
+    try {
+      final date = DateTime.tryParse(this);
+      if (date == null) return '';
+
+      return DateFormat('hh:mm a').format(date); // e.g., 02:45 PM
+    } catch (e) {
+      return '';
+    }
+  }
+
 }

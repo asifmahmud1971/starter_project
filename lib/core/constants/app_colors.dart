@@ -152,6 +152,12 @@ class AppColors {
   static const neutralGray900 = Color(0xFF56555A);
   static const neutralGray950 = Color(0xFF2B4E70);
   static const neutralGray300 = Color(0xFFCECDD4);
+  static const Color kAccentColor = Color(0xFF4CC9F0); // Light blue
+  static const Color kBackgroundColor = Color(0xFFF8F9FA);
+  static const Color kCardColor = Colors.white;
+  static const Color kGivenColor = Color(0xFF4CAF50); // Green
+  static const Color kNotGivenColor = Color(0xFFF44336); // Red
+  static const Color kPendingColor = Color(0xFFFF9800);
 
   static const secondaryEasternBlue50 = Color(0xFFF1F9FE);
   static const secondaryIndigo50 = Color(0xFFF2F5FC);

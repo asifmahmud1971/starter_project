@@ -105,5 +105,15 @@ class AppStrings {
   static const String patientInformation = "Patient Information";
   static const String diagnosisReport = "Diagnosis Report";
   static const String quickActions = "Quick Actions";
+  static const String todayMedicineAlert = "Today Medicine Alert";
+  static const String medicationSchedule = "Medication Schedule";
+  static const String given = "Given";
+  static const String pending = "Pending";
+  static const String total = "Total";
+  static const String medicineAdministered = "Medicine Administered";
+  static const String givenAt = "Given at";
+  static const String markAsGiven = "Mark as Given";
+  static const String notGiven = "Not Given";
+  static const String couldNotLaunch = "Could not launch";
 
 }
