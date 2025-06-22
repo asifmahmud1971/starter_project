@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/staff_portal/chat/view/chat_screen.dart';
 
 class AIChatCard extends StatelessWidget {
   const AIChatCard({super.key});
@@ -43,21 +45,25 @@ class AIChatCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-                  decoration: BoxDecoration(
-                    color: AppColors.kPrimaryColor,
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(Icons.smart_toy, color: Colors.white, size: 20.r),
-                      SizedBox(width: 6.w),
-                      Text(
-                        "Ask Now",
-                        style: kTitleLarge.copyWith(color: Colors.white),
-                      ),
-                    ],
+                InkWell(
+                  onTap: (){GetContext.to(PalliativeChatScreen());},
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                    decoration: BoxDecoration(
+                      color: AppColors.kPrimaryColor,
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.smart_toy, color: Colors.white, size: 20.r),
+                        SizedBox(width: 6.w),
+                        Text(
+                          "Ask Now",
+                          style: kTitleLarge.copyWith(color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],
