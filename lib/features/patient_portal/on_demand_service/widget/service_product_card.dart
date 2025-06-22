@@ -5,7 +5,7 @@ import 'package:medPilot/core/components/custom_button.dart';
 import 'package:medPilot/core/components/custom_image.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
-import 'package:medPilot/features/patient_portal/on_demand_service/model/home_visit_model.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/on_sarevice_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/product.dart';
 
 // Replace the MedicalServiceCard with this enhanced version
@@ -15,6 +15,7 @@ class ServiceProductCard extends StatelessWidget {
   final bool isInCart;
 
   const ServiceProductCard({
+    super.key,
     required this.service,
     required this.onAddToCart,
     this.isInCart = false,
@@ -51,7 +52,7 @@ class ServiceProductCard extends StatelessWidget {
                   children: [
                     // Product name
                     Text(
-                      service?.productName??"",
+                      service?.productName ?? "",
                       style: kHeadLineSmall.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -62,11 +63,13 @@ class ServiceProductCard extends StatelessWidget {
 
                     // Product description
                     Html(
-                      data: """${service?.description}""", // Added null check with fallback
+                      data: """${service?.description}""",
+                      // Added null check with fallback
                       extensions: [
                         TagExtension(
                           tagsToExtend: {"flutter"},
-                          builder: (extensionContext) {  // Changed 'child' to 'builder' which is the correct parameter
+                          builder: (extensionContext) {
+                            // Changed 'child' to 'builder' which is the correct parameter
                             return const FlutterLogo();
                           },
                         ),
@@ -75,11 +78,13 @@ class ServiceProductCard extends StatelessWidget {
                         "p.fancy": Style(
                           textAlign: TextAlign.center,
                           backgroundColor: Colors.grey,
-                          margin: Margins(  // Added const
+                          margin: Margins(
+                            // Added const
                             left: Margin(50, Unit.px),
                             right: Margin.auto(),
                           ),
-                          width:  Width(300, Unit.px),  // Added const
+                          width: Width(300, Unit.px),
+                          // Added const
                           fontWeight: FontWeight.bold,
                         ),
                       },
@@ -103,7 +108,12 @@ class ServiceProductCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CustomButton(title: "Add",backgroundColor: AppColors.kPrimaryColor,padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 20.w),),
+                CustomButton(
+                  title: "Add",
+                  backgroundColor: AppColors.kPrimaryColor,
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
+                ),
               ],
             ),
           ),

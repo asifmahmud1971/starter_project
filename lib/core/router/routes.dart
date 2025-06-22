@@ -4,16 +4,21 @@ import 'package:medPilot/features/auth/sign_in/view/sign_in_screen.dart';
 import 'package:medPilot/features/auth/sign_up/view/sign_up_screen.dart';
 import 'package:medPilot/features/dashboard/view/patient_dashboard_screen.dart';
 import 'package:medPilot/features/dashboard/view/staff_dashboard_screen.dart';
-import 'package:medPilot/features/patient_portal/cart/view/patient_cart_homescreen.dart';
+import 'package:medPilot/features/patient_portal/more/view/my_package_screen.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/add_ambulance_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/add_clinic_page.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/add_home_package.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/allied_health_page.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/ambulance_screen.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/assign_staff_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/consultation_screen.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/diagonostic_lab_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/home_visit_page.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/instrument_rent_page.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/lab_report_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/pharmacy_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/procedure_page.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_list_page.dart';
-import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_description_page.dart';
 import 'package:medPilot/features/patient_portal/services/invesigation/view/investigation_screen.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/view/pain_clinic_screen.dart';
 import 'package:medPilot/features/patient_portal/services/psych_social_clinic/view/psych_social_report_screen.dart';
@@ -60,6 +65,13 @@ class Routes {
   static const String clinic = "clinic";
   static const String medicineAlert = "medicine_alert";
 
+  static const String instrumentRent = "instrument_rent";
+  static const String ambulance = "ambulance";
+  static const String telePackage = "tele_package";
+  static const String homePackage = "home_package";
+  static const String assignStaff = "assign_staff";
+  static const String labReport = "lab_report";
+  static const String pilot = "pilot";
 }
 
 class RouteGenerator {
@@ -88,15 +100,9 @@ class RouteGenerator {
           settings: routeSettings,
         );
 
-      // case Routes.setPassword:
-      //   return CupertinoPageRoute(
-      //     builder: (_) => const SetPasswordScreen(),
-      //     settings: routeSettings,
-      //   );
-
       case Routes.staffDashboard:
         return CupertinoPageRoute(
-          builder: (_) =>  StaffDashboardScreen(),
+          builder: (_) => StaffDashboardScreen(),
           settings: routeSettings,
         );
       case Routes.patientDashboard:
@@ -104,101 +110,126 @@ class RouteGenerator {
           builder: (_) => const PatientDashboardScreen(),
           settings: routeSettings,
         );
-        case Routes.prescription:
+      case Routes.prescription:
         return
           (appPreferences.getUserData().userType == "Patient")?
           CupertinoPageRoute(
-          builder: (_) =>  PrescriptionScreen(),
+          builder: (_) => PrescriptionScreen(),
           settings: routeSettings,
         ):CupertinoPageRoute(
             builder: (_) =>  StaffPrescriptionScreen(),
             settings: routeSettings,
           );
-      // global routes end
- case Routes.followUp:
+      case Routes.followUp:
         return CupertinoPageRoute(
-          builder: (_) =>  FollowupListPage(),
+          builder: (_) => FollowupListPage(),
           settings: routeSettings,
         );
 
-        case Routes.investigation:
+      case Routes.investigation:
         return CupertinoPageRoute(
-          builder: (_) =>  InvestigationReportScreen(),
+          builder: (_) => InvestigationReportScreen(),
           settings: routeSettings,
         );
-      // global routes end
-case Routes.painClinic:
+      case Routes.painClinic:
         return CupertinoPageRoute(
-          builder: (_) =>  PainClinicScreen(),
+          builder: (_) => PainClinicScreen(),
           settings: routeSettings,
         );
-  case Routes.woundClinic:
+      case Routes.woundClinic:
         return CupertinoPageRoute(
-          builder: (_) =>  WoundClinicHome(),
+          builder: (_) => WoundClinicHome(),
           settings: routeSettings,
         );
-  case Routes.psychSocialReport:
+      case Routes.psychSocialReport:
         return CupertinoPageRoute(
-          builder: (_) =>  PsychoSocialReportPage(),
+          builder: (_) => PsychoSocialReportPage(),
           settings: routeSettings,
         );
-  case Routes.rehabilitativePallCare:
+      case Routes.rehabilitativePallCare:
         return CupertinoPageRoute(
-          builder: (_) =>  RehabPallCareScreen(),
-          settings: routeSettings,
-        );
-      // global routes end
-case Routes.allUploads:
-        return CupertinoPageRoute(
-          builder: (_) =>  AllUploadPage(),
-          settings: routeSettings,
-        );
-      // global routes end
-    case Routes.homeVisit:
-        return CupertinoPageRoute(
-          builder: (_) =>  HomeVisitPage(),
-          settings: routeSettings,
-        );
-      // global routes end
- case Routes.procedure:
-        return CupertinoPageRoute(
-          builder: (_) =>  ProcedurePage(),
-          settings: routeSettings,
-        );
-      // global routes end
-case Routes.alliedHealth:
-        return CupertinoPageRoute(
-          builder: (_) =>  AlliedHealthPage(),
-          settings: routeSettings,
-        );
-      // global routes end
-case Routes.diagnosticLab:
-        return CupertinoPageRoute(
-          builder: (_) =>  DiagnosticLabPage(),
-          settings: routeSettings,
-        );
-      // global routes end
-case Routes.pharmacy:
-        return CupertinoPageRoute(
-          builder: (_) =>  PharmacyPage(),
-          settings: routeSettings,
-        );
-      // global routes end
-case Routes.consultation:
-        return CupertinoPageRoute(
-          builder: (_) =>  ConsultationScreen(),
+          builder: (_) => RehabPallCareScreen(),
           settings: routeSettings,
         );
 
-        case Routes.clinic:
+      case Routes.allUploads:
         return CupertinoPageRoute(
-          builder: (_) =>  AddClinicPage(),
+          builder: (_) => AllUploadPage(),
+          settings: routeSettings,
+        );
+      case Routes.homeVisit:
+        return CupertinoPageRoute(
+          builder: (_) => HomeVisitPage(),
+          settings: routeSettings,
+        );
+      case Routes.procedure:
+        return CupertinoPageRoute(
+          builder: (_) => ProcedurePage(),
+          settings: routeSettings,
+        );
+      case Routes.alliedHealth:
+        return CupertinoPageRoute(
+          builder: (_) => AlliedHealthPage(),
+          settings: routeSettings,
+        );
+      case Routes.pharmacy:
+        return CupertinoPageRoute(
+          builder: (_) => PharmacyPage(),
+          settings: routeSettings,
+        );
+      case Routes.diagnosticLab:
+        return CupertinoPageRoute(
+          builder: (_) => DiagnosticLabPage(),
+          settings: routeSettings,
+        );
+      case Routes.instrumentRent:
+        return CupertinoPageRoute(
+          builder: (_) => InstrumentRentPage(),
+          settings: routeSettings,
+        );
+      case Routes.ambulance:
+        return CupertinoPageRoute(
+          builder: (_) => AmbulanceScreen(),
+          settings: routeSettings,
+        );
+      case Routes.consultation:
+        return CupertinoPageRoute(
+          builder: (_) => ConsultationScreen(),
+          settings: routeSettings,
+        );
+      case Routes.telePackage:
+        return CupertinoPageRoute(
+          builder: (_) => TelePackageScreen(),
+          settings: routeSettings,
+        );
+
+      case Routes.homePackage:
+        return CupertinoPageRoute(
+          builder: (_) => AddHomePackagePage(),
+          settings: routeSettings,
+        );
+
+      case Routes.clinic:
+        return CupertinoPageRoute(
+          builder: (_) => AddClinicPage(),
+          settings: routeSettings,
+        );
+
+      case Routes.assignStaff:
+        return CupertinoPageRoute(
+          builder: (_) => AssignShiftPage(),
+          settings: routeSettings,
+        );
+
+      case Routes.labReport:
+        return CupertinoPageRoute(
+          builder: (_) => LabReportPage(),
           settings: routeSettings,
         );
       // global routes end
-case Routes.roster:
+      case Routes.roster:
         return CupertinoPageRoute(
-          builder: (_) =>  RosterScreen(),
+          builder: (_) => RosterScreen(),
           settings: routeSettings,
         );
       // global routes end

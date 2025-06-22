@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart' show FontSize, Html, Margins, Style;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/constants/app_content.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/cubit/onDemand_service_cubit.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/consultants_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/consultant_details.dart';
 
 import '../../../../core/components/custom_image.dart';
@@ -13,7 +18,7 @@ class ConsultationScreen extends StatefulWidget {
 }
 
 class _ConsultationScreenState extends State<ConsultationScreen> {
-  List<Doctor> doctors = [
+/*  List<Doctor> doctors = [
     Doctor(
       name: "Dr. Sazia Afrin",
       specialty: "Dermatology & Venereology",
@@ -22,7 +27,7 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
       rating: 4.8,
       reviewCount: 124,
       imageUrl:
-          "https://t4.ftcdn.net/jpg/03/20/52/31/360_F_320523164_tx7Rdd7I2XDTvvKfz2oRuRpKOPE5z0ni.jpg",
+      "https://t4.ftcdn.net/jpg/03/20/52/31/360_F_320523164_tx7Rdd7I2XDTvvKfz2oRuRpKOPE5z0ni.jpg",
       isAvailable: true,
       nextAvailable: "Today, 4:30 PM",
     ),
@@ -34,7 +39,7 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
       rating: 4.9,
       reviewCount: 215,
       imageUrl:
-          "https://t4.ftcdn.net/jpg/03/20/52/31/360_F_320523164_tx7Rdd7I2XDTvvKfz2oRuRpKOPE5z0ni.jpg",
+      "https://t4.ftcdn.net/jpg/03/20/52/31/360_F_320523164_tx7Rdd7I2XDTvvKfz2oRuRpKOPE5z0ni.jpg",
       isAvailable: false,
       nextAvailable: "Tomorrow, 10:00 AM",
     ),
@@ -46,7 +51,7 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
       rating: 4.7,
       reviewCount: 98,
       imageUrl:
-          "https://t4.ftcdn.net/jpg/03/20/52/31/360_F_320523164_tx7Rdd7I2XDTvvKfz2oRuRpKOPE5z0ni.jpg",
+      "https://t4.ftcdn.net/jpg/03/20/52/31/360_F_320523164_tx7Rdd7I2XDTvvKfz2oRuRpKOPE5z0ni.jpg",
       isAvailable: true,
       nextAvailable: "Today, 3:00 PM",
     ),
@@ -58,26 +63,35 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
       rating: 4.6,
       reviewCount: 176,
       imageUrl:
-          "https://t4.ftcdn.net/jpg/03/20/52/31/360_F_320523164_tx7Rdd7I2XDTvvKfz2oRuRpKOPE5z0ni.jpg",
+      "https://t4.ftcdn.net/jpg/03/20/52/31/360_F_320523164_tx7Rdd7I2XDTvvKfz2oRuRpKOPE5z0ni.jpg",
       isAvailable: true,
       nextAvailable: "Today, 5:15 PM",
     ),
-  ];
+  ];*/
 
   String searchQuery = '';
   String selectedSpecialty = 'All';
 
+  final OnDemandServiceCubit onDemandCubit =
+      GetContext.context.read<OnDemandServiceCubit>();
+
+  @override
+  void initState() {
+    onDemandCubit.getConsultants();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final filteredDoctors = doctors.where((doctor) {
+/*    final filteredDoctors = doctors.where((doctor) {
       final matchesSearch = doctor.name
-              .toLowerCase()
-              .contains(searchQuery.toLowerCase()) ||
+          .toLowerCase()
+          .contains(searchQuery.toLowerCase()) ||
           doctor.specialty.toLowerCase().contains(searchQuery.toLowerCase());
       final matchesSpecialty = selectedSpecialty == 'All' ||
           doctor.specialty.contains(selectedSpecialty);
       return matchesSearch && matchesSpecialty;
-    }).toList();
+    }).toList();*/
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
@@ -86,19 +100,24 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
         centerTitle: true,
         elevation: 0,
       ),
-      body: Column(
-        children: [
-          _buildSearchBar(),
-          Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(vertical: 8.h),
-              itemCount: filteredDoctors.length,
-              itemBuilder: (context, index) {
-                return _buildDoctorCard(filteredDoctors[index]);
-              },
-            ),
-          ),
-        ],
+      body: BlocBuilder<OnDemandServiceCubit, OnDemandServiceState>(
+        builder: (context, state) {
+          return Column(
+            children: [
+              _buildSearchBar(),
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.symmetric(vertical: 8.h),
+                  itemCount: state.consultantsResponse?.doctorList?.length,
+                  itemBuilder: (context, index) {
+                    return _buildDoctorCard(
+                        state.consultantsResponse?.doctorList?[index]);
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -128,14 +147,19 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
     );
   }
 
-  Widget _buildDoctorCard(Doctor doctor) {
+  Widget _buildDoctorCard(DoctorList? doctorList) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(12.r),boxShadow: [AppColors.backgroundShadow]),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12.r),
+          boxShadow: [AppColors.backgroundShadow]),
       child: InkWell(
         borderRadius: BorderRadius.circular(12.r),
         onTap: () {
-          GetContext.to(ConsultantDetailsScreen());
+          GetContext.to(ConsultantDetailsScreen(
+            doctorList: doctorList,
+          ));
         },
         child: Padding(
           padding: EdgeInsets.all(16.w),
@@ -146,7 +170,8 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
                   height: 100.r,
                   width: 100.r,
                   child: CustomImage(
-                    baseUrl: doctor.imageUrl,
+                    baseUrl:
+                        "https://my.medpilot.app/${doctorList?.image ?? ""}",
                     radius: 12.r,
                     size: 100.r,
                   )),
@@ -156,7 +181,7 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      doctor.name,
+                      doctorList?.name ?? "",
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
@@ -164,14 +189,41 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      doctor.specialty,
+                      capitalizeFirstLetter(doctorList?.type ?? ""),
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: Colors.grey[600],
                       ),
                     ),
                     SizedBox(height: 4.h),
-                    Text(
+                    ClipRect(
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        constraints: BoxConstraints(
+                          maxHeight: 40, // approx height for 2 lines with fontSize 16
+                        ),
+                        child: Html(
+                          data: doctorList?.description ?? "",
+                          style: {
+                            "p": Style(
+                              fontSize: FontSize(10),
+                              margin: Margins.zero,
+                            ),
+                            "strong": Style(
+                              fontWeight: FontWeight.normal,
+                            ),
+                          },
+                        ),
+                      ),
+                    ),
+                    /*Html(
+                      data: doctorList?.description??"",
+                      style: {
+                        "p": Style(fontSize: FontSize(16)),
+                        "strong": Style(fontWeight: FontWeight.bold),
+                      },
+                    ),*/
+                    /*         Text(
                       doctor.qualifications,
                       style: TextStyle(
                         fontSize: 13.sp,
@@ -183,14 +235,16 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
                       children: [
                         Icon(Icons.star, size: 16.sp, color: Colors.amber),
                         SizedBox(width: 4.w),
-                        Text(
-                          '${doctor.rating} (${doctor.reviewCount} reviews)',
-                          style: TextStyle(fontSize: 13.sp),
+                        Flexible(
+                          child: Text(
+                            '${doctor.rating} (${doctor.reviewCount} reviews)',
+                            style: TextStyle(fontSize: 13.sp),
+                          ),
                         ),
 
 
                       ],
-                    ),
+                    ),*/
                   ],
                 ),
               ),
@@ -201,15 +255,17 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                     decoration: BoxDecoration(
-                      color: doctor.isAvailable
+                      color: (doctorList?.status ?? "0") == "1"
                           ? Colors.green[50]
                           : Colors.orange[50],
                       borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Text(
-                      doctor.isAvailable ? 'Available' : 'Not Available',
+                      (doctorList?.status ?? "0") == "1"
+                          ? 'Available'
+                          : 'Not Available',
                       style: TextStyle(
-                        color: doctor.isAvailable
+                        color: (doctorList?.status ?? "0") == "1"
                             ? Colors.green[800]
                             : Colors.orange[800],
                         fontSize: 12.sp,
@@ -218,13 +274,13 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
                     ),
                   ),
                   SizedBox(height: 8.h),
-                  Text(
-                    doctor.nextAvailable,
+                  /*  Text(
+                    doctorList?.status??"0",
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: AppColors.kPrimaryColor,
                     ),
-                  ),
+                  ),*/
                   SizedBox(height: 20.h),
                   Icon(
                     Icons.arrow_forward_ios,

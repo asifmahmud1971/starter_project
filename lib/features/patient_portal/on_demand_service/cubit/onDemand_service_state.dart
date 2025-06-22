@@ -2,46 +2,50 @@ part of 'onDemand_service_cubit.dart';
 
 class OnDemandServiceState extends Equatable {
   final AppStatus appStatus;
-  final HomeVisitModel? homeVisitModel;
-  final ProcedureModel? procedureModel;
+  final OnServiceModel? onService;
+  final FollowUpModel? followUp;
   final CurrentPackageResponse? currentPackage;
   final CityResponse? city;
   final ThanaResponse? thana;
+  final ConsultantsResponse? consultantsResponse;
 
-  const OnDemandServiceState({
-    this.appStatus = AppStatus.initial,
-    this.homeVisitModel,
-    this.procedureModel,
-    this.currentPackage,
-    this.city,
-    this.thana,
-  });
+  const OnDemandServiceState(
+      {this.appStatus = AppStatus.initial,
+      this.onService,
+      this.followUp,
+      this.currentPackage,
+      this.city,
+      this.thana,
+      this.consultantsResponse});
 
-  OnDemandServiceState copyWith(
-      {final AppStatus? appStatus,
-      final HomeVisitModel? homeVisitModel,
-      final ProcedureModel? procedureModel,
-      final FollowUpModel? followUp,
-      final CurrentPackageResponse? currentPackage,
-      final CityResponse? city,
-      final ThanaResponse? thana}) {
+  OnDemandServiceState copyWith({
+    final AppStatus? appStatus,
+    final OnServiceModel? onService,
+    final FollowUpModel? followUp,
+    final CurrentPackageResponse? currentPackage,
+    final CityResponse? city,
+    final ThanaResponse? thana,
+    final ConsultantsResponse? consultantsResponse,
+  }) {
     return OnDemandServiceState(
       appStatus: appStatus ?? this.appStatus,
-      homeVisitModel: homeVisitModel ?? this.homeVisitModel,
-      procedureModel: procedureModel ?? this.procedureModel,
+      onService: onService ?? this.onService,
+      followUp: followUp ?? this.followUp,
       currentPackage: currentPackage ?? this.currentPackage,
       city: city ?? this.city,
       thana: thana ?? this.thana,
+      consultantsResponse: consultantsResponse ?? this.consultantsResponse,
     );
   }
 
   @override
   List<Object> get props => [
         appStatus,
-        homeVisitModel ?? {},
-        procedureModel ?? {},
+        onService ?? {},
+        followUp ?? {},
         currentPackage ?? {},
         city ?? {},
         thana ?? {},
+        consultantsResponse ?? {}
       ];
 }

@@ -14,16 +14,16 @@ import 'package:medPilot/features/patient_portal/services/follow_up/widget/build
 
 import '../model/city_response.dart';
 
-class AddClinicPage extends StatefulWidget {
-  const AddClinicPage({super.key});
+class AddHomePackagePage extends StatefulWidget {
+  const AddHomePackagePage({super.key});
 
   @override
-  State<AddClinicPage> createState() => _AddClinicPageState();
+  State<AddHomePackagePage> createState() => _AddHomePackagePageState();
 }
 
-class _AddClinicPageState extends State<AddClinicPage> {
+class _AddHomePackagePageState extends State<AddHomePackagePage> {
   final OnDemandServiceCubit onDemandCubit =
-      GetContext.context.read<OnDemandServiceCubit>();
+  GetContext.context.read<OnDemandServiceCubit>();
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
     return Scaffold(
       appBar: AppBar(
         title:
-            const Text('Clinic', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text('Home Package', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -307,7 +307,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
             ),
           );
         },
-      )
+      ),
     );
   }
 
@@ -351,8 +351,8 @@ class _AddClinicPageState extends State<AddClinicPage> {
           title: const Text('Help'),
           content: const Text(
             'Fill in all the patient\'s vital signs and symptoms. '
-            'The color indicators show whether values are normal (green), '
-            'concerning (orange), or critical (red).',
+                'The color indicators show whether values are normal (green), '
+                'concerning (orange), or critical (red).',
           ),
           actions: [
             TextButton(

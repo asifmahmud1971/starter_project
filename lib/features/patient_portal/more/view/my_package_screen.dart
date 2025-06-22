@@ -3,8 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 
 class TelePackageScreen extends StatefulWidget {
+  const TelePackageScreen({super.key});
+
   @override
-  _TelePackageScreenState createState() => _TelePackageScreenState();
+  State createState() => _TelePackageScreenState();
 }
 
 class _TelePackageScreenState extends State<TelePackageScreen> {

@@ -22,7 +22,7 @@ class _DiagnosticLabPageState extends State<DiagnosticLabPage> {
   @override
   void initState() {
     // TODO: implement initState
-    context.read<OnDemandServiceCubit>().getHomeVisit();
+    context.read<OnDemandServiceCubit>().getLab();
     super.initState();
   }
 
@@ -41,10 +41,10 @@ class _DiagnosticLabPageState extends State<DiagnosticLabPage> {
           ),
           body: ListView.separated(
             padding: EdgeInsets.all(16.r),
-            itemCount: (state.homeVisitModel?.product??[]).length,
+            itemCount: (state.onService?.product??[]).length,
             itemBuilder: (context, index) {
               return ServiceProductCard(
-                service: state.homeVisitModel?.product?[index],
+                service: state.onService?.product?[index],
                 onAddToCart: () {},
               );
             },

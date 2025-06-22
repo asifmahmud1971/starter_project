@@ -2,9 +2,122 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/components/custom_image.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/constants/app_content.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/consultants_response.dart';
+
 class ConsultantDetailsScreen extends StatelessWidget {
+  final DoctorList? doctorList;
+
+  const ConsultantDetailsScreen({super.key, this.doctorList});
+
+  @override
+  Widget build(BuildContext context) {
+    String imageUrl = "https://my.medpilot.app/${doctorList?.image ?? ""}";
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(doctorList?.name ?? ""),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Doctor Image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                height: 220,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Doctor Name
+            Text(
+              doctorList?.name ?? "",
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+
+            // Doctor Type
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  capitalizeFirstLetter(doctorList?.type ?? ""),
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                      decoration: BoxDecoration(
+                        color: (doctorList?.status ?? "0") == "1"
+                            ? Colors.green[50]
+                            : Colors.orange[50],
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: Text(
+                        (doctorList?.status ?? "0") == "1"
+                            ? 'Available'
+                            : 'Not Available',
+                        style: TextStyle(
+                          color: (doctorList?.status ?? "0") == "1"
+                              ? Colors.green[800]
+                              : Colors.orange[800],
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 8.h),
+                    /*  Text(
+                    doctorList?.status??"0",
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: AppColors.kPrimaryColor,
+                    ),
+                  ),*/
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+
+            // Description (render HTML)
+            Html(
+              data: doctorList?.description ?? "",
+              style: {
+                "p": Style(fontSize: FontSize(16)),
+                "strong": Style(fontWeight: FontWeight.bold),
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/*
+class ConsultantDetailsScreen extends StatelessWidget {
+  const ConsultantDetailsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -274,4 +387,4 @@ class ConsultantDetailsScreen extends StatelessWidget {
       ),
     );
   }
-}
+}*/

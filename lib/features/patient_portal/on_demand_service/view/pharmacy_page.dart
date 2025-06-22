@@ -20,8 +20,7 @@ class PharmacyPage extends StatefulWidget {
 class _PharmacyPageState extends State<PharmacyPage> {
   @override
   void initState() {
-    // TODO: implement initState
-    context.read<OnDemandServiceCubit>().getHomeVisit();
+    context.read<OnDemandServiceCubit>().getPharmacy();
     super.initState();
   }
 
@@ -32,7 +31,7 @@ class _PharmacyPageState extends State<PharmacyPage> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              AppStrings.alliedHealth.tr(),
+              AppStrings.pharmacy.tr(),
               style: kTitleMedium.copyWith(color: Colors.white),
             ),
             backgroundColor: AppColors.kPrimaryColor,
@@ -40,10 +39,10 @@ class _PharmacyPageState extends State<PharmacyPage> {
           ),
           body: ListView.separated(
             padding: EdgeInsets.all(16.r),
-            itemCount: (state.homeVisitModel?.product??[]).length,
+            itemCount: (state.onService?.product??[]).length,
             itemBuilder: (context, index) {
               return ServiceProductCard(
-                service: state.homeVisitModel?.product?[index],
+                service: state.onService?.product?[index],
                 onAddToCart: () {},
               );
             },

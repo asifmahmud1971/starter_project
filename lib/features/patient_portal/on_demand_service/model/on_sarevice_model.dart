@@ -1,14 +1,14 @@
 import 'package:medPilot/core/constants/strings.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/product.dart';
 
-class HomeVisitModel {
-  HomeVisitModel({
+class OnServiceModel {
+  OnServiceModel({
       this.success, 
       this.product,
       this.token, 
       this.tokenType,});
 
-  HomeVisitModel.fromJson(dynamic json) {
+  OnServiceModel.fromJson(dynamic json) {
     success = json['success'];
     if (json['data'] != null) {
       product = [];

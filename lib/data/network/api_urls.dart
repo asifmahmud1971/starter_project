@@ -57,6 +57,11 @@ class ApiUrls {
   static const String reportPsychoSocial = 'report-psycho-social';
   static const String addPsychoSocial = 'add-psycho-social';
   static const String uploadDocument = 'upload-document';
+  static const String doctorList = 'doctor-list';
+  static const String pharmacy = 'pharmacy';
+  static const String alliedHealth = 'allied-health';
+  static const String lab = 'lab';
+  static const String instrument = 'instrument';
   static const String rosterStaff = 'roster-staff';
   static const String medicineAlertStaff = 'medicine-alert-staff';
   static const String patientPrescription = 'patient-prescription';

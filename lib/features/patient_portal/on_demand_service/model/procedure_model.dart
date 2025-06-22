@@ -1,3 +1,4 @@
+/*
 import 'package:medPilot/features/patient_portal/on_demand_service/model/product.dart';
 
 class ProcedureModel {
@@ -35,3 +36,4 @@ class ProcedureModel {
   }
 
 }
+*/
