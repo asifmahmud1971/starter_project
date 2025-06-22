@@ -28,33 +28,6 @@ class ServiceCard extends StatelessWidget {
               textAlign: TextAlign.center,
               style: kBodyLarge.copyWith(color: Colors.black))
         ],
-      child: Container(
-        padding: EdgeInsets.all(8.r),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5.r),
-            color: AppColors.kWhiteColor,
-            boxShadow: [AppColors.backgroundShadow]),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flexible(
-              child: Container(
-                padding: EdgeInsets.all(12.0),
-                decoration: BoxDecoration(
-                    color: AppColors.kPrimaryColor.withValues(alpha: 0.2),shape: BoxShape.circle),
-                child: CustomSvg(
-                  icon: icon ?? "",
-                  size: 48.r,
-                ),
-              ),
-            ),
-            8.verticalSpace,
-            Text(title ?? "",
-                maxLines: 1,
-                textAlign: TextAlign.center,
-                style: kBodyLarge.copyWith(color: Colors.black))
-          ],
-        ),
       ),
     );
   }
