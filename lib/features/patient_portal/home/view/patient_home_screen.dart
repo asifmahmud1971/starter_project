@@ -55,7 +55,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
             20.verticalSpace,
             const TopBar(),
             30.verticalSpace,
-            CallCard(),
+            AIChatCard(),
            /* 20.verticalSpace,
              AppSlider(imageUrls: sliderList,),*/
             20.verticalSpace,

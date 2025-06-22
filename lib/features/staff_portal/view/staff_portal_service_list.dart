@@ -21,7 +21,6 @@ class StaffPortalServiceList extends StatefulWidget {
 }
 
 class _StaffPortalServiceListState extends State<StaffPortalServiceList> {
-
   final List<Map<String, dynamic>> services = [
     {'icon': Icons.video_call, 'label': 'Video Consult'},
     {'icon': Icons.home, 'label': 'Doctor Home Visit'},
@@ -51,7 +50,8 @@ class _StaffPortalServiceListState extends State<StaffPortalServiceList> {
             GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: (state.staffPermissionModel?.staffPermission??[]).length,
+              itemCount:
+                  (state.staffPermissionModel?.staffPermission ?? []).length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
                 mainAxisSpacing: 12.w,
@@ -59,16 +59,25 @@ class _StaffPortalServiceListState extends State<StaffPortalServiceList> {
                 childAspectRatio: 0.75,
               ),
               padding: EdgeInsets.all(0),
-              itemBuilder: (BuildContext context, int index) { return ServiceCard(
-                onTap: (){
-                  GetContext.toNamed(
-                      route: state.staffPermissionModel?.staffPermission?[index].key);
-                },
-                title: state.staffPermissionModel?.staffPermission?[index]
-                    .serviceName,
-                icon: state.staffPermissionModel?.staffPermission?[index]
-                    .staticIcon,
-              ); },
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ServiceCard(
+                      onTap: () {
+                        GetContext.toNamed(
+                            route: state.staffPermissionModel
+                                ?.staffPermission?[index].key);
+                      },
+                      title: state.staffPermissionModel?.staffPermission?[index]
+                          .serviceName,
+                      icon: state.staffPermissionModel?.staffPermission?[index]
+                          .staticIcon,
+                    ),
+                  ],
+                );
+              },
             ),
           ],
         );
