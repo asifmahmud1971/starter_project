@@ -211,7 +211,7 @@ class _WoundManagementScreenState extends State<WoundManagementScreen> {
               _buildDetailRow('${AppStrings.site.tr()}:', record.site ?? AppStrings.notSpecified.tr()),
               _buildDetailRow(
                   '${AppStrings.firstOccurred.tr()}:', record.occured ?? AppStrings.notSpecified.tr()),
-              Divider(height: 24),
+              Divider(height: 24,color: AppColors.kGrayColor200),
             ],
             _buildDetailRow('${AppStrings.date.tr()}:', dateFormat.format(DateTime.parse(record.date??DateTime.now().toString()))),
   /*          _buildDetailRow('${AppStrings.debridement.tr()}:', record.location??""),

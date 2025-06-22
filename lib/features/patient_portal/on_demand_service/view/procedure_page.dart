@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +24,6 @@ class ProcedurePage extends StatefulWidget {
 class _ProcedurePageState extends State<ProcedurePage> {
   @override
   void initState() {
-    // TODO: implement initState
     context.read<OnDemandServiceCubit>().getProcedure();
     super.initState();
   }
@@ -42,10 +43,11 @@ class _ProcedurePageState extends State<ProcedurePage> {
           ),
           body: ListView.separated(
             padding: EdgeInsets.all(16.r),
-            itemCount: (state.procedureModel?.product??[]).length,
+            itemCount: (state.onService?.product??[]).length,
             itemBuilder: (context, index) {
+              log("message ${(state.onService?.product??[]).length}");
               return ServiceProductCard(
-                service: state.procedureModel?.product?[index],
+                service: state.onService?.product?[index],
                 onAddToCart: () {},
               );
             },

@@ -8,7 +8,6 @@ import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/cubit/onDemand_service_cubit.dart';
-import 'package:medPilot/features/patient_portal/on_demand_service/model/product.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/widget/service_product_card.dart';
 
 class HomeVisitPage extends StatefulWidget {
@@ -22,7 +21,6 @@ class _HomeVisitPageState extends State<HomeVisitPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     context.read<OnDemandServiceCubit>().getHomeVisit();
     super.initState();
   }
@@ -42,10 +40,10 @@ class _HomeVisitPageState extends State<HomeVisitPage> {
           ),
           body: ListView.separated(
             padding: EdgeInsets.all(16.r),
-            itemCount: (state.homeVisitModel?.product??[]).length,
+            itemCount: (state.onService?.product??[]).length,
             itemBuilder: (context, index) {
               return ServiceProductCard(
-                service: state.homeVisitModel?.product?[index],
+                service: state.onService?.product?[index],
                 onAddToCart: () {},
               );
             },

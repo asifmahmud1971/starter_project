@@ -25,17 +25,20 @@ class ServiceCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              padding: EdgeInsets.all(12.0),
-              decoration: BoxDecoration(
-                  color: AppColors.kPrimaryColor.withValues(alpha: 0.2),shape: BoxShape.circle),
-              child: CustomSvg(
-                icon: icon ?? "",
-                size: 50.r,
+            Flexible(
+              child: Container(
+                padding: EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                    color: AppColors.kPrimaryColor.withValues(alpha: 0.2),shape: BoxShape.circle),
+                child: CustomSvg(
+                  icon: icon ?? "",
+                  size: 48.r,
+                ),
               ),
             ),
-            10.verticalSpace,
+            8.verticalSpace,
             Text(title ?? "",
+                maxLines: 1,
                 textAlign: TextAlign.center,
                 style: kBodyLarge.copyWith(color: Colors.black))
           ],

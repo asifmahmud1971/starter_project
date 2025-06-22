@@ -91,6 +91,7 @@ class AppStrings {
   static const String painAssessmentSubmittedSuccessfully = "Pain assessment submitted successfully";
   static const String submit = "Submit";
   static const String homeVisit = "Home Visit";
+  static const String instrument = "Instrument";
   static const String procedure = "Procedure";
   static const String alliedHealth = "Allied Health";
   static const String diagnosticLab = "Diagnostic Lab";

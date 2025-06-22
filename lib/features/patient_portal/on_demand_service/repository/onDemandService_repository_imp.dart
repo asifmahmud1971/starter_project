@@ -5,8 +5,9 @@ import 'package:medPilot/data/network/api_failure.dart';
 import 'package:medPilot/data/network/api_request.dart';
 import 'package:medPilot/data/network/api_urls.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/city_response.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/consultants_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/current_package_response.dart';
-import 'package:medPilot/features/patient_portal/on_demand_service/model/home_visit_model.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/on_sarevice_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/procedure_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/thana_response.dart';
 import 'onDemandService_repository.dart';
@@ -18,26 +19,73 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
   final ApiRequest apiRequest;
 
   @override
-  Future<Either<ApiFailure, HomeVisitModel>> getHomeVisit(
+  Future<Either<ApiFailure, OnServiceModel>> getHomeVisit(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
       url: ApiUrls.homeVisit,
       method: Method.get,
       params: params,
-      fromJson: HomeVisitModel.fromJson,
+      fromJson: OnServiceModel.fromJson,
     );
   }
-
   @override
-  Future<Either<ApiFailure, ProcedureModel>> getProcedure(
+  Future<Either<ApiFailure, OnServiceModel>> getProcedure(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
       url: ApiUrls.procedure,
       method: Method.get,
       params: params,
-      fromJson: ProcedureModel.fromJson,
+      fromJson: OnServiceModel.fromJson,
+    );
+  }  @override
+  Future<Either<ApiFailure, OnServiceModel>> getAlliedHealth(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+      url: ApiUrls.alliedHealth,
+      method: Method.get,
+      params: params,
+      fromJson: OnServiceModel.fromJson,
     );
   }
+  Future<Either<ApiFailure, OnServiceModel>> getPharmacy(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+      url: ApiUrls.pharmacy,
+      method: Method.get,
+      params: params,
+      fromJson: OnServiceModel.fromJson,
+    );
+  }
+  Future<Either<ApiFailure, OnServiceModel>> getLab(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+      url: ApiUrls.lab,
+      method: Method.get,
+      params: params,
+      fromJson: OnServiceModel.fromJson,
+    );
+  }
+  Future<Either<ApiFailure, OnServiceModel>> getInstrument(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+      url: ApiUrls.instrument,
+      method: Method.get,
+      params: params,
+      fromJson: OnServiceModel.fromJson,
+    );
+  }
+  @override
+  Future<Either<ApiFailure, OnServiceModel>> getInstrumentRate(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+      url: ApiUrls.homeVisit,
+      method: Method.get,
+      params: params,
+      fromJson: OnServiceModel.fromJson,
+    );
+  }
+
+
 
   @override
   Future<Either<ApiFailure, CurrentPackageResponse>> getPatientPackage(
@@ -79,6 +127,16 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       url: ApiUrls.inPatientPackage,
       method: Method.post,
       params: params,
+    );
+  }
+  @override
+  Future<Either<ApiFailure, ConsultantsResponse>> getConsultants(
+      Map<String, dynamic> params) async {
+    return apiRequest.performRequest(
+      url: ApiUrls.doctorList,
+      method: Method.get,
+      params: params,
+      fromJson: ConsultantsResponse.fromJson,
     );
   }
 }

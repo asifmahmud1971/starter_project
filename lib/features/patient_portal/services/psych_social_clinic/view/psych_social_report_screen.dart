@@ -142,12 +142,13 @@ class _PsychoSocialReportPageState extends State<PsychoSocialReportPage> {
   Widget _buildRecordCard(Psychosocial? record, int slNo) {
     final dateFormat = DateFormat('dd MMM yyyy');
 
-    return Card(
+    return Container(
       margin: EdgeInsets.only(bottom: 16),
-      elevation: 1,
+      decoration: AppColors.kDecoration,
+     /* elevation: 1,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-      ),
+      ),*/
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
