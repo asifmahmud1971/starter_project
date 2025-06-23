@@ -2,13 +2,18 @@ import 'package:medPilot/features/auth/sign_in/view/sign_in_screen.dart';
 import 'package:medPilot/features/auth/sign_up/view/sign_up_screen.dart';
 import 'package:medPilot/features/dashboard/view/patient_dashboard_screen.dart';
 import 'package:medPilot/features/dashboard/view/staff_dashboard_screen.dart';
+import 'package:medPilot/features/patient_portal/more/view/my_package_screen.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/add_ambulance_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/add_clinic_page.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/add_home_package.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/allied_health_page.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/ambulance_screen.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/assign_staff_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/consultation_screen.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/diagonostic_lab_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/home_visit_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/instrument_rent_page.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/lab_report_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/pharmacy_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/procedure_page.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_list_page.dart';
@@ -56,6 +61,11 @@ class Routes {
   static const String clinic = "clinic";
   static const String instrumentRent = "instrument_rent";
   static const String ambulance = "ambulance";
+  static const String telePackage = "tele_package";
+  static const String homePackage = "home_package";
+  static const String assignStaff = "assign_staff";
+  static const String labReport = "lab_report";
+  static const String pilot = "pilot";
 }
 
 class RouteGenerator {
@@ -164,7 +174,7 @@ class RouteGenerator {
         );
       case Routes.ambulance:
         return CupertinoPageRoute(
-          builder: (_) => AddAmbulancePage(),
+          builder: (_) => AmbulanceScreen(),
           settings: routeSettings,
         );
       case Routes.consultation:
@@ -172,10 +182,33 @@ class RouteGenerator {
           builder: (_) => ConsultationScreen(),
           settings: routeSettings,
         );
+      case Routes.telePackage:
+        return CupertinoPageRoute(
+          builder: (_) => TelePackageScreen(),
+          settings: routeSettings,
+        );
+
+      case Routes.homePackage:
+        return CupertinoPageRoute(
+          builder: (_) => AddHomePackagePage(),
+          settings: routeSettings,
+        );
 
       case Routes.clinic:
         return CupertinoPageRoute(
           builder: (_) => AddClinicPage(),
+          settings: routeSettings,
+        );
+
+      case Routes.assignStaff:
+        return CupertinoPageRoute(
+          builder: (_) => AssignShiftPage(),
+          settings: routeSettings,
+        );
+
+      case Routes.labReport:
+        return CupertinoPageRoute(
+          builder: (_) => LabReportPage(),
           settings: routeSettings,
         );
       // global routes end
