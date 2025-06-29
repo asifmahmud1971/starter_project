@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/features/staff_portal/pescription/cubit/staff_prescription_cubit.dart';
+import 'package:medPilot/features/staff_portal/pescription/model/patient_list.dart';
 
 class Patient {
   final String id;
@@ -12,6 +15,8 @@ class Patient {
 }
 
 class AnimatedPatientDropdown extends StatefulWidget {
+  const AnimatedPatientDropdown({super.key});
+
   @override
   _AnimatedPatientDropdownState createState() =>
       _AnimatedPatientDropdownState();
@@ -19,16 +24,19 @@ class AnimatedPatientDropdown extends StatefulWidget {
 
 class _AnimatedPatientDropdownState extends State<AnimatedPatientDropdown> {
   bool _isExpanded = false;
-  final List<Patient> _patients = [
-    Patient(id: '14', name: 'John Doe', age: 14),
-    Patient(id: '14', name: 'Jane Smith', age: 15),
-    Patient(id: '12', name: 'Robert Johnson', age: 14),
-    Patient(id: '15', name: 'Emily Davis', age: 12),
-  ];
-  Patient? _selectedPatient;
+
+  StaffPatients? _selectedPatient;
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<StaffPrescriptionCubit>().getPatientData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<StaffPrescriptionCubit, StaffPrescriptionState>(
+  builder: (context, state) {
     return Container(
       margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -65,16 +73,16 @@ class _AnimatedPatientDropdownState extends State<AnimatedPatientDropdown> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: _patients.length,
+              itemCount: (state.patientList?.patients??[]).length,
               itemBuilder: (context, index) {
-                final patient = _patients[index];
+                final patient = (state.patientList?.patients??[])[index];
                 return ListTile(
                   leading: CircleAvatar(
                     backgroundColor: Colors.blue[100],
-                    child: Text(patient.id),
+                    child: Text(patient.id.toString()??""),
                   ),
                   title: Text(
-                    patient.name,
+                    patient.name??"",
                     style: TextStyle(fontWeight: FontWeight.w500),
                   ),
                   subtitle: Text('Age: ${patient.age}'),
@@ -92,5 +100,7 @@ class _AnimatedPatientDropdownState extends State<AnimatedPatientDropdown> {
         ],
       ),
     );
+  },
+);
   }
 }
