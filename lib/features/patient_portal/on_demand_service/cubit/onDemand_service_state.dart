@@ -8,15 +8,17 @@ class OnDemandServiceState extends Equatable {
   final CityResponse? city;
   final ThanaResponse? thana;
   final ConsultantsResponse? consultantsResponse;
+  final AssignShiftModel? assignStaffModel;
 
-  const OnDemandServiceState(
-      {this.appStatus = AppStatus.initial,
-      this.onService,
-      this.followUp,
-      this.currentPackage,
-      this.city,
-      this.thana,
-      this.consultantsResponse});
+  const OnDemandServiceState({this.appStatus = AppStatus.initial,
+    this.onService,
+    this.followUp,
+    this.currentPackage,
+    this.city,
+    this.thana,
+    this.consultantsResponse,
+    this.assignStaffModel
+  });
 
   OnDemandServiceState copyWith({
     final AppStatus? appStatus,
@@ -26,6 +28,7 @@ class OnDemandServiceState extends Equatable {
     final CityResponse? city,
     final ThanaResponse? thana,
     final ConsultantsResponse? consultantsResponse,
+    final AssignShiftModel? assignStaffModel
   }) {
     return OnDemandServiceState(
       appStatus: appStatus ?? this.appStatus,
@@ -35,17 +38,20 @@ class OnDemandServiceState extends Equatable {
       city: city ?? this.city,
       thana: thana ?? this.thana,
       consultantsResponse: consultantsResponse ?? this.consultantsResponse,
+      assignStaffModel: assignStaffModel ?? this.assignStaffModel,
     );
   }
 
   @override
-  List<Object> get props => [
+  List<Object> get props =>
+      [
         appStatus,
         onService ?? {},
         followUp ?? {},
         currentPackage ?? {},
         city ?? {},
         thana ?? {},
-        consultantsResponse ?? {}
+        consultantsResponse ?? {},
+        assignStaffModel ?? {}
       ];
 }

@@ -1,51 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/core/components/custom_date_time_formatter.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/cubit/onDemand_service_cubit.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/assign_shift_model.dart';
 
-class Staff {
-  final String name;
-  final String gender;
-  final String age; // e.g. "0 Yrs 5 M 23 D"
-  final String role;
 
-  Staff({
-    required this.name,
-    required this.gender,
-    required this.age,
-    required this.role,
-  });
+
+class AssignShiftPage extends StatefulWidget {
+ 
+  @override
+  State<AssignShiftPage> createState() => _AssignShiftPageState();
 }
 
-class AssignShiftPage extends StatelessWidget {
-  final List<Staff> staffList = [
-    Staff(name: "John Doe", gender: "Male", age: "0 Yrs 5 M 23 D", role: "Staff"),
-    Staff(name: "Anna Smith", gender: "Female", age: "2 Yrs 3 M 12 D", role: "Nurse"),
-    Staff(name: "Mike Johnson", gender: "Male", age: "1 Yrs 0 M 5 D", role: "Staff"),
-  ];
-
+class _AssignShiftPageState extends State<AssignShiftPage> {
+  @override
+  void initState() {
+    GetContext.context.read<OnDemandServiceCubit>().getAssignStaff();
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Assign Shift")),
-      body: ListView.builder(
+      body: BlocBuilder<OnDemandServiceCubit, OnDemandServiceState>(
+  builder: (context, state) {
+    return ListView.builder(
         padding: const EdgeInsets.all(12),
-        itemCount: staffList.length,
+        itemCount: (state.assignStaffModel?.rosterInformation??[]).length,
         itemBuilder: (context, index) {
-          final staff = staffList[index];
-          return SmartAssignShiftCard(staff: staffList[index]);
+          RosterInformation? staff = state.assignStaffModel?.rosterInformation?.elementAt(index);
+          return SmartAssignShiftCard(rosterStaff: staff);
         },
-      ),
+      );
+  },
+),
     );
   }
 }
 
 class SmartAssignShiftCard extends StatelessWidget {
-  final Staff staff;
+  final RosterInformation? rosterStaff;
 
-  const SmartAssignShiftCard({super.key, required this.staff});
+  const SmartAssignShiftCard({super.key, this.rosterStaff});
 
   @override
   Widget build(BuildContext context) {
-    final isMale = staff.gender.toLowerCase() == "male";
+    final isMale = rosterStaff?.date?.toLowerCase() == "male";
 
     return Container(
       decoration: AppColors.kDecoration,
@@ -61,7 +64,7 @@ class SmartAssignShiftCard extends StatelessWidget {
               radius: 35,
               backgroundColor: Colors.orange.shade100,
               child: Text(
-                staff.name.isNotEmpty ? staff.name[0].toUpperCase() : '?',
+                rosterStaff?.staff?.name!=null ? (rosterStaff?.staff?.name??'').toUpperCase() : '?',
                 style: const TextStyle(fontSize: 28, color: Colors.orange),
               ),
             ),
@@ -73,7 +76,7 @@ class SmartAssignShiftCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    staff.name,
+                    rosterStaff?.staff?.name??"",
                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 4),
@@ -82,7 +85,7 @@ class SmartAssignShiftCard extends StatelessWidget {
                       Icon(isMale ? Icons.male : Icons.female, size: 16, color: Colors.grey),
                       const SizedBox(width: 4),
                       Text(
-                        staff.gender,
+                        rosterStaff?.staff?.gander??"",
                         style: const TextStyle(color: Colors.grey),
                       ),
                     ],
@@ -92,7 +95,7 @@ class SmartAssignShiftCard extends StatelessWidget {
                       Icon(Icons.calendar_month_outlined, size: 16, color: Colors.grey),
                       const SizedBox(width: 4),
                       Text(
-                        "Age ${staff.age}",
+                        "Age ${rosterStaff?.staff?.dob??""}",
                         style: const TextStyle(color: Colors.grey),
                       ),
                     ],
@@ -105,30 +108,29 @@ class SmartAssignShiftCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
-                      staff.role,
+                      rosterStaff?.staff?.role??"",
                       style: const TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                   ),
                 ],
               ),
             ),
-
-          /*  // Assign Button
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.kSuccess400,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-              onPressed: () {
-                // Action
-              },
-              child: const Text("Assign", style: TextStyle(color: Colors.white)),
-            )*/
           ],
         ),
       )
     );
+  }
+  String? calculateAge(String dob) {
+    DateTime today = DateTime.now();
+    DateTime birthDate= DateTime.parse(dob);
+
+    int age = today.year - birthDate.year;
+
+    if (today.month < birthDate.month ||
+        (today.month == birthDate.month && today.day < birthDate.day)) {
+      age--;
+    }
+
+    return "$age";
   }
 }

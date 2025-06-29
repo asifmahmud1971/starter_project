@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medPilot/core/components/custom_image.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_content.dart';
-import 'package:medPilot/core/constants/app_text_style.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/consultants_response.dart';
 
 class ConsultantDetailsScreen extends StatelessWidget {
-  final DoctorList? doctorList;
+  final ConDoctor? doctorList;
 
   const ConsultantDetailsScreen({super.key, this.doctorList});
 
@@ -57,7 +52,7 @@ class ConsultantDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  capitalizeFirstLetter(doctorList?.type ?? ""),
+                  capitalizeFirstLetter(doctorList?.specialty ?? ""),
                   style: const TextStyle(fontSize: 16, color: Colors.grey),
                 ),
                 Column(
@@ -67,17 +62,17 @@ class ConsultantDetailsScreen extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                       decoration: BoxDecoration(
-                        color: (doctorList?.status ?? "0") == "1"
+                        color: ("1" ?? "0") == "1"
                             ? Colors.green[50]
                             : Colors.orange[50],
                         borderRadius: BorderRadius.circular(12.r),
                       ),
                       child: Text(
-                        (doctorList?.status ?? "0") == "1"
+                        ("1"?? "0") == "1"
                             ? 'Available'
                             : 'Not Available',
                         style: TextStyle(
-                          color: (doctorList?.status ?? "0") == "1"
+                          color: ("1" ?? "0") == "1"
                               ? Colors.green[800]
                               : Colors.orange[800],
                           fontSize: 12.sp,
@@ -85,28 +80,21 @@ class ConsultantDetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 8.h),
-                    /*  Text(
-                    doctorList?.status??"0",
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      color: AppColors.kPrimaryColor,
-                    ),
-                  ),*/
+
                   ],
                 ),
               ],
             ),
             const SizedBox(height: 16),
-
-            // Description (render HTML)
-            Html(
-              data: doctorList?.description ?? "",
-              style: {
-                "p": Style(fontSize: FontSize(16)),
-                "strong": Style(fontWeight: FontWeight.bold),
-              },
+            SizedBox(height: 8.h),
+            Text(
+              doctorList?.qualifications??"",
+              style: TextStyle(
+                fontSize: 12.sp,
+                color: AppColors.kGrayColor800,
+              ),
             ),
+
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:medPilot/data/network/api_failure.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/assign_shift_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/city_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/consultants_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/current_package_response.dart';
@@ -29,6 +30,8 @@ abstract class OnDemandServiceRepository {
   Future<Either<ApiFailure, dynamic>> inPatientPackage(
       Map<String, dynamic> params);
   Future<Either<ApiFailure, ConsultantsResponse>> getConsultants(
+      Map<String, dynamic> params);
+  Future<Either<ApiFailure, AssignShiftModel>> getAssignStaff(
       Map<String, dynamic> params);
 
 }

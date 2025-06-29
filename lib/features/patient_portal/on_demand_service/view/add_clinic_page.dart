@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,6 +32,24 @@ class _AddClinicPageState extends State<AddClinicPage> {
     onDemandCubit.getCity();
     super.initState();
   }
+
+  DateTime? _selectedDate;
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime(2000), // Default DOB
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(), // Prevent future dates
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        onDemandCubit.startServiceDateController.text = DateFormat('yyyy-MM-dd').format(_selectedDate!);
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +127,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
                   5.verticalSpace,
                   BuildSmartDropdown(
                     value: onDemandCubit.selectGender,
-                    hint: 'Select Functional Status',
+                    hint: 'Select gender',
                     items: onDemandCubit.genderList,
                     onChanged: (value) => setState(() {
                       onDemandCubit.selectGender = value;
@@ -204,7 +223,6 @@ class _AddClinicPageState extends State<AddClinicPage> {
                       controller: onDemandCubit.emailController,
                       radius: 8.r,
                       hint: "Enter your Email",
-                      validator: onDemandCubit.validator,
                     ),
                   ),
                   10.verticalSpace,
@@ -214,7 +232,6 @@ class _AddClinicPageState extends State<AddClinicPage> {
                       controller: onDemandCubit.currentPackageController,
                       radius: 8.r,
                       hint: "Enter your current package",
-                      validator: onDemandCubit.validator,
                     ),
                   ),
                   10.verticalSpace,
@@ -239,7 +256,8 @@ class _AddClinicPageState extends State<AddClinicPage> {
                           Icons.calendar_month_sharp,
                           color: AppColors.kGrayColor,
                         ),
-                      )),
+                      ),
+                  ),
                   10.verticalSpace,
                   _BuildSmartVitalRow(
                     label: 'Legal Representive Name',
@@ -247,7 +265,6 @@ class _AddClinicPageState extends State<AddClinicPage> {
                       controller: onDemandCubit.representativeNameController,
                       radius: 8.r,
                       hint: "Legal Representive Name",
-                      validator: onDemandCubit.validator,
                     ),
                   ),
                   10.verticalSpace,
@@ -257,7 +274,6 @@ class _AddClinicPageState extends State<AddClinicPage> {
                       controller: onDemandCubit.mobileNoPrimaryController,
                       radius: 8.r,
                       hint: "Mobile No",
-                      validator: onDemandCubit.validator,
                     ),
                   ),
                   10.verticalSpace,
@@ -267,7 +283,6 @@ class _AddClinicPageState extends State<AddClinicPage> {
                       controller: onDemandCubit.mobileNoAlternativeController,
                       radius: 8.r,
                       hint: "Mobile No",
-                      validator: onDemandCubit.validator,
                     ),
                   ),
                   10.verticalSpace,
@@ -277,7 +292,6 @@ class _AddClinicPageState extends State<AddClinicPage> {
                       controller: onDemandCubit.representativeEmailController,
                       radius: 8.r,
                       hint: "Legal Representive Email",
-                      validator: onDemandCubit.validator,
                     ),
                   ),
                   30.verticalSpace,
@@ -299,7 +313,12 @@ class _AddClinicPageState extends State<AddClinicPage> {
                         foregroundColor: Colors.white,
                         elevation: 4,
                       ),
-                      onPressed: _saveFollowUp,
+                      onPressed: (){
+                        if (onDemandCubit.formKey.currentState!.validate()) {
+                          context.read<OnDemandServiceCubit>().addClinic();
+                        }
+                      },
+
                     ),
                   ),
                 ],
@@ -308,60 +327,6 @@ class _AddClinicPageState extends State<AddClinicPage> {
           );
         },
       )
-    );
-  }
-
-  void _saveFollowUp() {
-    if (onDemandCubit.formKey.currentState!.validate()) {
-      context.read<FollowUpCubit>().createFollowUp();
-    }
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: onDemandCubit.selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.light(
-              primary: AppColors.kPrimaryColor,
-              onPrimary: Colors.white,
-              onSurface: Colors.grey.shade800,
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
-    if (picked != null && picked != onDemandCubit.selectedDate) {
-      setState(() {
-        onDemandCubit.selectedDate = picked;
-      });
-    }
-  }
-
-  void _showHelpDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Help'),
-          content: const Text(
-            'Fill in all the patient\'s vital signs and symptoms. '
-            'The color indicators show whether values are normal (green), '
-            'concerning (orange), or critical (red).',
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
     );
   }
 }

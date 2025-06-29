@@ -67,6 +67,7 @@ class ApiUrls {
   static const String patientPrescription = 'patient-prescription';
   static const String staffTask = 'task-staff';
   static const String staffPatientList = 'prescription-staff';
+  static const String userRoster = 'user-roster';
 
 
 
