@@ -33,6 +33,7 @@ import 'package:flutter/material.dart';
 import 'package:medPilot/features/staff_portal/medicine_alert/view/medicine_alert_page.dart';
 import 'package:medPilot/features/staff_portal/pescription/view/staff_prescription_page.dart';
 import 'package:medPilot/features/staff_portal/roaster/view/roaster_screen_view.dart';
+import 'package:medPilot/features/staff_portal/task/view/staff_task_screen.dart';
 
 import '../../core/constants/app_strings.dart';
 
@@ -72,6 +73,7 @@ class Routes {
   static const String assignStaff = "assign_staff";
   static const String labReport = "lab_report";
   static const String pilot = "pilot";
+  static const String task = "task";
 }
 
 class RouteGenerator {
@@ -239,7 +241,12 @@ case Routes.medicineAlert:
           settings: routeSettings,
         );
       // global routes end
-
+case Routes.task:
+        return CupertinoPageRoute(
+          builder: (_) =>  TaskManagementScreen(),
+          settings: routeSettings,
+        );
+      // global routes end
 
 
       default:

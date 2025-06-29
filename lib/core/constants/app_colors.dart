@@ -7,6 +7,14 @@ class AppColors {
   static const kPrimarySpeechBlue = Color(0xFFFF904D);
   static const kPrimarySpeechBlue950 = Color(0xFF222649);
   static const kPrimarySpeechBlue900 = Color(0xFF323B76);
+  static const kSecondaryColor = Color(0xFF4A6572);
+  static const kBackgroundColor = Color(0xFFF5F7FA);
+  static const kCardColor = Colors.white;
+  static const kCompletedColor = Color(0xFF4CAF50);
+  static const kInProgressColor = Color(0xFFFF9800);
+  static const kPendingColor = Color(0xFFF44336);
+
+
 
   static const kPrimarySpeechBlue800 = Color(0xFF394294);
   static const kPrimarySpeechBlue700 = Color(0xFF4050B5);
@@ -153,11 +161,8 @@ class AppColors {
   static const neutralGray950 = Color(0xFF2B4E70);
   static const neutralGray300 = Color(0xFFCECDD4);
   static const Color kAccentColor = Color(0xFF4CC9F0); // Light blue
-  static const Color kBackgroundColor = Color(0xFFF8F9FA);
-  static const Color kCardColor = Colors.white;
   static const Color kGivenColor = Color(0xFF4CAF50); // Green
   static const Color kNotGivenColor = Color(0xFFF44336); // Red
-  static const Color kPendingColor = Color(0xFFFF9800);
 
   static const secondaryEasternBlue50 = Color(0xFFF1F9FE);
   static const secondaryIndigo50 = Color(0xFFF2F5FC);

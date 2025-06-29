@@ -116,5 +116,13 @@ class AppStrings {
   static const String markAsGiven = "Mark as Given";
   static const String notGiven = "Not Given";
   static const String couldNotLaunch = "Could not launch";
+  static const String taskManager = 'task_manager';
+  static const String yourTasks = 'your_tasks';
+  static const String inProgress = 'in_progress';
+  static const String completed = 'completed';
+  static const String assignDate = 'assign_date';
+  static const String lastDate = 'last_date';
+  static const String daysRemaining = 'days_remaining';
+  static const String updatingStatus = 'updating_status';
 
 }

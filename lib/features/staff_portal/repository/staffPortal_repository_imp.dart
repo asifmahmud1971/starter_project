@@ -7,6 +7,7 @@ import 'package:medPilot/data/network/api_urls.dart';
 import 'package:medPilot/features/staff_portal/medicine_alert/model/medicine_alert_model.dart';
 import 'package:medPilot/features/staff_portal/pescription/model/staff_pescription.dart';
 import 'package:medPilot/features/staff_portal/roaster/model/roster_model.dart';
+import 'package:medPilot/features/staff_portal/task/model/task_model.dart';
 import 'staffPortal_repository.dart';
 
 @Injectable(as: StaffPortalRepository)
@@ -47,4 +48,16 @@ class StaffPortalRepositoryImp implements StaffPortalRepository {
       fromJson: StaffPrescription.fromJson,
     );
   }
+  @override
+  Future<Either<ApiFailure, TaskModel>> getTask(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+      url: ApiUrls.staffTask,
+      method: Method.get,
+      params: params,
+      fromJson: TaskModel.fromJson,
+    );
+  }
+
+
 }

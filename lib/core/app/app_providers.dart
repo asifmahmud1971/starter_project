@@ -14,6 +14,7 @@ import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/wou
 import 'package:medPilot/features/staff_portal/medicine_alert/cubit/medicine_alert_cubit.dart';
 import 'package:medPilot/features/staff_portal/pescription/cubit/staff_prescription_cubit.dart';
 import 'package:medPilot/features/staff_portal/roaster/cubit/roster_cubit.dart';
+import 'package:medPilot/features/staff_portal/task/cubit/task_cubit.dart';
 import 'package:medPilot/features/theme/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -91,6 +92,10 @@ class AppProviders {
     // =========== [ Auth End ] ===========
  BlocProvider<StaffPrescriptionCubit>(
       create: (BuildContext context) => instance<StaffPrescriptionCubit>(),
+    ),
+    // =========== [ Auth End ] ===========
+BlocProvider<TaskCubit>(
+      create: (BuildContext context) => instance<TaskCubit>(),
     ),
     // =========== [ Auth End ] ===========
 
