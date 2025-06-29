@@ -62,6 +62,7 @@ class ApiUrls {
   static const String alliedHealth = 'allied-health';
   static const String lab = 'lab';
   static const String instrument = 'instrument';
+  static const String userRoster = 'user-roster';
 
 
 

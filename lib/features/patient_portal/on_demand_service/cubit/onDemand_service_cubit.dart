@@ -9,6 +9,7 @@ import 'package:medPilot/core/components/custom_progress_loader.dart';
 import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/enum/app_status.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/assign_shift_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/city_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/consultants_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/current_package_response.dart';
@@ -22,7 +23,8 @@ part 'onDemand_service_state.dart';
 
 @injectable
 class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
-  OnDemandServiceCubit(this.onDemandServiceRepository) : super(const OnDemandServiceState());
+  OnDemandServiceCubit(this.onDemandServiceRepository)
+      : super(const OnDemandServiceState());
 
   final OnDemandServiceRepository onDemandServiceRepository;
   final TextEditingController patientNameController = TextEditingController();
@@ -33,12 +35,18 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
   final TextEditingController addressController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController currentPackageController = TextEditingController();
-  final TextEditingController startServiceDateController = TextEditingController();
-  final TextEditingController representativeNameController = TextEditingController();
-  final TextEditingController mobileNoPrimaryController = TextEditingController();
-  final TextEditingController mobileNoAlternativeController = TextEditingController();
-  final TextEditingController representativeEmailController = TextEditingController();
+  final TextEditingController currentPackageController =
+      TextEditingController();
+  final TextEditingController startServiceDateController =
+      TextEditingController();
+  final TextEditingController representativeNameController =
+      TextEditingController();
+  final TextEditingController mobileNoPrimaryController =
+      TextEditingController();
+  final TextEditingController mobileNoAlternativeController =
+      TextEditingController();
+  final TextEditingController representativeEmailController =
+      TextEditingController();
 
   final formKey = GlobalKey<FormState>();
   String? selectGender;
@@ -47,11 +55,13 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
   String? selectPatientPackage;
   DateTime? selectedDate;
   List<String> genderList = ['Male', 'Female', 'Other'];
-  FormFieldValidator<String>? validator = (value) => (value??"").isEmpty ? 'This field is required' : null;
+  FormFieldValidator<String>? validator =
+      (value) => (value ?? "").isEmpty ? 'This field is required' : null;
 
   Future<void> getHomeVisit() async {
     showProgressDialog();
-    emit(state.copyWith(appStatus: AppStatus.loading,onService: OnServiceModel()));
+    emit(state.copyWith(
+        appStatus: AppStatus.loading, onService: OnServiceModel()));
 
     try {
       final response = await onDemandServiceRepository.getHomeVisit({});
@@ -59,8 +69,7 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       response.fold(
         (failure) {},
         (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success, onService: data));
+          emit(state.copyWith(appStatus: AppStatus.success, onService: data));
         },
       );
 
@@ -69,18 +78,19 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       dismissProgressDialog();
     }
   }
+
   Future<void> getProcedure() async {
     showProgressDialog();
-    emit(state.copyWith(appStatus: AppStatus.loading,onService: OnServiceModel()));
+    emit(state.copyWith(
+        appStatus: AppStatus.loading, onService: OnServiceModel()));
 
     try {
       final response = await onDemandServiceRepository.getProcedure({});
 
       response.fold(
-            (failure) {},
-            (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success, onService: data));
+        (failure) {},
+        (data) async {
+          emit(state.copyWith(appStatus: AppStatus.success, onService: data));
         },
       );
       log("procedure Data ---------> ${state.onService?.success}");
@@ -90,18 +100,19 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       dismissProgressDialog();
     }
   }
+
   Future<void> getAlliedHealth() async {
     showProgressDialog();
-    emit(state.copyWith(appStatus: AppStatus.loading,onService: OnServiceModel()));
+    emit(state.copyWith(
+        appStatus: AppStatus.loading, onService: OnServiceModel()));
 
     try {
       final response = await onDemandServiceRepository.getAlliedHealth({});
 
       response.fold(
-            (failure) {},
-            (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success, onService: data));
+        (failure) {},
+        (data) async {
+          emit(state.copyWith(appStatus: AppStatus.success, onService: data));
         },
       );
       log("procedure Data ---------> ${state.onService?.success}");
@@ -111,18 +122,19 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       dismissProgressDialog();
     }
   }
+
   Future<void> getPharmacy() async {
     showProgressDialog();
-    emit(state.copyWith(appStatus: AppStatus.loading,onService: OnServiceModel()));
+    emit(state.copyWith(
+        appStatus: AppStatus.loading, onService: OnServiceModel()));
 
     try {
       final response = await onDemandServiceRepository.getPharmacy({});
 
       response.fold(
-            (failure) {},
-            (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success, onService: data));
+        (failure) {},
+        (data) async {
+          emit(state.copyWith(appStatus: AppStatus.success, onService: data));
         },
       );
       log("procedure Data ---------> ${state.onService?.success}");
@@ -132,18 +144,19 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       dismissProgressDialog();
     }
   }
+
   Future<void> getLab() async {
     showProgressDialog();
-    emit(state.copyWith(appStatus: AppStatus.loading,onService: OnServiceModel()));
+    emit(state.copyWith(
+        appStatus: AppStatus.loading, onService: OnServiceModel()));
 
     try {
       final response = await onDemandServiceRepository.getLab({});
 
       response.fold(
-            (failure) {},
-            (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success, onService: data));
+        (failure) {},
+        (data) async {
+          emit(state.copyWith(appStatus: AppStatus.success, onService: data));
         },
       );
       log("procedure Data ---------> ${state.onService?.success}");
@@ -153,9 +166,11 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       dismissProgressDialog();
     }
   }
+
   Future<void> getInstrumentRate() async {
     showProgressDialog();
-    emit(state.copyWith(appStatus: AppStatus.loading,onService: OnServiceModel()));
+    emit(state.copyWith(
+        appStatus: AppStatus.loading, onService: OnServiceModel()));
 
     try {
       final response = await onDemandServiceRepository.getInstrument({});
@@ -163,8 +178,7 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       response.fold(
         (failure) {},
         (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success, onService: data));
+          emit(state.copyWith(appStatus: AppStatus.success, onService: data));
         },
       );
       dismissProgressDialog();
@@ -172,6 +186,7 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       dismissProgressDialog();
     }
   }
+
   Future<void> getPatientPackage() async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
@@ -184,8 +199,6 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
         (data) async {
           emit(state.copyWith(
               appStatus: AppStatus.success, currentPackage: data));
-
-
         },
       );
       log("procedure Data ---------> ${state.onService?.success}");
@@ -195,6 +208,7 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       dismissProgressDialog();
     }
   }
+
   Future<void> getCity() async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
@@ -205,8 +219,7 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       response.fold(
         (failure) {},
         (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success, city: data));
+          emit(state.copyWith(appStatus: AppStatus.success, city: data));
         },
       );
       log("procedure Data ---------> ${state.onService?.success}");
@@ -216,18 +229,18 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       dismissProgressDialog();
     }
   }
+
   Future<void> getThana({int? id}) async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
 
     try {
-      final response = await onDemandServiceRepository.getThana({},id);
+      final response = await onDemandServiceRepository.getThana({}, id);
 
       response.fold(
         (failure) {},
         (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success, thana: data));
+          emit(state.copyWith(appStatus: AppStatus.success, thana: data));
         },
       );
       log("procedure Data ---------> ${state.onService?.success}");
@@ -237,9 +250,11 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       dismissProgressDialog();
     }
   }
+
   Future<void> getConsultants() async {
     showProgressDialog();
-    emit(state.copyWith(appStatus: AppStatus.loading,onService: OnServiceModel()));
+    emit(state.copyWith(
+        appStatus: AppStatus.loading, onService: OnServiceModel()));
 
     try {
       final response = await onDemandServiceRepository.getConsultants({});
@@ -258,14 +273,45 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       dismissProgressDialog();
     }
   }
+
+  Future<void> getAssignStaff() async {
+    showProgressDialog();
+    emit(state.copyWith(
+        appStatus: AppStatus.loading, onService: OnServiceModel()));
+
+    try {
+      final response = await onDemandServiceRepository.getAssignStaff({});
+
+      response.fold(
+        (failure) {},
+        (data) async {
+          emit(state.copyWith(
+              appStatus: AppStatus.success, assignStaffModel: data));
+        },
+      );
+      log("assignStaffData  ---------> ${state.onService?.success}");
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+    }
+  }
+
   Future<void> addClinic() async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
 
     try {
       final formData = <String, dynamic>{};
-      formData['city_id'] = selectCity?.id??"";
-      formData['thana_id'] = selectThana?.id??"";
+      formData['patient_name'] = patientNameController.text;
+      formData['age'] = ageController.text;
+      formData['gender'] = selectGender ?? "";
+      formData['legal_representive_name'] = representativeNameController.text;
+      formData['mobile_no'] = mobileNoPrimaryController.text;
+      formData['legal_representive_email'] = representativeEmailController.text;
+
+      formData['city_id'] = selectCity?.id ?? "";
+      formData['thana_id'] = selectThana?.id ?? "";
       formData['address'] = addressController.text;
       formData['phone'] = phoneController.text;
       formData['email'] = emailController.text;
@@ -274,10 +320,11 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       formData['legalReName'] = representativeNameController.text;
       formData['legalMobileNo'] = mobileNoPrimaryController.text;
 
-      final response = await onDemandServiceRepository.inPatientPackage(formData);
+      final response =
+          await onDemandServiceRepository.inPatientPackage(formData);
 
       response.fold(
-            (l) {
+        (l) {
           showCustomSnackBar(
             context: GetContext.context,
             isError: true,
@@ -286,7 +333,7 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
 
           emit(state.copyWith(appStatus: AppStatus.failure));
         },
-            (r) async {
+        (r) async {
           emit(state.copyWith(appStatus: AppStatus.success));
         },
       );
@@ -298,6 +345,4 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       log('$runtimeType:: @signIn => $e');
     }
   }
-
-
 }
