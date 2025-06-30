@@ -30,6 +30,7 @@ import 'package:medPilot/features/splash/view/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:medPilot/features/staff_portal/attendence/view/attendence_screen.dart';
 import 'package:medPilot/features/staff_portal/medicine_alert/view/medicine_alert_page.dart';
 import 'package:medPilot/features/staff_portal/pescription/view/staff_prescription_page.dart';
 import 'package:medPilot/features/staff_portal/roaster/view/roaster_screen_view.dart';
@@ -74,12 +75,10 @@ class Routes {
   static const String labReport = "lab_report";
   static const String pilot = "pilot";
   static const String task = "task";
+  static const String attendance = "attendance";
 }
 
 class RouteGenerator {
-
-
-
   static Route<dynamic> getRoute(RouteSettings routeSettings) {
     AppPreferences appPreferences = instance.get();
     switch (routeSettings.name) {
@@ -113,15 +112,15 @@ class RouteGenerator {
           settings: routeSettings,
         );
       case Routes.prescription:
-        return
-          (appPreferences.getUserData().userType == "Patient")?
-          CupertinoPageRoute(
-          builder: (_) => PrescriptionScreen(),
-          settings: routeSettings,
-        ):CupertinoPageRoute(
-            builder: (_) =>  StaffPrescriptionScreen(),
-            settings: routeSettings,
-          );
+        return (appPreferences.getUserData().userType == "Patient")
+            ? CupertinoPageRoute(
+                builder: (_) => PrescriptionScreen(),
+                settings: routeSettings,
+              )
+            : CupertinoPageRoute(
+                builder: (_) => StaffPrescriptionScreen(),
+                settings: routeSettings,
+              );
       case Routes.followUp:
         return CupertinoPageRoute(
           builder: (_) => FollowupListPage(),
@@ -235,19 +234,24 @@ class RouteGenerator {
           settings: routeSettings,
         );
       // global routes end
-case Routes.medicineAlert:
+      case Routes.medicineAlert:
         return CupertinoPageRoute(
-          builder: (_) =>  MedicineAlertScreen(),
+          builder: (_) => MedicineAlertScreen(),
           settings: routeSettings,
         );
       // global routes end
-case Routes.task:
+      case Routes.task:
         return CupertinoPageRoute(
-          builder: (_) =>  TaskManagementScreen(),
+          builder: (_) => TaskManagementScreen(),
           settings: routeSettings,
         );
       // global routes end
-
+case Routes.attendance:
+        return CupertinoPageRoute(
+          builder: (_) => AttendanceScreen(),
+          settings: routeSettings,
+        );
+      // global routes end
 
       default:
         return unDefinedRoute();
