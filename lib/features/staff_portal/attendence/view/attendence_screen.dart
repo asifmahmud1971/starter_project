@@ -1,5 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/constants/app_strings.dart';
+import 'package:medPilot/core/constants/app_text_style.dart';
 
 class AttendanceScreen extends StatefulWidget {
   const AttendanceScreen({super.key});
@@ -48,9 +52,15 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     final progress = elapsedMinutes / totalMinutes;
 
     return Scaffold(
+      appBar: AppBar(backgroundColor: AppColors.kPrimaryColor,
+      title: Text(AppStrings.attendance.tr(),style: kTitleMedium.copyWith(color: Colors.white),),
+      iconTheme: IconThemeData(color: Colors.white),
+      ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            20.verticalSpace,
             // App bar with gradient
            _buildDateHeader(attendanceData),
 
@@ -72,7 +82,6 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   const SizedBox(height: 32),
 
                   // Action grid
-                  _buildActionGrid(attendanceData, colors),
                 ],
               ),
             )
@@ -350,82 +359,33 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     );
   }
   Widget _buildDateHeader(Map<String, dynamic> data) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Today\'s Attendance',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Colors.grey[700],
+    return Padding(
+      padding:  EdgeInsets.symmetric(horizontal: 16.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Today\'s Attendance',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey[700],
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          '${data['date']}, ${data['day']}',
-          style: const TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
+          const SizedBox(height: 8),
+          Text(
+            '${data['date']}, ${data['day']}',
+            style: const TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
-  Widget _buildActionGrid(Map<String, dynamic> data, ColorScheme colors) {
-    final actions = data['actions'] as Map<String, dynamic>;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'ACTIONS',
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: Theme.of(context).hintColor,
-            letterSpacing: 1.1,
-          ),
-        ),
-        const SizedBox(height: 12),
-        GridView.count(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: 2,
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
-          childAspectRatio: 2.5,
-          children: [
-            _buildActionButton(
-              'Check In',
-              Icons.login,
-              actions['can_check_in'],
-              colors.primary,
-            ),
-            _buildActionButton(
-              'Check Out',
-              Icons.logout,
-              actions['can_check_out'],
-              colors.secondary,
-            ),
-            _buildActionButton(
-              'Start Break',
-              Icons.coffee,
-              actions['can_start_break'],
-              const Color(0xFFF57C00),
-            ),
-            _buildActionButton(
-              'End Break',
-              Icons.done_all,
-              actions['can_end_break'],
-              const Color(0xFF43A047),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
 
   Widget _buildActionButton(
       String label,

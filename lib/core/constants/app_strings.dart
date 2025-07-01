@@ -124,5 +124,6 @@ class AppStrings {
   static const String lastDate = 'last_date';
   static const String daysRemaining = 'days_remaining';
   static const String updatingStatus = 'updating_status';
+  static const String attendance = 'Attendance';
 
 }
