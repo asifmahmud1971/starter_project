@@ -68,6 +68,8 @@ class ApiUrls {
   static const String staffTask = 'task-staff';
   static const String staffPatientList = 'prescription-staff';
   static const String userRoster = 'user-roster';
+  static const String attendanceStaff = 'attendance-staff';
+  static const String blog = 'blog';
 
 
 

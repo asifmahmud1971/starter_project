@@ -4,6 +4,7 @@ import 'package:medPilot/data/network/api_client.dart';
 import 'package:medPilot/data/network/api_failure.dart';
 import 'package:medPilot/data/network/api_request.dart';
 import 'package:medPilot/data/network/api_urls.dart';
+import 'package:medPilot/features/staff_portal/attendence/model/attendance_model.dart';
 import 'package:medPilot/features/staff_portal/medicine_alert/model/medicine_alert_model.dart';
 import 'package:medPilot/features/staff_portal/pescription/model/patient_list.dart';
 import 'package:medPilot/features/staff_portal/pescription/model/staff_pescription.dart';
@@ -69,6 +70,14 @@ class StaffPortalRepositoryImp implements StaffPortalRepository {
       fromJson: PatientList.fromJson,
     );
   }
-
-
+@override
+  Future<Either<ApiFailure, AttendanceModel>> getAttendanceData(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+      url: ApiUrls.attendanceStaff,
+      method: Method.get,
+      params: params,
+      fromJson: AttendanceModel.fromJson,
+    );
+  }
 }

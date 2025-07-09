@@ -4,6 +4,7 @@ import 'package:medPilot/features/patient_portal/on_demand_service/model/city_re
 import 'package:medPilot/features/patient_portal/on_demand_service/model/current_package_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/procedure_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/thana_response.dart';
+import 'package:medPilot/features/staff_portal/attendence/model/attendance_model.dart';
 import 'package:medPilot/features/staff_portal/medicine_alert/model/medicine_alert_model.dart';
 import 'package:medPilot/features/staff_portal/pescription/model/patient_list.dart';
 import 'package:medPilot/features/staff_portal/pescription/model/staff_pescription.dart';
@@ -20,5 +21,8 @@ Future<Either<ApiFailure, TaskModel>> getTask(
       Map<String, dynamic> params);
 Future<Either<ApiFailure, PatientList>> getPatient(
       Map<String, dynamic> params);
+Future<Either<ApiFailure, AttendanceModel>> getAttendanceData(
+      Map<String, dynamic> params);
+
 
 }

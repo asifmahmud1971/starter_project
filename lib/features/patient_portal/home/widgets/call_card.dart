@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
-import 'package:medPilot/features/staff_portal/chat/view/chat_screen.dart';
+import 'package:medPilot/features/patient_portal/chat/view/chat_screen.dart';
 
 class AIChatCard extends StatelessWidget {
   const AIChatCard({super.key});

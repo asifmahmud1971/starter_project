@@ -96,89 +96,10 @@ class _PalliativeChatScreenState extends State<PalliativeChatScreen> {
           _buildMessageInput(),
         ],
       ),
-    /*  floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Quick access to comfort resources
-          showModalBottomSheet(
-            context: context,
-            builder: (context) => _buildComfortResources(),
-          );
-        },
-        backgroundColor: AppColors.kPrimaryColor,
-        child: const Icon(Icons.health_and_safety, color: Colors.white),
-      ),*/
     );
   }
 
-  Widget _buildComfortResources() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 15,
-            spreadRadius: 2,
-          )
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            "Comfort Resources",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: AppColors.kPrimaryColor,
-            ),
-          ),
-          const SizedBox(height: 15),
-          Wrap(
-            spacing: 15,
-            runSpacing: 15,
-            children: [
-              _buildResourceButton(Icons.music_note, "Music Therapy"),
-              _buildResourceButton(Icons.spa, "Relaxation"),
-              _buildResourceButton(Icons.people, "Family Conference"),
-              _buildResourceButton(Icons.menu_book, "Comfort Reading"),
-              _buildResourceButton(Icons.nature, "Nature Sounds"),
-              _buildResourceButton(Icons.medication, "Medication Review"),
-            ],
-          ),
-          const SizedBox(height: 20),
-        ],
-      ),
-    );
-  }
 
-  Widget _buildResourceButton(IconData icon, String label) {
-    return Container(
-      width: 120,
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      decoration: BoxDecoration(
-        color: AppColors.kPrimaryColor.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        children: [
-          Icon(icon, color: AppColors.kPrimaryColor, size: 30),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 12,
-              color: AppColors.kPrimaryColor,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
@@ -219,16 +140,6 @@ class _PalliativeChatScreenState extends State<PalliativeChatScreen> {
           ),
         ],
       ),
-      actions: [
-        IconButton(
-          icon: Icon(Icons.video_call, color: AppColors.kPrimaryColor, size: 28),
-          onPressed: () {},
-        ),
-        IconButton(
-          icon: Icon(Icons.medical_services, color: AppColors.kPrimaryColor, size: 24),
-          onPressed: () {},
-        ),
-      ],
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(40),
         child: Container(
@@ -358,10 +269,10 @@ class _PalliativeChatScreenState extends State<PalliativeChatScreen> {
       child: SafeArea(
         child: Row(
           children: [
-            IconButton(
+           /* IconButton(
               icon: Icon(Icons.photo, color: AppColors.kPrimaryColor, size: 28),
               onPressed: () {},
-            ),
+            ),*/
             Expanded(
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),

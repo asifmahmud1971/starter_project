@@ -9,9 +9,9 @@ import 'package:medPilot/core/app/app_dependency.dart';
 import 'package:medPilot/core/app/app_preference.dart';
 import 'package:medPilot/features/dashboard/cubit/dashboard_state.dart';
 import 'package:medPilot/features/patient_portal/cart/view/patient_cart_homescreen.dart';
+import 'package:medPilot/features/patient_portal/chat/view/chat_screen.dart';
 import 'package:medPilot/features/patient_portal/home/view/patient_home_screen.dart';
 import 'package:medPilot/features/patient_portal/more/view/more_option_screen.dart';
-import 'package:medPilot/features/staff_portal/chat/view/chat_screen.dart';
 import 'package:medPilot/features/staff_portal/view/staff_home_screen.dart';
 
 import '../../../../core/constants/app_colors.dart';

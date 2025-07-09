@@ -1,9 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/staff_portal/attendence/cubit/attendance_cubit.dart';
+import 'package:medPilot/features/staff_portal/attendence/model/attendance_model.dart';
 
 class AttendanceScreen extends StatefulWidget {
   const AttendanceScreen({super.key});
@@ -13,143 +16,136 @@ class AttendanceScreen extends StatefulWidget {
 }
 
 class _AttendanceScreenState extends State<AttendanceScreen> {
-  // Mock data from JSON
-  final Map<String, dynamic> attendanceData = {
-    'date': '01-07-2025',
-    'day': 'Tuesday',
-    'shift': {
-      'start': '10:00',
-      'end': '19:00',
-      'break_start': '13:00',
-      'break_end': '13:30',
-    },
-    'attendance': {
-      'check_in': null,
-      'check_out': null,
-      'break_start': null,
-      'break_end': null,
-    },
-    'status': 'working_day',
-    'actions': {
-      'can_check_in': false,
-      'can_check_out': false,
-      'can_start_break': false,
-      'can_end_break': false,
-    }
-  };
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<AttendanceCubit>().getAttendanceData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colors = theme.colorScheme;
-    final now = TimeOfDay.now();
-    final shiftStart = _parseTime(attendanceData['shift']['start']);
-    final shiftEnd = _parseTime(attendanceData['shift']['end']);
+    return BlocBuilder<AttendanceCubit, AttendanceState>(
+      builder: (context, state) {
+        final theme = Theme.of(context);
+        final colors = theme.colorScheme;
+        final now = TimeOfDay.now();
+        /*  final shiftStart = _parseTime(state.attendanceModel?.data?.shift?.start??"");
+    final shiftEnd = _parseTime(state.attendanceModel?.data?.shift?.end??"");*/
 
-    // Calculate shift progress
-    final totalMinutes = _timeDifference(shiftStart, shiftEnd);
+        // Calculate shift progress
+/*  final totalMinutes = _timeDifference(shiftStart, shiftEnd);
     final elapsedMinutes = _timeDifference(shiftStart, now);
-    final progress = elapsedMinutes / totalMinutes;
+    final progress = elapsedMinutes / totalMinutes;*/
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: AppColors.kPrimaryColor,
+            title: Text(
+              AppStrings.attendance.tr(),
+              style: kTitleMedium.copyWith(color: Colors.white),
+            ),
+            iconTheme: IconThemeData(color: Colors.white),
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                20.verticalSpace,
+                // App bar with gradient
+                _buildDateHeader(),
 
-    return Scaffold(
-      appBar: AppBar(backgroundColor: AppColors.kPrimaryColor,
-      title: Text(AppStrings.attendance.tr(),style: kTitleMedium.copyWith(color: Colors.white),),
-      iconTheme: IconThemeData(color: Colors.white),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            20.verticalSpace,
-            // App bar with gradient
-           _buildDateHeader(attendanceData),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // Shift progress indicator
+                      _buildShiftProgress(10.0, theme),
+                      const SizedBox(height: 24),
 
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // Shift progress indicator
-                  _buildShiftProgress(progress, theme),
-                  const SizedBox(height: 24),
+                      // Shift timeline
+                      /*       _buildShiftTimeline(state.attendanceModel?.data??AttendanceData(), context),
+                  const SizedBox(height: 24),*/
 
-                  // Shift timeline
-                  _buildShiftTimeline(attendanceData, context),
-                  const SizedBox(height: 24),
+                      // Attendance status cards
+                      _buildStatusCards(
+                          state.attendanceModel?.data ?? AttendanceData(),
+                          theme),
+                      const SizedBox(height: 32),
 
-                  // Attendance status cards
-                  _buildStatusCards(attendanceData, theme),
-                  const SizedBox(height: 32),
-
-                  // Action grid
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+                      // Action grid
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
   Widget _buildShiftProgress(double progress, ThemeData theme) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return BlocBuilder<AttendanceCubit, AttendanceState>(
+      builder: (context, state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'SHIFT PROGRESS',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: theme.hintColor,
-                letterSpacing: 1.1,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'SHIFT PROGRESS',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: theme.hintColor,
+                    letterSpacing: 1.1,
+                  ),
+                ),
+                Text(
+                  '${(progress * 100).toStringAsFixed(1)}%',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-            Text(
-              '${(progress * 100).toStringAsFixed(1)}%',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+            8.verticalSpace,
+            LinearProgressIndicator(
+              value: progress,
+              minHeight: 12,
+              borderRadius: BorderRadius.circular(10),
+              color: theme.colorScheme.primary,
+              backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
+            ),
+            8.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Started at ${state.attendanceModel?.data?.breakStart?.scheduled}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: theme.hintColor,
+                  ),
+                ),
+                Text(
+                  'Ends at ${state.attendanceModel?.data?.breakEnd?.scheduled}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: theme.hintColor,
+                  ),
+                ),
+              ],
             ),
           ],
-        ),
-        const SizedBox(height: 8),
-        LinearProgressIndicator(
-          value: progress,
-          minHeight: 12,
-          borderRadius: BorderRadius.circular(10),
-          color: theme.colorScheme.primary,
-          backgroundColor: theme.colorScheme.primary.withOpacity(0.1),
-        ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Started at ${attendanceData['shift']['start']}',
-              style: TextStyle(
-                fontSize: 12,
-                color: theme.hintColor,
-              ),
-            ),
-            Text(
-              'Ends at ${attendanceData['shift']['end']}',
-              style: TextStyle(
-                fontSize: 12,
-                color: theme.hintColor,
-              ),
-            ),
-          ],
-        ),
-      ],
+        );
+      },
     );
   }
 
-  Widget _buildShiftTimeline(Map<String, dynamic> data, BuildContext context) {
-    final shift = data['shift'] as Map<String, dynamic>;
-
+  Widget _buildShiftTimeline(AttendanceData data, BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -168,28 +164,28 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           _buildTimelineItem(
             icon: Icons.alarm_on,
             title: 'Shift Start',
-            time: shift['start'],
+            time: data.breakStart?.scheduled ?? "",
             isActive: true,
           ),
           _buildTimelineDivider(),
           _buildTimelineItem(
             icon: Icons.coffee,
             title: 'Break Start',
-            time: shift['break_start'],
+            time: data.breakStart?.scheduled ?? "",
             isActive: false,
           ),
           _buildTimelineDivider(),
           _buildTimelineItem(
             icon: Icons.lunch_dining,
             title: 'Break End',
-            time: shift['break_end'],
+            time: data.breakStart?.scheduled ?? "",
             isActive: false,
           ),
           _buildTimelineDivider(),
           _buildTimelineItem(
             icon: Icons.alarm_off,
             title: 'Shift End',
-            time: shift['end'],
+            time: data.breakStart?.scheduled ?? "",
             isActive: false,
           ),
         ],
@@ -216,9 +212,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           ),
           child: Icon(
             icon,
-            color: isActive
-                ? Theme.of(context).colorScheme.primary
-                : Colors.grey,
+            color:
+                isActive ? Theme.of(context).colorScheme.primary : Colors.grey,
           ),
         ),
         const SizedBox(width: 16),
@@ -239,9 +234,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: isActive
-                ? Theme.of(context).colorScheme.primary
-                : Colors.grey,
+            color:
+                isActive ? Theme.of(context).colorScheme.primary : Colors.grey,
           ),
         ),
       ],
@@ -261,9 +255,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     );
   }
 
-  Widget _buildStatusCards(Map<String, dynamic> data, ThemeData theme) {
-    final attendance = data['attendance'] as Map<String, dynamic>;
-
+  Widget _buildStatusCards(AttendanceData data, ThemeData theme) {
     return GridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -275,25 +267,25 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
         _buildStatusCard(
           title: 'Check In',
           icon: Icons.login,
-          time: attendance['check_in'],
+          time: data.checkIn?.scheduled ?? "",
           color: const Color(0xFF5E35B1),
         ),
         _buildStatusCard(
           title: 'Break Start',
           icon: Icons.coffee,
-          time: attendance['break_start'],
+          time: data.breakStart?.scheduled ?? "",
           color: const Color(0xFFF57C00),
         ),
         _buildStatusCard(
           title: 'Break End',
           icon: Icons.done,
-          time: attendance['break_end'],
+          time: data.breakEnd?.scheduled ?? "",
           color: const Color(0xFF43A047),
         ),
         _buildStatusCard(
           title: 'Check Out',
           icon: Icons.logout,
-          time: attendance['check_out'],
+          time: data.checkOut?.scheduled ?? "",
           color: const Color(0xFFE53935),
         ),
       ],
@@ -358,52 +350,51 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       ),
     );
   }
-  Widget _buildDateHeader(Map<String, dynamic> data) {
-    return Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 16.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Today\'s Attendance',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Colors.grey[700],
-            ),
+
+  Widget _buildDateHeader() {
+    return BlocBuilder<AttendanceCubit, AttendanceState>(
+      builder: (context, state) {
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Today\'s Attendance',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey[700],
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '${state.attendanceModel?.date}, ${state.attendanceModel?.day}',
+                style: const TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            '${data['date']}, ${data['day']}',
-            style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
-
-
   Widget _buildActionButton(
-      String label,
-      IconData icon,
-      bool enabled,
-      Color color,
-      ) {
+    String label,
+    IconData icon,
+    bool enabled,
+    Color color,
+  ) {
     return ElevatedButton.icon(
       onPressed: enabled ? () {} : null,
       icon: Icon(icon, size: 20),
       label: Text(label),
       style: ElevatedButton.styleFrom(
-        backgroundColor: enabled
-            ? color
-            : color.withOpacity(0.1),
-        foregroundColor: enabled
-            ? Colors.white
-            : color.withOpacity(0.5),
+        backgroundColor: enabled ? color : color.withOpacity(0.1),
+        foregroundColor: enabled ? Colors.white : color.withOpacity(0.5),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
@@ -414,10 +405,10 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
   }
 
   // Helper functions for time calculations
-  TimeOfDay _parseTime(String time) {
+  /* TimeOfDay _parseTime(String time) {
     final parts = time.split(':');
     return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
-  }
+  }*/
 
   int _timeDifference(TimeOfDay start, TimeOfDay end) {
     final startMinutes = start.hour * 60 + start.minute;
