@@ -21,7 +21,7 @@ List<ServiceModel> myPackageList = [
   ServiceModel(title: "Upload Document", icon: Assets.medUploadDocument),
 ];
 
-List<ServiceModel> onDemandServiceList = [
+List<ServiceModel> onDemandSezrviceList = [
   ServiceModel(title: "Home Visit", icon: Assets.medHomeVisit),
   ServiceModel(title: "Procedure", icon: Assets.medIconNurseVisit),
   ServiceModel(title: "Allied Health", icon: Assets.medAlliedHealth),

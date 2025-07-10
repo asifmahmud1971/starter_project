@@ -1,5 +1,4 @@
 import 'package:medPilot/features/patient_portal/home/helper/dashboard_icon.dart';
-import 'package:medPilot/generated/assets.dart';
 
 class DashboardPermission {
   DashboardPermission({

@@ -25,10 +25,7 @@ class ServiceProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12.r),
-          boxShadow: [AppColors.kBackGroundShadow]),
+      decoration: AppColors.kDecoration,
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
