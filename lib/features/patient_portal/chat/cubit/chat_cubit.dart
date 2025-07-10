@@ -23,31 +23,36 @@ class ChatCubit extends Cubit<ChatState> {
   final ChatRepository chatRepository;
   final _appPreferences = instance.get<AppPreferences>();
 
-  Future<void> getChat(String? text) async {
+  List<Message> message = [];
 
-    state.messages?.insert(0,Message(text: text??"", time: DateTime.now(), isSentByMe: true));
-    emit(state.copyWith(appStatus: AppStatus.loading,messages: state.messages));
+  Future<void> getChat(String? text) async {
+    message.insert(
+        0, Message(text: text ?? "", time: DateTime.now(), isSentByMe: true));
+    emit(state.copyWith(appStatus: AppStatus.loading, messages: message));
 
     try {
-      final response = await chatRepository.getChat({
-        "text":text
-      });
+      final response = await chatRepository.getChat({"text": text});
 
       response.fold(
         (failure) {
+          message.insert(
+              0,
+              Message(
+                  text: failure.message,
+                  time: DateTime.now(),
+                  isSentByMe: false));
 
-          state.messages?.insert(0,Message(text: failure.message, time: DateTime.now(), isSentByMe: false));
-
-          emit(state.copyWith(
-              appStatus: AppStatus.success, messages: state.messages));
-
+          emit(state.copyWith(appStatus: AppStatus.success, messages: message));
         },
         (data) async {
+          message.insert(
+              0,
+              Message(
+                  text: data["output"],
+                  time: DateTime.now(),
+                  isSentByMe: false));
 
-          state.messages?.insert(0,Message(text: data["output"], time: DateTime.now(), isSentByMe: false));
-
-          emit(state.copyWith(
-              appStatus: AppStatus.success, messages: state.messages));
+          emit(state.copyWith(appStatus: AppStatus.success, messages: message));
         },
       );
 

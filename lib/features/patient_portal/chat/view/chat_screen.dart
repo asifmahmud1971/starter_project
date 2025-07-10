@@ -128,15 +128,14 @@ class _PalliativeChatScreenState extends State<PalliativeChatScreen> {
   Widget _buildMessageList() {
     return BlocBuilder<ChatCubit, ChatState>(
   builder: (context, state) {
-    return ListView.builder(
+    return (state.messages??[]).isNotEmpty? ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       reverse: true,
       itemCount: state.messages?.length,
       itemBuilder: (context, index) {
-        final message = state.messages?[(state.messages?.length??0) - 1 - index];
-        return _buildMessageBubble(state.messages?[index]??Message(text: "text", time: DateTime.now(), isSentByMe: false));
+        return _buildMessageBubble(state.messages?[index]??Message());
       },
-    );
+    ):SizedBox();
   },
 );
   }
@@ -146,7 +145,7 @@ class _PalliativeChatScreenState extends State<PalliativeChatScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Column(
-        crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment: isMe??false ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Container(
             constraints: BoxConstraints(
@@ -154,12 +153,12 @@ class _PalliativeChatScreenState extends State<PalliativeChatScreen> {
             ),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: isMe ? AppColors.kPrimaryColor : const Color(0xFFFCF4ED),
+              color: isMe??false ? AppColors.kPrimaryColor : const Color(0xFFFCF4ED),
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(20),
                 topRight: const Radius.circular(20),
-                bottomLeft: Radius.circular(isMe ? 20 : 0),
-                bottomRight: Radius.circular(isMe ? 0 : 20),
+                bottomLeft: Radius.circular(isMe??false ? 20 : 0),
+                bottomRight: Radius.circular(isMe??false ? 0 : 20),
               ),
               boxShadow: [
                 BoxShadow(
@@ -170,9 +169,9 @@ class _PalliativeChatScreenState extends State<PalliativeChatScreen> {
               ],
             ),
             child: Text(
-              message.text,
+              message.text??"",
               style: TextStyle(
-                color: isMe ? Colors.white : const Color(0xFF5D4037),
+                color: isMe??false ? Colors.white : const Color(0xFF5D4037),
                 fontSize: 15,
                 height: 1.4,
               ),
@@ -183,17 +182,17 @@ class _PalliativeChatScreenState extends State<PalliativeChatScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+              mainAxisAlignment: isMe??false ? MainAxisAlignment.end : MainAxisAlignment.start,
               children: [
                 Text(
-                  DateFormat('h:mm a').format(message.time),
+                  DateFormat('h:mm a').format(message.time??DateTime.now()),
                   style: TextStyle(
                     color: AppColors.kPrimaryColor.withOpacity(0.7),
                     fontSize: 11,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                if (isMe) ...[
+                if (isMe??false) ...[
                   const SizedBox(width: 6),
                   Icon(
                     message.status == MessageStatus.read
