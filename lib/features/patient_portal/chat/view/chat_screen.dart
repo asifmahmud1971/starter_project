@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/enum/app_status.dart';
+import 'package:medPilot/features/patient_portal/chat/cubit/chat_cubit.dart';
+import 'package:medPilot/features/patient_portal/chat/model/chat_model.dart';
 
 
 
@@ -11,92 +15,56 @@ class PalliativeChatScreen extends StatefulWidget {
   State<PalliativeChatScreen> createState() => _PalliativeChatScreenState();
 }
 
-class Message {
-  final String text;
-  final DateTime time;
-  final bool isSentByMe;
-  final MessageStatus status;
 
-  Message({
-    required this.text,
-    required this.time,
-    required this.isSentByMe,
-    this.status = MessageStatus.sent,
-  });
-}
 
 enum MessageStatus { sent, delivered, read }
 
 class _PalliativeChatScreenState extends State<PalliativeChatScreen> {
   final TextEditingController _messageController = TextEditingController();
-  final List<Message> _messages = [
-    Message(
-      text: "Hello Sarah, how are you feeling today?",
-      time: DateTime.now().subtract(const Duration(minutes: 30)),
-      isSentByMe: false,
-    ),
-    Message(
-      text: "A bit better today, thank you. The pain is more manageable.",
-      time: DateTime.now().subtract(const Duration(minutes: 25)),
-      isSentByMe: true,
-      status: MessageStatus.read,
-    ),
-    Message(
-      text: "That's good to hear. Remember we can adjust your medication anytime you need.",
-      time: DateTime.now().subtract(const Duration(minutes: 20)),
-      isSentByMe: false,
-    ),
-    Message(
-      text: "I appreciate that. The lavender oil you suggested is helping with relaxation.",
-      time: DateTime.now().subtract(const Duration(minutes: 15)),
-      isSentByMe: true,
-      status: MessageStatus.read,
-    ),
-    Message(
-      text: "I'm glad. Would you like me to arrange for the music therapist to visit tomorrow?",
-      time: DateTime.now().subtract(const Duration(minutes: 10)),
-      isSentByMe: false,
-    ),
-    Message(
-      text: "Yes please, that would be wonderful. Around 2pm?",
-      time: DateTime.now().subtract(const Duration(minutes: 5)),
-      isSentByMe: true,
-      status: MessageStatus.delivered,
-    ),
-    Message(
-      text: "Perfect. I'll schedule it. Is there anything else I can do for you today?",
-      time: DateTime.now().subtract(const Duration(minutes: 2)),
-      isSentByMe: false,
-    ),
-  ];
+
 
   void _sendMessage() {
     if (_messageController.text.trim().isEmpty) return;
 
-    setState(() {
-      _messages.add(
-          Message(
-            text: _messageController.text,
-            time: DateTime.now(),
-            isSentByMe: true,
-            status: MessageStatus.sent,
-          )
-      );
+    context.read<ChatCubit>().getChat(_messageController.text);
       _messageController.clear();
-    });
+    
   }
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<ChatCubit, ChatState>(
+  builder: (context, state) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: Column(
-        children: [
-          Expanded(child: _buildMessageList()),
-          _buildMessageInput(),
-        ],
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFFF8F9FD),
+              Color(0xFFFCF4ED), // Light peach to complement orange
+            ],
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(child: _buildMessageList()),
+            Visibility(
+                visible: state.appStatus == AppStatus.loading,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: _buildMessageBubble(Message(text: "Processing..", time: DateTime.now(), isSentByMe: false)),
+                )),
+            _buildMessageInput(),
+          ],
+        ),
       ),
     );
+  },
+);
   }
 
 
@@ -158,27 +126,19 @@ class _PalliativeChatScreenState extends State<PalliativeChatScreen> {
   }
 
   Widget _buildMessageList() {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFFF8F9FD),
-            Color(0xFFFCF4ED), // Light peach to complement orange
-          ],
-        ),
-      ),
-      child: ListView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-        reverse: true,
-        itemCount: _messages.length,
-        itemBuilder: (context, index) {
-          final message = _messages[_messages.length - 1 - index];
-          return _buildMessageBubble(message);
-        },
-      ),
+    return BlocBuilder<ChatCubit, ChatState>(
+  builder: (context, state) {
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      reverse: true,
+      itemCount: state.messages?.length,
+      itemBuilder: (context, index) {
+        final message = state.messages?[(state.messages?.length??0) - 1 - index];
+        return _buildMessageBubble(state.messages?[index]??Message(text: "text", time: DateTime.now(), isSentByMe: false));
+      },
     );
+  },
+);
   }
 
   Widget _buildMessageBubble(Message message) {

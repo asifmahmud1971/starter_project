@@ -2,6 +2,7 @@ import 'package:medPilot/features/auth/forgot_password/cubit/forgot_password_cub
 import 'package:medPilot/features/auth/sign_in/cubit/sign_in_cubit.dart';
 import 'package:medPilot/features/dashboard/cubit/dashboard_cubit.dart';
 import 'package:medPilot/features/no_internet/cubit/internet_cubit.dart';
+import 'package:medPilot/features/patient_portal/chat/cubit/chat_cubit.dart';
 import 'package:medPilot/features/patient_portal/home/cubit/home_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/cubit/services_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart';
@@ -101,6 +102,9 @@ class AppProviders {
     // =========== [ Auth End ] ===========
     BlocProvider<AttendanceCubit>(
       create: (BuildContext context) => instance<AttendanceCubit>(),
+    ),
+    BlocProvider<ChatCubit>(
+      create: (BuildContext context) => instance<ChatCubit>(),
     ),
     // =========== [ Auth End ] ===========
   ];

@@ -70,6 +70,7 @@ class ApiUrls {
   static const String userRoster = 'user-roster';
   static const String attendanceStaff = 'attendance-staff';
   static const String blog = 'blog';
+  static const String aiChat = 'ai-patient';
 
 
 
