@@ -6,7 +6,6 @@ on:
       - main
       - master
       - develop
-      - deployment
   pull_request:
     branches:
       - main
