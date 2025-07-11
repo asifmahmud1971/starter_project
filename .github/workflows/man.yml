@@ -36,6 +36,11 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Build APKs for all flavors
+        run: |
+          for FLAVOR in development staging production; do
+            flutter build apk --flavor $FLAVOR --target lib/main_${FLAVOR}.dart --split-per-abi
+          done
 
       # Loop through each flavor and build APKs
       - name: Rename APKs with commit hash and timestamp
