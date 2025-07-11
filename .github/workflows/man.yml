@@ -18,47 +18,56 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: '12'
 
       - name: Set up Flutter
-        uses: subosito/flutter-action@v4
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           architecture: x64
+          flutter-version: '3.32.5'
 
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build Android APK (split per ABI)
-        run: flutter build apk --release --split-per-abi
 
-      - name: Rename APKs with commit hash and timestamp
+      # Loop through each flavor and build APKs
+      - name: Build APKs for Flavors
         run: |
           COMMIT=$(echo $GITHUB_SHA | cut -c1-7)
           TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-          for file in build/app/outputs/apk/release/*.apk; do
-            ABI=$(basename "$file" | sed -E 's/app-(.*)-release.apk/\1/')
-            mv "$file" "build/app/outputs/apk/release/app-${ABI}-${COMMIT}-${TIMESTAMP}.apk"
+          
+          for FLAVOR in development staging production; do
+            flutter build apk --flavor $FLAVOR --target lib/main_${FLAVOR}.dart --split-per-abi
+          
+            for file in build/app/outputs/apk/${FLAVOR}/*.apk; do
+              ABI=$(basename "$file" | sed -E 's/app-(.*)-release.apk/\1/')
+              NEW_NAME="app-${FLAVOR}-${ABI}-${COMMIT}-${TIMESTAMP}.apk"
+              mv "$file" "build/app/outputs/apk/${FLAVOR}/${NEW_NAME}"
+            done
           done
 
-      - name: Build iOS IPA (no codesign)
+      # Build iOS (only for production flavor, and no codesign)
+      - name: Build iOS IPA (production)
         run: |
-          flutter build ios --no-codesign
+          flutter build ios --flavor production --target lib/main_production.dart --no-codesign
           cd build/ios/iphoneos
           mkdir Payload
           cp -r Runner.app Payload/
-          zip -r app.ipa Payload
+          zip -r app-production-${COMMIT}-${TIMESTAMP}.ipa Payload
 
-      - name: Push to GitHub Releases
+      - name: Upload to GitHub Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/release/*.apk,build/ios/iphoneos/app.ipa"
+          artifacts: |
+            build/app/outputs/apk/**/app-*.apk,
+            build/ios/iphoneos/app-production-*.ipa
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
           allowUpdates: true
