@@ -44,12 +44,17 @@ jobs:
           TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
           for FLAVOR in development staging production; do
+            # Match all APKs for this flavor
             for file in build/app/outputs/flutter-apk/app-*-${FLAVOR}-release.apk; do
-              ABI=$(echo $file | sed -E "s|.*app-(.*)-${FLAVOR}-release.apk|\1|")
-              NEW_NAME="app-${FLAVOR}-${ABI}-${COMMIT}-${TIMESTAMP}.apk"
-              mv "$file" "build/app/outputs/flutter-apk/${NEW_NAME}"
+              if [[ -f "$file" ]]; then
+                BASENAME=$(basename "$file")
+                ABI=$(echo "$BASENAME" | sed -E "s/app-(.*)-${FLAVOR}-release.apk/\1/")
+                NEW_NAME="app-${FLAVOR}-${ABI}-${COMMIT}-${TIMESTAMP}.apk"
+                mv "$file" "build/app/outputs/flutter-apk/${NEW_NAME}"
+              fi
             done
           done
+      
 
       # Build iOS (only for production flavor, and no codesign)
       - name: Build iOS IPA (production)
