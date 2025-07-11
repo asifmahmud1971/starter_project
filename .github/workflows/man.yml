@@ -38,18 +38,16 @@ jobs:
 
 
       # Loop through each flavor and build APKs
-      - name: Build APKs for Flavors
+      - name: Rename APKs with commit hash and timestamp
         run: |
           COMMIT=$(echo $GITHUB_SHA | cut -c1-7)
           TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-          
+
           for FLAVOR in development staging production; do
-            flutter build apk --flavor $FLAVOR --target lib/main_${FLAVOR}.dart --split-per-abi
-          
-            for file in build/app/outputs/apk/${FLAVOR}/*.apk; do
-              ABI=$(basename "$file" | sed -E 's/app-(.*)-release.apk/\1/')
+            for file in build/app/outputs/flutter-apk/app-*-${FLAVOR}-release.apk; do
+              ABI=$(echo $file | sed -E "s|.*app-(.*)-${FLAVOR}-release.apk|\1|")
               NEW_NAME="app-${FLAVOR}-${ABI}-${COMMIT}-${TIMESTAMP}.apk"
-              mv "$file" "build/app/outputs/apk/${FLAVOR}/${NEW_NAME}"
+              mv "$file" "build/app/outputs/flutter-apk/${NEW_NAME}"
             done
           done
 
