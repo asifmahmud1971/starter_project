@@ -63,6 +63,10 @@ class ApiUrls {
   static const String lab = 'lab';
   static const String instrument = 'instrument';
   static const String userRoster = 'user-roster';
+  static const String viewCart = 'view-cart';
+  static const String addToCart = 'add-to-cart';
+  static const String updateOrder = 'update-order';
+  static const String removeCartItem = 'remove-cart-item';
 
 
 

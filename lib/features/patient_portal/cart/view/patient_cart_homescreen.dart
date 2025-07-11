@@ -1,45 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:medPilot/core/components/custom_svg.dart';
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
+import 'package:medPilot/data/network/api_urls.dart';
+import 'package:medPilot/features/patient_portal/cart/cubit/cart_cubit.dart';
+import 'package:medPilot/features/patient_portal/cart/model/cart_response.dart';
 import 'package:medPilot/features/patient_portal/cart/widget/check_out_card.dart';
-import 'package:medPilot/generated/assets.dart';
 
-class PatientCartPage extends StatelessWidget {
+class PatientCartPage extends StatefulWidget {
   const PatientCartPage({super.key});
+
+  @override
+  State<PatientCartPage> createState() => _PatientCartPageState();
+}
+
+class _PatientCartPageState extends State<PatientCartPage> {
+
+  @override
+  void initState() {
+    GetContext.context.read<CartCubit>().getCartProduct();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(context),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              children: [
-                _buildCartItem(
-                  context,
-                  title: "Complete Blood Count (CBC)",
-                  price: 400,
-                  quantity: 1,
-                  image: "assets/images/blood_test.png",
+      body: BlocBuilder<CartCubit, CartState>(
+        builder: (context, state) {
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                  itemCount: state.cartResponse?.cartItems?.length,
+                  itemBuilder: (context, index) {
+                    CartItems? cartItem = state.cartResponse?.cartItems?.elementAt(index);
+                    return _buildCartItem(
+                      context,
+                      title: cartItem?.name??"",
+                      price: double.parse(cartItem?.price??"0.0"),
+                      quantity: int.parse(cartItem?.quantity??"0"),
+                      image: "${ApiUrls.baseUrl}${cartItem?.image??""}",
+                    );
+                  },
                 ),
-                12.verticalSpace,
-                _buildCartItem(
-                  context,
-                  title: "Liver Function Test",
-                  price: 600,
-                  quantity: 1,
-                  image: "assets/images/liver_test.png",
-                ),
-              ],
-            ),
-          ),
-          CheckOutCard(),
-        ],
+              ),
+              CheckOutCard(),
+            ],
+          );
+        },
       ),
     );
   }
@@ -53,7 +67,6 @@ class PatientCartPage extends StatelessWidget {
             ),
       ),
       centerTitle: true,
-
     );
   }
 
@@ -70,7 +83,7 @@ class PatientCartPage extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-            AppColors.kBackGroundShadow,
+          AppColors.kBackGroundShadow,
         ],
       ),
       child: Row(
@@ -165,5 +178,4 @@ class PatientCartPage extends StatelessWidget {
       ),
     );
   }
-
 }
