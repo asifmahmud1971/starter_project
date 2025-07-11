@@ -38,20 +38,39 @@ jobs:
 
 
       # Loop through each flavor and build APKs
-      - run: flutter build apk --release --split-per-abi
-      - run: |
-          flutter build ios --no-codesign
+      - name: Rename APKs with commit hash and timestamp
+        run: |
+          COMMIT=$(echo $GITHUB_SHA | cut -c1-7)
+          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+          for FLAVOR in development staging production; do
+            # Match all APKs for this flavor
+            for file in build/app/outputs/flutter-apk/app-*-${FLAVOR}-release.apk; do
+              if [[ -f "$file" ]]; then
+                BASENAME=$(basename "$file")
+                ABI=$(echo "$BASENAME" | sed -E "s/app-(.*)-${FLAVOR}-release.apk/\1/")
+                NEW_NAME="app-${FLAVOR}-${ABI}-${COMMIT}-${TIMESTAMP}.apk"
+                mv "$file" "build/app/outputs/flutter-apk/${NEW_NAME}"
+              fi
+            done
+          done
+      
+
+      # Build iOS (only for production flavor, and no codesign)
+      - name: Build iOS IPA (production)
+        run: |
+          flutter build ios --flavor production --target lib/main_production.dart --no-codesign
           cd build/ios/iphoneos
           mkdir Payload
-          cd Payload
-          ln -s ../Runner.app
-          cd ..
-          zip -r app.ipa Payload
-      - name: Push to Releases
+          cp -r Runner.app Payload/
+          zip -r app-production-${COMMIT}-${TIMESTAMP}.ipa Payload
+
+      - name: Upload to GitHub Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/release/*,build/ios/iphoneos/app.ipa"
+          artifacts: |
+            build/app/outputs/apk/**/app-*.apk,
+            build/ios/iphoneos/app-production-*.ipa
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
-
-
+          allowUpdates: true
