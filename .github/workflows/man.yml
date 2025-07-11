@@ -1,0 +1,65 @@
+name: "Build & Release"
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+      - deployment
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    name: Build & Release
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '12'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v4
+        with:
+          channel: 'stable'
+          architecture: x64
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Android APK (split per ABI)
+        run: flutter build apk --release --split-per-abi
+
+      - name: Rename APKs with commit hash and timestamp
+        run: |
+          COMMIT=$(echo $GITHUB_SHA | cut -c1-7)
+          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+          for file in build/app/outputs/apk/release/*.apk; do
+            ABI=$(basename "$file" | sed -E 's/app-(.*)-release.apk/\1/')
+            mv "$file" "build/app/outputs/apk/release/app-${ABI}-${COMMIT}-${TIMESTAMP}.apk"
+          done
+
+      - name: Build iOS IPA (no codesign)
+        run: |
+          flutter build ios --no-codesign
+          cd build/ios/iphoneos
+          mkdir Payload
+          cp -r Runner.app Payload/
+          zip -r app.ipa Payload
+
+      - name: Push to GitHub Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/release/*.apk,build/ios/iphoneos/app.ipa"
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.TOKEN }}
+          allowUpdates: true
