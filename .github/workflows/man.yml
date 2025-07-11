@@ -36,6 +36,8 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Set Gradle heap size
+        run: echo "org.gradle.jvmargs=-Xmx4096m" >> android/gradle.properties
       - name: Build APKs for all flavors
         run: |
           for FLAVOR in development staging production; do
