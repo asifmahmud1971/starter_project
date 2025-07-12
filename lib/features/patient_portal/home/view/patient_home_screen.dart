@@ -41,21 +41,13 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Container(
-          decoration: BoxDecoration(
-              border: Border.all(color: AppColors.kPrimaryColor, width: 2.sp),
-              borderRadius: BorderRadius.circular(8.r)),
-          child: CustomSvg(
-            icon: Assets.medChat,
-            size: 50.r,
-          )),
       body: CommonBackground(
         child: ListView(
           children: [
             20.verticalSpace,
             const TopBar(),
             30.verticalSpace,
-            CallCard(),
+            AIChatCard(),
            /* 20.verticalSpace,
              AppSlider(imageUrls: sliderList,),*/
             20.verticalSpace,

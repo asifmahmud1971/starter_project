@@ -2,6 +2,7 @@ import 'package:medPilot/features/auth/forgot_password/cubit/forgot_password_cub
 import 'package:medPilot/features/auth/sign_in/cubit/sign_in_cubit.dart';
 import 'package:medPilot/features/dashboard/cubit/dashboard_cubit.dart';
 import 'package:medPilot/features/no_internet/cubit/internet_cubit.dart';
+import 'package:medPilot/features/patient_portal/chat/cubit/chat_cubit.dart';
 import 'package:medPilot/features/patient_portal/cart/cubit/cart_cubit.dart';
 import 'package:medPilot/features/patient_portal/home/cubit/home_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/cubit/services_cubit.dart';
@@ -12,6 +13,11 @@ import 'package:medPilot/features/patient_portal/services/psych_social_clinic/cu
 import 'package:medPilot/features/patient_portal/services/upload_document/cubit/document_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/rehav_pall_care/cubit/rehab_pall_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart';
+import 'package:medPilot/features/staff_portal/attendence/cubit/attendance_cubit.dart';
+import 'package:medPilot/features/staff_portal/medicine_alert/cubit/medicine_alert_cubit.dart';
+import 'package:medPilot/features/staff_portal/pescription/cubit/staff_prescription_cubit.dart';
+import 'package:medPilot/features/staff_portal/roaster/cubit/roster_cubit.dart';
+import 'package:medPilot/features/staff_portal/task/cubit/task_cubit.dart';
 import 'package:medPilot/features/theme/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,6 +83,30 @@ class AppProviders {
     ),
     BlocProvider<PsychSocialCubit>(
       create: (BuildContext context) => instance<PsychSocialCubit>(),
+    ),
+    // =========== [ Auth End ] ===========
+    BlocProvider<RosterCubit>(
+      create: (BuildContext context) => instance<RosterCubit>(),
+    ),
+    // =========== [ Auth End ] ===========
+    BlocProvider<MedicineAlertCubit>(
+      create: (BuildContext context) => instance<MedicineAlertCubit>(),
+    ),
+    // =========== [ Auth End ] ===========
+    BlocProvider<StaffPrescriptionCubit>(
+      create: (BuildContext context) => instance<StaffPrescriptionCubit>(),
+    ),
+    // =========== [ Auth End ] ===========
+    BlocProvider<TaskCubit>(
+      create: (BuildContext context) => instance<TaskCubit>(),
+    ),
+    // =========== [ Auth End ] ===========
+    BlocProvider<AttendanceCubit>(
+      create: (BuildContext context) => instance<AttendanceCubit>(),
+    ),
+    BlocProvider<ChatCubit>(
+      create: (BuildContext context) => instance<ChatCubit>(),
+    ),
     ),
     BlocProvider<CartCubit>(
       create: (BuildContext context) => instance<CartCubit>(),

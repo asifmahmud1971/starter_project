@@ -1,3 +1,5 @@
+import 'package:medPilot/core/app/app_dependency.dart';
+import 'package:medPilot/core/app/app_preference.dart';
 import 'package:medPilot/features/auth/sign_in/view/sign_in_screen.dart';
 import 'package:medPilot/features/auth/sign_up/view/sign_up_screen.dart';
 import 'package:medPilot/features/dashboard/view/patient_dashboard_screen.dart';
@@ -29,7 +31,11 @@ import 'package:medPilot/features/splash/view/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:medPilot/features/staff_portal/attendence/view/attendence_screen.dart';
+import 'package:medPilot/features/staff_portal/medicine_alert/view/medicine_alert_page.dart';
+import 'package:medPilot/features/staff_portal/pescription/view/staff_prescription_page.dart';
 import 'package:medPilot/features/staff_portal/roaster/view/roaster_screen_view.dart';
+import 'package:medPilot/features/staff_portal/task/view/staff_task_screen.dart';
 
 import '../../core/constants/app_strings.dart';
 
@@ -60,6 +66,8 @@ class Routes {
   static const String consultation = "consultant";
   static const String roster = "roster";
   static const String clinic = "clinic";
+  static const String medicineAlert = "medicine_alert";
+
   static const String instrumentRent = "instrument_rent";
   static const String ambulance = "ambulance";
   static const String telePackage = "tele_package";
@@ -67,11 +75,14 @@ class Routes {
   static const String assignStaff = "assign_staff";
   static const String labReport = "lab_report";
   static const String pilot = "pilot";
+  static const String task = "task";
+  static const String attendance = "attendance";
   static const String package = "package";
 }
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings routeSettings) {
+    AppPreferences appPreferences = instance.get();
     switch (routeSettings.name) {
       // global routes start
       case Routes.splash:
@@ -103,10 +114,15 @@ class RouteGenerator {
           settings: routeSettings,
         );
       case Routes.prescription:
-        return CupertinoPageRoute(
-          builder: (_) => PrescriptionScreen(),
-          settings: routeSettings,
-        );
+        return (appPreferences.getUserData().userType == "Patient")
+            ? CupertinoPageRoute(
+                builder: (_) => PrescriptionScreen(),
+                settings: routeSettings,
+              )
+            : CupertinoPageRoute(
+                builder: (_) => StaffPrescriptionScreen(),
+                settings: routeSettings,
+              );
       case Routes.followUp:
         return CupertinoPageRoute(
           builder: (_) => FollowupListPage(),
@@ -224,6 +240,25 @@ class RouteGenerator {
           builder: (_) => PackageScreen(),
           settings: routeSettings,
         );
+      // global routes end
+      case Routes.medicineAlert:
+        return CupertinoPageRoute(
+          builder: (_) => MedicineAlertScreen(),
+          settings: routeSettings,
+        );
+      // global routes end
+      case Routes.task:
+        return CupertinoPageRoute(
+          builder: (_) => TaskManagementScreen(),
+          settings: routeSettings,
+        );
+      // global routes end
+case Routes.attendance:
+        return CupertinoPageRoute(
+          builder: (_) => AttendanceScreen(),
+          settings: routeSettings,
+        );
+      // global routes end
 
       default:
         return unDefinedRoute();

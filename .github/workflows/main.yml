@@ -1,0 +1,83 @@
+name: "Build & Release"
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    name: Build & Release
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          architecture: x64
+          flutter-version: '3.32.5'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Set Gradle heap size
+        run: echo "org.gradle.jvmargs=-Xmx4096m" >> android/gradle.properties
+      - name: Build APKs for all flavors
+        run: |
+          for FLAVOR in development staging production; do
+            flutter build apk --flavor $FLAVOR --target lib/main_${FLAVOR}.dart --split-per-abi
+          done
+
+      # Loop through each flavor and build APKs
+      - name: Rename APKs with commit hash and timestamp
+        run: |
+          COMMIT=$(echo $GITHUB_SHA | cut -c1-7)
+          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+          for FLAVOR in development staging production; do
+            # Match all APKs for this flavor
+            for file in build/app/outputs/flutter-apk/app-*-${FLAVOR}-release.apk; do
+              if [[ -f "$file" ]]; then
+                BASENAME=$(basename "$file")
+                ABI=$(echo "$BASENAME" | sed -E "s/app-(.*)-${FLAVOR}-release.apk/\1/")
+                NEW_NAME="app-${FLAVOR}-${ABI}-${COMMIT}-${TIMESTAMP}.apk"
+                mv "$file" "build/app/outputs/flutter-apk/${NEW_NAME}"
+              fi
+            done
+          done
+      
+
+      # Build iOS (only for production flavor, and no codesign)
+      - name: Build iOS IPA (production)
+        run: |
+          flutter build ios --flavor production --target lib/main_production.dart --no-codesign
+          cd build/ios/iphoneos
+          mkdir Payload
+          cp -r Runner.app Payload/
+          zip -r app-production-${COMMIT}-${TIMESTAMP}.ipa Payload
+
+      - name: Upload to GitHub Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: |
+            artifacts: build/app/outputs/flutter-apk/*.apk
+            build/ios/iphoneos/app-production-*.ipa
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.TOKEN }}
+          allowUpdates: true

@@ -48,14 +48,14 @@ class Rosters {
     if (json['entries'] != null) {
       entries = [];
       json['entries'].forEach((v) {
-        entries?.add(Entries.fromJson(v));
+        entries?.add(RosterEntries.fromJson(v));
       });
     }
   }
   String? date;
   String? label;
   bool? isToday;
-  List<Entries>? entries;
+  List<RosterEntries>? entries;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -70,8 +70,8 @@ class Rosters {
 
 }
 
-class Entries {
-  Entries({
+class RosterEntries {
+  RosterEntries({
       this.type, 
       this.startTime, 
       this.endTime, 
@@ -81,7 +81,7 @@ class Entries {
       this.workTime, 
       this.location,});
 
-  Entries.fromJson(dynamic json) {
+  RosterEntries.fromJson(dynamic json) {
     type = json['type'];
     startTime = json['start_time'];
     endTime = json['end_time'];

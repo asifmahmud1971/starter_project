@@ -62,7 +62,15 @@ class ApiUrls {
   static const String alliedHealth = 'allied-health';
   static const String lab = 'lab';
   static const String instrument = 'instrument';
+  static const String rosterStaff = 'roster-staff';
+  static const String medicineAlertStaff = 'medicine-alert-staff';
+  static const String patientPrescription = 'patient-prescription';
+  static const String staffTask = 'task-staff';
+  static const String staffPatientList = 'prescription-staff';
   static const String userRoster = 'user-roster';
+  static const String attendanceStaff = 'attendance-staff';
+  static const String blog = 'blog';
+  static const String aiChat = 'ai-patient';
   static const String viewCart = 'view-cart';
   static const String addToCart = 'add-to-cart';
   static const String updateOrder = 'update-order';

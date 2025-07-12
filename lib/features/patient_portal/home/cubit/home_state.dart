@@ -5,11 +5,13 @@ class HomeState extends Equatable {
   final DashboardPermission? dashboardPermission;
   final StaffPermissionModel? staffPermissionModel;
   final PrescriptionModel? prescriptionModel;
+  final BlogModel? blogModel;
 
   const HomeState( {
     this.dashboardPermission,
     this.prescriptionModel,
     this.staffPermissionModel,
+    this.blogModel,
     this.appStatus = AppStatus.initial,
   });
 
@@ -17,6 +19,7 @@ class HomeState extends Equatable {
     final AppStatus? appStatus,
     final DashboardPermission? dashboardPermission,
     final StaffPermissionModel? staffPermissionModel,
+    final BlogModel? blogModel,
     final PrescriptionModel? prescriptionModel,
   }) {
     return HomeState(
@@ -24,10 +27,11 @@ class HomeState extends Equatable {
       dashboardPermission: dashboardPermission ?? this.dashboardPermission,
       staffPermissionModel: staffPermissionModel ?? this.staffPermissionModel,
       prescriptionModel: prescriptionModel ?? this.prescriptionModel,
+      blogModel: blogModel ?? this.blogModel,
     );
   }
 
   @override
   List<Object> get props =>
-      [appStatus, dashboardPermission ?? {}, prescriptionModel ?? {},staffPermissionModel??{}];
+      [appStatus, dashboardPermission ?? {}, prescriptionModel ?? {},staffPermissionModel??{},blogModel??{}];
 }

@@ -68,7 +68,7 @@ class _PatientDashboardScreenState extends State<PatientDashboardScreen> {
                   icon: Assets.medCart,
                   color: AppColors.kPrimaryColor,
                 ),
-                label: "Cart",
+                label: "Queue",
               ),
               BottomNavigationBarItem(
                 icon: CustomSvg(

@@ -4,6 +4,7 @@ import 'package:medPilot/data/network/api_client.dart';
 import 'package:medPilot/data/network/api_failure.dart';
 import 'package:medPilot/data/network/api_request.dart';
 import 'package:medPilot/data/network/api_urls.dart';
+import 'package:medPilot/features/patient_portal/home/model/blog_model.dart';
 import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
 import 'package:medPilot/features/patient_portal/home/model/prescription_model.dart';
 import 'package:medPilot/features/patient_portal/home/model/staff_permission_model.dart';
@@ -25,6 +26,7 @@ class HomeRepositoryImp implements HomeRepository {
         params: params,
         fromJson: DashboardPermission.fromJson);
   }
+
   @override
   Future<Either<ApiFailure, StaffPermissionModel>> getStaffPermission(
       Map<String, dynamic> params) {
@@ -34,7 +36,6 @@ class HomeRepositoryImp implements HomeRepository {
         params: params,
         fromJson: StaffPermissionModel.fromJson);
   }
-
 
   @override
   Future<Either<ApiFailure, PrescriptionModel>> getPrescription(
@@ -46,5 +47,12 @@ class HomeRepositoryImp implements HomeRepository {
         fromJson: PrescriptionModel.fromJson);
   }
 
-
+  @override
+  Future<Either<ApiFailure, BlogModel>> getBlog(Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+        url: ApiUrls.blog,
+        method: Method.get,
+        params: params,
+        fromJson: BlogModel.fromJson);
+  }
 }

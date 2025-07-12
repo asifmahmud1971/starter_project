@@ -59,13 +59,13 @@ class _StaffDashboardScreenState extends State<StaffDashboardScreen> {
               ),
               BottomNavigationBarItem(
                 icon: CustomSvg(
-                  icon: Assets.medCart,
+                  icon: Assets.iconsChat,
                 ),
                 activeIcon: CustomSvg(
-                  icon: Assets.medCart,
+                  icon: Assets.medChat,
                   color: AppColors.kPrimaryColor,
                 ),
-                label: "Cart",
+                label: "Chat",
               ),
               BottomNavigationBarItem(
                 icon: CustomSvg(

@@ -36,41 +36,50 @@ class _ServiceListState extends State<ServiceList> {
                 ],
               ),
               10.verticalSpace,
-              GridView.count(
+              GridView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                crossAxisCount: 3,
-                childAspectRatio: 1.0,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
+                itemCount: widget.type == "myPackage"
+                    ? (state.dashboardPermission?.myPackage ?? []).length
+                    : (state.dashboardPermission?.onDemand ?? []).length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  mainAxisSpacing: 12.w,
+                  crossAxisSpacing: 8.h,
+                  childAspectRatio: 0.75,
+                ),
                 padding: EdgeInsets.all(0),
-                children: widget.type == "myPackage"
-                    ? List.generate(
-                        (state.dashboardPermission?.myPackage ?? []).length,
-                        (index) => ServiceCard(
-                              onTap: () {
-                                GetContext.toNamed(
-                                    route: state.dashboardPermission
-                                        ?.myPackage?[index].key);
-                              },
-                              title: state.dashboardPermission
-                                  ?.myPackage?[index].serviceName,
-                              icon: state.dashboardPermission?.myPackage?[index]
-                                  .staticIcon,
-                            ))
-                    : List.generate(
-                        (state.dashboardPermission?.onDemand ?? []).length,
-                        (index) => ServiceCard(
-                          onTap: (){
-                            GetContext.toNamed(
-                                route: state.dashboardPermission
-                                    ?.onDemand?[index].key);
-                          },
-                              title: state.dashboardPermission?.onDemand?[index]
-                                  .serviceName,
-                              icon: state.dashboardPermission?.onDemand?[index]
-                                  .staticIcon,
-                            )),
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                    widget.type == "myPackage"
+                        ? ServiceCard(
+                      onTap: () {
+                        GetContext.toNamed(
+                            route: state.dashboardPermission
+                                ?.myPackage?[index].key);
+                      },
+                      title: state.dashboardPermission?.myPackage?[index]
+                          .serviceName,
+                      icon: state.dashboardPermission?.myPackage?[index]
+                          .staticIcon,
+                    )
+                        : ServiceCard(
+                      onTap: () {
+                        GetContext.toNamed(
+                            route: state
+                                .dashboardPermission?.onDemand?[index].key);
+                      },
+                      title: state.dashboardPermission?.onDemand?[index]
+                          .serviceName,
+                      icon: state
+                          .dashboardPermission?.onDemand?[index].staticIcon,
+                    )
+
+                  ],);
+                },
               ),
             ],
           ),

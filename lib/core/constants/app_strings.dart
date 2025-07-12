@@ -30,7 +30,7 @@ class AppStrings {
   static const String or = "OR";
   static const String wrongCredential = "Email or Password Incorrect";
   static const String somethingWentWrong = "Something went wrong";
-  static const String myCart = "My Cart";
+  static const String myCart = "My Queue";
   static const String successFullyChanged = "Successfully Changed";
 
   // prescription
@@ -106,5 +106,24 @@ class AppStrings {
   static const String patientInformation = "Patient Information";
   static const String diagnosisReport = "Diagnosis Report";
   static const String quickActions = "Quick Actions";
+  static const String todayMedicineAlert = "Today Medicine Alert";
+  static const String medicationSchedule = "Medication Schedule";
+  static const String given = "Given";
+  static const String pending = "Pending";
+  static const String total = "Total";
+  static const String medicineAdministered = "Medicine Administered";
+  static const String givenAt = "Given at";
+  static const String markAsGiven = "Mark as Given";
+  static const String notGiven = "Not Given";
+  static const String couldNotLaunch = "Could not launch";
+  static const String taskManager = 'task_manager';
+  static const String yourTasks = 'your_tasks';
+  static const String inProgress = 'in_progress';
+  static const String completed = 'completed';
+  static const String assignDate = 'assign_date';
+  static const String lastDate = 'last_date';
+  static const String daysRemaining = 'days_remaining';
+  static const String updatingStatus = 'updating_status';
+  static const String attendance = 'Attendance';
 
 }
