@@ -1,15 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/app/app_preference.dart';
 import 'package:medPilot/core/components/custom_progress_loader.dart';
+import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/cart/model/cart_response.dart';
 import 'package:medPilot/features/patient_portal/cart/repository/cart_repository.dart';
-import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
-import 'package:medPilot/features/patient_portal/home/model/prescription_model.dart';
-import 'package:medPilot/features/patient_portal/home/model/staff_permission_model.dart';
-import 'package:medPilot/features/patient_portal/home/repository/home_repository.dart';
 import '../../../../core/app/app_dependency.dart';
 
 part 'cart_state.dart';
@@ -63,6 +61,10 @@ class CartCubit extends Cubit<CartState> {
         (data) async {
           emit(state.copyWith(
               appStatus: AppStatus.success));
+          showCustomSnackBar(
+            context: GetContext.context,
+            message: data["message"],
+          );
         },
       );
 
@@ -73,14 +75,14 @@ class CartCubit extends Cubit<CartState> {
   }
 
   Future<void> updateProductCart({
-    String? cartId,
-    String? quantity
+    int? cartId,
+    int? quantity
 }) async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
     Map<String, dynamic> data={
-      "cart_id": [cartId],
-      "quantity": [quantity]
+      "cart_id": [cartId.toString()],
+      "quantity": [quantity.toString()]
     };
     try {
       final response = await cartRepository.updateCart(data);
@@ -99,36 +101,38 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  void incrementItem(int value,{String? cartId}){
+  void incrementItem(int value,{int? cartId}){
     int? num=value+1;
-    if(0<value){
-      updateProductCart(cartId: cartId,quantity: num.toString());
+    if(1<value){
+      updateProductCart(cartId: cartId,quantity: num);
     }
   }
 
-  void decrementItem(int value,{String? cartId}){
+  void decrementItem(int value,{int? cartId}){
     int? num=value-1;
     if(0<value){
-      updateProductCart(cartId: cartId,quantity: num.toString());
+      updateProductCart(cartId: cartId,quantity: num);
     }
   }
 
 
-  Future<void> deleteProductCart() async {
+  Future<void> deleteProductCart({int? cartId}) async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
-
+    Map<String, dynamic> data={
+      "cart_id": cartId.toString(),
+    };
     try {
-      final response = await cartRepository.deleteCart({});
+      final response = await cartRepository.deleteCart(data);
 
       response.fold(
         (failure) {},
         (data) async {
           emit(state.copyWith(
-              appStatus: AppStatus.success, cartResponse: data));
+              appStatus: AppStatus.success));
+          getCartProduct();
         },
       );
-
       dismissProgressDialog();
     } catch (e) {
       dismissProgressDialog();

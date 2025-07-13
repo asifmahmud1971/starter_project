@@ -28,7 +28,7 @@ class CartRepositoryImp implements CartRepository {
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
         url: ApiUrls.addToCart,
-        method: Method.get,
+        method: Method.post,
         params: params);
   }
  @override
@@ -36,7 +36,7 @@ class CartRepositoryImp implements CartRepository {
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
         url: ApiUrls.updateOrder,
-        method: Method.get,
+        method: Method.post,
         params: params,
         fromJson: CartResponse.fromJson);
   }
@@ -45,7 +45,7 @@ class CartRepositoryImp implements CartRepository {
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
         url: ApiUrls.removeCartItem,
-        method: Method.get,
+        method: Method.post,
         params: params);
   }
 

@@ -34,7 +34,7 @@ class _DiagnosticLabPageState extends State<DiagnosticLabPage> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              AppStrings.alliedHealth.tr(),
+              AppStrings.diagnosticLab.tr(),
               style: kTitleMedium.copyWith(color: Colors.white),
             ),
             backgroundColor: AppColors.kPrimaryColor,

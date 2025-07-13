@@ -22,6 +22,7 @@ class ApiUrls {
     }
   }
    //auth
+  static const String mainUrl = 'https://my.medpilot.app/';
   static const String login = 'login';
   static const String checkUser = 'check-user';
   static const String resetNewPassword = 'reset-new-password';

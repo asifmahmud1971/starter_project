@@ -15,6 +15,9 @@ class Product {
     this.updatedAt,
     this.productName,
     this.price,
+    this.productId,
+    this.categoryId,
+    this.type
   });
 
   Product.fromJson(dynamic json) {
@@ -24,15 +27,18 @@ class Product {
     projectId = json['project_id'];
     incomeHeadId = json['income_head_id'];
     incomeSubcategoryId = json['income_subcategory_id'];
-    image = appBaseUrl+json['image'];
+    image = json['image'];
     description = json['description'];
     status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     productName = json['product_name'];
     price = json['price'];
+    productId = json['product_id'];
+    categoryId = json['category_id'];
+    type = json['type'];
   }
-  num? id;
+  int? id;
   String? companyId;
   dynamic cityId;
   dynamic projectId;
@@ -45,23 +51,29 @@ class Product {
   String? updatedAt;
   String? productName;
   String? price;
+  int? productId;
+  String? categoryId;
+  String? type;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['company_id'] = companyId;
-    map['city_id'] = cityId;
-    map['project_id'] = projectId;
-    map['income_head_id'] = incomeHeadId;
-    map['income_subcategory_id'] = incomeSubcategoryId;
-    map['image'] = image;
-    map['description'] = description;
-    map['status'] = status;
-    map['created_at'] = createdAt;
-    map['updated_at'] = updatedAt;
-    map['product_name'] = productName;
-    map['price'] = price;
-    return map;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['company_id'] = companyId;
+    data['city_id'] = cityId;
+    data['project_id'] = projectId;
+    data['income_head_id'] = incomeHeadId;
+    data['income_subcategory_id'] = incomeSubcategoryId;
+    data['image'] = image;
+    data['description'] = description;
+    data['status'] = status;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['product_name'] = productName;
+    data['price'] = price;
+    data['product_id'] = productId;
+    data['category_id'] = categoryId;
+    data['type'] = type;
+    return data;
   }
 
 }

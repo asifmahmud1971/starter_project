@@ -107,7 +107,6 @@ class AppProviders {
     BlocProvider<ChatCubit>(
       create: (BuildContext context) => instance<ChatCubit>(),
     ),
-    ),
     BlocProvider<CartCubit>(
       create: (BuildContext context) => instance<CartCubit>(),
     )

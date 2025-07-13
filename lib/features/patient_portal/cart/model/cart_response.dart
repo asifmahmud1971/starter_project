@@ -1,12 +1,11 @@
 class CartResponse {
-  bool? success;
   List<CartItems>? cartItems;
   int? grandTotal;
 
-  CartResponse({this.success, this.cartItems, this.grandTotal});
+  CartResponse({this.cartItems, this.grandTotal});
 
   CartResponse.fromJson(Map<String, dynamic> json) {
-    success = json['success'];
+
     if (json['cart_items'] != null) {
       cartItems = <CartItems>[];
       json['cart_items'].forEach((v) {
@@ -18,7 +17,6 @@ class CartResponse {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['success'] = success;
     if (cartItems != null) {
       data['cart_items'] = cartItems!.map((v) => v.toJson()).toList();
     }
