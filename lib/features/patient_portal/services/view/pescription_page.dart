@@ -7,8 +7,8 @@ import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/core/utils/extension.dart';
-import 'package:medPilot/features/patient_portal/home/widgets/medication_card.dart';
 import 'package:medPilot/features/patient_portal/services/cubit/services_cubit.dart';
+import 'package:medPilot/features/patient_portal/services/pescription/widget/set_alert_bottom_sheet.dart';
 
 class PrescriptionScreen extends StatefulWidget {
   const PrescriptionScreen({super.key});
@@ -34,7 +34,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
             centerTitle: true,
             actions: [
               Padding(
-                padding:  EdgeInsets.only(right: 16.w),
+                padding: EdgeInsets.only(right: 16.w),
                 child: Center(
                   child: Text(
                     DateTime.now().toNameDate,
@@ -49,11 +49,12 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Patient Info Container
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
-                    color: AppColors.kPrimaryColor.withValues(alpha: 0.15),
+                    color: AppColors.kPrimaryColor.withOpacity(0.15),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
@@ -61,7 +62,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                     children: [
                       Text(
                         state.prescriptionModel?.patient?.name ?? "",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -70,7 +71,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                       8.verticalSpace,
                       Row(
                         children: [
-                          Icon(Icons.cake, color: Colors.black, size: 16),
+                          const Icon(Icons.cake, color: Colors.black, size: 16),
                           8.horizontalSpace,
                           Text(
                             '${state.prescriptionModel?.patient?.age} ${AppStrings.years.tr()} • ${state.prescriptionModel?.patient?.gender}',
@@ -85,7 +86,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                               color: Colors.black, size: 16),
                           8.horizontalSpace,
                           Text(
-                            '${state.prescriptionModel?.patient?.mobile}',
+                            state.prescriptionModel?.patient?.mobile ?? "",
                             style: kBodyMedium,
                           ),
                         ],
@@ -97,7 +98,9 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                               color: Colors.black, size: 16),
                           8.horizontalSpace,
                           Text(
-                            '${state.prescriptionModel?.patient?.consultingDoctor}',
+                            state.prescriptionModel?.patient
+                                    ?.consultingDoctor ??
+                                "",
                             style: kBodyMedium,
                           ),
                         ],
@@ -118,6 +121,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                   ),
                 ),
                 24.verticalSpace,
+
                 // Diagnosis Section
                 Text(
                   AppStrings.diagnosis.tr(),
@@ -137,6 +141,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                   ),
                 ),
                 24.verticalSpace,
+
                 // Medications Section
                 Text(
                   AppStrings.medications.tr(),
@@ -145,21 +150,23 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                 16.verticalSpace,
                 ListView.separated(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: (state.prescriptionModel?.medicine ?? []).length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: state.prescriptionModel?.medicine?.length ?? 0,
                   itemBuilder: (context, index) {
+                    final medicine = state.prescriptionModel!.medicine![index];
                     return MedicationCard(
                       icon: Icons.medication,
                       iconColor: Colors.blue,
-                      title: state.prescriptionModel?.medicine?[index].medicine
-                              ?.medicineName ??
-                          "",
-                      subtitle: state.prescriptionModel?.medicine?[index]
-                              .medicine?.medicineIngredients ??
-                          "",
-                      dose:
-                          state.prescriptionModel?.medicine?[index].dose ?? "",
-                      note: state.prescriptionModel?.medicine?[index].note,
+                      title: medicine.medicine?.medicineName ?? "",
+                      subtitle: medicine.medicine?.medicineIngredients ?? "",
+                      dose: medicine.dose ?? "",
+                      note: medicine.note,
+                      duration: medicine.duration ?? "",
+                      onSetAlert: () => _showAlarmSettings(
+                        context,
+                        medicine.medicine?.medicineName ?? "",
+                        medicine.duration ?? "",
+                      ),
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) {
@@ -167,6 +174,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                   },
                 ),
 
+                // Advice Section
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -187,6 +195,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                   ],
                 ),
                 24.verticalSpace,
+
                 // Hospital Info
                 Center(
                   child: Column(
@@ -242,13 +251,158 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                     ],
                   ),
                 ),
-
-                20.verticalSpace
+                20.verticalSpace,
               ],
             ),
           ),
         );
       },
+    );
+  }
+
+  void _showAlarmSettings(
+      BuildContext context, String medicineName, String duration) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => AlarmSettingsBottomSheet(
+        medicineName: medicineName,
+        duration: duration,
+      ),
+    );
+  }
+}
+
+
+
+
+
+class MedicationCard extends StatelessWidget {
+  final IconData icon;
+  final Color iconColor;
+  final String title;
+  final String subtitle;
+  final String dose;
+  final String? note;
+  final String duration;
+  final VoidCallback onSetAlert;
+
+  const MedicationCard({
+    super.key,
+    required this.icon,
+    required this.iconColor,
+    required this.title,
+    required this.subtitle,
+    required this.dose,
+    this.note,
+    required this.duration,
+    required this.onSetAlert,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16.r),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(8.r),
+                  decoration: BoxDecoration(
+                    color: iconColor.withOpacity(0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(icon, color: iconColor, size: 24.r),
+                ),
+                12.horizontalSpace,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: kBodyLarge.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        subtitle,
+                        style: kBodySmall.copyWith(color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ),
+                // Set Alert Button
+                _buildSetAlertButton(),
+              ],
+            ),
+            12.verticalSpace,
+            Row(
+              children: [
+                _buildInfoChip(
+                  icon: Icons.medical_information,
+                  label: 'Dose: $dose',
+                ),
+                8.horizontalSpace,
+                _buildInfoChip(
+                  icon: Icons.schedule,
+                  label: duration,
+                ),
+              ],
+            ),
+            if (note != null && note!.isNotEmpty) ...[
+              8.verticalSpace,
+              Text(
+                'Note: $note',
+                style: kBodySmall.copyWith(color: AppColors.kGrayColor700),
+              ),
+            ]
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSetAlertButton() {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.kPrimaryColor.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(20.r),
+      ),
+      child: IconButton(
+        icon: Icon(Icons.notifications_active,
+            size: 20.r, color: AppColors.kPrimaryColor),
+        onPressed: onSetAlert,
+        tooltip: 'Set Alert',
+      ),
+    );
+  }
+
+  Widget _buildInfoChip({required IconData icon, required String label}) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(16.r),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14.r, color: Colors.grey),
+          4.horizontalSpace,
+          Text(
+            label,
+            style: kBodySmall,
+          ),
+        ],
+      ),
     );
   }
 }
