@@ -1,12 +1,16 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/features/patient_portal/cart/cubit/cart_cubit.dart';
 
 class CheckOutCard extends StatelessWidget {
   const CheckOutCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<CartCubit, CartState>(
+  builder: (context, state) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -30,7 +34,7 @@ class CheckOutCard extends StatelessWidget {
                 ),
               ),
               Text(
-                "₹1000.00",
+                "${state.cartResponse?.grandTotal??""} BDT",
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],
@@ -46,7 +50,7 @@ class CheckOutCard extends StatelessWidget {
                 ),
               ),
               Text(
-                "-₹0.00",
+                "-0.00 BDT",
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],
@@ -62,7 +66,7 @@ class CheckOutCard extends StatelessWidget {
                 ),
               ),
               Text(
-                "₹1000.00",
+                "${state.cartResponse?.grandTotal??""} BDT",
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).primaryColor,
@@ -97,5 +101,7 @@ class CheckOutCard extends StatelessWidget {
         ],
       ),
     );
+  },
+);
   }
 }

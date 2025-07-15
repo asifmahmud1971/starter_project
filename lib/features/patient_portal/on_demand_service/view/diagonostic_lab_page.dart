@@ -7,6 +7,7 @@ import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/cubit/onDemand_service_cubit.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/product.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/widget/lab_report_card.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/widget/service_product_card.dart';
 
 import '../../../../core/constants/app_text_style.dart';
@@ -33,23 +34,24 @@ class _DiagnosticLabPageState extends State<DiagnosticLabPage> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              AppStrings.alliedHealth.tr(),
+              AppStrings.diagnosticLab.tr(),
               style: kTitleMedium.copyWith(color: Colors.white),
             ),
             backgroundColor: AppColors.kPrimaryColor,
             iconTheme: IconThemeData(color: Colors.white),
           ),
-          body: ListView.separated(
+          body: ListView.builder(
             padding: EdgeInsets.all(16.r),
+
             itemCount: (state.onService?.product??[]).length,
             itemBuilder: (context, index) {
-              return ServiceProductCard(
-                service: state.onService?.product?[index],
-                onAddToCart: () {},
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: LabReportCardWidget(
+                  service: state.onService?.product?[index],
+                  onAddToCart: () {},
+                ),
               );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return 10.verticalSpace;
             },
           ),
         );

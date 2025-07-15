@@ -22,6 +22,7 @@ class ApiUrls {
     }
   }
    //auth
+  static const String mainUrl = 'https://my.medpilot.app/';
   static const String login = 'login';
   static const String checkUser = 'check-user';
   static const String resetNewPassword = 'reset-new-password';
@@ -71,6 +72,10 @@ class ApiUrls {
   static const String attendanceStaff = 'attendance-staff';
   static const String blog = 'blog';
   static const String aiChat = 'ai-patient';
+  static const String viewCart = 'view-cart';
+  static const String addToCart = 'add-to-cart';
+  static const String updateOrder = 'update-order';
+  static const String removeCartItem = 'remove-cart-item';
 
 
 

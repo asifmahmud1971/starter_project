@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/features/dashboard/cubit/dashboard_cubit.dart';
 import 'package:medPilot/features/dashboard/cubit/dashboard_state.dart';
 import 'package:medPilot/generated/assets.dart';
-
 import '../../../core/constants/app_text_style.dart';
 
 class StaffDashboardScreen extends StatefulWidget {
+  const StaffDashboardScreen({super.key});
+
   @override
   State<StaffDashboardScreen> createState() => _StaffDashboardScreenState();
 }

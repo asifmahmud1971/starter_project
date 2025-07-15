@@ -9,6 +9,7 @@ import 'package:medPilot/core/components/custom_progress_loader.dart';
 import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/enum/app_status.dart';
+import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/assign_shift_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/city_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/consultants_response.dart';
@@ -18,6 +19,7 @@ import 'package:medPilot/features/patient_portal/on_demand_service/model/procedu
 import 'package:medPilot/features/patient_portal/on_demand_service/model/thana_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/repository/onDemandService_repository.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/model/follow_up.dart';
+import 'package:medPilot/generated/assets.dart';
 
 part 'onDemand_service_state.dart';
 
@@ -57,6 +59,8 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
   List<String> genderList = ['Male', 'Female', 'Other'];
   FormFieldValidator<String>? validator =
       (value) => (value ?? "").isEmpty ? 'This field is required' : null;
+
+
 
   Future<void> getHomeVisit() async {
     showProgressDialog();
@@ -309,7 +313,6 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       formData['legal_representive_name'] = representativeNameController.text;
       formData['mobile_no'] = mobileNoPrimaryController.text;
       formData['legal_representive_email'] = representativeEmailController.text;
-
       formData['city_id'] = selectCity?.id ?? "";
       formData['thana_id'] = selectThana?.id ?? "";
       formData['address'] = addressController.text;

@@ -17,6 +17,7 @@ import 'package:medPilot/features/patient_portal/on_demand_service/view/diagonos
 import 'package:medPilot/features/patient_portal/on_demand_service/view/home_visit_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/instrument_rent_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/lab_report_page.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/view/package_screen.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/pharmacy_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/procedure_page.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_list_page.dart';
@@ -77,6 +78,7 @@ class Routes {
   static const String pilot = "pilot";
   static const String task = "task";
   static const String attendance = "attendance";
+  static const String package = "package";
 }
 
 class RouteGenerator {
@@ -232,6 +234,11 @@ class RouteGenerator {
       case Routes.roster:
         return CupertinoPageRoute(
           builder: (_) => RosterScreen(),
+          settings: routeSettings,
+        ); // global routes end
+      case Routes.package:
+        return CupertinoPageRoute(
+          builder: (_) => PackageScreen(),
           settings: routeSettings,
         );
       // global routes end

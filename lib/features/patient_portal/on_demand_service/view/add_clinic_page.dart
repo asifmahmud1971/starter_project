@@ -318,7 +318,6 @@ class _AddClinicPageState extends State<AddClinicPage> {
                           context.read<OnDemandServiceCubit>().addClinic();
                         }
                       },
-
                     ),
                   ),
                 ],
