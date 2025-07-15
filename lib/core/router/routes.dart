@@ -4,6 +4,7 @@ import 'package:medPilot/features/auth/sign_in/view/sign_in_screen.dart';
 import 'package:medPilot/features/auth/sign_up/view/sign_up_screen.dart';
 import 'package:medPilot/features/dashboard/view/patient_dashboard_screen.dart';
 import 'package:medPilot/features/dashboard/view/staff_dashboard_screen.dart';
+import 'package:medPilot/features/patient_portal/acp/view/acp_homescreen.dart';
 import 'package:medPilot/features/patient_portal/more/view/my_package_screen.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/add_ambulance_page.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/view/add_clinic_page.dart';
@@ -252,6 +253,13 @@ case Routes.attendance:
           settings: routeSettings,
         );
       // global routes end
+    case Routes.pilot:
+        return CupertinoPageRoute(
+          builder: (_) => CarePlanningLandingPage(),
+          settings: routeSettings,
+        );
+      // global routes end
+
 
       default:
         return unDefinedRoute();
