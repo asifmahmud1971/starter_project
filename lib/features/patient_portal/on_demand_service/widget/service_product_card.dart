@@ -61,7 +61,6 @@ class ServiceProductCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 8.h),
-
                     // Product description
                     Html(
                       data: """${service?.description}""",
@@ -80,7 +79,6 @@ class ServiceProductCard extends StatelessWidget {
                           textAlign: TextAlign.center,
                           backgroundColor: Colors.grey,
                           margin: Margins(
-                            // Added const
                             left: Margin(50, Unit.px),
                             right: Margin.auto(),
                           ),
@@ -90,42 +88,43 @@ class ServiceProductCard extends StatelessWidget {
                         ),
                       },
                     ),
-                    Text(
-                      '${service?.price} BDT',
-                      style: kHeadLineSmall.copyWith(
-                        color: AppColors.kPrimaryColor,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          '${service?.price} BDT',
+                          style: kHeadLineSmall.copyWith(
+                            color: AppColors.kPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Spacer(),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            CustomButton(
+                              onTap: (){
+                                context.read<CartCubit>().addProductToCart(
+                                    productId: service?.productId.toString(),
+                                    categoryId: service?.categoryId.toString(),
+                                    quantity: "1",
+                                    type: service?.type??""
+                                );
+                              },
+                              title: "Add",
+                              backgroundColor: AppColors.kPrimaryColor,
+                              padding:
+                              EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                     // Price and action buttons row
                   ],
                 ),
               ),
             ],
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CustomButton(
-                  onTap: (){
-                    context.read<CartCubit>().addProductToCart(
-                      productId: service?.productId.toString(),
-                      categoryId: service?.categoryId.toString(),
-                      quantity: "1",
-                      type: service?.type??""
-                    );
-
-                  },
-                  title: "Add",
-                  backgroundColor: AppColors.kPrimaryColor,
-                  padding:
-                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-                ),
-              ],
-            ),
           ),
         ],
       ),

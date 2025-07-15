@@ -4,6 +4,7 @@ import 'package:medPilot/data/network/api_client.dart';
 import 'package:medPilot/data/network/api_failure.dart';
 import 'package:medPilot/data/network/api_request.dart';
 import 'package:medPilot/data/network/api_urls.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/ambulance_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/assign_shift_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/city_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/consultants_response.dart';
@@ -148,6 +149,16 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       method: Method.get,
       params: params,
       fromJson: AssignShiftModel.fromJson,
+    );
+  }
+  @override
+  Future<Either<ApiFailure, AmbulanceResponse>> getAmbulance(
+      Map<String, dynamic> params) async {
+    return apiRequest.performRequest(
+      url: ApiUrls.showAllAmbulanceRequest,
+      method: Method.get,
+      params: params,
+      fromJson: AmbulanceResponse.fromJson,
     );
   }
 }

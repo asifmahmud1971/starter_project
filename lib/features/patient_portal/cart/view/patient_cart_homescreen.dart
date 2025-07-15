@@ -102,8 +102,8 @@ class _PatientCartPageState extends State<PatientCartPage> {
                                               IconButton(
                                                 icon: const Icon(Icons.remove, size: 18),
                                                 onPressed: () {
-                                                  context.read<CartCubit>().updateProductCart(
-                                                      cartId: cartItem?.cartId, quantity: int.parse(cartItem?.quantity ?? "0"));
+                                                  context.read<CartCubit>().decrementItem(
+                                                      int.parse(cartItem?.quantity ?? "0"),cartId: cartItem?.cartId);
                                                 },
                                                 padding: EdgeInsets.zero,
                                                 constraints: const BoxConstraints(),
@@ -119,8 +119,8 @@ class _PatientCartPageState extends State<PatientCartPage> {
                                               IconButton(
                                                 icon: const Icon(Icons.add, size: 18),
                                                 onPressed: () {
-                                                  context.read<CartCubit>().updateProductCart(
-                                                      cartId: cartItem?.cartId, quantity: int.parse(cartItem?.quantity ?? "0"));
+                                                  context.read<CartCubit>().incrementItem(
+                                                      int.parse(cartItem?.quantity ?? "0"),cartId: cartItem?.cartId);
                                                 },
                                                 padding: EdgeInsets.zero,
                                                 constraints: const BoxConstraints(),
@@ -148,7 +148,7 @@ class _PatientCartPageState extends State<PatientCartPage> {
                         ),
                       );
                   },
-                ):SizedBox(),
+                ):Center(child: Text("Cart is Empty"),),
               ),
               CheckOutCard(),
             ],

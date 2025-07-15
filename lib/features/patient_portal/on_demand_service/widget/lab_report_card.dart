@@ -42,7 +42,7 @@ class LabReportCardWidget extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              10.horizontalSpace,
+              8.verticalSpace,
               Text(
                 '${service?.price} BDT',
                 style: kHeadLineSmall.copyWith(

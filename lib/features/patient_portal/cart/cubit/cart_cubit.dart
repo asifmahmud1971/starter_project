@@ -103,7 +103,7 @@ class CartCubit extends Cubit<CartState> {
 
   void incrementItem(int value,{int? cartId}){
     int? num=value+1;
-    if(1<value){
+    if(1<=value){
       updateProductCart(cartId: cartId,quantity: num);
     }
   }
