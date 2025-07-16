@@ -1,15 +1,15 @@
 {
   "project_info": {
     "project_number": "614170370248",
-    "project_id": "demo-98210",
-    "storage_bucket": "demo-98210.firebasestorage.app"
+    "project_id": "readback-98210",
+    "storage_bucket": "readback-98210.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:614170370248:android:7516e15fa47c50bae145fd",
         "android_client_info": {
-          "package_name": "com.example.demo"
+          "package_name": "com.dinnova.readback"
         }
       },
       "oauth_client": [],
@@ -28,7 +28,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:614170370248:android:f379f4344e1c1ca8e145fd",
         "android_client_info": {
-          "package_name": "com.dinnova.demo.dev"
+          "package_name": "com.dinnova.readback.dev"
         }
       },
       "oauth_client": [],
@@ -47,7 +47,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:614170370248:android:4c0274f81899402be145fd",
         "android_client_info": {
-          "package_name": "com.example.demo.stg"
+          "package_name": "com.dinnova.readback.stg"
         }
       },
       "oauth_client": [],

@@ -302,7 +302,7 @@ class CustomCirclesButton extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(padding ?? 5.r),
           child: CustomSvg(
-            icon: icon ?? Assets.iconsHome,
+            icon: icon ?? Assets.imagesPlaceholder,
             size: iconSize ?? 16.r,
             color: iconColors ?? AppColors.kWhiteColor,
           ),

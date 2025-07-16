@@ -68,7 +68,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       : RPadding(
                           padding: REdgeInsets.only(left: 20.w, right: 10.w),
                           child: CustomSvg(
-                            icon: icon ?? Assets.iconsHome,
+                            icon: icon ?? Assets.imagesPlaceholder,
                             size: 24.r,
                           ),
                         ),
@@ -83,7 +83,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   SizedBox(width: 5.w),
                   Image.asset(
-                    Assets.iconsAlbanian,
+                    Assets.imagesPlaceholder,
                     height: 35.h,
                   )
                 ],

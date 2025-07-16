@@ -118,7 +118,7 @@ successAlert({
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CustomSvg(
-                  icon: Assets.iconsHome,
+                  icon: Assets.imagesPlaceholder,
                   size: 60.r,
                 ),
                 8.verticalSpace,

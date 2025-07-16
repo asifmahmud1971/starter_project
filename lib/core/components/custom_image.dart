@@ -91,7 +91,7 @@ class CustomImage extends StatelessWidget {
                           shape: BoxShape.circle,
                           color: bgColor ?? Colors.white),
                       child: CustomSvg(
-                        icon: placeHolder ?? Assets.iconsUser,
+                        icon: placeHolder ?? Assets.imagesPlaceholder,
                         fit: fit ?? BoxFit.fill,
                       ),
                     )
@@ -112,7 +112,7 @@ class CustomImage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(radius),
                   ),
             child: CustomSvg(
-              icon: placeHolder ?? Assets.iconsHome,
+              icon: placeHolder ?? Assets.imagesPlaceholder,
               fit: fit ?? BoxFit.fill,
             ),
           );

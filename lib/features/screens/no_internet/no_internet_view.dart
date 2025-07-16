@@ -1,9 +1,7 @@
-import 'package:demo/core/components/custom_svg.dart';
 import 'package:demo/core/constants/app_colors.dart';
 import 'package:demo/core/constants/app_strings.dart';
 import 'package:demo/core/constants/app_text_style.dart';
 import 'package:demo/features/screens/no_internet/cubit/internet_cubit.dart';
-import 'package:demo/generated/assets.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,8 +26,8 @@ class NoInternetScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CustomSvg(
-                    icon: Assets.iconsHome,
+                  Icon(
+                    Icons.wifi_off,  // Using Material Icons wifi_off icon
                     color: AppColors.kError950,
                     size: 100.r,
                   ),

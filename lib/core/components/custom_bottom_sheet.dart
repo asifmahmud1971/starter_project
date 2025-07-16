@@ -99,10 +99,7 @@ void showCustomBottomSheet(
                         left: 20.w,
                         right: 6.w,
                       ),
-                      child: const CustomSvg(
-                        icon: Assets.iconsSearch4,
-                        size: 20,
-                      ),
+                      child: Icon(Icons.search),
                     ),
                     // focusNode: emailFocus,
                     onChanged: (val) {

@@ -1,6 +1,6 @@
 # Demo
 
-Demo” --org com.dinnova.demo”
+Demo” --org com.dinnova.readback”
 
 ---
 
