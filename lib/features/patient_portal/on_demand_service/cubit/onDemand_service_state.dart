@@ -9,15 +9,18 @@ class OnDemandServiceState extends Equatable {
   final ThanaResponse? thana;
   final ConsultantsResponse? consultantsResponse;
   final AssignShiftModel? assignStaffModel;
+  final AmbulanceResponse? ambulanceResponse;
 
-  const OnDemandServiceState({this.appStatus = AppStatus.initial,
+  const OnDemandServiceState({
+    this.appStatus = AppStatus.initial,
     this.onService,
     this.followUp,
     this.currentPackage,
     this.city,
     this.thana,
     this.consultantsResponse,
-    this.assignStaffModel
+    this.assignStaffModel,
+    this.ambulanceResponse,
   });
 
   OnDemandServiceState copyWith({
@@ -28,7 +31,8 @@ class OnDemandServiceState extends Equatable {
     final CityResponse? city,
     final ThanaResponse? thana,
     final ConsultantsResponse? consultantsResponse,
-    final AssignShiftModel? assignStaffModel
+    final AssignShiftModel? assignStaffModel,
+    final AmbulanceResponse? ambulanceResponse
   }) {
     return OnDemandServiceState(
       appStatus: appStatus ?? this.appStatus,
@@ -39,6 +43,7 @@ class OnDemandServiceState extends Equatable {
       thana: thana ?? this.thana,
       consultantsResponse: consultantsResponse ?? this.consultantsResponse,
       assignStaffModel: assignStaffModel ?? this.assignStaffModel,
+      ambulanceResponse: ambulanceResponse ?? this.ambulanceResponse,
     );
   }
 
@@ -52,6 +57,7 @@ class OnDemandServiceState extends Equatable {
         city ?? {},
         thana ?? {},
         consultantsResponse ?? {},
-        assignStaffModel ?? {}
+        assignStaffModel ?? {},
+        ambulanceResponse ?? {}
       ];
 }

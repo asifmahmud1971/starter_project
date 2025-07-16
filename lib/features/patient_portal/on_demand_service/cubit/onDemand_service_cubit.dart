@@ -10,6 +10,7 @@ import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/ambulance_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/assign_shift_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/city_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/consultants_response.dart';
@@ -348,4 +349,29 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       log('$runtimeType:: @signIn => $e');
     }
   }
+
+
+  Future<void> getAmbulance() async {
+    showProgressDialog();
+    emit(state.copyWith(
+        appStatus: AppStatus.loading, onService: OnServiceModel()));
+
+    try {
+      final response = await onDemandServiceRepository.getAmbulance({});
+
+      response.fold(
+            (failure) {},
+            (data) async {
+          emit(state.copyWith(
+              appStatus: AppStatus.success, ambulanceResponse: data));
+        },
+      );
+      log("ambulanceResponse  ---------> ${state.onService?.success}");
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+    }
+  }
+
 }
