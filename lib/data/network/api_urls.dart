@@ -77,6 +77,9 @@ class ApiUrls {
   static const String updateOrder = 'update-order';
   static const String removeCartItem = 'remove-cart-item';
   static const String showAllAmbulanceRequest = 'show-all-ambulance-request';
+  static const String currentTelePackage = 'current-tele-package';
+  static const String telePackage = 'tele-package';
+  static const String upgradeTelePackage = 'upgrade-tele-package';
 
 
 

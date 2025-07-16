@@ -5,8 +5,11 @@ import 'package:medPilot/features/patient_portal/on_demand_service/model/assign_
 import 'package:medPilot/features/patient_portal/on_demand_service/model/city_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/consultants_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/current_package_response.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/current_tele_package_mnode.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/on_sarevice_model.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/tele_package_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/thana_response.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/upgrade_tele_package.dart';
 abstract class OnDemandServiceRepository {
   Future<Either<ApiFailure, OnServiceModel>> getHomeVisit(
       Map<String, dynamic> params);
@@ -35,6 +38,12 @@ abstract class OnDemandServiceRepository {
   Future<Either<ApiFailure, AssignShiftModel>> getAssignStaff(
       Map<String, dynamic> params);
   Future<Either<ApiFailure, AmbulanceResponse>> getAmbulance(
+      Map<String, dynamic> params);
+  Future<Either<ApiFailure, CurrentTelePackageResponse>> getCurrentTelePackage(
+      Map<String, dynamic> params);
+  Future<Either<ApiFailure, TelePackageResponse>> getTelePackage(
+      Map<String, dynamic> params);
+  Future<Either<ApiFailure, UpgradeTelePackage>> upgradeTelePackage(
       Map<String, dynamic> params);
 
 }
