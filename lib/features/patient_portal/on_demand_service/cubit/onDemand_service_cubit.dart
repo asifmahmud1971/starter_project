@@ -10,6 +10,7 @@ import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
+import 'package:medPilot/features/patient_portal/more/view/payment_screen.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/ambulance_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/assign_shift_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/city_response.dart';
@@ -22,6 +23,7 @@ import 'package:medPilot/features/patient_portal/on_demand_service/model/tele_pa
 import 'package:medPilot/features/patient_portal/on_demand_service/model/thana_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/upgrade_tele_package.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/repository/onDemandService_repository.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/widget/payment/payment_screen.dart' show WebPaymentScreen;
 import 'package:medPilot/features/patient_portal/services/follow_up/model/follow_up.dart';
 import 'package:medPilot/generated/assets.dart';
 
@@ -449,6 +451,7 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
         },
             (r) async {
           emit(state.copyWith(appStatus: AppStatus.success,upgradeTelePackage: r));
+          GetContext.to(WebPaymentScreen(initialURl: r.redirectUrl??"",));
         },
       );
 
