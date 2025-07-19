@@ -15,11 +15,6 @@ class AIChatCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Talk to Our AI Assistant",
-            style: kTitleMedium,
-          ),
-          12.verticalSpace,
           Container(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
             decoration: BoxDecoration(
@@ -59,7 +54,7 @@ class AIChatCard extends StatelessWidget {
                         Icon(Icons.smart_toy, color: Colors.white, size: 20.r),
                         SizedBox(width: 6.w),
                         Text(
-                          "Ask Now",
+                          "Ask Pilot",
                           style: kTitleLarge.copyWith(color: Colors.white),
                         ),
                       ],

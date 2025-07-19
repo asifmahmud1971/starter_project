@@ -195,63 +195,6 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                   ],
                 ),
                 24.verticalSpace,
-
-                // Hospital Info
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.call,
-                              size: 18.r, color: AppColors.kPrimaryColor),
-                          6.horizontalSpace,
-                          Text(
-                            state.prescriptionModel?.patient
-                                    ?.doctorContractNumber ??
-                                "",
-                            style: kBodyMedium.copyWith(
-                                color: AppColors.kBlackColor),
-                          ),
-                          16.horizontalSpace,
-                          Icon(Icons.email_outlined,
-                              size: 18.r, color: AppColors.kPrimaryColor),
-                          6.horizontalSpace,
-                          Text(
-                            state.prescriptionModel?.patient?.email ?? "",
-                            style: kBodyMedium.copyWith(
-                                color: AppColors.kBlackColor),
-                          ),
-                        ],
-                      ),
-                      12.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.location_on_outlined,
-                              size: 18.r, color: AppColors.kPrimaryColor),
-                          6.horizontalSpace,
-                          Text(
-                            'Dhaka, Bangladesh',
-                            style: kBodyMedium.copyWith(
-                                color: AppColors.kBlackColor),
-                          ),
-                          16.horizontalSpace,
-                          Icon(Icons.language,
-                              size: 18.r, color: AppColors.kPrimaryColor),
-                          6.horizontalSpace,
-                          Text(
-                            'www.medpilot.app',
-                            style: kBodyMedium.copyWith(
-                                color: AppColors.kBlackColor),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                20.verticalSpace,
               ],
             ),
           ),

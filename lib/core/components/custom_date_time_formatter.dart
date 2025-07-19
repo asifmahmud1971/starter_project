@@ -28,6 +28,15 @@ extension FormattedDateExtension on String {
       return ''; // Return empty string on invalid format
     }
   }
+
+  String get dateMonthYear {
+    try {
+      final dateTime = DateTime.parse(this).toLocal();
+      return DateFormat('dd-MM-yyyy').format(dateTime);
+    } catch (e) {
+      return ''; // Return empty string on invalid format
+    }
+  }
 }
 
 

@@ -73,13 +73,13 @@ class _PainAssessmentState extends State<PainAssessment> {
                   Icon(
                     Icons.calendar_today,
                     size: 14.r,
-                    color: AppColors.kGrayColor500,
+                    color: AppColors.kBlackColor,
                   ),
                   4.horizontalSpace,
                   Text(
                     dateFormat.format(widget.entry?.date?.toDate()??DateTime.now()),
                     style: TextStyle(
-                      color: Colors.grey[600],
+                      color: AppColors.kBlackColor,
                       fontSize: 12,
                     ),
                   ),
@@ -87,13 +87,13 @@ class _PainAssessmentState extends State<PainAssessment> {
                   Icon(
                     Icons.access_time,
                     size: 14,
-                    color: Colors.grey[500],
+                    color: AppColors.kBlackColor,
                   ),
                   4.horizontalSpace,
                   Text(
                     timeFormat.format(widget.entry?.date?.toDate()??DateTime.now()),
                     style: TextStyle(
-                      color: Colors.grey[600],
+                      color: AppColors.kBlackColor,
                       fontSize: 12,
                     ),
                   ),

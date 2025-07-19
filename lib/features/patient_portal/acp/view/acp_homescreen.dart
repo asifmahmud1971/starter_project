@@ -237,7 +237,7 @@ class _CarePlanningLandingPageState extends State<CarePlanningLandingPage> {
             decoration: InputDecoration(
               hintText: question.hint,
               filled: true,
-              fillColor: colors.surfaceVariant.withOpacity(0.3),
+              fillColor: colors.surfaceContainerHighest.withOpacity(0.3),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(color: colors.outline.withOpacity(0.3)),

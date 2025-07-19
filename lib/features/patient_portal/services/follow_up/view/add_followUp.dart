@@ -109,7 +109,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
               firstField: CustomTextField(
                 controller: followUpCubit.bpHighController,
                 radius: 8.r,
-                hint: "hint",
+                hint: "High",
                 validator: followUpCubit.validator,
               ),
               secondField: CustomTextField(

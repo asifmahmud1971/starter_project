@@ -26,7 +26,7 @@ class MedPilotAppBar extends StatelessWidget implements PreferredSizeWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "MedPilot AI",
+                "Pilot",
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
@@ -35,7 +35,7 @@ class MedPilotAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               const SizedBox(height: 2),
               Text(
-                "Your Medical Assistant",
+                "Your Medical AI Assistant",
                 style: TextStyle(
                   fontSize: 12,
                   color: AppColors.kPrimaryColor,
