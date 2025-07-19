@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/cubit/onDemand_service_cubit.dart';
+
+import '../../on_demand_service/model/tele_package_response.dart';
 
 class TelePackageScreen extends StatefulWidget {
   const TelePackageScreen({super.key});
@@ -11,22 +16,20 @@ class TelePackageScreen extends StatefulWidget {
 
 class _TelePackageScreenState extends State<TelePackageScreen> {
   String? _selectedPackage;
+  String? _selectedPackageId;
   String? _selectedPaymentMethod;
-  final List<Map<String, dynamic>> _packages = [
-    {'name': 'Basic', 'price': '\$9.99/month', 'features': '5 consultations'},
-    {
-      'name': 'Standard',
-      'price': '\$19.99/month',
-      'features': '15 consultations'
-    },
-    {
-      'name': 'Premium',
-      'price': '\$29.99/month',
-      'features': 'Unlimited consultations'
-    },
-  ];
 
-  final List<String> _paymentMethods = ['Pay Later', 'bKash', 'Card/Others'];
+
+  final OnDemandServiceCubit onDemandCubit =
+  GetContext.context.read<OnDemandServiceCubit>();
+
+  @override
+  void initState() {
+    onDemandCubit.getCurrentTelePackage();
+    onDemandCubit.getTelePackege();
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,113 +48,131 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Card(
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-                side: BorderSide(color: Colors.grey[200]!),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+      body: BlocBuilder<OnDemandServiceCubit, OnDemandServiceState>(
+        builder: (context, state) {
+          return SingleChildScrollView(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    side: BorderSide(color: Colors.grey[200]!),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.error_outline, color: Colors.orange),
-                        SizedBox(width: 8),
+                        state.currentTelePackage?.currentTelePackage=="not_active"?Row(
+                          children: [
+                            Icon(Icons.error_outline, color: Colors.orange),
+                            SizedBox(width: 8),
+                            Text(
+                              'No Active Package',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                          ],
+                        ):Row(
+                          children: [
+                            Icon(Icons.error_outline, color: Colors.green),
+                            SizedBox(width: 8),
+                            Text(
+                              'No Active Package',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 12),
                         Text(
-                          'No Active Package',
+                          'Subscribe to a telemedicine package to start consulting with doctors remotely',
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[800],
+                            color: Colors.grey[600],
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 12),
-                    Text(
-                      'Subscribe to a telemedicine package to start consulting with doctors remotely',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 24),
-            // Package Selection
-            Text(
-              'SELECT YOUR PACKAGE',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[500],
-                letterSpacing: 1.2,
-              ),
-            ),
-            SizedBox(height: 12),
-            ..._packages
-                .map((package) => _buildPackageOption(package))
-                .toList(),
-            SizedBox(height: 24),
-
-            // Payment Method
-            Text(
-              'PAYMENT METHOD',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[500],
-                letterSpacing: 1.2,
-              ),
-            ),
-            SizedBox(height: 12),
-            Row(
-              children: _paymentMethods
-                  .map((method) =>
-                      Expanded(child: _buildPaymentMethodHorizontal(method)))
-                  .toList(),
-            ),
-            SizedBox(height: 32),
-            // Submit Button
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.kPrimaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
                   ),
-                  elevation: 0,
                 ),
-                onPressed: _selectedPackage == null
-                    ? null
-                    : () {
-                        _showConfirmationDialog();
-                      },
-                child: Text(
-                  'Subscribe Now',
-                  style: TextStyle(fontSize: 16),
+                SizedBox(height: 24),
+                // Package Selection
+                Text(
+                  'SELECT YOUR PACKAGE',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[500],
+                    letterSpacing: 1.2,
+                  ),
                 ),
-              ),
+                SizedBox(height: 12),
+                ...(state.telePackage?.packages??[])
+                    .map((package) => _buildPackageOption(package))
+                    .toList(),
+                SizedBox(height: 24),
+
+                // Payment Method
+                Text(
+                  'PAYMENT METHOD',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[500],
+                    letterSpacing: 1.2,
+                  ),
+                ),
+                SizedBox(height: 12),
+                Row(
+                  children: (state.currentTelePackage?.paymentOption??[])
+                      .map((method) =>
+                      Expanded(child: _buildPaymentMethodHorizontal(method)))
+                      .toList(),
+                ),
+                SizedBox(height: 32),
+                // Submit Button
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.kPrimaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      elevation: 0,
+                    ),
+                    onPressed: _selectedPackage == null
+                        ? null
+                        : () {
+                      onDemandCubit.upgradeTelePackage(packageId: _selectedPackageId,paymentOption: _selectedPaymentMethod);
+                      //_showConfirmationDialog();
+                    },
+                    child: Text(
+                      'Subscribe Now',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 
-  Widget _buildPackageOption(Map<String, dynamic> package) {
-    bool isSelected = _selectedPackage == package['name'];
+  Widget _buildPackageOption(Packages? package) {
+    bool isSelected = _selectedPackage == package?.name;
     return Card(
       margin: EdgeInsets.only(bottom: 12),
       elevation: 0,
@@ -166,7 +187,8 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
         borderRadius: BorderRadius.circular(12),
         onTap: () {
           setState(() {
-            _selectedPackage = package['name'];
+            _selectedPackage = package?.name;
+            _selectedPackageId = package?.id.toString();
           });
         },
         child: Padding(
@@ -179,16 +201,17 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: isSelected ? AppColors.kPrimaryColor : Colors.grey[300]!,
+                    color: isSelected ? AppColors.kPrimaryColor : Colors
+                        .grey[300]!,
                     width: 1,
                   ),
                 ),
                 child: isSelected
                     ? Icon(
-                        Icons.check,
-                        size: 16,
-                        color: AppColors.kPrimaryColor,
-                      )
+                  Icons.check,
+                  size: 16,
+                  color: AppColors.kPrimaryColor,
+                )
                     : null,
               ),
               SizedBox(width: 16),
@@ -197,7 +220,7 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      package['name'],
+                      package?.name??"",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -206,7 +229,7 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      package['price'],
+                      package?.price??"",
                       style: TextStyle(
                         color: AppColors.kPrimaryColor,
                         fontWeight: FontWeight.w500,
@@ -214,7 +237,7 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      package['features'],
+                      package?.status??"",
                       style: TextStyle(
                         color: Colors.grey[600],
                         fontSize: 12,
@@ -223,7 +246,7 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
                   ],
                 ),
               ),
-              if (package['name'] == 'Premium')
+              if (package?.name == 'Premium')
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
@@ -252,11 +275,7 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
     Color iconColor;
 
     switch (method) {
-      case 'bKash':
-        icon = Icons.mobile_friendly;
-        iconColor = Colors.pink;
-        break;
-      case 'Card/Others':
+      case 'pay_online':
         icon = Icons.credit_card;
         iconColor = Colors.blue;
         break;
@@ -274,11 +293,12 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
       child: Container(
         margin: EdgeInsets.only(right: 12),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.kPrimaryColor.withOpacity(0.1) : Colors.white,
+          color: isSelected ? AppColors.kPrimaryColor.withOpacity(0.1) : Colors
+              .white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isSelected ? AppColors.kPrimaryColor : Colors.grey[200]!,
-            width:  1,
+            width: 1,
           ),
         ),
         child: Stack(
@@ -332,84 +352,6 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
   }
 
 
-  void _showConfirmationDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          title: Text(
-            'Confirm Subscription',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: AppColors.kPrimaryColor,
-            ),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'You are subscribing to:',
-                style: TextStyle(color: Colors.grey[600]),
-              ),
-              SizedBox(height: 8),
-              Text(
-                _selectedPackage!,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Payment method:',
-                style: TextStyle(color: Colors.grey[600]),
-              ),
-              SizedBox(height: 8),
-              Text(
-                _selectedPaymentMethod!,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-              SizedBox(height: 24),
-              if (_selectedPaymentMethod == 'bKash')
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'bKash Mobile Number',
-                    border: OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.phone,
-                ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.kPrimaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-                _showSuccessDialog();
-              },
-              child: Text('Confirm Payment'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   void _showSuccessDialog() {
     showDialog(

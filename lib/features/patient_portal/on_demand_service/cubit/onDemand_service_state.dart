@@ -10,6 +10,9 @@ class OnDemandServiceState extends Equatable {
   final ConsultantsResponse? consultantsResponse;
   final AssignShiftModel? assignStaffModel;
   final AmbulanceResponse? ambulanceResponse;
+  final CurrentTelePackageResponse? currentTelePackage;
+  final TelePackageResponse? telePackage;
+  final UpgradeTelePackage? upgradeTelePackage;
 
   const OnDemandServiceState({
     this.appStatus = AppStatus.initial,
@@ -21,6 +24,9 @@ class OnDemandServiceState extends Equatable {
     this.consultantsResponse,
     this.assignStaffModel,
     this.ambulanceResponse,
+    this.telePackage,
+    this.currentTelePackage,
+    this.upgradeTelePackage
   });
 
   OnDemandServiceState copyWith({
@@ -32,7 +38,10 @@ class OnDemandServiceState extends Equatable {
     final ThanaResponse? thana,
     final ConsultantsResponse? consultantsResponse,
     final AssignShiftModel? assignStaffModel,
-    final AmbulanceResponse? ambulanceResponse
+    final AmbulanceResponse? ambulanceResponse,
+    final CurrentTelePackageResponse? currentTelePackage,
+    final TelePackageResponse? telePackage,
+    final UpgradeTelePackage? upgradeTelePackage
   }) {
     return OnDemandServiceState(
       appStatus: appStatus ?? this.appStatus,
@@ -44,6 +53,9 @@ class OnDemandServiceState extends Equatable {
       consultantsResponse: consultantsResponse ?? this.consultantsResponse,
       assignStaffModel: assignStaffModel ?? this.assignStaffModel,
       ambulanceResponse: ambulanceResponse ?? this.ambulanceResponse,
+      currentTelePackage: currentTelePackage ?? this.currentTelePackage,
+      telePackage: telePackage ?? this.telePackage,
+      upgradeTelePackage: upgradeTelePackage ?? this.upgradeTelePackage,
     );
   }
 
@@ -58,6 +70,9 @@ class OnDemandServiceState extends Equatable {
         thana ?? {},
         consultantsResponse ?? {},
         assignStaffModel ?? {},
-        ambulanceResponse ?? {}
+        ambulanceResponse ?? {},
+        telePackage ?? {},
+        currentTelePackage ?? {},
+        upgradeTelePackage ?? {}
       ];
 }

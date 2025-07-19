@@ -9,9 +9,12 @@ import 'package:medPilot/features/patient_portal/on_demand_service/model/assign_
 import 'package:medPilot/features/patient_portal/on_demand_service/model/city_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/consultants_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/current_package_response.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/current_tele_package_mnode.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/on_sarevice_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/procedure_model.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/tele_package_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/thana_response.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/model/upgrade_tele_package.dart';
 import 'onDemandService_repository.dart';
 
 @Injectable(as: OnDemandServiceRepository)
@@ -159,6 +162,36 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       method: Method.get,
       params: params,
       fromJson: AmbulanceResponse.fromJson,
+    );
+  }
+  @override
+  Future<Either<ApiFailure, CurrentTelePackageResponse>> getCurrentTelePackage(
+      Map<String, dynamic> params) async {
+    return apiRequest.performRequest(
+      url: ApiUrls.currentTelePackage,
+      method: Method.get,
+      params: params,
+      fromJson: CurrentTelePackageResponse.fromJson,
+    );
+  }
+  @override
+  Future<Either<ApiFailure, TelePackageResponse>> getTelePackage(
+      Map<String, dynamic> params) async {
+    return apiRequest.performRequest(
+      url: ApiUrls.telePackage,
+      method: Method.get,
+      params: params,
+      fromJson: TelePackageResponse.fromJson,
+    );
+  }
+  @override
+  Future<Either<ApiFailure, UpgradeTelePackage>> upgradeTelePackage(
+      Map<String, dynamic> params) async {
+    return apiRequest.performRequest(
+      url: ApiUrls.upgradeTelePackage,
+      method: Method.post,
+      params: params,
+      fromJson: UpgradeTelePackage.fromJson,
     );
   }
 }
