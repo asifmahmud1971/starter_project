@@ -107,6 +107,7 @@ class _WoundManagementScreenState extends State<WoundManagementScreen> {
           ],
         ),
         const SizedBox(height: 12),
+        _buildInfoRow('Assessment: ', wound.id.toString() ?? ""),
         _buildInfoRow('Location', wound.location ?? ""),
         _buildInfoRow('Site', wound.site ?? ""),
         _buildInfoRow('First Occurred', wound.occured ?? ""),
