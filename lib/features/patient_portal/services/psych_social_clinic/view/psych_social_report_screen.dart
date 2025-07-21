@@ -214,7 +214,8 @@ class _PsychoSocialReportPageState extends State<PsychoSocialReportPage> {
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               decoration: BoxDecoration(
-                color: _getResponseColor(value),
+                //color: _getResponseColor(value),
+                color: Colors.blueGrey,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
