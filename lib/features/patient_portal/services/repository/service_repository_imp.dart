@@ -13,7 +13,7 @@ import 'package:medPilot/features/patient_portal/services/pain_clinic/model/pain
 import 'package:medPilot/features/patient_portal/services/upload_document/model/document_model.dart';
 import 'package:medPilot/features/patient_portal/services/upload_document/model/upload_data_model.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/all_wound_data.dart';
-import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_describe_report.dart';
+import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_describe_report_model.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_document_data.dart';
 import 'service_repository.dart';
 

@@ -1,14 +1,12 @@
 class WoundDescribeReportModel {
   WoundDescribeReportModel({
       this.success, 
-      this.patient, 
       this.woundDescribe, 
       this.token, 
       this.tokenType,});
 
   WoundDescribeReportModel.fromJson(dynamic json) {
     success = json['success'];
-    patient = json['patient'] != null ? Patient.fromJson(json['patient']) : null;
     if (json['wound_describe'] != null) {
       woundDescribe = [];
       json['wound_describe'].forEach((v) {
@@ -19,7 +17,6 @@ class WoundDescribeReportModel {
     tokenType = json['token_type'];
   }
   bool? success;
-  Patient? patient;
   List<WoundDescribe>? woundDescribe;
   String? token;
   String? tokenType;
@@ -27,9 +24,6 @@ class WoundDescribeReportModel {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['success'] = success;
-    if (patient != null) {
-      map['patient'] = patient?.toJson();
-    }
     if (woundDescribe != null) {
       map['wound_describe'] = woundDescribe?.map((v) => v.toJson()).toList();
     }
@@ -43,6 +37,7 @@ class WoundDescribeReportModel {
 class WoundDescribe {
   WoundDescribe({
       this.id, 
+      this.assId, 
       this.companyId, 
       this.patientId, 
       this.date, 
@@ -51,10 +46,12 @@ class WoundDescribe {
       this.occured, 
       this.patternOfWound, 
       this.createdAt, 
-      this.updatedAt,});
+      this.updatedAt, 
+      this.management,});
 
   WoundDescribe.fromJson(dynamic json) {
     id = json['id'];
+    assId = json['ass_id'];
     companyId = json['company_id'];
     patientId = json['patient_id'];
     date = json['date'];
@@ -64,8 +61,15 @@ class WoundDescribe {
     patternOfWound = json['pattern_of_wound'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    if (json['management'] != null) {
+      management = [];
+      json['management'].forEach((v) {
+        management?.add(Management.fromJson(v));
+      });
+    }
   }
   num? id;
+  String? assId;
   String? companyId;
   String? patientId;
   String? date;
@@ -75,10 +79,12 @@ class WoundDescribe {
   String? patternOfWound;
   String? createdAt;
   String? updatedAt;
+  List<Management>? management;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
+    map['ass_id'] = assId;
     map['company_id'] = companyId;
     map['patient_id'] = patientId;
     map['date'] = date;
@@ -88,80 +94,53 @@ class WoundDescribe {
     map['pattern_of_wound'] = patternOfWound;
     map['created_at'] = createdAt;
     map['updated_at'] = updatedAt;
+    if (management != null) {
+      map['management'] = management?.map((v) => v.toJson()).toList();
+    }
     return map;
   }
 
 }
 
-class Patient {
-  Patient({
+class Management {
+  Management({
       this.id, 
       this.companyId, 
-      this.regNo, 
-      this.userId, 
-      this.branchId, 
-      this.name, 
-      this.dob, 
-      this.age, 
-      this.thana, 
-      this.city, 
-      this.gender, 
-      this.address, 
-      this.mobile, 
-      this.email, 
-      this.consultingDoctor, 
-      this.doctorContractNumber, 
-      this.alternativeNumber, 
-      this.password, 
-      this.status, 
-      this.landMark, 
+      this.patientId, 
+      this.date, 
+      this.woundLocation, 
+      this.debridement, 
+      this.solution, 
+      this.productUsed, 
+      this.frequency, 
+      this.nextDate, 
       this.createdAt, 
       this.updatedAt,});
 
-  Patient.fromJson(dynamic json) {
+  Management.fromJson(dynamic json) {
     id = json['id'];
     companyId = json['company_id'];
-    regNo = json['reg_no'];
-    userId = json['user_id'];
-    branchId = json['branch_id'];
-    name = json['name'];
-    dob = json['dob'];
-    age = json['age'];
-    thana = json['thana'];
-    city = json['city'];
-    gender = json['gender'];
-    address = json['address'];
-    mobile = json['mobile'];
-    email = json['email'];
-    consultingDoctor = json['consulting_doctor'];
-    doctorContractNumber = json['doctor_contract_number'];
-    alternativeNumber = json['alternative_number'];
-    password = json['password'];
-    status = json['status'];
-    landMark = json['land_mark'];
+    patientId = json['patient_id'];
+    date = json['date'];
+    woundLocation = json['wound_location'];
+    debridement = json['debridement'];
+    solution = json['solution'];
+    productUsed = json['product_used'];
+    frequency = json['frequency'];
+    nextDate = json['next_date'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
   num? id;
   String? companyId;
-  String? regNo;
-  String? userId;
-  String? branchId;
-  String? name;
-  String? dob;
-  String? age;
-  String? thana;
-  String? city;
-  String? gender;
-  String? address;
-  String? mobile;
-  String? email;
-  String? consultingDoctor;
-  String? doctorContractNumber;
-  String? alternativeNumber;
-  String? password;
-  String? status;
-  String? landMark;
+  String? patientId;
+  String? date;
+  String? woundLocation;
+  String? debridement;
+  String? solution;
+  String? productUsed;
+  String? frequency;
+  String? nextDate;
   String? createdAt;
   String? updatedAt;
 
@@ -169,24 +148,14 @@ class Patient {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['company_id'] = companyId;
-    map['reg_no'] = regNo;
-    map['user_id'] = userId;
-    map['branch_id'] = branchId;
-    map['name'] = name;
-    map['dob'] = dob;
-    map['age'] = age;
-    map['thana'] = thana;
-    map['city'] = city;
-    map['gender'] = gender;
-    map['address'] = address;
-    map['mobile'] = mobile;
-    map['email'] = email;
-    map['consulting_doctor'] = consultingDoctor;
-    map['doctor_contract_number'] = doctorContractNumber;
-    map['alternative_number'] = alternativeNumber;
-    map['password'] = password;
-    map['status'] = status;
-    map['land_mark'] = landMark;
+    map['patient_id'] = patientId;
+    map['date'] = date;
+    map['wound_location'] = woundLocation;
+    map['debridement'] = debridement;
+    map['solution'] = solution;
+    map['product_used'] = productUsed;
+    map['frequency'] = frequency;
+    map['next_date'] = nextDate;
     map['created_at'] = createdAt;
     map['updated_at'] = updatedAt;
     return map;
