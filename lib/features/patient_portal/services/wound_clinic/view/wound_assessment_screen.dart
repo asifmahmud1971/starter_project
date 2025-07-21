@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medPilot/core/components/custom_date_time_formatter.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_data.dart';
@@ -41,7 +42,7 @@ class _WoundAssessmentScreenState extends State<WoundAssessmentScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildHeader(assessment?.date ?? ""),
+                      _buildHeader(assessment?.date ?? "",index),
                       const SizedBox(height: 12),
                       if (assessment?.image != null)
                         GestureDetector(
@@ -91,8 +92,8 @@ class _WoundAssessmentScreenState extends State<WoundAssessmentScreen> {
     );
   }
 
-  Widget _buildHeader(String date) {
-    return Text('Assessment: $date',
+  Widget _buildHeader(String date,int index) {
+    return Text('Assessment- ${index+1}: ${date.dateMonthYear}',
         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold));
   }
 
