@@ -23,6 +23,6 @@ Future<Either<ApiFailure, PatientList>> getPatient(
       Map<String, dynamic> params);
 Future<Either<ApiFailure, AttendanceModel>> getAttendanceData(
       Map<String, dynamic> params);
-
+Future<Either<ApiFailure, dynamic>> taskStatusUpdate(String? type,int? id);
 
 }

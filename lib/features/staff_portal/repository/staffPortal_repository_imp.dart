@@ -50,9 +50,9 @@ class StaffPortalRepositoryImp implements StaffPortalRepository {
       fromJson: StaffPrescription.fromJson,
     );
   }
+
   @override
-  Future<Either<ApiFailure, TaskModel>> getTask(
-      Map<String, dynamic> params) {
+  Future<Either<ApiFailure, TaskModel>> getTask(Map<String, dynamic> params) {
     return apiRequest.performRequest(
       url: ApiUrls.staffTask,
       method: Method.get,
@@ -60,7 +60,8 @@ class StaffPortalRepositoryImp implements StaffPortalRepository {
       fromJson: TaskModel.fromJson,
     );
   }
-@override
+
+  @override
   Future<Either<ApiFailure, PatientList>> getPatient(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -70,14 +71,22 @@ class StaffPortalRepositoryImp implements StaffPortalRepository {
       fromJson: PatientList.fromJson,
     );
   }
-@override
+
+  @override
   Future<Either<ApiFailure, AttendanceModel>> getAttendanceData(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
       url: ApiUrls.attendanceStaff,
       method: Method.get,
       params: params,
-      fromJson: AttendanceModel.fromJson,
+    );
+  }
+
+  @override
+  Future<Either<ApiFailure, dynamic>> taskStatusUpdate(String? type, int? id) {
+    return apiRequest.performRequest(
+      url: ApiUrls.taskStatusUpdate(type, id),
+      method: Method.get,
     );
   }
 }

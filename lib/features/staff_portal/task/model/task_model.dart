@@ -86,17 +86,20 @@ class StaffTasks {
 
 class StatusOptions {
   StatusOptions({
-      this.label, 
-      this.value, 
+      this.id,
+      this.label,
+      this.value,
       this.url, 
       this.selected,});
 
   StatusOptions.fromJson(dynamic json) {
+    id = json['id'];
     label = json['label'];
     value = json['value'];
     url = json['url'];
     selected = json['selected'];
   }
+  dynamic id;
   String? label;
   num? value;
   String? url;
@@ -104,6 +107,7 @@ class StatusOptions {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['id'] = id;
     map['label'] = label;
     map['value'] = value;
     map['url'] = url;

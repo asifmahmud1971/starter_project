@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/components/custom_progress_loader.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/procedure_model.dart';
@@ -35,4 +37,29 @@ class TaskCubit extends Cubit<TaskState> {
       dismissProgressDialog();
     }
   }
+  Future<void> updateTaskData({String? type, int? id}) async {
+    showProgressDialog();
+    emit(state.copyWith(
+        appStatus: AppStatus.loading));
+    try {
+      final response = await staffPortalRepository.taskStatusUpdate(type,id);
+
+      response.fold(
+        (failure) {},
+        (data) async {
+          ScaffoldMessenger.of(GetContext.context).showSnackBar(
+            SnackBar(content: Text('Updating status to $type')),
+          );
+          emit(state.copyWith(appStatus: AppStatus.success));
+        },
+      );
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+    }
+  }
+
+
+
 }

@@ -81,6 +81,13 @@ class ApiUrls {
   static const String telePackage = 'tele-package';
   static const String upgradeTelePackage = 'upgrade-tele-package';
 
-
-
+  static String taskStatusUpdate(String? type,int? id){
+    if(type == "Pending"){
+      return "status-pending/$id";
+    }else if(type == "Start Work"){
+      return "status-start-work/$id";
+    }else{
+      return "status-complete/$id";
+    }
+  }
 }

@@ -19,17 +19,17 @@ class TaskManagementScreen extends StatefulWidget {
 
 class _TaskManagementScreenState extends State<TaskManagementScreen> {
 
+  TaskCubit? taskCubit;
+
   @override
   void initState() {
     super.initState();
-
+    taskCubit = context.read<TaskCubit>();
     context.read<TaskCubit>().getTaskData();
   }
 
   void _updateTaskStatus(StatusOptions option) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Updating status to ${option.label}')),
-    );
+    taskCubit?.updateTaskData(type: option.label,id: option.id);
   }
 
   @override
@@ -71,70 +71,6 @@ class _TaskManagementScreenState extends State<TaskManagementScreen> {
   }
 }
 
-// File: models/task_model.dart
-class TaskResponse {
-  final bool success;
-  final String token;
-  final String tokenType;
-  final List<Task> tasks;
-
-  TaskResponse({required this.success, required this.token, required this.tokenType, required this.tasks});
-
-  factory TaskResponse.sample() {
-    return TaskResponse(
-      success: true,
-      token: "token",
-      tokenType: "Bearer",
-      tasks: [
-        Task(
-          taskId: 1,
-          title: "Design UI",
-          description: "Create mobile UI",
-          assignDate: "21-06-2025",
-          lastDate: "30-06-2025",
-          status: "0",
-          statusOptions: [
-            StatusOption(label: "Pending", value: 0, url: "", selected: true),
-            StatusOption(label: "Start Work", value: 1, url: "", selected: false),
-            StatusOption(label: "Complete", value: 2, url: "", selected: false),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class Task {
-  final int taskId;
-  final String title;
-  final String description;
-  final String assignDate;
-  final String lastDate;
-  final String status;
-  final List<StatusOption> statusOptions;
-
-  Task({
-    required this.taskId,
-    required this.title,
-    required this.description,
-    required this.assignDate,
-    required this.lastDate,
-    required this.status,
-    required this.statusOptions,
-  });
-
-  StatusOption? get selectedStatusOption =>
-      statusOptions.firstWhere((o) => o.selected, orElse: () => statusOptions[0]);
-}
-
-class StatusOption {
-  final String label;
-  final int value;
-  final String url;
-  final bool selected;
-
-  StatusOption({required this.label, required this.value, required this.url, required this.selected});
-}
 
 
 
