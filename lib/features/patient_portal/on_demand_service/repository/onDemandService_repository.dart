@@ -39,6 +39,8 @@ abstract class OnDemandServiceRepository {
       Map<String, dynamic> params);
   Future<Either<ApiFailure, AmbulanceResponse>> getAmbulance(
       Map<String, dynamic> params);
+  Future<Either<ApiFailure, dynamic>> addAmbulance(
+      Map<String, dynamic> params);
   Future<Either<ApiFailure, CurrentTelePackageResponse>> getCurrentTelePackage(
       Map<String, dynamic> params);
   Future<Either<ApiFailure, TelePackageResponse>> getTelePackage(

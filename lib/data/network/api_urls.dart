@@ -53,6 +53,7 @@ class ApiUrls {
   static const String homeVisit = 'home-visit';
   static const String procedure = 'procedure';
   static const String inPatientPackage = 'in-patient-package';
+  static const String saveAmbulance = 'save-ambulance';
   static const String city = 'city';
   static const String thana = 'thana';
   static const String reportPsychoSocial = 'report-psycho-social';

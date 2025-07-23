@@ -133,7 +133,8 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       method: Method.post,
       params: params,
     );
-  }
+  }  @override
+
   @override
   Future<Either<ApiFailure, ConsultantsResponse>> getConsultants(
       Map<String, dynamic> params) async {
@@ -162,6 +163,15 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       method: Method.get,
       params: params,
       fromJson: AmbulanceResponse.fromJson,
+    );
+  }
+
+  Future<Either<ApiFailure, dynamic>> addAmbulance(
+      Map<String, dynamic> params) async {
+    return apiRequest.performRequest(
+      url: ApiUrls.saveAmbulance,
+      method: Method.post,
+      params: params,
     );
   }
   @override

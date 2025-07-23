@@ -26,7 +26,9 @@ class WoundData {
     this.painScore,
     this.type,
     this.createdAt,
-    this.updatedAt,});
+    this.updatedAt,
+    this.descriptions
+  });
 
   WoundData.fromJson(dynamic json) {
     id = json['id'];
@@ -52,6 +54,12 @@ class WoundData {
     type = json['type'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    if (json['descriptions'] != null) {
+      descriptions = <Descriptions>[];
+      json['descriptions'].forEach((v) {
+        descriptions!.add(new Descriptions.fromJson(v));
+      });
+    }
   }
   num? id;
   dynamic companyId;
@@ -76,6 +84,7 @@ class WoundData {
   dynamic type;
   String? createdAt;
   String? updatedAt;
+  List<Descriptions>? descriptions;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -102,7 +111,67 @@ class WoundData {
     map['type'] = type;
     map['created_at'] = createdAt;
     map['updated_at'] = updatedAt;
+    if (descriptions != null) {
+      map['descriptions'] = descriptions!.map((v) => v.toJson()).toList();
+    }
     return map;
   }
+}
 
+
+class Descriptions {
+  int? id;
+  String? assId;
+  String? companyId;
+  String? patientId;
+  String? date;
+  String? location;
+  String? site;
+  String? occured;
+  String? patternOfWound;
+  String? createdAt;
+  String? updatedAt;
+
+  Descriptions(
+      {this.id,
+        this.assId,
+        this.companyId,
+        this.patientId,
+        this.date,
+        this.location,
+        this.site,
+        this.occured,
+        this.patternOfWound,
+        this.createdAt,
+        this.updatedAt});
+
+  Descriptions.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    assId = json['ass_id'];
+    companyId = json['company_id'];
+    patientId = json['patient_id'];
+    date = json['date'];
+    location = json['location'];
+    site = json['site'];
+    occured = json['occured'];
+    patternOfWound = json['pattern_of_wound'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = id;
+    data['ass_id'] = assId;
+    data['company_id'] = companyId;
+    data['patient_id'] = patientId;
+    data['date'] = date;
+    data['location'] = location;
+    data['site'] = site;
+    data['occured'] = occured;
+    data['pattern_of_wound'] = patternOfWound;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    return data;
+  }
 }
