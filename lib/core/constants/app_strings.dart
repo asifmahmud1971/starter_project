@@ -125,5 +125,8 @@ class AppStrings {
   static const String daysRemaining = 'days_remaining';
   static const String updatingStatus = 'updating_status';
   static const String attendance = 'Attendance';
+  static const String myPackage = 'My Package';
+  static const String onDemandService = 'On-Demand Service';
+  static const String latestArticle = 'Latest article';
 
 }

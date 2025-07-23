@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/components/common_background.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/home/cubit/home_cubit.dart';
 import 'package:medPilot/features/patient_portal/home/helper/dummy_slider_list.dart';
@@ -69,9 +71,9 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                     labelStyle: kTitleMedium,
                     dividerColor: Colors.transparent,
                     dividerHeight: 0.h,
-                    tabs: const [
-                      Tab(text: 'My Package'),
-                      Tab(text: 'On-Demand Service'),
+                    tabs:  [
+                      Tab(text: AppStrings.myPackage.tr()),
+                      Tab(text: AppStrings.onDemandService.tr()),
                     ],
                     indicatorColor: AppColors.kPrimaryColor,
                     labelColor: AppColors.kPrimaryColor,
