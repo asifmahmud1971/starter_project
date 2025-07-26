@@ -64,7 +64,4 @@ class TaskCubit extends Cubit<TaskState> {
       dismissProgressDialog();
     }
   }
-
-
-
 }
