@@ -5,10 +5,12 @@ import 'package:medPilot/data/network/api_failure.dart';
 import 'package:medPilot/data/network/api_request.dart';
 import 'package:medPilot/data/network/api_urls.dart';
 import 'package:medPilot/features/staff_portal/attendence/model/attendance_model.dart';
+import 'package:medPilot/features/staff_portal/medicine_alert/model/medicineAlertGiven.dart';
 import 'package:medPilot/features/staff_portal/medicine_alert/model/medicine_alert_model.dart';
 import 'package:medPilot/features/staff_portal/pescription/model/patient_list.dart';
 import 'package:medPilot/features/staff_portal/pescription/model/staff_pescription.dart';
 import 'package:medPilot/features/staff_portal/roaster/model/roster_model.dart';
+import 'package:medPilot/features/staff_portal/task/model/task_data.dart';
 import 'package:medPilot/features/staff_portal/task/model/task_model.dart';
 import 'staffPortal_repository.dart';
 
@@ -83,10 +85,29 @@ class StaffPortalRepositoryImp implements StaffPortalRepository {
   }
 
   @override
-  Future<Either<ApiFailure, dynamic>> taskStatusUpdate(String? type, int? id) {
+  Future<Either<ApiFailure, TaskData>> taskStatusUpdate(String? type, int? id) {
     return apiRequest.performRequest(
       url: ApiUrls.taskStatusUpdate(type, id),
       method: Method.get,
+      fromJson: TaskData.fromJson,
     );
   }
+  @override
+  Future<Either<ApiFailure, MedicineAlertGiven>> markAsMedicineGiven(int? id) {
+    return apiRequest.performRequest(
+      url: ApiUrls.markAsMedicineGiven(id),
+      method: Method.get,
+      fromJson: MedicineAlertGiven.fromJson,
+    );
+  }
+   @override
+  Future<Either<ApiFailure, MedicineAlertGiven>> markAsMedicineNotGiven(int? id) {
+    return apiRequest.performRequest(
+      url: ApiUrls.markAsMedicineNotGiven(id),
+      method: Method.get,
+      fromJson: MedicineAlertGiven.fromJson,
+    );
+  }
+
+
 }

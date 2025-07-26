@@ -90,4 +90,10 @@ class ApiUrls {
       return "status-complete/$id";
     }
   }
+  static String markAsMedicineGiven(int? id){
+      return "given-medicine/$id";
+  }
+  static String markAsMedicineNotGiven(int? id){
+      return "not-given-medicine/$id";
+  }
 }

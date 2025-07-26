@@ -61,7 +61,7 @@ class MedicineCardWidget extends StatelessWidget {
             SizedBox(height: 16.h),
             alert.status != null
                 ? GivenStatusWidget(status: alert.status!)
-                : ActionButtons(actions: alert.actions),
+                : ActionButtons(actions: alert.actions,id: alert.id,),
           ],
         ),
       ),

@@ -50,7 +50,12 @@ class TaskCubit extends Cubit<TaskState> {
           ScaffoldMessenger.of(GetContext.context).showSnackBar(
             SnackBar(content: Text('Updating status to $type')),
           );
-          emit(state.copyWith(appStatus: AppStatus.success));
+          emit(state.copyWith(
+              appStatus: AppStatus.initial));
+          final index = state.taskModel?.tasks?.indexWhere((e)=>e.taskId == data.data?.taskId);
+
+          state.taskModel?.tasks?[index??0] = data.data??StaffTasks();
+          emit(state.copyWith(appStatus: AppStatus.success,taskModel: state.taskModel));
         },
       );
 

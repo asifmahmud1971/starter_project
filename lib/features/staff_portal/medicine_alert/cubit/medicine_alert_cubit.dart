@@ -1,3 +1,6 @@
+
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -26,6 +29,11 @@ class MedicineAlertCubit extends Cubit<MedicineAlertState> {
       response.fold(
             (failure) {},
             (data) async {
+
+              data.alerts?.map((e){
+                log("Alert id: ${e.id}");
+              });
+
           emit(state.copyWith(appStatus: AppStatus.success, medicineAlertModel: data));
         },
       );
@@ -35,6 +43,50 @@ class MedicineAlertCubit extends Cubit<MedicineAlertState> {
       dismissProgressDialog();
     }
   }
+   Future<void> markAsMedicineGiven(id) async {
+    showProgressDialog();
+    emit(state.copyWith(
+        appStatus: AppStatus.loading));
+    try {
+      final response = await staffPortalRepository.markAsMedicineGiven(id);
+
+      response.fold(
+            (failure) {},
+            (data) async {
+              final index = state.medicineAlertModel?.alerts?.indexWhere((e)=>e.id == id);
+              state.medicineAlertModel?.alerts?[index??0].status = data.data;
+
+          emit(state.copyWith(appStatus: AppStatus.success,medicineAlertModel: state.medicineAlertModel));
+        },
+      );
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+    }
+  }
+   Future<void> markAsMedicineNotGiven(id) async {
+    showProgressDialog();
+    emit(state.copyWith(
+        appStatus: AppStatus.loading));
+    try {
+      final response = await staffPortalRepository.markAsMedicineNotGiven(id);
+
+      response.fold(
+            (failure) {},
+            (data) async {
+          emit(state.copyWith(appStatus: AppStatus.success));
+        },
+      );
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+    }
+  }
+
+
+
 
 
 }

@@ -37,6 +37,7 @@ class MedicineAlertModel {
 
 class Alerts {
   Alerts({
+    this.id,
     this.medicine,
     this.dose,
     this.time,
@@ -45,6 +46,7 @@ class Alerts {
   });
 
   Alerts.fromJson(dynamic json) {
+    id = json['alert_id'];
     medicine = json['medicine'];
     dose = json['dose'];
     time = json['time'];
@@ -52,7 +54,7 @@ class Alerts {
     actions =
     json['actions'] != null ? MedicineAlertActions.fromJson(json['actions']) : null;
   }
-
+  num? id;
   String? medicine;
   String? dose;
   String? time;
@@ -61,6 +63,7 @@ class Alerts {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['alert_id'] = id;
     map['medicine'] = medicine;
     map['dose'] = dose;
     map['time'] = time;
@@ -114,7 +117,7 @@ class MedicineAlertStatus {
     id = json['id'];
     patientId = json['patient_id'];
     medicineId = json['medicine_id'];
-    taskId = json['task_id'];
+    taskId = json['task_id'].toString();
     date = json['date'];
     staffId = json['staff_id'];
     yes = json['yes'];

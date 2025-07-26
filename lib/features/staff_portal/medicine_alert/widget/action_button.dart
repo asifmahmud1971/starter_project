@@ -1,15 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/staff_portal/medicine_alert/cubit/medicine_alert_cubit.dart';
 import 'package:medPilot/features/staff_portal/medicine_alert/model/medicine_alert_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ActionButtons extends StatelessWidget {
   final MedicineAlertActions? actions;
-  const ActionButtons({super.key, required this.actions});
+  final num? id;
+  const ActionButtons({super.key, required this.actions, this.id});
 
   Future<void> _launchUrl(BuildContext context, String url) async {
     final uri = Uri.parse(url);
@@ -42,9 +45,11 @@ class ActionButtons extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              if (actions != null) {
+              context.read<MedicineAlertCubit>().markAsMedicineGiven(id);
+
+              /*if (actions != null) {
                 _launchUrl(context, actions!.givenUrl as String);
-              }
+              }*/
             },
           ),
         ),
@@ -65,9 +70,10 @@ class ActionButtons extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              if (actions != null) {
+              context.read<MedicineAlertCubit>().markAsMedicineGiven(id);
+              /*if (actions != null) {
                 _launchUrl(context, actions!.notGivenUrl as String);
-              }
+              }*/
             },
           ),
         ),
