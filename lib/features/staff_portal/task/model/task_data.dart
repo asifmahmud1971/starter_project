@@ -2,10 +2,11 @@ import 'package:medPilot/features/staff_portal/task/model/task_model.dart';
 
 class TaskData {
   TaskData({
-      this.success, 
-      this.token, 
-      this.tokenType, 
-      this.data,});
+    this.success,
+    this.token,
+    this.tokenType,
+    this.data,
+  });
 
   TaskData.fromJson(dynamic json) {
     success = json['success'];
@@ -13,6 +14,7 @@ class TaskData {
     tokenType = json['token_type'];
     data = json['data'] != null ? StaffTasks.fromJson(json['data']) : null;
   }
+
   bool? success;
   String? token;
   String? tokenType;
@@ -28,6 +30,4 @@ class TaskData {
     }
     return map;
   }
-
 }
-

@@ -7,10 +7,10 @@ class InvestigationsResponse {
 
   InvestigationsResponse(
       {this.success,
-        this.patientInfo,
-        this.investigations,
-        this.token,
-        this.tokenType});
+      this.patientInfo,
+      this.investigations,
+      this.token,
+      this.tokenType});
 
   InvestigationsResponse.fromJson(Map<String, dynamic> json) {
     success = json['success'];
@@ -34,8 +34,7 @@ class InvestigationsResponse {
       data['patient_info'] = patientInfo!.toJson();
     }
     if (investigations != null) {
-      data['investigations'] =
-          investigations!.map((v) => v.toJson()).toList();
+      data['investigations'] = investigations!.map((v) => v.toJson()).toList();
     }
     data['token'] = token;
     data['token_type'] = tokenType;
@@ -69,27 +68,27 @@ class PatientInfo {
 
   PatientInfo(
       {this.id,
-        this.companyId,
-        this.regNo,
-        this.userId,
-        this.branchId,
-        this.name,
-        this.dob,
-        this.age,
-        this.thana,
-        this.city,
-        this.gender,
-        this.address,
-        this.mobile,
-        this.email,
-        this.consultingDoctor,
-        this.doctorContractNumber,
-        this.alternativeNumber,
-        this.password,
-        this.status,
-        this.landMark,
-        this.createdAt,
-        this.updatedAt});
+      this.companyId,
+      this.regNo,
+      this.userId,
+      this.branchId,
+      this.name,
+      this.dob,
+      this.age,
+      this.thana,
+      this.city,
+      this.gender,
+      this.address,
+      this.mobile,
+      this.email,
+      this.consultingDoctor,
+      this.doctorContractNumber,
+      this.alternativeNumber,
+      this.password,
+      this.status,
+      this.landMark,
+      this.createdAt,
+      this.updatedAt});
 
   PatientInfo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -154,11 +153,11 @@ class Investigations {
 
   Investigations(
       {this.date,
-        this.category,
-        this.result,
-        this.range,
-        this.unit,
-        this.type});
+      this.category,
+      this.result,
+      this.range,
+      this.unit,
+      this.type});
 
   Investigations.fromJson(Map<String, dynamic> json) {
     date = json['date'];

@@ -6,25 +6,30 @@ import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart';
 
 import 'build_smart_dropdown_widget.dart';
+
 class BuildFunctionalStatusCard extends StatefulWidget {
   final String? functionalStatus;
   final String? painStatus;
   final Function(String?)? onChange;
 
-  const BuildFunctionalStatusCard({super.key, this.functionalStatus, this.onChange, this.painStatus});
+  const BuildFunctionalStatusCard(
+      {super.key, this.functionalStatus, this.onChange, this.painStatus});
 
   @override
-  State<BuildFunctionalStatusCard> createState() => _BuildFunctionalStatusCardState();
+  State<BuildFunctionalStatusCard> createState() =>
+      _BuildFunctionalStatusCardState();
 }
 
 class _BuildFunctionalStatusCardState extends State<BuildFunctionalStatusCard> {
   final FollowUpCubit followUpCubit = GetContext.context.read<FollowUpCubit>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.white,
-          boxShadow: [AppColors.kBackGroundShadow],borderRadius: BorderRadius.circular(8.r)
-      ),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [AppColors.kBackGroundShadow],
+          borderRadius: BorderRadius.circular(8.r)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -34,7 +39,7 @@ class _BuildFunctionalStatusCardState extends State<BuildFunctionalStatusCard> {
               hint: 'Select Functional Status',
               items: followUpCubit.functionalList,
               icon: Icons.directions_walk,
-              onChanged:  (value) => setState(() {
+              onChanged: (value) => setState(() {
                 followUpCubit.functionalStatus = value;
               }),
             ),
@@ -44,7 +49,7 @@ class _BuildFunctionalStatusCardState extends State<BuildFunctionalStatusCard> {
               hint: 'Select Pain',
               items: followUpCubit.painList,
               icon: Icons.air,
-              onChanged:  (value) => setState(() {
+              onChanged: (value) => setState(() {
                 followUpCubit.pain = value;
               }),
             )

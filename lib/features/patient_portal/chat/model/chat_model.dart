@@ -8,10 +8,10 @@ class Message {
   final String? userImageUrl;
   final String? userName;
 
-  Message( {
-     this.text,
-     this.time,
-     this.isSentByMe,
+  Message({
+    this.text,
+    this.time,
+    this.isSentByMe,
     this.status = MessageStatus.sent,
     this.userImageUrl,
     this.userName,

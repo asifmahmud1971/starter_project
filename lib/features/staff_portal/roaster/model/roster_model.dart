@@ -1,9 +1,10 @@
 class RosterModel {
   RosterModel({
-      this.success, 
-      this.rosters, 
-      this.token, 
-      this.tokenType,});
+    this.success,
+    this.rosters,
+    this.token,
+    this.tokenType,
+  });
 
   RosterModel.fromJson(dynamic json) {
     success = json['success'];
@@ -16,6 +17,7 @@ class RosterModel {
     token = json['token'];
     tokenType = json['token_type'];
   }
+
   bool? success;
   List<Rosters>? rosters;
   String? token;
@@ -31,15 +33,15 @@ class RosterModel {
     map['token_type'] = tokenType;
     return map;
   }
-
 }
 
 class Rosters {
   Rosters({
-      this.date, 
-      this.label, 
-      this.isToday, 
-      this.entries,});
+    this.date,
+    this.label,
+    this.isToday,
+    this.entries,
+  });
 
   Rosters.fromJson(dynamic json) {
     date = json['date'];
@@ -52,6 +54,7 @@ class Rosters {
       });
     }
   }
+
   String? date;
   String? label;
   bool? isToday;
@@ -67,19 +70,19 @@ class Rosters {
     }
     return map;
   }
-
 }
 
 class RosterEntries {
   RosterEntries({
-      this.type, 
-      this.startTime, 
-      this.endTime, 
-      this.shiftName, 
-      this.staffName, 
-      this.designation, 
-      this.workTime, 
-      this.location,});
+    this.type,
+    this.startTime,
+    this.endTime,
+    this.shiftName,
+    this.staffName,
+    this.designation,
+    this.workTime,
+    this.location,
+  });
 
   RosterEntries.fromJson(dynamic json) {
     type = json['type'];
@@ -91,6 +94,7 @@ class RosterEntries {
     workTime = json['work_time'];
     location = json['location'];
   }
+
   String? type;
   String? startTime;
   String? endTime;
@@ -112,5 +116,4 @@ class RosterEntries {
     map['location'] = location;
     return map;
   }
-
 }

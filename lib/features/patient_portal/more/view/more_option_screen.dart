@@ -73,7 +73,7 @@ class _MoreOptionScreenState extends State<MoreOptionScreen> {
                     color: AppColors.kGrayColor300,
                   ),
                   _buildSettingsItem(
-                    onTap: (){
+                    onTap: () {
                       GetContext.to(PaymentScreen());
                     },
                     icon: FontAwesomeIcons.creditCard,

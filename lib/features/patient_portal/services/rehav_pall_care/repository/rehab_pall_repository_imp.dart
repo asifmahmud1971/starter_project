@@ -7,7 +7,7 @@ import '../model/rehab_pall_video_response.dart';
 abstract class RehabPallRepositoryImp {
   Future<Either<ApiFailure, RehabPallCareResponse>> getRehabPall(
       Map<String, dynamic> params);
-  Future<Either<ApiFailure, RehabPallVideoResponse>> getRehabPallVideo(
-      Map<String, dynamic> params,int id);
-}
 
+  Future<Either<ApiFailure, RehabPallVideoResponse>> getRehabPallVideo(
+      Map<String, dynamic> params, int id);
+}

@@ -50,10 +50,14 @@ class Alerts {
     medicine = json['medicine'];
     dose = json['dose'];
     time = json['time'];
-    status = json['status'] != null ? MedicineAlertStatus.fromJson(json['status']) : null;
-    actions =
-    json['actions'] != null ? MedicineAlertActions.fromJson(json['actions']) : null;
+    status = json['status'] != null
+        ? MedicineAlertStatus.fromJson(json['status'])
+        : null;
+    actions = json['actions'] != null
+        ? MedicineAlertActions.fromJson(json['actions'])
+        : null;
   }
+
   num? id;
   String? medicine;
   String? dose;

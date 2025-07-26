@@ -3,13 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart';
+
 import '../../../../../core/app/app_context.dart';
 
 class BuildPhysicalSymptomsCard extends StatefulWidget {
   const BuildPhysicalSymptomsCard({super.key});
 
   @override
-  State<BuildPhysicalSymptomsCard> createState() => _BuildPhysicalSymptomsCardState();
+  State<BuildPhysicalSymptomsCard> createState() =>
+      _BuildPhysicalSymptomsCardState();
 }
 
 class _BuildPhysicalSymptomsCardState extends State<BuildPhysicalSymptomsCard> {
@@ -20,9 +22,9 @@ class _BuildPhysicalSymptomsCardState extends State<BuildPhysicalSymptomsCard> {
     return Container(
       width: 1.sw,
       decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [AppColors.kBackGroundShadow],
-          borderRadius: BorderRadius.circular(8.r),
+        color: Colors.white,
+        boxShadow: [AppColors.kBackGroundShadow],
+        borderRadius: BorderRadius.circular(8.r),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -40,21 +42,18 @@ class _BuildPhysicalSymptomsCardState extends State<BuildPhysicalSymptomsCard> {
                     setState(() {
                       followUpCubit.physicalSymptoms[symptom] = selected;
                       if (selected && symptom == 'No Complain') {
-                        for (var key in followUpCubit.physicalSymptoms
-                            .keys) {
+                        for (var key in followUpCubit.physicalSymptoms.keys) {
                           if (key != 'No Complain') {
                             followUpCubit.physicalSymptoms[key] = false;
                           }
                         }
                       } else if (selected && symptom != 'No Complain') {
-                        followUpCubit.physicalSymptoms['No Complain'] =
-                        false;
+                        followUpCubit.physicalSymptoms['No Complain'] = false;
                       }
                     });
                   },
                   checkmarkColor: AppColors.kPrimaryColor,
-                  selectedColor: AppColors.kPrimaryColor.withValues(
-                      alpha: 0.2),
+                  selectedColor: AppColors.kPrimaryColor.withValues(alpha: 0.2),
                   backgroundColor: Colors.grey.shade100,
                   labelStyle: TextStyle(
                     color: followUpCubit.physicalSymptoms[symptom]!

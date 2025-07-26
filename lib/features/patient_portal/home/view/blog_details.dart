@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/components/custom_image.dart';
@@ -7,6 +7,7 @@ import 'package:medPilot/features/patient_portal/home/model/blog_model.dart';
 
 class BlogDetailScreen extends StatelessWidget {
   final BlogData? blogData;
+
   const BlogDetailScreen({super.key, this.blogData});
 
   @override
@@ -23,7 +24,10 @@ class BlogDetailScreen extends StatelessWidget {
             expandedHeight: 300,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              background: CustomImage(baseUrl: blogData?.image,fit: BoxFit.cover,),
+              background: CustomImage(
+                baseUrl: blogData?.image,
+                fit: BoxFit.cover,
+              ),
             ),
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(40),
@@ -50,7 +54,7 @@ class BlogDetailScreen extends StatelessWidget {
                 children: [
                   // Title
                   Text(
-                    blogData?.title??"",
+                    blogData?.title ?? "",
                     style: textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.w800,
                       height: 1.3,
@@ -77,7 +81,8 @@ class BlogDetailScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            DateFormat('MMM dd, yyyy').format(DateTime.parse(blogData?.date??"")),
+                            DateFormat('MMM dd, yyyy')
+                                .format(DateTime.parse(blogData?.date ?? "")),
                             style: textTheme.bodySmall?.copyWith(
                               color: theme.hintColor,
                             ),
@@ -99,7 +104,7 @@ class BlogDetailScreen extends StatelessWidget {
 
                   // Article Content
                   Text(
-                    blogData?.description??"",
+                    blogData?.description ?? "",
                     style: textTheme.bodyLarge?.copyWith(
                       height: 1.6,
                       fontSize: 16,
@@ -114,7 +119,6 @@ class BlogDetailScreen extends StatelessWidget {
       ),
 
       // Floating Action Button for Reading Options
-
     );
   }
 
@@ -127,7 +131,10 @@ class BlogDetailScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Theme.of(GetContext.context).colorScheme.primaryContainer.withOpacity(0.2),
+        color: Theme.of(GetContext.context)
+            .colorScheme
+            .primaryContainer
+            .withOpacity(0.2),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -135,28 +142,34 @@ class BlogDetailScreen extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.lightbulb_outline,
+              Icon(
+                Icons.lightbulb_outline,
                 color: Theme.of(GetContext.context).colorScheme.primary,
               ),
               const SizedBox(width: 10),
               Text(
                 'Key Takeaways',
-                style: Theme.of(GetContext.context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
+                style:
+                    Theme.of(GetContext.context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
               ),
             ],
           ),
           const SizedBox(height: 16),
-          const _TakeawayItem(text: 'Magnesium is essential for cardiovascular health, nerves, muscles and bones'),
+          const _TakeawayItem(
+              text:
+                  'Magnesium is essential for cardiovascular health, nerves, muscles and bones'),
           const _TakeawayItem(text: 'Adults need 320-420mg of magnesium daily'),
-          const _TakeawayItem(text: 'Most people get enough magnesium through a healthy diet'),
-          const _TakeawayItem(text: 'Supplements may benefit those with deficiencies or pregnancy complications'),
+          const _TakeawayItem(
+              text: 'Most people get enough magnesium through a healthy diet'),
+          const _TakeawayItem(
+              text:
+                  'Supplements may benefit those with deficiencies or pregnancy complications'),
         ],
       ),
     );
   }
-
 
   Widget _buildRelatedArticles() {
     return Column(
@@ -165,8 +178,8 @@ class BlogDetailScreen extends StatelessWidget {
         Text(
           'Related Articles',
           style: Theme.of(GetContext.context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
+                fontWeight: FontWeight.w600,
+              ),
         ),
         const SizedBox(height: 16),
         SizedBox(
@@ -175,7 +188,8 @@ class BlogDetailScreen extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             children: const [
               _RelatedArticleCard(
-                title: 'Counting steps is good — is combining steps and heart rate better?',
+                title:
+                    'Counting steps is good — is combining steps and heart rate better?',
                 image: 'app_service/blog/2025-07-0711:20:20.jpg',
               ),
               _RelatedArticleCard(
@@ -206,8 +220,8 @@ class _TakeawayItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.circle, size: 8,
-              color: Theme.of(context).colorScheme.primary),
+          Icon(Icons.circle,
+              size: 8, color: Theme.of(context).colorScheme.primary),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
@@ -263,8 +277,8 @@ class _RelatedArticleCard extends StatelessWidget {
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+                  fontWeight: FontWeight.w600,
+                ),
           ),
         ],
       ),

@@ -39,7 +39,10 @@ class MedicationCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                CustomSvg(icon: Assets.medMedicine,size: 30.r,),
+                CustomSvg(
+                  icon: Assets.medMedicine,
+                  size: 30.r,
+                ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(

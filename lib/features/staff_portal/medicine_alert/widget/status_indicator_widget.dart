@@ -4,7 +4,12 @@ class StatusIndicator extends StatelessWidget {
   final String label;
   final int count;
   final Color color;
-  const StatusIndicator({super.key, required this.label, required this.count, required this.color});
+
+  const StatusIndicator(
+      {super.key,
+      required this.label,
+      required this.count,
+      required this.color});
 
   @override
   Widget build(BuildContext context) {

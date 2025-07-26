@@ -1,24 +1,21 @@
-import 'package:medPilot/core/constants/strings.dart';
-
 class Product {
-  Product({
-    this.id,
-    this.companyId,
-    this.cityId,
-    this.projectId,
-    this.incomeHeadId,
-    this.incomeSubcategoryId,
-    this.image,
-    this.description,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
-    this.productName,
-    this.price,
-    this.productId,
-    this.categoryId,
-    this.type
-  });
+  Product(
+      {this.id,
+      this.companyId,
+      this.cityId,
+      this.projectId,
+      this.incomeHeadId,
+      this.incomeSubcategoryId,
+      this.image,
+      this.description,
+      this.status,
+      this.createdAt,
+      this.updatedAt,
+      this.productName,
+      this.price,
+      this.productId,
+      this.categoryId,
+      this.type});
 
   Product.fromJson(dynamic json) {
     id = json['id'];
@@ -38,6 +35,7 @@ class Product {
     categoryId = json['category_id'];
     type = json['type'];
   }
+
   int? id;
   String? companyId;
   dynamic cityId;
@@ -75,5 +73,4 @@ class Product {
     data['type'] = type;
     return data;
   }
-
 }

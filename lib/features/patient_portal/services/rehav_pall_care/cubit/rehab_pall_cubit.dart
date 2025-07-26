@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:medPilot/core/app/app_context.dart';
@@ -13,9 +12,10 @@ import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/services/rehav_pall_care/model/rehab_pall_care_response.dart';
 import 'package:medPilot/features/patient_portal/services/rehav_pall_care/repository/rehab_pall_repository_imp.dart';
+
 import '../../../../../core/constants/app_strings.dart';
 import '../model/rehab_pall_video_response.dart';
-import '../repository/rehab_pall_repository.dart';
+
 part 'rehab_pall_state.dart';
 
 @injectable
@@ -43,7 +43,8 @@ class RehabPallCubit extends Cubit<RehabPallState> {
           emit(state.copyWith(appStatus: AppStatus.failure));
         },
         (r) async {
-          emit(state.copyWith(appStatus: AppStatus.success,rehabPallCareResponse: r));
+          emit(state.copyWith(
+              appStatus: AppStatus.success, rehabPallCareResponse: r));
         },
       );
       dismissProgressDialog();
@@ -60,7 +61,7 @@ class RehabPallCubit extends Cubit<RehabPallState> {
 
     try {
       final formData = <String, dynamic>{};
-      final response = await _profileRepository.getRehabPallVideo(formData,1);
+      final response = await _profileRepository.getRehabPallVideo(formData, 1);
 
       response.fold(
         (l) {
@@ -72,7 +73,8 @@ class RehabPallCubit extends Cubit<RehabPallState> {
           emit(state.copyWith(appStatus: AppStatus.failure));
         },
         (r) async {
-          emit(state.copyWith(appStatus: AppStatus.success,rehabPallVideoResponse: r));
+          emit(state.copyWith(
+              appStatus: AppStatus.success, rehabPallVideoResponse: r));
         },
       );
       dismissProgressDialog();

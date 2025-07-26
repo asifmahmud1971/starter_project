@@ -76,7 +76,10 @@ class _PaymentCardScreenState extends State<PaymentScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Payments',style: kTitleMedium.copyWith(color: Colors.white),),
+        title: Text(
+          'My Payments',
+          style: kTitleMedium.copyWith(color: Colors.white),
+        ),
         centerTitle: true,
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.white),
@@ -374,7 +377,10 @@ class _PaymentCardScreenState extends State<PaymentScreen> {
             _buildCardDetailRow('Provider:', payment['doctor']),
             _buildCardDetailRow(isDue ? 'Invoice Date:' : 'Paid Date:',
                 isDue ? payment['date'] : payment['paidDate']),
-            Divider(height: 24,color: AppColors.kGrayColor200,),
+            Divider(
+              height: 24,
+              color: AppColors.kGrayColor200,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -538,7 +544,6 @@ class _PaymentCardScreenState extends State<PaymentScreen> {
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-
         ));
   }
 

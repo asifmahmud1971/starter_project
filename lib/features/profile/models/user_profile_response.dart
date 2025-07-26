@@ -43,23 +43,23 @@ class ProfileDetails {
 
   ProfileDetails(
       {this.patientName,
-        this.dob,
-        this.gender,
-        this.phone,
-        this.doctorContactNo,
-        this.cityId,
-        this.thanaId,
-        this.presentAddress,
-        this.landMark,
-        this.permanentAddress,
-        this.bloodGroup,
-        this.maritalStatus,
-        this.nidPassport,
-        this.familyContactPerson,
-        this.relationFamilyContractPerson,
-        this.contactPersonNumber,
-        this.primaryDiagnosis,
-        this.allergy});
+      this.dob,
+      this.gender,
+      this.phone,
+      this.doctorContactNo,
+      this.cityId,
+      this.thanaId,
+      this.presentAddress,
+      this.landMark,
+      this.permanentAddress,
+      this.bloodGroup,
+      this.maritalStatus,
+      this.nidPassport,
+      this.familyContactPerson,
+      this.relationFamilyContractPerson,
+      this.contactPersonNumber,
+      this.primaryDiagnosis,
+      this.allergy});
 
   ProfileDetails.fromJson(Map<String, dynamic> json) {
     patientName = json['patient_name'];

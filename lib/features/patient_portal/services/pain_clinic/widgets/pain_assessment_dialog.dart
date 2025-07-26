@@ -8,6 +8,7 @@ import 'package:medPilot/features/patient_portal/services/pain_clinic/model/pain
 
 class PainAssessmentDialog extends StatelessWidget {
   final AllPainAssessment? entry;
+
   const PainAssessmentDialog({super.key, this.entry});
 
   @override
@@ -40,13 +41,16 @@ class PainAssessmentDialog extends StatelessWidget {
               ],
             ),
             16.verticalSpace,
-            _buildDetailItem(AppStrings.location.tr(), entry?.painLocation??""),
-            _buildDetailItem(AppStrings.radiation.tr(), entry?.radiation??""),
-            _buildDetailItem(AppStrings.severity.tr(), entry?.severity??""),
-            _buildDetailItem(AppStrings.pattern.tr(), entry?.changeOfTime??""),
             _buildDetailItem(
-                AppStrings.relievingFactor.tr(), entry?.relievingFactors??""),
-            _buildDetailItem(AppStrings.suspectedCause.tr(), entry?.causeOfPain??""),
+                AppStrings.location.tr(), entry?.painLocation ?? ""),
+            _buildDetailItem(AppStrings.radiation.tr(), entry?.radiation ?? ""),
+            _buildDetailItem(AppStrings.severity.tr(), entry?.severity ?? ""),
+            _buildDetailItem(
+                AppStrings.pattern.tr(), entry?.changeOfTime ?? ""),
+            _buildDetailItem(
+                AppStrings.relievingFactor.tr(), entry?.relievingFactors ?? ""),
+            _buildDetailItem(
+                AppStrings.suspectedCause.tr(), entry?.causeOfPain ?? ""),
             /*if (entry['notes'].isNotEmpty)
                   _buildDetailItem('Additional Notes', entry['notes']),*/
             24.verticalSpace,
@@ -78,7 +82,8 @@ class PainAssessmentDialog extends StatelessWidget {
         children: [
           Text(
             label,
-            style:  kRegular.copyWith(color: AppColors.kGrayColor500,fontSize: 12.sp),
+            style: kRegular.copyWith(
+                color: AppColors.kGrayColor500, fontSize: 12.sp),
           ),
           4.verticalSpace,
           Text(
@@ -89,7 +94,4 @@ class PainAssessmentDialog extends StatelessWidget {
       ),
     );
   }
-
-
-
 }

@@ -15,6 +15,7 @@ import 'package:medPilot/features/patient_portal/services/upload_document/model/
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/all_wound_data.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_describe_report_model.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_document_data.dart';
+
 import 'service_repository.dart';
 
 @Injectable(as: ServiceRepository)
@@ -22,7 +23,6 @@ class ServiceRepositoryImp implements ServiceRepository {
   ServiceRepositoryImp({required this.apiRequest});
 
   final ApiRequest apiRequest;
-
 
   @override
   Future<Either<ApiFailure, PrescriptionModel>> getPrescription(
@@ -33,7 +33,8 @@ class ServiceRepositoryImp implements ServiceRepository {
         params: params,
         fromJson: PrescriptionModel.fromJson);
   }
-@override
+
+  @override
   Future<Either<ApiFailure, FollowUpModel>> getFollowUp(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -42,7 +43,8 @@ class ServiceRepositoryImp implements ServiceRepository {
         params: params,
         fromJson: FollowUpModel.fromJson);
   }
-@override
+
+  @override
   Future<Either<ApiFailure, PainAssessmentModel>> getPainAssessment(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -62,8 +64,7 @@ class ServiceRepositoryImp implements ServiceRepository {
         fromJson: AddPainAssessmentModel.fromJson);
   }
 
-
-@override
+  @override
   Future<Either<ApiFailure, MedicationModel>> getMedication(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -72,16 +73,15 @@ class ServiceRepositoryImp implements ServiceRepository {
         params: params,
         fromJson: MedicationModel.fromJson);
   }
-@override
+
+  @override
   Future<Either<ApiFailure, dynamic>> givenMedicine(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
-        url: ApiUrls.givenMedicine,
-        method: Method.post,
-        params: params);
+        url: ApiUrls.givenMedicine, method: Method.post, params: params);
   }
 
-@override
+  @override
   Future<Either<ApiFailure, Followup>> createFollowUp(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -90,7 +90,8 @@ class ServiceRepositoryImp implements ServiceRepository {
         params: params,
         fromJson: Followup.fromJson);
   }
-@override
+
+  @override
   Future<Either<ApiFailure, WoundDescribeReportModel>> getWoundDescribeReport(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -99,6 +100,7 @@ class ServiceRepositoryImp implements ServiceRepository {
         params: params,
         fromJson: WoundDescribeReportModel.fromJson);
   }
+
   @override
   Future<Either<ApiFailure, DocumentModel>> getAllDocument(
       Map<String, dynamic> params) {
@@ -108,7 +110,8 @@ class ServiceRepositoryImp implements ServiceRepository {
         params: params,
         fromJson: DocumentModel.fromJson);
   }
-@override
+
+  @override
   Future<Either<ApiFailure, DocumentModel>> documentUpload(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -117,10 +120,14 @@ class ServiceRepositoryImp implements ServiceRepository {
         params: params,
         fromJson: DocumentModel.fromJson);
   }
-@override
+
+  @override
   Future<Either<ApiFailure, WoundDocumentData>> woundDocumentUpload(
-      Map<String, dynamic> params,ProgressCallback? onSendProgress, // Added callback for upload progress
-    ProgressCallback? onReceiveProgress,) {
+    Map<String, dynamic> params,
+    ProgressCallback? onSendProgress,
+    // Added callback for upload progress
+    ProgressCallback? onReceiveProgress,
+  ) {
     return apiRequest.performRequest(
         url: ApiUrls.uploadWoundImage,
         method: Method.post,
@@ -133,8 +140,11 @@ class ServiceRepositoryImp implements ServiceRepository {
 
   @override
   Future<Either<ApiFailure, UploadDataModel>> uploadDocument(
-      Map<String, dynamic> params,ProgressCallback? onSendProgress, // Added callback for upload progress
-      ProgressCallback? onReceiveProgress,) {
+    Map<String, dynamic> params,
+    ProgressCallback? onSendProgress,
+    // Added callback for upload progress
+    ProgressCallback? onReceiveProgress,
+  ) {
     return apiRequest.performRequest(
         url: ApiUrls.uploadDocument,
         method: Method.post,
@@ -144,7 +154,8 @@ class ServiceRepositoryImp implements ServiceRepository {
         isMultipart: true,
         fromJson: UploadDataModel.fromJson);
   }
-@override
+
+  @override
   Future<Either<ApiFailure, AllWoundData>> showAllWoundAssessment(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -153,6 +164,4 @@ class ServiceRepositoryImp implements ServiceRepository {
         params: params,
         fromJson: AllWoundData.fromJson);
   }
-
-
 }

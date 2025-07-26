@@ -8,6 +8,7 @@ import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/cart/model/cart_response.dart';
 import 'package:medPilot/features/patient_portal/cart/repository/cart_repository.dart';
+
 import '../../../../core/app/app_dependency.dart';
 
 part 'cart_state.dart';
@@ -18,6 +19,7 @@ class CartCubit extends Cubit<CartState> {
 
   final CartRepository cartRepository;
   final _appPreferences = instance.get<AppPreferences>();
+
   Future<void> getCartProduct() async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
@@ -28,8 +30,8 @@ class CartCubit extends Cubit<CartState> {
       response.fold(
         (failure) {},
         (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success, cartResponse: data));
+          emit(
+              state.copyWith(appStatus: AppStatus.success, cartResponse: data));
         },
       );
 
@@ -44,10 +46,10 @@ class CartCubit extends Cubit<CartState> {
     String? categoryId,
     String? quantity,
     String? type,
-}) async {
+  }) async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
-    Map<String, dynamic> data={
+    Map<String, dynamic> data = {
       "product_id": productId,
       "category_id": categoryId,
       "quantity": quantity,
@@ -59,8 +61,7 @@ class CartCubit extends Cubit<CartState> {
       response.fold(
         (failure) {},
         (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success));
+          emit(state.copyWith(appStatus: AppStatus.success));
           showCustomSnackBar(
             context: GetContext.context,
             message: data["message"],
@@ -74,13 +75,10 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  Future<void> updateProductCart({
-    int? cartId,
-    int? quantity
-}) async {
+  Future<void> updateProductCart({int? cartId, int? quantity}) async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
-    Map<String, dynamic> data={
+    Map<String, dynamic> data = {
       "cart_id": [cartId.toString()],
       "quantity": [quantity.toString()]
     };
@@ -90,8 +88,8 @@ class CartCubit extends Cubit<CartState> {
       response.fold(
         (failure) {},
         (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success, cartResponse: data));
+          emit(
+              state.copyWith(appStatus: AppStatus.success, cartResponse: data));
         },
       );
 
@@ -101,25 +99,24 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  void incrementItem(int value,{int? cartId}){
-    int? num=value+1;
-    if(1<=value){
-      updateProductCart(cartId: cartId,quantity: num);
+  void incrementItem(int value, {int? cartId}) {
+    int? num = value + 1;
+    if (1 <= value) {
+      updateProductCart(cartId: cartId, quantity: num);
     }
   }
 
-  void decrementItem(int value,{int? cartId}){
-    int? num=value-1;
-    if(0<value){
-      updateProductCart(cartId: cartId,quantity: num);
+  void decrementItem(int value, {int? cartId}) {
+    int? num = value - 1;
+    if (0 < value) {
+      updateProductCart(cartId: cartId, quantity: num);
     }
   }
-
 
   Future<void> deleteProductCart({int? cartId}) async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
-    Map<String, dynamic> data={
+    Map<String, dynamic> data = {
       "cart_id": cartId.toString(),
     };
     try {
@@ -128,8 +125,7 @@ class CartCubit extends Cubit<CartState> {
       response.fold(
         (failure) {},
         (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success));
+          emit(state.copyWith(appStatus: AppStatus.success));
           getCartProduct();
         },
       );
@@ -138,5 +134,4 @@ class CartCubit extends Cubit<CartState> {
       dismissProgressDialog();
     }
   }
-
 }

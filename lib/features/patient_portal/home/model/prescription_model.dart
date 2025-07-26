@@ -1,22 +1,24 @@
 class PrescriptionModel {
   PrescriptionModel({
-      this.success, 
-      this.patient, 
-      this.medicine, 
-      this.advice, 
-      this.token, 
-      this.tokenType,});
+    this.success,
+    this.patient,
+    this.medicine,
+    this.advice,
+    this.token,
+    this.tokenType,
+  });
 
   PrescriptionModel.fromJson(dynamic json) {
     success = json['success'];
-    patient = json['patient'] != null ? Patient.fromJson(json['patient']) : null;
+    patient =
+        json['patient'] != null ? Patient.fromJson(json['patient']) : null;
     if (json['medicine'] != null) {
       medicine = [];
       json['medicine'].forEach((v) {
         medicine?.add(Medicine.fromJson(v));
       });
     }
-  /*  if (json['advice'] != null) {
+    /*  if (json['advice'] != null) {
       advice = [];
       json['advice'].forEach((v) {
         advice?.add(Dynamic.fromJson(v));
@@ -25,6 +27,7 @@ class PrescriptionModel {
     token = json['token'];
     tokenType = json['token_type'];
   }
+
   bool? success;
   Patient? patient;
   List<Medicine>? medicine;
@@ -48,22 +51,22 @@ class PrescriptionModel {
     map['token_type'] = tokenType;
     return map;
   }
-
 }
 
 class Medicine {
   Medicine({
-      this.id, 
-      this.companyId, 
-      this.patientId, 
-      this.medicine, 
-      this.note, 
-      this.dose, 
-      this.duration, 
-      this.status, 
-      this.generate, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.companyId,
+    this.patientId,
+    this.medicine,
+    this.note,
+    this.dose,
+    this.duration,
+    this.status,
+    this.generate,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   Medicine.fromJson(dynamic json) {
     id = json['id'];
@@ -78,6 +81,7 @@ class Medicine {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   num? id;
   String? companyId;
   String? patientId;
@@ -105,33 +109,33 @@ class Medicine {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }
 
 class Patient {
   Patient({
-      this.id, 
-      this.companyId, 
-      this.regNo, 
-      this.userId, 
-      this.branchId, 
-      this.name, 
-      this.dob, 
-      this.age, 
-      this.thana, 
-      this.city, 
-      this.gender, 
-      this.address, 
-      this.mobile, 
-      this.email, 
-      this.consultingDoctor, 
-      this.doctorContractNumber, 
-      this.alternativeNumber, 
-      this.password, 
-      this.status, 
-      this.landMark, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.companyId,
+    this.regNo,
+    this.userId,
+    this.branchId,
+    this.name,
+    this.dob,
+    this.age,
+    this.thana,
+    this.city,
+    this.gender,
+    this.address,
+    this.mobile,
+    this.email,
+    this.consultingDoctor,
+    this.doctorContractNumber,
+    this.alternativeNumber,
+    this.password,
+    this.status,
+    this.landMark,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   Patient.fromJson(dynamic json) {
     id = json['id'];
@@ -157,6 +161,7 @@ class Patient {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   num? id;
   String? companyId;
   String? regNo;
@@ -206,5 +211,4 @@ class Patient {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }

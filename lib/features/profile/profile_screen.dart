@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/features/profile/cubit/profile_cubit.dart';
 import 'package:medPilot/features/profile/editable_profile.dart';
+
 import '../../core/constants/app_colors.dart';
 
 class PatientProfileScreen extends StatefulWidget {
@@ -66,7 +67,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        state.profileDetails?.patientName??"",
+                                        state.profileDetails?.patientName ?? "",
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
@@ -79,7 +80,9 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                                           _buildInfoChip(Icons.cake, '25 Yrs'),
                                           const SizedBox(width: 8),
                                           _buildInfoChip(
-                                              Icons.transgender, state.profileDetails?.gender??""),
+                                              Icons.transgender,
+                                              state.profileDetails?.gender ??
+                                                  ""),
                                         ],
                                       ),
                                     ],
@@ -120,9 +123,13 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                       icon: Icons.person_outline,
                       color: accentColor,
                       children: [
-                        _buildDetailRow('Date of Birth', state.profileDetails?.dob??""),
-                        _buildDetailRow('Blood Group', state.profileDetails?.bloodGroup??"", isImportant: true),
-                        _buildDetailRow('Marital Status', state.profileDetails?.maritalStatus??""),
+                        _buildDetailRow(
+                            'Date of Birth', state.profileDetails?.dob ?? ""),
+                        _buildDetailRow('Blood Group',
+                            state.profileDetails?.bloodGroup ?? "",
+                            isImportant: true),
+                        _buildDetailRow('Marital Status',
+                            state.profileDetails?.maritalStatus ?? ""),
                       ],
                     ),
                     _buildModernSection(
@@ -130,11 +137,14 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                       icon: Icons.contact_phone_outlined,
                       color: AppColors.kPrimaryColor,
                       children: [
-                        _buildDetailRow('Mobile', state.profileDetails?.phone??"",
+                        _buildDetailRow(
+                            'Mobile', state.profileDetails?.phone ?? "",
                             isPhone: true),
-                        _buildDetailRow('Doctor Contact', state.profileDetails?.doctorContactNo??"",
+                        _buildDetailRow('Doctor Contact',
+                            state.profileDetails?.doctorContactNo ?? "",
                             isPhone: true),
-                        _buildDetailRow('Address', state.profileDetails?.presentAddress??""),
+                        _buildDetailRow('Address',
+                            state.profileDetails?.presentAddress ?? ""),
                       ],
                     ),
 
@@ -143,9 +153,11 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                       icon: Icons.medical_information,
                       color: secondaryColor,
                       children: [
-                        _buildDetailRow('Allergies', state.profileDetails?.allergy??'',
+                        _buildDetailRow(
+                            'Allergies', state.profileDetails?.allergy ?? '',
                             isImportant: true),
-                        _buildDetailRow('Primary Diagnosis', state.profileDetails?.primaryDiagnosis??""),
+                        _buildDetailRow('Primary Diagnosis',
+                            state.profileDetails?.primaryDiagnosis ?? ""),
                       ],
                     ),
 

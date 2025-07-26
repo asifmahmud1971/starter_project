@@ -20,6 +20,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   final HomeRepository homeRepository;
   final _appPreferences = instance.get<AppPreferences>();
+
   Future<void> getDashboardPermission() async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
@@ -40,6 +41,7 @@ class HomeCubit extends Cubit<HomeState> {
       dismissProgressDialog();
     }
   }
+
   Future<void> getStaffPermission() async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
@@ -61,8 +63,6 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-
-
   Future<void> getPrescription() async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
@@ -83,6 +83,7 @@ class HomeCubit extends Cubit<HomeState> {
       dismissProgressDialog();
     }
   }
+
   Future<void> getBlog() async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
@@ -93,8 +94,7 @@ class HomeCubit extends Cubit<HomeState> {
       response.fold(
         (failure) {},
         (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success, blogModel: data));
+          emit(state.copyWith(appStatus: AppStatus.success, blogModel: data));
         },
       );
 
@@ -103,6 +103,4 @@ class HomeCubit extends Cubit<HomeState> {
       dismissProgressDialog();
     }
   }
-
-
 }

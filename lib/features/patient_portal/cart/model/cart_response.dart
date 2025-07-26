@@ -5,7 +5,6 @@ class CartResponse {
   CartResponse({this.cartItems, this.grandTotal});
 
   CartResponse.fromJson(Map<String, dynamic> json) {
-
     if (json['cart_items'] != null) {
       cartItems = <CartItems>[];
       json['cart_items'].forEach((v) {
@@ -36,12 +35,12 @@ class CartItems {
 
   CartItems(
       {this.cartId,
-        this.type,
-        this.name,
-        this.image,
-        this.price,
-        this.quantity,
-        this.subtotal});
+      this.type,
+      this.name,
+      this.image,
+      this.price,
+      this.quantity,
+      this.subtotal});
 
   CartItems.fromJson(Map<String, dynamic> json) {
     cartId = json['cart_id'];

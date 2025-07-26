@@ -14,8 +14,6 @@ class WoundAssessmentScreen extends StatefulWidget {
 }
 
 class _WoundAssessmentScreenState extends State<WoundAssessmentScreen> {
-
-
   @override
   void initState() {
     context.read<WoundClinicCubit>().getAllWoundAssessment();
@@ -28,51 +26,53 @@ class _WoundAssessmentScreenState extends State<WoundAssessmentScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(title: const Text('Wound Assessment History')),
-          body: state.allWoundData!=null?ListView.builder(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            itemCount: state.allWoundData?.woundAssessment?.length,
-            itemBuilder: (context, index) {
-              WoundData? assessment =
-                  state.allWoundData?.woundAssessment?.elementAt(index);
-              return Container(
-                decoration: AppColors.kDecoration,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildHeader(assessment?.date ?? "",index),
-                      const SizedBox(height: 12),
-                      if (assessment?.image != null)
-                        GestureDetector(
-                          onTap: () => _showFullImage(
-                              context, assessment?.image ?? ""),
-                          child: Container(
-                            width: 1.sw,
-                            height: 200,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              image: DecorationImage(
-                                image:
-                                NetworkImage(assessment?.image ?? ""),
-                                fit: BoxFit.cover,
+          body: state.allWoundData != null
+              ? ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  itemCount: state.allWoundData?.woundAssessment?.length,
+                  itemBuilder: (context, index) {
+                    WoundData? assessment =
+                        state.allWoundData?.woundAssessment?.elementAt(index);
+                    return Container(
+                      decoration: AppColors.kDecoration,
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildHeader(assessment?.date ?? "", index),
+                            const SizedBox(height: 12),
+                            if (assessment?.image != null)
+                              GestureDetector(
+                                onTap: () => _showFullImage(
+                                    context, assessment?.image ?? ""),
+                                child: Container(
+                                  width: 1.sw,
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    image: DecorationImage(
+                                      image:
+                                          NetworkImage(assessment?.image ?? ""),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
+                            const SizedBox(height: 12),
+                            _buildMeasurementTable(assessment),
+                            const SizedBox(height: 12),
+                            _buildAppearanceSection(assessment),
+                            const SizedBox(height: 12),
+                            _buildExudateTable(assessment),
+                          ],
                         ),
-                      const SizedBox(height: 12),
-                      _buildMeasurementTable(assessment),
-                      const SizedBox(height: 12),
-                      _buildAppearanceSection(assessment),
-                      const SizedBox(height: 12),
-                      _buildExudateTable(assessment),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ):SizedBox.shrink(),
+                      ),
+                    );
+                  },
+                )
+              : SizedBox.shrink(),
         );
       },
     );
@@ -92,8 +92,8 @@ class _WoundAssessmentScreenState extends State<WoundAssessmentScreen> {
     );
   }
 
-  Widget _buildHeader(String date,int index) {
-    return Text('Assessment- ${index+1}: ${date.dateMonthYear}',
+  Widget _buildHeader(String date, int index) {
+    return Text('Assessment- ${index + 1}: ${date.dateMonthYear}',
         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold));
   }
 
@@ -174,5 +174,3 @@ class _WoundAssessmentScreenState extends State<WoundAssessmentScreen> {
     );
   }
 }
-
-

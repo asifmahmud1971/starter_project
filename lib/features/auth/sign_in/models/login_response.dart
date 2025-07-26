@@ -2,10 +2,11 @@ import 'user.dart';
 
 class LoginResponse {
   LoginResponse({
-      this.message, 
-      this.tokenType, 
-      this.token, 
-      this.user,});
+    this.message,
+    this.tokenType,
+    this.token,
+    this.user,
+  });
 
   LoginResponse.fromJson(dynamic json) {
     message = json['message'];
@@ -13,6 +14,7 @@ class LoginResponse {
     token = json['token'];
     user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
+
   String? message;
   String? tokenType;
   String? token;
@@ -28,5 +30,4 @@ class LoginResponse {
     }
     return map;
   }
-
 }

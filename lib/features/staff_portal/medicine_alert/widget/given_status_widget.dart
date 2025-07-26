@@ -9,6 +9,7 @@ import 'package:medPilot/features/staff_portal/medicine_alert/model/medicine_ale
 
 class GivenStatusWidget extends StatelessWidget {
   final MedicineAlertStatus status;
+
   const GivenStatusWidget({super.key, required this.status});
 
   @override

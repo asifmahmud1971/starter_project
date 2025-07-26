@@ -24,9 +24,10 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       final response = await staffPortalRepository.getAttendanceData({});
 
       response.fold(
-            (failure) {},
-            (data) async {
-          emit(state.copyWith(appStatus: AppStatus.success, attendanceModel: data));
+        (failure) {},
+        (data) async {
+          emit(state.copyWith(
+              appStatus: AppStatus.success, attendanceModel: data));
         },
       );
 
@@ -35,6 +36,4 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       dismissProgressDialog();
     }
   }
-
-
 }

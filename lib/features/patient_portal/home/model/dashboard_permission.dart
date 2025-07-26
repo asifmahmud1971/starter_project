@@ -318,8 +318,6 @@ class Sp101 {
   }
 }
 
-
-
 class Package {
   Package({
     this.serviceName,
@@ -333,7 +331,7 @@ class Package {
     serviceName = json['serviceName'];
     key = json['key'];
     icon = json['icon'];
-    staticIcon= key?.medIcon??"";
+    staticIcon = key?.medIcon ?? "";
     isActive = json['isActive'];
   }
 

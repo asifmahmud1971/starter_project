@@ -1,12 +1,12 @@
-import 'package:medPilot/core/constants/strings.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/product.dart';
 
 class OnServiceModel {
   OnServiceModel({
-      this.success, 
-      this.product,
-      this.token, 
-      this.tokenType,});
+    this.success,
+    this.product,
+    this.token,
+    this.tokenType,
+  });
 
   OnServiceModel.fromJson(dynamic json) {
     success = json['success'];
@@ -19,6 +19,7 @@ class OnServiceModel {
     token = json['token'];
     tokenType = json['token_type'];
   }
+
   bool? success;
   List<Product>? product;
   String? token;
@@ -34,6 +35,4 @@ class OnServiceModel {
     map['token_type'] = tokenType;
     return map;
   }
-
 }
-

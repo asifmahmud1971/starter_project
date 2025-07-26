@@ -16,7 +16,7 @@ class AmbulanceScreen extends StatefulWidget {
 
 class _AmbulanceScreenState extends State<AmbulanceScreen> {
   final OnDemandServiceCubit onDemandCubit =
-  GetContext.context.read<OnDemandServiceCubit>();
+      GetContext.context.read<OnDemandServiceCubit>();
 
   @override
   void initState() {
@@ -36,7 +36,8 @@ class _AmbulanceScreenState extends State<AmbulanceScreen> {
           return ListView.builder(
             itemCount: state.ambulanceResponse?.ambulanceRequest?.length,
             itemBuilder: (context, index) {
-              AmbulanceRequest?  ambulance = state.ambulanceResponse?.ambulanceRequest?.elementAt(index);
+              AmbulanceRequest? ambulance =
+                  state.ambulanceResponse?.ambulanceRequest?.elementAt(index);
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: AppColors.kDecoration,
@@ -45,11 +46,15 @@ class _AmbulanceScreenState extends State<AmbulanceScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Invoice No: ${ambulance?.invoiceNo??""}",
+                      Text("Invoice No: ${ambulance?.invoiceNo ?? ""}",
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(height: 4),
-                      Text("Date/Time: ${ambulance?.invoiceDate??""} ${ambulance?.whenTime??""}"),
-                      Divider(thickness: 1, color: AppColors.kGrayColor200,),
+                      Text(
+                          "Date/Time: ${ambulance?.invoiceDate ?? ""} ${ambulance?.whenTime ?? ""}"),
+                      Divider(
+                        thickness: 1,
+                        color: AppColors.kGrayColor200,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

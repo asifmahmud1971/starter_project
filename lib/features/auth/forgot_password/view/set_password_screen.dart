@@ -7,8 +7,6 @@ import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/auth/forgot_password/cubit/forgot_password_cubit.dart';
-import 'package:medPilot/features/auth/sign_in/cubit/sign_in_cubit.dart';
-import 'package:medPilot/generated/assets.dart';
 
 class SetPasswordScreen extends StatelessWidget {
   const SetPasswordScreen({super.key});
@@ -18,7 +16,10 @@ class SetPasswordScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          title: Text(AppStrings.forgotPassword.tr(),style: kBodyLarge,)),
+          title: Text(
+        AppStrings.forgotPassword.tr(),
+        style: kBodyLarge,
+      )),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -32,15 +33,16 @@ class SetPasswordScreen extends StatelessWidget {
                 radius: 10.r,
                 labelText: AppStrings.enterNewPassword.tr(),
                 labelStyle:
-                kBodyMedium.copyWith(color: AppColors.kGrayColor400),
+                    kBodyMedium.copyWith(color: AppColors.kGrayColor400),
               ),
               16.verticalSpace,
               CustomTextField(
-                controller: context.read<ForgotPasswordCubit>().passwordConfirmCtrl,
+                controller:
+                    context.read<ForgotPasswordCubit>().passwordConfirmCtrl,
                 radius: 10.r,
                 labelText: AppStrings.enterConfirmPassword.tr(),
                 labelStyle:
-                kBodyMedium.copyWith(color: AppColors.kGrayColor400),
+                    kBodyMedium.copyWith(color: AppColors.kGrayColor400),
               ),
               40.verticalSpace,
               // Login Button

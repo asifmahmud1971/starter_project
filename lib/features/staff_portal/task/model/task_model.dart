@@ -1,9 +1,10 @@
 class TaskModel {
   TaskModel({
-      this.success, 
-      this.token, 
-      this.tokenType, 
-      this.tasks,});
+    this.success,
+    this.token,
+    this.tokenType,
+    this.tasks,
+  });
 
   TaskModel.fromJson(dynamic json) {
     success = json['success'];
@@ -16,6 +17,7 @@ class TaskModel {
       });
     }
   }
+
   bool? success;
   String? token;
   String? tokenType;
@@ -31,18 +33,18 @@ class TaskModel {
     }
     return map;
   }
-
 }
 
 class StaffTasks {
   StaffTasks({
-      this.taskId, 
-      this.title, 
-      this.description, 
-      this.assignDate, 
-      this.lastDate, 
-      this.status, 
-      this.statusOptions,});
+    this.taskId,
+    this.title,
+    this.description,
+    this.assignDate,
+    this.lastDate,
+    this.status,
+    this.statusOptions,
+  });
 
   StaffTasks.fromJson(dynamic json) {
     taskId = json['task_id'];
@@ -58,12 +60,13 @@ class StaffTasks {
       });
     }
   }
+
   num? taskId;
   String? title;
   String? description;
-  String? assignDate;
+  dynamic assignDate;
   String? lastDate;
-  String? status;
+  dynamic status;
   List<StatusOptions>? statusOptions;
 
   Map<String, dynamic> toJson() {
@@ -79,18 +82,20 @@ class StaffTasks {
     }
     return map;
   }
-  StatusOptions? get selectedStatusOption =>
-      statusOptions?.firstWhere((o) => o.selected??false, orElse: () => statusOptions?[0]??StatusOptions());
 
+  StatusOptions? get selectedStatusOption =>
+      statusOptions?.firstWhere((o) => o.selected ?? false,
+          orElse: () => statusOptions?[0] ?? StatusOptions());
 }
 
 class StatusOptions {
   StatusOptions({
-      this.id,
-      this.label,
-      this.value,
-      this.url, 
-      this.selected,});
+    this.id,
+    this.label,
+    this.value,
+    this.url,
+    this.selected,
+  });
 
   StatusOptions.fromJson(dynamic json) {
     id = json['id'];
@@ -99,6 +104,7 @@ class StatusOptions {
     url = json['url'];
     selected = json['selected'];
   }
+
   dynamic id;
   String? label;
   num? value;
@@ -114,5 +120,4 @@ class StatusOptions {
     map['selected'] = selected;
     return map;
   }
-
 }

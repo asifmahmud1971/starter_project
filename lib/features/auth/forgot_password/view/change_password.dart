@@ -7,7 +7,6 @@ import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/auth/sign_in/cubit/sign_in_cubit.dart';
-import 'package:medPilot/generated/assets.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   const ChangePasswordScreen({super.key});
@@ -17,7 +16,10 @@ class ChangePasswordScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          title: Text(AppStrings.forgotPassword.tr(),style: kBodyLarge,)),
+          title: Text(
+        AppStrings.forgotPassword.tr(),
+        style: kBodyLarge,
+      )),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -31,7 +33,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 radius: 10.r,
                 labelText: AppStrings.enterCurrentPassword.tr(),
                 labelStyle:
-                kBodyMedium.copyWith(color: AppColors.kGrayColor400),
+                    kBodyMedium.copyWith(color: AppColors.kGrayColor400),
               ),
               16.verticalSpace,
               CustomTextField(
@@ -39,7 +41,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 radius: 10.r,
                 labelText: AppStrings.enterNewPassword.tr(),
                 labelStyle:
-                kBodyMedium.copyWith(color: AppColors.kGrayColor400),
+                    kBodyMedium.copyWith(color: AppColors.kGrayColor400),
               ),
               16.verticalSpace,
               CustomTextField(
@@ -47,7 +49,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 radius: 10.r,
                 labelText: AppStrings.enterConfirmPassword.tr(),
                 labelStyle:
-                kBodyMedium.copyWith(color: AppColors.kGrayColor400),
+                    kBodyMedium.copyWith(color: AppColors.kGrayColor400),
               ),
               40.verticalSpace,
               // Login Button

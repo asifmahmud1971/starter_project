@@ -9,13 +9,16 @@ import 'package:medPilot/features/patient_portal/home/view/blog_details.dart';
 
 class BlogCard extends StatelessWidget {
   final BlogData? blogData;
+
   const BlogCard({super.key, this.blogData});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        GetContext.to(BlogDetailScreen(blogData: blogData,));
+      onTap: () {
+        GetContext.to(BlogDetailScreen(
+          blogData: blogData,
+        ));
       },
       child: Padding(
         padding: EdgeInsets.only(right: 10.w),
@@ -32,19 +35,18 @@ class BlogCard extends StatelessWidget {
                 width: 300.h,
                 child: CustomImage(
                   radius: 5.r,
-                  baseUrl:
-                      blogData?.image??"",
+                  baseUrl: blogData?.image ?? "",
                 ),
               ),
               10.verticalSpace,
               Text(
-               blogData?.title??"",
+                blogData?.title ?? "",
                 maxLines: 5,
                 style: kBodyMedium,
               ),
               8.verticalSpace,
               Text(
-                blogData?.date??"",
+                blogData?.date ?? "",
                 style: kBodySmall,
               )
             ],

@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,6 @@ import 'package:medPilot/core/components/custom_progress_loader.dart';
 import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/enum/app_status.dart';
-import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
-import 'package:medPilot/features/patient_portal/more/view/payment_screen.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/ambulance_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/assign_shift_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/city_response.dart';
@@ -18,14 +17,13 @@ import 'package:medPilot/features/patient_portal/on_demand_service/model/consult
 import 'package:medPilot/features/patient_portal/on_demand_service/model/current_package_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/current_tele_package_mnode.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/on_sarevice_model.dart';
-import 'package:medPilot/features/patient_portal/on_demand_service/model/procedure_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/tele_package_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/thana_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/upgrade_tele_package.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/repository/onDemandService_repository.dart';
-import 'package:medPilot/features/patient_portal/on_demand_service/widget/payment/payment_screen.dart' show WebPaymentScreen;
+import 'package:medPilot/features/patient_portal/on_demand_service/widget/payment/payment_screen.dart'
+    show WebPaymentScreen;
 import 'package:medPilot/features/patient_portal/services/follow_up/model/follow_up.dart';
-import 'package:medPilot/generated/assets.dart';
 
 part 'onDemand_service_state.dart';
 
@@ -65,8 +63,6 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
   List<String> genderList = ['Male', 'Female', 'Other'];
   FormFieldValidator<String>? validator =
       (value) => (value ?? "").isEmpty ? 'This field is required' : null;
-
-
 
   Future<void> getHomeVisit() async {
     showProgressDialog();
@@ -355,7 +351,6 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
     }
   }
 
-
   Future<void> getAmbulance() async {
     showProgressDialog();
     emit(state.copyWith(
@@ -365,8 +360,8 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       final response = await onDemandServiceRepository.getAmbulance({});
 
       response.fold(
-            (failure) {},
-            (data) async {
+        (failure) {},
+        (data) async {
           emit(state.copyWith(
               appStatus: AppStatus.success, ambulanceResponse: data));
         },
@@ -385,11 +380,12 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
         appStatus: AppStatus.loading, onService: OnServiceModel()));
 
     try {
-      final response = await onDemandServiceRepository.getCurrentTelePackage({});
+      final response =
+          await onDemandServiceRepository.getCurrentTelePackage({});
 
       response.fold(
-            (failure) {},
-            (data) async {
+        (failure) {},
+        (data) async {
           emit(state.copyWith(
               appStatus: AppStatus.success, currentTelePackage: data));
         },
@@ -411,10 +407,9 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       final response = await onDemandServiceRepository.getTelePackage({});
 
       response.fold(
-            (failure) {},
-            (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success, telePackage: data));
+        (failure) {},
+        (data) async {
+          emit(state.copyWith(appStatus: AppStatus.success, telePackage: data));
         },
       );
       log("ambulanceResponse  ---------> ${state.onService?.success}");
@@ -425,8 +420,8 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
     }
   }
 
-
-  Future<void> upgradeTelePackage({String? packageId, String? paymentOption}) async {
+  Future<void> upgradeTelePackage(
+      {String? packageId, String? paymentOption}) async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
 
@@ -435,12 +430,11 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       formData['package_id'] = packageId;
       formData['payment_option'] = paymentOption;
 
-
       final response =
-      await onDemandServiceRepository.upgradeTelePackage(formData);
+          await onDemandServiceRepository.upgradeTelePackage(formData);
 
       response.fold(
-            (l) {
+        (l) {
           showCustomSnackBar(
             context: GetContext.context,
             isError: true,
@@ -449,9 +443,12 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
 
           emit(state.copyWith(appStatus: AppStatus.failure));
         },
-            (r) async {
-          emit(state.copyWith(appStatus: AppStatus.success,upgradeTelePackage: r));
-          GetContext.to(WebPaymentScreen(initialURl: r.redirectUrl??"",));
+        (r) async {
+          emit(state.copyWith(
+              appStatus: AppStatus.success, upgradeTelePackage: r));
+          GetContext.to(WebPaymentScreen(
+            initialURl: r.redirectUrl ?? "",
+          ));
         },
       );
 
@@ -462,6 +459,4 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       log('$runtimeType:: @signIn => $e');
     }
   }
-
-
 }

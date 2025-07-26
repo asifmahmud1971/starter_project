@@ -1,9 +1,10 @@
 class PatientList {
   PatientList({
-      this.success, 
-      this.token, 
-      this.patients, 
-      this.tokenType,});
+    this.success,
+    this.token,
+    this.patients,
+    this.tokenType,
+  });
 
   PatientList.fromJson(dynamic json) {
     success = json['success'];
@@ -16,6 +17,7 @@ class PatientList {
     }
     tokenType = json['token_type'];
   }
+
   bool? success;
   String? token;
   List<StaffPatients>? patients;
@@ -31,33 +33,33 @@ class PatientList {
     map['token_type'] = tokenType;
     return map;
   }
-
 }
 
 class StaffPatients {
   StaffPatients({
-      this.id, 
-      this.companyId, 
-      this.regNo, 
-      this.userId, 
-      this.branchId, 
-      this.name, 
-      this.dob, 
-      this.age, 
-      this.thana, 
-      this.city, 
-      this.gender, 
-      this.address, 
-      this.mobile, 
-      this.email, 
-      this.consultingDoctor, 
-      this.doctorContractNumber, 
-      this.alternativeNumber, 
-      this.password, 
-      this.status, 
-      this.landMark, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.companyId,
+    this.regNo,
+    this.userId,
+    this.branchId,
+    this.name,
+    this.dob,
+    this.age,
+    this.thana,
+    this.city,
+    this.gender,
+    this.address,
+    this.mobile,
+    this.email,
+    this.consultingDoctor,
+    this.doctorContractNumber,
+    this.alternativeNumber,
+    this.password,
+    this.status,
+    this.landMark,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   StaffPatients.fromJson(dynamic json) {
     id = json['id'];
@@ -83,6 +85,7 @@ class StaffPatients {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   num? id;
   String? companyId;
   String? regNo;
@@ -132,5 +135,4 @@ class StaffPatients {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }

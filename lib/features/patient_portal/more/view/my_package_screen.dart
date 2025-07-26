@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/cubit/onDemand_service_cubit.dart';
@@ -19,9 +18,8 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
   String? _selectedPackageId;
   String? _selectedPaymentMethod;
 
-
   final OnDemandServiceCubit onDemandCubit =
-  GetContext.context.read<OnDemandServiceCubit>();
+      GetContext.context.read<OnDemandServiceCubit>();
 
   @override
   void initState() {
@@ -29,7 +27,6 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
     onDemandCubit.getTelePackege();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -66,33 +63,38 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        state.currentTelePackage?.currentTelePackage=="not_active"?Row(
-                          children: [
-                            Icon(Icons.error_outline, color: Colors.orange),
-                            SizedBox(width: 8),
-                            Text(
-                              'No Active Package',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[800],
+                        state.currentTelePackage?.currentTelePackage ==
+                                "not_active"
+                            ? Row(
+                                children: [
+                                  Icon(Icons.error_outline,
+                                      color: Colors.orange),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    'No Active Package',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Row(
+                                children: [
+                                  Icon(Icons.error_outline,
+                                      color: Colors.green),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    'No Active Package',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ):Row(
-                          children: [
-                            Icon(Icons.error_outline, color: Colors.green),
-                            SizedBox(width: 8),
-                            Text(
-                              'No Active Package',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[800],
-                              ),
-                            ),
-                          ],
-                        ),
                         SizedBox(height: 12),
                         Text(
                           'Subscribe to a telemedicine package to start consulting with doctors remotely',
@@ -116,7 +118,7 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
                   ),
                 ),
                 SizedBox(height: 12),
-                ...(state.telePackage?.packages??[])
+                ...(state.telePackage?.packages ?? [])
                     .map((package) => _buildPackageOption(package))
                     .toList(),
                 SizedBox(height: 24),
@@ -133,9 +135,9 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
                 ),
                 SizedBox(height: 12),
                 Row(
-                  children: (state.currentTelePackage?.paymentOption??[])
-                      .map((method) =>
-                      Expanded(child: _buildPaymentMethodHorizontal(method)))
+                  children: (state.currentTelePackage?.paymentOption ?? [])
+                      .map((method) => Expanded(
+                          child: _buildPaymentMethodHorizontal(method)))
                       .toList(),
                 ),
                 SizedBox(height: 32),
@@ -154,9 +156,11 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
                     onPressed: _selectedPackage == null
                         ? null
                         : () {
-                      onDemandCubit.upgradeTelePackage(packageId: _selectedPackageId,paymentOption: _selectedPaymentMethod);
-                      //_showConfirmationDialog();
-                    },
+                            onDemandCubit.upgradeTelePackage(
+                                packageId: _selectedPackageId,
+                                paymentOption: _selectedPaymentMethod);
+                            //_showConfirmationDialog();
+                          },
                     child: Text(
                       'Subscribe Now',
                       style: TextStyle(fontSize: 16),
@@ -201,17 +205,18 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: isSelected ? AppColors.kPrimaryColor : Colors
-                        .grey[300]!,
+                    color: isSelected
+                        ? AppColors.kPrimaryColor
+                        : Colors.grey[300]!,
                     width: 1,
                   ),
                 ),
                 child: isSelected
                     ? Icon(
-                  Icons.check,
-                  size: 16,
-                  color: AppColors.kPrimaryColor,
-                )
+                        Icons.check,
+                        size: 16,
+                        color: AppColors.kPrimaryColor,
+                      )
                     : null,
               ),
               SizedBox(width: 16),
@@ -220,7 +225,7 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      package?.name??"",
+                      package?.name ?? "",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -229,7 +234,7 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      package?.price??"",
+                      package?.price ?? "",
                       style: TextStyle(
                         color: AppColors.kPrimaryColor,
                         fontWeight: FontWeight.w500,
@@ -237,7 +242,7 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      package?.status??"",
+                      package?.status ?? "",
                       style: TextStyle(
                         color: Colors.grey[600],
                         fontSize: 12,
@@ -293,8 +298,9 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
       child: Container(
         margin: EdgeInsets.only(right: 12),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.kPrimaryColor.withOpacity(0.1) : Colors
-              .white,
+          color: isSelected
+              ? AppColors.kPrimaryColor.withOpacity(0.1)
+              : Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isSelected ? AppColors.kPrimaryColor : Colors.grey[200]!,
@@ -350,8 +356,6 @@ class _TelePackageScreenState extends State<TelePackageScreen> {
       ),
     );
   }
-
-
 
   void _showSuccessDialog() {
     showDialog(

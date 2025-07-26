@@ -5,19 +5,17 @@ class PainClinicState extends Equatable {
   final PainAssessmentModel? painAssessmentModel;
   final MedicationModel? medicationModel;
 
-
-  const PainClinicState( {
+  const PainClinicState({
     this.painAssessmentModel,
     this.medicationModel,
     this.appStatus = AppStatus.initial,
   });
 
-  PainClinicState copyWith({
-    final AppStatus? appStatus,
-    final PainAssessmentModel? painAssessmentModel,
-    final FollowUpModel? followUp,
-    final MedicationModel? medicationModel
-  }) {
+  PainClinicState copyWith(
+      {final AppStatus? appStatus,
+      final PainAssessmentModel? painAssessmentModel,
+      final FollowUpModel? followUp,
+      final MedicationModel? medicationModel}) {
     return PainClinicState(
       appStatus: appStatus ?? this.appStatus,
       painAssessmentModel: painAssessmentModel ?? this.painAssessmentModel,
@@ -27,5 +25,5 @@ class PainClinicState extends Equatable {
 
   @override
   List<Object> get props =>
-      [appStatus, painAssessmentModel ?? {},medicationModel??{}];
+      [appStatus, painAssessmentModel ?? {}, medicationModel ?? {}];
 }

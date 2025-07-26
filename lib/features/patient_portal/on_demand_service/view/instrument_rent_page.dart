@@ -16,7 +16,6 @@ class InstrumentRentPage extends StatefulWidget {
 }
 
 class _InstrumentRentPageState extends State<InstrumentRentPage> {
-
   @override
   void initState() {
     context.read<OnDemandServiceCubit>().getInstrumentRate();
@@ -38,7 +37,7 @@ class _InstrumentRentPageState extends State<InstrumentRentPage> {
           ),
           body: ListView.separated(
             padding: EdgeInsets.all(16.r),
-            itemCount: (state.onService?.product??[]).length,
+            itemCount: (state.onService?.product ?? []).length,
             itemBuilder: (context, index) {
               return ServiceProductCard(
                 service: state.onService?.product?[index],

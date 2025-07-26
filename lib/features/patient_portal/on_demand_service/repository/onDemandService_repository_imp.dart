@@ -11,10 +11,10 @@ import 'package:medPilot/features/patient_portal/on_demand_service/model/consult
 import 'package:medPilot/features/patient_portal/on_demand_service/model/current_package_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/current_tele_package_mnode.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/on_sarevice_model.dart';
-import 'package:medPilot/features/patient_portal/on_demand_service/model/procedure_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/tele_package_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/thana_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/upgrade_tele_package.dart';
+
 import 'onDemandService_repository.dart';
 
 @Injectable(as: OnDemandServiceRepository)
@@ -33,6 +33,7 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       fromJson: OnServiceModel.fromJson,
     );
   }
+
   @override
   Future<Either<ApiFailure, OnServiceModel>> getProcedure(
       Map<String, dynamic> params) {
@@ -42,7 +43,9 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       params: params,
       fromJson: OnServiceModel.fromJson,
     );
-  }  @override
+  }
+
+  @override
   Future<Either<ApiFailure, OnServiceModel>> getAlliedHealth(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -52,6 +55,7 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       fromJson: OnServiceModel.fromJson,
     );
   }
+
   Future<Either<ApiFailure, OnServiceModel>> getPharmacy(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -61,6 +65,7 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       fromJson: OnServiceModel.fromJson,
     );
   }
+
   Future<Either<ApiFailure, OnServiceModel>> getLab(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -70,6 +75,7 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       fromJson: OnServiceModel.fromJson,
     );
   }
+
   Future<Either<ApiFailure, OnServiceModel>> getInstrument(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -79,6 +85,7 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       fromJson: OnServiceModel.fromJson,
     );
   }
+
   @override
   Future<Either<ApiFailure, OnServiceModel>> getInstrumentRate(
       Map<String, dynamic> params) {
@@ -89,8 +96,6 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       fromJson: OnServiceModel.fromJson,
     );
   }
-
-
 
   @override
   Future<Either<ApiFailure, CurrentPackageResponse>> getPatientPackage(
@@ -116,7 +121,7 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
 
   @override
   Future<Either<ApiFailure, ThanaResponse>> getThana(
-      Map<String, dynamic> params,int? id) {
+      Map<String, dynamic> params, int? id) {
     return apiRequest.performRequest(
       url: "${ApiUrls.thana}/$id",
       method: Method.get,
@@ -134,6 +139,7 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       params: params,
     );
   }
+
   @override
   Future<Either<ApiFailure, ConsultantsResponse>> getConsultants(
       Map<String, dynamic> params) async {
@@ -144,6 +150,7 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       fromJson: ConsultantsResponse.fromJson,
     );
   }
+
   @override
   Future<Either<ApiFailure, AssignShiftModel>> getAssignStaff(
       Map<String, dynamic> params) async {
@@ -154,6 +161,7 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       fromJson: AssignShiftModel.fromJson,
     );
   }
+
   @override
   Future<Either<ApiFailure, AmbulanceResponse>> getAmbulance(
       Map<String, dynamic> params) async {
@@ -164,6 +172,7 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       fromJson: AmbulanceResponse.fromJson,
     );
   }
+
   @override
   Future<Either<ApiFailure, CurrentTelePackageResponse>> getCurrentTelePackage(
       Map<String, dynamic> params) async {
@@ -174,6 +183,7 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       fromJson: CurrentTelePackageResponse.fromJson,
     );
   }
+
   @override
   Future<Either<ApiFailure, TelePackageResponse>> getTelePackage(
       Map<String, dynamic> params) async {
@@ -184,6 +194,7 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       fromJson: TelePackageResponse.fromJson,
     );
   }
+
   @override
   Future<Either<ApiFailure, UpgradeTelePackage>> upgradeTelePackage(
       Map<String, dynamic> params) async {

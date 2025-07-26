@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medPilot/core/app/app_context.dart';
@@ -8,8 +6,10 @@ import 'package:medPilot/features/patient_portal/services/rehav_pall_care/model/
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoPlayer extends StatefulWidget {
-  final RehabilitativePallVideo?  rehabPallVideo;
-  const VideoPlayer({super.key,this.rehabPallVideo});
+  final RehabilitativePallVideo? rehabPallVideo;
+
+  const VideoPlayer({super.key, this.rehabPallVideo});
+
   @override
   State createState() => _VideoPlayerState();
 }
@@ -23,7 +23,8 @@ class _VideoPlayerState extends State<VideoPlayer> {
   @override
   void initState() {
     super.initState();
-    String videoId = "${extractYouTubeVideoId(widget.rehabPallVideo!.videoLink.toString())}"; // Example video ID
+    String videoId =
+        "${extractYouTubeVideoId(widget.rehabPallVideo!.videoLink.toString())}"; // Example video ID
     _controller = YoutubePlayerController(
       initialVideoId: videoId,
       flags: const YoutubePlayerFlags(
@@ -35,6 +36,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
     _idController = TextEditingController();
     _seekToController = TextEditingController();
   }
+
   String? extractYouTubeVideoId(String url) {
     final uri = Uri.tryParse(url);
     if (uri == null) return null;
@@ -46,6 +48,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
     }
     return null;
   }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -57,7 +60,9 @@ class _VideoPlayerState extends State<VideoPlayer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.rehabPallVideo?.videoTitle??"",maxLines: 1,overflow: TextOverflow.ellipsis)),
+      appBar: AppBar(
+          title: Text(widget.rehabPallVideo?.videoTitle ?? "",
+              maxLines: 1, overflow: TextOverflow.ellipsis)),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -65,8 +70,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
               controller: _controller,
               showVideoProgressIndicator: true,
               progressIndicatorColor: Colors.blueAccent,
-              onReady: () {
-              },
+              onReady: () {},
             ),
           ],
         ),

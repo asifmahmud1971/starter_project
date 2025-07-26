@@ -20,9 +20,14 @@ class _PainClinicScreenState extends State<PainClinicScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppStrings.painClinic.tr(),style: kTitleMedium,),),
+      appBar: AppBar(
+        title: Text(
+          AppStrings.painClinic.tr(),
+          style: kTitleMedium,
+        ),
+      ),
       body: Padding(
-        padding:  EdgeInsets.all(16.r),
+        padding: EdgeInsets.all(16.r),
         child: GridView.count(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
@@ -31,19 +36,22 @@ class _PainClinicScreenState extends State<PainClinicScreen> {
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
           padding: EdgeInsets.all(0),
-          children: [ServiceCard(
-            onTap: () {
-              GetContext.to(AssessmentPage());
-            },
-            title: AppStrings.assessment.tr(),
-            icon: Assets.medAssessment,
-          ),ServiceCard(
-            onTap: () {
-            GetContext.to(MedicationScreen());
-            },
-            title: AppStrings.medication.tr(),
-            icon: Assets.medMonitoring,
-          )],
+          children: [
+            ServiceCard(
+              onTap: () {
+                GetContext.to(AssessmentPage());
+              },
+              title: AppStrings.assessment.tr(),
+              icon: Assets.medAssessment,
+            ),
+            ServiceCard(
+              onTap: () {
+                GetContext.to(MedicationScreen());
+              },
+              title: AppStrings.medication.tr(),
+              icon: Assets.medMonitoring,
+            )
+          ],
         ),
       ),
     );

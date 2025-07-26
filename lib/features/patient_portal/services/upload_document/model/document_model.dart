@@ -2,10 +2,11 @@ import '../../../../../core/constants/strings.dart';
 
 class DocumentModel {
   DocumentModel({
-      this.success, 
-      this.uploadDocument, 
-      this.token, 
-      this.tokenType,});
+    this.success,
+    this.uploadDocument,
+    this.token,
+    this.tokenType,
+  });
 
   DocumentModel.fromJson(dynamic json) {
     success = json['success'];
@@ -18,6 +19,7 @@ class DocumentModel {
     token = json['token'];
     tokenType = json['token_type'];
   }
+
   bool? success;
   List<UploadDocument>? uploadDocument;
   String? token;
@@ -33,20 +35,20 @@ class DocumentModel {
     map['token_type'] = tokenType;
     return map;
   }
-
 }
 
 class UploadDocument {
   UploadDocument({
-      this.id, 
-      this.companyId, 
-      this.patientId, 
-      this.date, 
-      this.title, 
-      this.file, 
-      this.submit, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.companyId,
+    this.patientId,
+    this.date,
+    this.title,
+    this.file,
+    this.submit,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   UploadDocument.fromJson(dynamic json) {
     id = json['id'];
@@ -54,11 +56,12 @@ class UploadDocument {
     patientId = json['patient_id'];
     date = json['date'];
     title = json['title'];
-    file = appBaseUrl+json['file'];
+    file = appBaseUrl + json['file'];
     submit = json['submit'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   num? id;
   String? companyId;
   String? patientId;
@@ -82,5 +85,4 @@ class UploadDocument {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }

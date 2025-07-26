@@ -13,18 +13,15 @@ class MessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isMe = message.isSentByMe ?? false;
-    final Color bubbleColor = isMe
-        ? AppColors.kPrimaryColor
-        : const Color(0xFFFCF4ED);
-    final Color textColor = isMe
-        ? Colors.white
-        : const Color(0xFF5D4037);
+    final Color bubbleColor =
+        isMe ? AppColors.kPrimaryColor : const Color(0xFFFCF4ED);
+    final Color textColor = isMe ? Colors.white : const Color(0xFF5D4037);
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Column(
         crossAxisAlignment:
-        isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           // Message bubble container
           Container(
@@ -45,26 +42,26 @@ class MessageBubble extends StatelessWidget {
             ),
             child: isMe
                 ? Text(
-              message.text ?? "",
-              style: TextStyle(
-                color: textColor,
-                fontSize: 15,
-                height: 1.4,
-              ),
-            )
+                    message.text ?? "",
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 15,
+                      height: 1.4,
+                    ),
+                  )
                 : Html(
-              data: message.text ?? "",
-              style: {
-                "body": Style(
-                  margin: Margins.zero,
-                  padding: HtmlPaddings.zero,
-                ),
-                "p": Style(
-                  fontSize: FontSize(16.0),
-                  lineHeight: LineHeight(1.5),
-                ),
-              },
-            ),
+                    data: message.text ?? "",
+                    style: {
+                      "body": Style(
+                        margin: Margins.zero,
+                        padding: HtmlPaddings.zero,
+                      ),
+                      "p": Style(
+                        fontSize: FontSize(16.0),
+                        lineHeight: LineHeight(1.5),
+                      ),
+                    },
+                  ),
           ),
 
           // Timestamp and status row
@@ -74,7 +71,7 @@ class MessageBubble extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment:
-              isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+                  isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
               children: [
                 // Timestamp
                 Text(

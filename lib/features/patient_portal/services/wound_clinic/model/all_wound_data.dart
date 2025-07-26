@@ -2,10 +2,11 @@ import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wou
 
 class AllWoundData {
   AllWoundData({
-      this.success, 
-      this.woundAssessment, 
-      this.token, 
-      this.tokenType,});
+    this.success,
+    this.woundAssessment,
+    this.token,
+    this.tokenType,
+  });
 
   AllWoundData.fromJson(dynamic json) {
     success = json['success'];
@@ -18,6 +19,7 @@ class AllWoundData {
     token = json['token'];
     tokenType = json['token_type'];
   }
+
   bool? success;
   List<WoundData>? woundAssessment;
   String? token;
@@ -27,11 +29,11 @@ class AllWoundData {
     final map = <String, dynamic>{};
     map['success'] = success;
     if (woundAssessment != null) {
-      map['wound_assessment'] = woundAssessment?.map((v) => v.toJson()).toList();
+      map['wound_assessment'] =
+          woundAssessment?.map((v) => v.toJson()).toList();
     }
     map['token'] = token;
     map['token_type'] = tokenType;
     return map;
   }
-
 }

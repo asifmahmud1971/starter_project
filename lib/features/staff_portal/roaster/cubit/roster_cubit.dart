@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:medPilot/core/components/custom_progress_loader.dart';
 import 'package:medPilot/core/enum/app_status.dart';
-import 'package:medPilot/features/patient_portal/on_demand_service/model/procedure_model.dart';
 import 'package:medPilot/features/staff_portal/repository/staffPortal_repository.dart';
 import 'package:medPilot/features/staff_portal/roaster/model/roster_model.dart';
 

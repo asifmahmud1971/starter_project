@@ -60,7 +60,6 @@ extension MedIconExtension on String {
       case "medicine_alert":
         return Assets.medMedicalAlert;
 
-
       default:
         return null;
     }

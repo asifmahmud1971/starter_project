@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:medPilot/core/components/custom_progress_loader.dart';
 import 'package:medPilot/core/components/custom_snack_bar.dart';
-import 'package:medPilot/core/constants/app_print.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/model/follow_up.dart';
@@ -66,14 +65,15 @@ class FollowUpCubit extends Cubit<FollowUpState> {
     try {
       final response = await serviceRepository.getFollowUp({});
       response.fold(
-            (failure) {
+        (failure) {
           dismissProgressDialog();
         },
-            (data) async {
+        (data) async {
           emit(state.copyWith(
             appStatus: AppStatus.success,
             followUp: data,
-            followupList: data.followup,));
+            followupList: data.followup,
+          ));
         },
       );
       dismissProgressDialog();
@@ -109,14 +109,16 @@ class FollowUpCubit extends Cubit<FollowUpState> {
     try {
       final response = await serviceRepository.createFollowUp(data);
       response.fold(
-            (failure) {},
-            (data) async {
-         /*     printLog(data.toString());
+        (failure) {},
+        (data) async {
+          /*     printLog(data.toString());
               List<Followup> updatedFollowList = [
                 data,
                 ...?state.followupList, // existing follow-ups
               ];*/
-          emit(state.copyWith(appStatus: AppStatus.success, /*followupList: updatedFollowList*/));
+          emit(state.copyWith(
+            appStatus: AppStatus.success, /*followupList: updatedFollowList*/
+          ));
           formFieldClean();
           GetContext.back();
           getFollowUpReport();
@@ -124,7 +126,6 @@ class FollowUpCubit extends Cubit<FollowUpState> {
             context: GetContext.context,
             message: AppStrings.savedSuccessfullyCreated.tr(),
           );
-
         },
       );
       dismissProgressDialog();
@@ -147,12 +148,10 @@ class FollowUpCubit extends Cubit<FollowUpState> {
     return index >= 0 ? "$index" : null;
   }
 
-  List<String> functionalList = [
-    'Stable',
-    'Deteriorating'
-  ];
+  List<String> functionalList = ['Stable', 'Deteriorating'];
 
-  FormFieldValidator<String>? validator = (value) => (value??"").isEmpty ? 'This field is required' : null;
+  FormFieldValidator<String>? validator =
+      (value) => (value ?? "").isEmpty ? 'This field is required' : null;
 
   void formFieldClean() {
     bpHighController.clear();
@@ -170,5 +169,4 @@ class FollowUpCubit extends Cubit<FollowUpState> {
     bowelMovement = null;
     functionalStatus = null;
   }
-
 }

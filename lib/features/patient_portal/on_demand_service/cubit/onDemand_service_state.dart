@@ -14,35 +14,33 @@ class OnDemandServiceState extends Equatable {
   final TelePackageResponse? telePackage;
   final UpgradeTelePackage? upgradeTelePackage;
 
-  const OnDemandServiceState({
-    this.appStatus = AppStatus.initial,
-    this.onService,
-    this.followUp,
-    this.currentPackage,
-    this.city,
-    this.thana,
-    this.consultantsResponse,
-    this.assignStaffModel,
-    this.ambulanceResponse,
-    this.telePackage,
-    this.currentTelePackage,
-    this.upgradeTelePackage
-  });
+  const OnDemandServiceState(
+      {this.appStatus = AppStatus.initial,
+      this.onService,
+      this.followUp,
+      this.currentPackage,
+      this.city,
+      this.thana,
+      this.consultantsResponse,
+      this.assignStaffModel,
+      this.ambulanceResponse,
+      this.telePackage,
+      this.currentTelePackage,
+      this.upgradeTelePackage});
 
-  OnDemandServiceState copyWith({
-    final AppStatus? appStatus,
-    final OnServiceModel? onService,
-    final FollowUpModel? followUp,
-    final CurrentPackageResponse? currentPackage,
-    final CityResponse? city,
-    final ThanaResponse? thana,
-    final ConsultantsResponse? consultantsResponse,
-    final AssignShiftModel? assignStaffModel,
-    final AmbulanceResponse? ambulanceResponse,
-    final CurrentTelePackageResponse? currentTelePackage,
-    final TelePackageResponse? telePackage,
-    final UpgradeTelePackage? upgradeTelePackage
-  }) {
+  OnDemandServiceState copyWith(
+      {final AppStatus? appStatus,
+      final OnServiceModel? onService,
+      final FollowUpModel? followUp,
+      final CurrentPackageResponse? currentPackage,
+      final CityResponse? city,
+      final ThanaResponse? thana,
+      final ConsultantsResponse? consultantsResponse,
+      final AssignShiftModel? assignStaffModel,
+      final AmbulanceResponse? ambulanceResponse,
+      final CurrentTelePackageResponse? currentTelePackage,
+      final TelePackageResponse? telePackage,
+      final UpgradeTelePackage? upgradeTelePackage}) {
     return OnDemandServiceState(
       appStatus: appStatus ?? this.appStatus,
       onService: onService ?? this.onService,
@@ -60,8 +58,7 @@ class OnDemandServiceState extends Equatable {
   }
 
   @override
-  List<Object> get props =>
-      [
+  List<Object> get props => [
         appStatus,
         onService ?? {},
         followUp ?? {},

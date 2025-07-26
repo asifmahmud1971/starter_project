@@ -54,7 +54,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                   AppStrings.submit.tr(),
                   style: kTitleMedium.copyWith(color: AppColors.kWhiteColor),
                 ),
-              )   ,
+              ),
               30.verticalSpace,
             ],
           ),

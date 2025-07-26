@@ -7,7 +7,7 @@ class HomeState extends Equatable {
   final PrescriptionModel? prescriptionModel;
   final BlogModel? blogModel;
 
-  const HomeState( {
+  const HomeState({
     this.dashboardPermission,
     this.prescriptionModel,
     this.staffPermissionModel,
@@ -32,6 +32,11 @@ class HomeState extends Equatable {
   }
 
   @override
-  List<Object> get props =>
-      [appStatus, dashboardPermission ?? {}, prescriptionModel ?? {},staffPermissionModel??{},blogModel??{}];
+  List<Object> get props => [
+        appStatus,
+        dashboardPermission ?? {},
+        prescriptionModel ?? {},
+        staffPermissionModel ?? {},
+        blogModel ?? {}
+      ];
 }

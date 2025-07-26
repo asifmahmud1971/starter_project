@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medPilot/features/staff_portal/roaster/cubit/roster_cubit.dart';
-import 'package:medPilot/features/staff_portal/roaster/model/shift_model.dart';
 import 'package:medPilot/features/staff_portal/roaster/widget/roster_content.dart';
-import 'package:medPilot/features/staff_portal/roaster/widget/shift_card.dart';
 
 class RosterScreen extends StatefulWidget {
   const RosterScreen({super.key});
@@ -13,13 +11,13 @@ class RosterScreen extends StatefulWidget {
 }
 
 class _RosterScreenState extends State<RosterScreen> {
-
   @override
   void initState() {
     // TODO: implement initState
     context.read<RosterCubit>().getRosterData();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +29,8 @@ class _RosterScreenState extends State<RosterScreen> {
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.calendar_month,
+            const Icon(
+              Icons.calendar_month,
               size: 20,
               color: Color(0xFFF67F26),
             ),
@@ -39,10 +38,10 @@ class _RosterScreenState extends State<RosterScreen> {
             Text(
               'ROSTER',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontSize: 18,
-                letterSpacing: 1.2,
-                color: const Color(0xFF1A2B3C),
-              ),
+                    fontSize: 18,
+                    letterSpacing: 1.2,
+                    color: const Color(0xFF1A2B3C),
+                  ),
             ),
           ],
         ),

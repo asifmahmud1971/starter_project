@@ -5,14 +5,18 @@ class WoundDocumentData {
     this.success,
     this.savedData,
     this.token,
-    this.tokenType,});
+    this.tokenType,
+  });
 
   WoundDocumentData.fromJson(dynamic json) {
     success = json['success'];
-    savedData = json['saved_data'] != null ? WoundData.fromJson(json['saved_data']) : null;
+    savedData = json['saved_data'] != null
+        ? WoundData.fromJson(json['saved_data'])
+        : null;
     token = json['token'];
     tokenType = json['token_type'];
   }
+
   bool? success;
   WoundData? savedData;
   String? token;
@@ -28,5 +32,4 @@ class WoundDocumentData {
     map['token_type'] = tokenType;
     return map;
   }
-
 }

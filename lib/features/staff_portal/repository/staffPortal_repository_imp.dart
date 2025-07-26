@@ -12,6 +12,7 @@ import 'package:medPilot/features/staff_portal/pescription/model/staff_pescripti
 import 'package:medPilot/features/staff_portal/roaster/model/roster_model.dart';
 import 'package:medPilot/features/staff_portal/task/model/task_data.dart';
 import 'package:medPilot/features/staff_portal/task/model/task_model.dart';
+
 import 'staffPortal_repository.dart';
 
 @Injectable(as: StaffPortalRepository)
@@ -92,6 +93,7 @@ class StaffPortalRepositoryImp implements StaffPortalRepository {
       fromJson: TaskData.fromJson,
     );
   }
+
   @override
   Future<Either<ApiFailure, MedicineAlertGiven>> markAsMedicineGiven(int? id) {
     return apiRequest.performRequest(
@@ -100,14 +102,14 @@ class StaffPortalRepositoryImp implements StaffPortalRepository {
       fromJson: MedicineAlertGiven.fromJson,
     );
   }
-   @override
-  Future<Either<ApiFailure, MedicineAlertGiven>> markAsMedicineNotGiven(int? id) {
+
+  @override
+  Future<Either<ApiFailure, MedicineAlertGiven>> markAsMedicineNotGiven(
+      int? id) {
     return apiRequest.performRequest(
       url: ApiUrls.markAsMedicineNotGiven(id),
       method: Method.get,
       fromJson: MedicineAlertGiven.fromJson,
     );
   }
-
-
 }

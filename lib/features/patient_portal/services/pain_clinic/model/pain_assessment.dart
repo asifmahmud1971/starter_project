@@ -1,14 +1,16 @@
 class PainAssessmentModel {
   PainAssessmentModel({
-      this.success, 
-      this.patient, 
-      this.allPainAssessment, 
-      this.token, 
-      this.tokenType,});
+    this.success,
+    this.patient,
+    this.allPainAssessment,
+    this.token,
+    this.tokenType,
+  });
 
   PainAssessmentModel.fromJson(dynamic json) {
     success = json['success'];
-    patient = json['patient'] != null ? Patient.fromJson(json['patient']) : null;
+    patient =
+        json['patient'] != null ? Patient.fromJson(json['patient']) : null;
     if (json['all_pain_assessment'] != null) {
       allPainAssessment = [];
       json['all_pain_assessment'].forEach((v) {
@@ -18,6 +20,7 @@ class PainAssessmentModel {
     token = json['token'];
     tokenType = json['token_type'];
   }
+
   bool? success;
   Patient? patient;
   List<AllPainAssessment>? allPainAssessment;
@@ -31,29 +34,30 @@ class PainAssessmentModel {
       map['patient'] = patient?.toJson();
     }
     if (allPainAssessment != null) {
-      map['all_pain_assessment'] = allPainAssessment?.map((v) => v.toJson()).toList();
+      map['all_pain_assessment'] =
+          allPainAssessment?.map((v) => v.toJson()).toList();
     }
     map['token'] = token;
     map['token_type'] = tokenType;
     return map;
   }
-
 }
 
 class AllPainAssessment {
   AllPainAssessment({
-      this.id, 
-      this.companyId, 
-      this.patientId, 
-      this.date, 
-      this.painLocation, 
-      this.radiation, 
-      this.severity, 
-      this.changeOfTime, 
-      this.relievingFactors, 
-      this.causeOfPain, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.companyId,
+    this.patientId,
+    this.date,
+    this.painLocation,
+    this.radiation,
+    this.severity,
+    this.changeOfTime,
+    this.relievingFactors,
+    this.causeOfPain,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   AllPainAssessment.fromJson(dynamic json) {
     id = json['id'];
@@ -69,6 +73,7 @@ class AllPainAssessment {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   num? id;
   dynamic companyId;
   dynamic patientId;
@@ -98,33 +103,33 @@ class AllPainAssessment {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }
 
 class Patient {
   Patient({
-      this.id, 
-      this.companyId, 
-      this.regNo, 
-      this.userId, 
-      this.branchId, 
-      this.name, 
-      this.dob, 
-      this.age, 
-      this.thana, 
-      this.city, 
-      this.gender, 
-      this.address, 
-      this.mobile, 
-      this.email, 
-      this.consultingDoctor, 
-      this.doctorContractNumber, 
-      this.alternativeNumber, 
-      this.password, 
-      this.status, 
-      this.landMark, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.companyId,
+    this.regNo,
+    this.userId,
+    this.branchId,
+    this.name,
+    this.dob,
+    this.age,
+    this.thana,
+    this.city,
+    this.gender,
+    this.address,
+    this.mobile,
+    this.email,
+    this.consultingDoctor,
+    this.doctorContractNumber,
+    this.alternativeNumber,
+    this.password,
+    this.status,
+    this.landMark,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   Patient.fromJson(dynamic json) {
     id = json['id'];
@@ -150,6 +155,7 @@ class Patient {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   num? id;
   String? companyId;
   String? regNo;
@@ -199,5 +205,4 @@ class Patient {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }

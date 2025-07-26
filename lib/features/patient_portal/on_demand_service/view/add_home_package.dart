@@ -23,7 +23,7 @@ class AddHomePackagePage extends StatefulWidget {
 
 class _AddHomePackagePageState extends State<AddHomePackagePage> {
   final OnDemandServiceCubit onDemandCubit =
-  GetContext.context.read<OnDemandServiceCubit>();
+      GetContext.context.read<OnDemandServiceCubit>();
 
   @override
   void initState() {
@@ -36,8 +36,8 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-        const Text('Home Package', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text('Home Package',
+            style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -86,14 +86,14 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
                             profileCubit.selectGender = value;
                           }),
                         ),*/
-
                     ],
                   ),
                   Row(
                     children: [
                       Text(
                         "Gender",
-                        style: kBodyMedium.copyWith(color: AppColors.kGrayColor600),
+                        style: kBodyMedium.copyWith(
+                            color: AppColors.kGrayColor600),
                       ),
                       Text(
                         "*",
@@ -119,7 +119,8 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
                     children: [
                       Text(
                         "City",
-                        style: kBodyMedium.copyWith(color: AppColors.kGrayColor600),
+                        style: kBodyMedium.copyWith(
+                            color: AppColors.kGrayColor600),
                       ),
                       Text(
                         "*",
@@ -153,7 +154,8 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
                     children: [
                       Text(
                         "Thana",
-                        style: kBodyMedium.copyWith(color: AppColors.kGrayColor600),
+                        style: kBodyMedium.copyWith(
+                            color: AppColors.kGrayColor600),
                       ),
                       Text(
                         "*",
@@ -172,8 +174,8 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
                     items: state.thana?.thana ?? [],
                     onChanged: state.thana?.thana != null
                         ? (value) => setState(() {
-                      onDemandCubit.selectThana = value;
-                    })
+                              onDemandCubit.selectThana = value;
+                            })
                         : null,
                   ),
                   10.verticalSpace,
@@ -295,7 +297,7 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12)),
                         backgroundColor:
-                        AppColors.kPrimaryColor.withValues(alpha: 0.7),
+                            AppColors.kPrimaryColor.withValues(alpha: 0.7),
                         foregroundColor: Colors.white,
                         elevation: 4,
                       ),
@@ -351,8 +353,8 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
           title: const Text('Help'),
           content: const Text(
             'Fill in all the patient\'s vital signs and symptoms. '
-                'The color indicators show whether values are normal (green), '
-                'concerning (orange), or critical (red).',
+            'The color indicators show whether values are normal (green), '
+            'concerning (orange), or critical (red).',
           ),
           actions: [
             TextButton(
@@ -374,7 +376,7 @@ class _BuildSmartVitalRow extends StatelessWidget {
   const _BuildSmartVitalRow({
     super.key,
     this.label,
-    this.isOptional=false,
+    this.isOptional = false,
     required this.firstField,
   });
 
@@ -393,17 +395,19 @@ class _BuildSmartVitalRow extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            isOptional?Padding(
-              padding: const EdgeInsets.only(left: 4),
-              child: Text(
-                "*",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: AppColors.kError400,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ):SizedBox.shrink()
+            isOptional
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 4),
+                    child: Text(
+                      "*",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: AppColors.kError400,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  )
+                : SizedBox.shrink()
           ],
         ),
         8.verticalSpace,

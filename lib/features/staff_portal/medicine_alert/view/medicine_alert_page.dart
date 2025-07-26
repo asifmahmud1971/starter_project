@@ -36,14 +36,17 @@ class _MedicineAlertScreenState extends State<MedicineAlertScreen> {
               const HeaderWidget(),
               16.verticalSpace,
               StatusSummaryWidget(alerts: alerts),
-             16.verticalSpace,
+              16.verticalSpace,
               Expanded(
                 child: ListView.separated(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   itemCount: alerts.length,
                   itemBuilder: (context, index) {
                     return MedicineCardWidget(alert: alerts[index]);
-                  }, separatorBuilder: (BuildContext context, int index) { return 16.verticalSpace; },
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return 16.verticalSpace;
+                  },
                 ),
               ),
             ],
@@ -53,13 +56,3 @@ class _MedicineAlertScreenState extends State<MedicineAlertScreen> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-

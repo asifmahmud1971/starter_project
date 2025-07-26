@@ -38,15 +38,15 @@ class Packages {
 
   Packages(
       {this.id,
-        this.companyId,
-        this.name,
-        this.subCategoryId,
-        this.fromTime,
-        this.endTime,
-        this.price,
-        this.status,
-        this.createdAt,
-        this.updatedAt});
+      this.companyId,
+      this.name,
+      this.subCategoryId,
+      this.fromTime,
+      this.endTime,
+      this.price,
+      this.status,
+      this.createdAt,
+      this.updatedAt});
 
   Packages.fromJson(Map<String, dynamic> json) {
     id = json['id'];

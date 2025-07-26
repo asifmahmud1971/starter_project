@@ -23,15 +23,14 @@ class CartRepositoryImp implements CartRepository {
         params: params,
         fromJson: CartResponse.fromJson);
   }
- @override
-  Future<Either<ApiFailure, dynamic>> addProduct(
-      Map<String, dynamic> params) {
+
+  @override
+  Future<Either<ApiFailure, dynamic>> addProduct(Map<String, dynamic> params) {
     return apiRequest.performRequest(
-        url: ApiUrls.addToCart,
-        method: Method.post,
-        params: params);
+        url: ApiUrls.addToCart, method: Method.post, params: params);
   }
- @override
+
+  @override
   Future<Either<ApiFailure, CartResponse>> updateCart(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -40,13 +39,10 @@ class CartRepositoryImp implements CartRepository {
         params: params,
         fromJson: CartResponse.fromJson);
   }
- @override
-  Future<Either<ApiFailure, dynamic>> deleteCart(
-      Map<String, dynamic> params) {
-    return apiRequest.performRequest(
-        url: ApiUrls.removeCartItem,
-        method: Method.post,
-        params: params);
-  }
 
+  @override
+  Future<Either<ApiFailure, dynamic>> deleteCart(Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+        url: ApiUrls.removeCartItem, method: Method.post, params: params);
+  }
 }

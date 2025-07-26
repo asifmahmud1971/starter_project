@@ -53,7 +53,10 @@ class _InvestigationReportScreenState extends State<InvestigationReportScreen> {
                   ),
                 ),
                 12.verticalSpace,
-                state.investigationsResponse?.patientInfo!=null?PatientInformation(patientInfo: state.investigationsResponse?.patientInfo):PatientInfoShimmer(),
+                state.investigationsResponse?.patientInfo != null
+                    ? PatientInformation(
+                        patientInfo: state.investigationsResponse?.patientInfo)
+                    : PatientInfoShimmer(),
                 20.verticalSpace,
                 Text(
                   AppStrings.diagnosisReport.tr(),
@@ -219,5 +222,3 @@ class _InvestigationReportScreenState extends State<InvestigationReportScreen> {
     );
   }
 }
-
-

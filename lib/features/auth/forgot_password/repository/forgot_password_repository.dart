@@ -4,6 +4,7 @@ import 'package:medPilot/data/network/api_client.dart';
 import 'package:medPilot/data/network/api_exception.dart';
 import 'package:medPilot/data/network/api_failure.dart';
 import 'package:medPilot/data/network/api_urls.dart';
+
 import 'forgot_password_repository_imp.dart';
 
 @Injectable(as: ForgotPasswordRepositoryImp)
@@ -23,6 +24,7 @@ class ForgotPasswordRepository implements ForgotPasswordRepositoryImp {
       return Left(ApiException.handle(error).failure);
     }
   }
+
   @override
   Future<Either<ApiFailure, dynamic>> setPassword(
       Map<String, dynamic> params) async {

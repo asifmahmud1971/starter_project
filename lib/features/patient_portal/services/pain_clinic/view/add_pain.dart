@@ -21,8 +21,6 @@ class _AddPainAssessmentScreenState extends State<AddPainAssessmentScreen> {
   final PainClinicCubit painClinicCubit =
       GetContext.context.read<PainClinicCubit>();
 
-
-
   @override
   void initState() {
     // TODO: implement initState

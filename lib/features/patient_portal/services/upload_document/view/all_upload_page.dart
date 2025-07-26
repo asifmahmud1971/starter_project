@@ -9,10 +9,8 @@ import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/services/upload_document/cubit/document_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/upload_document/view/upload_document.dart';
-import 'package:medPilot/features/patient_portal/services/wound_clinic/view/add_wound_assessment.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/view/image_view_screen.dart';
 import 'package:medPilot/generated/assets.dart';
-import 'package:photo_view/photo_view.dart';
 
 class AllUploadPage extends StatefulWidget {
   @override
@@ -64,11 +62,14 @@ class _AllUploadPageState extends State<AllUploadPage> {
               mainAxisSpacing: 12,
               childAspectRatio: 0.9,
             ),
-            itemCount: (state.documentModel?.uploadDocument??[]).length,
+            itemCount: (state.documentModel?.uploadDocument ?? []).length,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  GetContext.to(GalleryViewerScreen(                    imageUrls: [state.documentModel?.uploadDocument?[index].file??""],
+                  GetContext.to(GalleryViewerScreen(
+                    imageUrls: [
+                      state.documentModel?.uploadDocument?[index].file ?? ""
+                    ],
                     initialIndex: index,
                   ));
                 },
@@ -79,18 +80,20 @@ class _AllUploadPageState extends State<AllUploadPage> {
                       child: Hero(
                         tag: 'image_$index',
                         child: CustomImage(
-                          baseUrl: state.documentModel?.uploadDocument?[index].file??"",
+                          baseUrl: state
+                                  .documentModel?.uploadDocument?[index].file ??
+                              "",
                           placeHolder: Assets.imagesCardImageThumb,
                         ),
                       ),
                     ),
                     8.verticalSpace,
                     Text(
-                      state.documentModel?.uploadDocument?[index].title??"",
+                      state.documentModel?.uploadDocument?[index].title ?? "",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style:
-                      kBodyLarge.copyWith(color: AppColors.kTextPrimaryColor),
+                      style: kBodyLarge.copyWith(
+                          color: AppColors.kTextPrimaryColor),
                     )
                   ],
                 ),

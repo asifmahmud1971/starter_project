@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medPilot/features/patient_portal/on_demand_service/model/city_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/thana_response.dart';
 
 import '../../../../../core/constants/app_colors.dart';
@@ -12,22 +11,22 @@ class ThanaBuildSmartDropdown extends StatelessWidget {
   final String? Function(Thana?)? validator; // Change validator type
   final Widget? prefixIcon;
 
-  const ThanaBuildSmartDropdown({
-    super.key,
-    this.value,
-    this.hint,
-    this.items,
-    this.onChanged,
-    this.validator,
-    this.prefixIcon
-  });
+  const ThanaBuildSmartDropdown(
+      {super.key,
+      this.value,
+      this.hint,
+      this.items,
+      this.onChanged,
+      this.validator,
+      this.prefixIcon});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
-          child: DropdownButtonFormField<Thana>( // Change from String to City
+          child: DropdownButtonFormField<Thana>(
+            // Change from String to City
             value: value,
             isExpanded: true,
             decoration: InputDecoration(
@@ -44,7 +43,8 @@ class ThanaBuildSmartDropdown extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(color: AppColors.kPrimaryColor),
               ),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             ),
             items: items!.map((Thana thana) {
               return DropdownMenuItem<Thana>(
@@ -59,11 +59,13 @@ class ThanaBuildSmartDropdown extends StatelessWidget {
             validator: validator != null
                 ? (Thana? thana) => validator!(thana)
                 : (Thana? thana) {
-              if (thana == null || thana.name == null || thana.name!.isEmpty) {
-                return 'Please select an option';
-              }
-              return null;
-            },
+                    if (thana == null ||
+                        thana.name == null ||
+                        thana.name!.isEmpty) {
+                      return 'Please select an option';
+                    }
+                    return null;
+                  },
             style: TextStyle(color: Colors.grey.shade800),
             dropdownColor: Colors.white,
             borderRadius: BorderRadius.circular(10),

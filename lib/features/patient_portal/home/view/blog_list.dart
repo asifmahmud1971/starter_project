@@ -32,13 +32,17 @@ class _BlogListState extends State<BlogList> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(AppStrings.latestArticle.tr(), style: kTitleMedium.copyWith()),
+              Text(AppStrings.latestArticle.tr(),
+                  style: kTitleMedium.copyWith()),
               10.verticalSpace,
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: List.generate((state.blogModel?.data??[]).length, (index) {
-                    return BlogCard(blogData: (state.blogModel?.data??[])[index],);
+                  children: List.generate((state.blogModel?.data ?? []).length,
+                      (index) {
+                    return BlogCard(
+                      blogData: (state.blogModel?.data ?? [])[index],
+                    );
                   }),
                 ),
               ),

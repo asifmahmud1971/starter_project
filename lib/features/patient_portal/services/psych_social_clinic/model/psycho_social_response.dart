@@ -44,17 +44,17 @@ class SavedData {
 
   SavedData(
       {this.companyId,
-        this.patientId,
-        this.date,
-        this.anxiousOrWorried,
-        this.familyAnxiousOrWorried,
-        this.feelingDepressed,
-        this.feltAtPeace,
-        this.shareFeeling,
-        this.muchInformation,
-        this.updatedAt,
-        this.createdAt,
-        this.id});
+      this.patientId,
+      this.date,
+      this.anxiousOrWorried,
+      this.familyAnxiousOrWorried,
+      this.feelingDepressed,
+      this.feltAtPeace,
+      this.shareFeeling,
+      this.muchInformation,
+      this.updatedAt,
+      this.createdAt,
+      this.id});
 
   SavedData.fromJson(Map<String, dynamic> json) {
     companyId = json['company_id'];

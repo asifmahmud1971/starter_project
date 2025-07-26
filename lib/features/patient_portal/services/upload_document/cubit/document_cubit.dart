@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:medPilot/core/components/custom_progress_loader.dart';
-import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/model/follow_up.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/model/medication_model.dart';

@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:medPilot/features/patient_portal/services/psych_social_clinic/model/all_psych_social_response.dart';
 import 'package:medPilot/features/patient_portal/services/psych_social_clinic/model/psycho_social_response.dart';
-import 'package:medPilot/features/profile/models/user_profile_response.dart';
+
 import '../../../../../data/network/api_client.dart';
 import '../../../../../data/network/api_exception.dart';
 import '../../../../../data/network/api_failure.dart';
@@ -40,5 +40,4 @@ class PsychSocialRepository implements PsychSocialRepositoryImp {
       return Left(ApiException.handle(error).failure);
     }
   }
-
 }

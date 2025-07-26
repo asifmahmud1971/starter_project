@@ -51,10 +51,11 @@ class _PalliativeChatScreenState extends State<PalliativeChatScreen> {
                     visible: state.appStatus == AppStatus.loading,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: MessageBubble(message: Message(
-                          text: "Processing..",
-                          time: DateTime.now(),
-                          isSentByMe: false)),
+                      child: MessageBubble(
+                          message: Message(
+                              text: "Processing..",
+                              time: DateTime.now(),
+                              isSentByMe: false)),
                     )),
                 _buildMessageInput(),
               ],
@@ -64,8 +65,6 @@ class _PalliativeChatScreenState extends State<PalliativeChatScreen> {
       },
     );
   }
-
-
 
   Widget _buildMessageList() {
     return BlocBuilder<ChatCubit, ChatState>(
@@ -78,15 +77,13 @@ class _PalliativeChatScreenState extends State<PalliativeChatScreen> {
                 itemCount: state.messages?.length,
                 itemBuilder: (context, index) {
                   return MessageBubble(
-                     message:  state.messages?[index] ?? Message());
+                      message: state.messages?[index] ?? Message());
                 },
               )
             : SizedBox();
       },
     );
   }
-
-
 
   Widget _buildMessageInput() {
     return Container(

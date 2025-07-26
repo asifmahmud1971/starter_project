@@ -5,8 +5,6 @@ import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/dashboard/cubit/dashboard_cubit.dart';
 import 'package:medPilot/features/dashboard/cubit/dashboard_state.dart';
-import 'package:medPilot/features/patient_portal/cart/view/patient_cart_homescreen.dart';
-import 'package:medPilot/features/patient_portal/home/view/patient_home_screen.dart';
 import 'package:medPilot/generated/assets.dart';
 
 class PatientDashboardScreen extends StatefulWidget {
@@ -17,11 +15,10 @@ class PatientDashboardScreen extends StatefulWidget {
 }
 
 class _PatientDashboardScreenState extends State<PatientDashboardScreen> {
-
-@override
+  @override
   void initState() {
     // TODO: implement initState
-  context.read<DashboardCubit>().onPageChanged(0);
+    context.read<DashboardCubit>().onPageChanged(0);
     super.initState();
   }
 
@@ -36,7 +33,7 @@ class _PatientDashboardScreenState extends State<PatientDashboardScreen> {
             backgroundColor: AppColors.kWhiteColor,
             type: BottomNavigationBarType.fixed,
             unselectedLabelStyle:
-            kBodySmall.copyWith(color: AppColors.kGrayColor700),
+                kBodySmall.copyWith(color: AppColors.kGrayColor700),
             selectedLabelStyle: kBodySmall.copyWith(
                 color: AppColors.kAudioButtonGrayColor,
                 fontWeight: FontWeight.w700),
@@ -58,7 +55,6 @@ class _PatientDashboardScreenState extends State<PatientDashboardScreen> {
                   color: AppColors.kPrimaryColor,
                 ),
                 label: "Home",
-
               ),
               BottomNavigationBarItem(
                 icon: CustomSvg(

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
 
 class AppSlider extends StatefulWidget {
   final List<String> imageUrls;
@@ -12,7 +12,8 @@ class AppSlider extends StatefulWidget {
 
 class _AppSliderState extends State<AppSlider> {
   int _currentIndex = 0;
-  final CarouselSliderController _carouselController = CarouselSliderController();
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class _AppSliderState extends State<AppSlider> {
             autoPlayAnimationDuration: const Duration(milliseconds: 800),
             autoPlayCurve: Curves.fastOutSlowIn,
             enlargeCenterPage: true,
-            aspectRatio: 16/9,
+            aspectRatio: 16 / 9,
             viewportFraction: 0.8,
             onPageChanged: (index, reason) {
               setState(() {
@@ -62,7 +63,7 @@ class _AppSliderState extends State<AppSlider> {
                           child: CircularProgressIndicator(
                             value: loadingProgress.expectedTotalBytes != null
                                 ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
+                                    loadingProgress.expectedTotalBytes!
                                 : null,
                           ),
                         );

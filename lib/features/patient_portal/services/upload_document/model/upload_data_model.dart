@@ -40,14 +40,14 @@ class SavedData {
 
   SavedData(
       {this.patientId,
-        this.companyId,
-        this.title,
-        this.date,
-        this.file,
-        this.submit,
-        this.updatedAt,
-        this.createdAt,
-        this.id});
+      this.companyId,
+      this.title,
+      this.date,
+      this.file,
+      this.submit,
+      this.updatedAt,
+      this.createdAt,
+      this.id});
 
   SavedData.fromJson(Map<String, dynamic> json) {
     patientId = json['patient_id'];

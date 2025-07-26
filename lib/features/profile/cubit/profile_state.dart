@@ -8,7 +8,7 @@ class ProfileState extends Equatable {
   final String passwordErr;
   final ProfileDetails? profileDetails;
 
-  const ProfileState( {
+  const ProfileState({
     this.appStatus = AppStatus.initial,
     this.emailState = AppStatus.initial,
     this.emailErr = '',
@@ -17,14 +17,13 @@ class ProfileState extends Equatable {
     this.profileDetails,
   });
 
-  ProfileState copyWith({
-    final AppStatus? appStatus,
-    final AppStatus? emailState,
-    final String? emailErr,
-    final AppStatus? passwordState,
-    final String? passwordErr,
-    final ProfileDetails? profileDetails
-  }) {
+  ProfileState copyWith(
+      {final AppStatus? appStatus,
+      final AppStatus? emailState,
+      final String? emailErr,
+      final AppStatus? passwordState,
+      final String? passwordErr,
+      final ProfileDetails? profileDetails}) {
     return ProfileState(
       appStatus: appStatus ?? this.appStatus,
       emailState: emailState ?? this.emailState,
@@ -37,11 +36,11 @@ class ProfileState extends Equatable {
 
   @override
   List<Object> get props => [
-    appStatus,
-    emailState,
-    emailErr,
-    passwordState,
-    passwordErr,
-    profileDetails??{}
-  ];
+        appStatus,
+        emailState,
+        emailErr,
+        passwordState,
+        passwordErr,
+        profileDetails ?? {}
+      ];
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 
 class CarePlanningLandingPage extends StatefulWidget {
   const CarePlanningLandingPage({super.key});
 
   @override
-  State<CarePlanningLandingPage> createState() => _CarePlanningLandingPageState();
+  State<CarePlanningLandingPage> createState() =>
+      _CarePlanningLandingPageState();
 }
 
 class _CarePlanningLandingPageState extends State<CarePlanningLandingPage> {
@@ -58,7 +57,8 @@ class _CarePlanningLandingPageState extends State<CarePlanningLandingPage> {
       icon: Icons.people_outline,
       questions: [
         Question(
-          text: "Who would you like to nominate as your spokesperson for health decisions?",
+          text:
+              "Who would you like to nominate as your spokesperson for health decisions?",
           hint: "Name and relationship",
         ),
         Question(
@@ -80,7 +80,8 @@ class _CarePlanningLandingPageState extends State<CarePlanningLandingPage> {
           hint: "Comfort-focused, spiritual care, etc.",
         ),
         Question(
-          text: "What are the next steps you would like to take in your care plan?",
+          text:
+              "What are the next steps you would like to take in your care plan?",
           hint: "Specific actions or plans",
         ),
       ],
@@ -105,11 +106,12 @@ class _CarePlanningLandingPageState extends State<CarePlanningLandingPage> {
       ),
       body: Column(
         children: [
-
           // Form content
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 16, ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
               children: [
                 const Text(
                   "Your Care Preferences",
@@ -129,7 +131,9 @@ class _CarePlanningLandingPageState extends State<CarePlanningLandingPage> {
                 ),
 
                 // Form sections
-                ...sections.map((section) => _buildSection(section, theme, colors)).toList(),
+                ...sections
+                    .map((section) => _buildSection(section, theme, colors))
+                    .toList(),
 
                 const SizedBox(height: 32),
 
@@ -165,7 +169,8 @@ class _CarePlanningLandingPageState extends State<CarePlanningLandingPage> {
     );
   }
 
-  Widget _buildSection(FormSection section, ThemeData theme, ColorScheme colors) {
+  Widget _buildSection(
+      FormSection section, ThemeData theme, ColorScheme colors) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
@@ -183,7 +188,9 @@ class _CarePlanningLandingPageState extends State<CarePlanningLandingPage> {
         children: [
           // Section header
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20,),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
             decoration: BoxDecoration(
               color: colors.primary.withOpacity(0.1),
               borderRadius: const BorderRadius.only(
@@ -208,13 +215,16 @@ class _CarePlanningLandingPageState extends State<CarePlanningLandingPage> {
           ),
 
           // Questions with text fields
-          ...section.questions.map((question) => _buildQuestionField(question, theme, colors)).toList(),
+          ...section.questions
+              .map((question) => _buildQuestionField(question, theme, colors))
+              .toList(),
         ],
       ),
     );
   }
 
-  Widget _buildQuestionField(Question question, ThemeData theme, ColorScheme colors) {
+  Widget _buildQuestionField(
+      Question question, ThemeData theme, ColorScheme colors) {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -229,7 +239,6 @@ class _CarePlanningLandingPageState extends State<CarePlanningLandingPage> {
             ),
           ),
           const SizedBox(height: 12),
-
           TextFormField(
             controller: question.controller,
             maxLines: 4,
@@ -266,8 +275,8 @@ class _CarePlanningLandingPageState extends State<CarePlanningLandingPage> {
         title: const Text("Form Assistance"),
         content: const Text(
           "Please provide thoughtful responses to each question. "
-              "Your answers will help healthcare providers understand your preferences "
-              "for current and future medical care.",
+          "Your answers will help healthcare providers understand your preferences "
+          "for current and future medical care.",
         ),
         actions: [
           TextButton(
@@ -296,7 +305,8 @@ class _CarePlanningLandingPageState extends State<CarePlanningLandingPage> {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text("Incomplete Form"),
-          content: const Text("Please complete all questions before submitting."),
+          content:
+              const Text("Please complete all questions before submitting."),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -320,7 +330,7 @@ class _CarePlanningLandingPageState extends State<CarePlanningLandingPage> {
         ),
         content: const Text(
           "Your advanced care planning preferences have been successfully saved. "
-              "You can review or update them anytime in your profile.",
+          "You can review or update them anytime in your profile.",
         ),
         actions: [
           TextButton(

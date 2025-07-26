@@ -1,9 +1,10 @@
 class WoundDescribeReportModel {
   WoundDescribeReportModel({
-      this.success, 
-      this.woundDescribe, 
-      this.token, 
-      this.tokenType,});
+    this.success,
+    this.woundDescribe,
+    this.token,
+    this.tokenType,
+  });
 
   WoundDescribeReportModel.fromJson(dynamic json) {
     success = json['success'];
@@ -16,6 +17,7 @@ class WoundDescribeReportModel {
     token = json['token'];
     tokenType = json['token_type'];
   }
+
   bool? success;
   List<WoundDescribe>? woundDescribe;
   String? token;
@@ -31,23 +33,23 @@ class WoundDescribeReportModel {
     map['token_type'] = tokenType;
     return map;
   }
-
 }
 
 class WoundDescribe {
   WoundDescribe({
-      this.id, 
-      this.assId, 
-      this.companyId, 
-      this.patientId, 
-      this.date, 
-      this.location, 
-      this.site, 
-      this.occured, 
-      this.patternOfWound, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.management,});
+    this.id,
+    this.assId,
+    this.companyId,
+    this.patientId,
+    this.date,
+    this.location,
+    this.site,
+    this.occured,
+    this.patternOfWound,
+    this.createdAt,
+    this.updatedAt,
+    this.management,
+  });
 
   WoundDescribe.fromJson(dynamic json) {
     id = json['id'];
@@ -68,6 +70,7 @@ class WoundDescribe {
       });
     }
   }
+
   num? id;
   String? assId;
   String? companyId;
@@ -99,23 +102,23 @@ class WoundDescribe {
     }
     return map;
   }
-
 }
 
 class Management {
   Management({
-      this.id, 
-      this.companyId, 
-      this.patientId, 
-      this.date, 
-      this.woundLocation, 
-      this.debridement, 
-      this.solution, 
-      this.productUsed, 
-      this.frequency, 
-      this.nextDate, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.companyId,
+    this.patientId,
+    this.date,
+    this.woundLocation,
+    this.debridement,
+    this.solution,
+    this.productUsed,
+    this.frequency,
+    this.nextDate,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   Management.fromJson(dynamic json) {
     id = json['id'];
@@ -131,6 +134,7 @@ class Management {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   num? id;
   String? companyId;
   String? patientId;
@@ -160,5 +164,4 @@ class Management {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }

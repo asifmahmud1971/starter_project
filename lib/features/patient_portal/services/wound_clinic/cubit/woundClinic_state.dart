@@ -11,8 +11,7 @@ class WoundClinicState extends Equatable {
   final String? uploadProgressString;
   final String? errorMessage;
 
-
-  const WoundClinicState(  {
+  const WoundClinicState({
     this.painAssessmentModel,
     this.medicationModel,
     this.appStatus = AppStatus.initial,
@@ -24,23 +23,23 @@ class WoundClinicState extends Equatable {
     this.allWoundData,
   });
 
-  WoundClinicState copyWith({
-    final AppStatus? appStatus,
-    final PainAssessmentModel? painAssessmentModel,
-    final FollowUpModel? followUp,
-    final MedicationModel? medicationModel,
-    final WoundDescribeReportModel? woundDescribeReportModel,
-    final double? uploadProgress,
-    final String? errorMessage,
-    final WoundDocumentData? woundDocumentData,
-    final String? uploadProgressString,
-    final AllWoundData? allWoundData
-  }) {
+  WoundClinicState copyWith(
+      {final AppStatus? appStatus,
+      final PainAssessmentModel? painAssessmentModel,
+      final FollowUpModel? followUp,
+      final MedicationModel? medicationModel,
+      final WoundDescribeReportModel? woundDescribeReportModel,
+      final double? uploadProgress,
+      final String? errorMessage,
+      final WoundDocumentData? woundDocumentData,
+      final String? uploadProgressString,
+      final AllWoundData? allWoundData}) {
     return WoundClinicState(
       appStatus: appStatus ?? this.appStatus,
       painAssessmentModel: painAssessmentModel ?? this.painAssessmentModel,
       medicationModel: medicationModel ?? this.medicationModel,
-      woundDescribeReportModel: woundDescribeReportModel ?? this.woundDescribeReportModel,
+      woundDescribeReportModel:
+          woundDescribeReportModel ?? this.woundDescribeReportModel,
       uploadProgress: uploadProgress ?? this.uploadProgress,
       errorMessage: errorMessage ?? this.errorMessage,
       woundDocumentData: woundDocumentData ?? this.woundDocumentData,
@@ -50,6 +49,15 @@ class WoundClinicState extends Equatable {
   }
 
   @override
-  List<Object> get props =>
-      [appStatus, painAssessmentModel ?? {},medicationModel??{},woundDescribeReportModel??{},uploadProgress??0.0,errorMessage??"",woundDocumentData??{},uploadProgressString??"0.0%",allWoundData??{}];
+  List<Object> get props => [
+        appStatus,
+        painAssessmentModel ?? {},
+        medicationModel ?? {},
+        woundDescribeReportModel ?? {},
+        uploadProgress ?? 0.0,
+        errorMessage ?? "",
+        woundDocumentData ?? {},
+        uploadProgressString ?? "0.0%",
+        allWoundData ?? {}
+      ];
 }

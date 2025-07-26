@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/services/psych_social_clinic/model/all_psych_social_response.dart';
 import 'package:medPilot/features/patient_portal/services/psych_social_clinic/model/psycho_social_response.dart';
+
 import '../../../../../core/constants/app_strings.dart';
 import '../repository/psych_social_repository_imp.dart';
 
@@ -18,7 +20,8 @@ part 'psych_social_state.dart';
 
 @injectable
 class PsychSocialCubit extends Cubit<PsychSocialState> {
-  PsychSocialCubit(this._psychSocialRepository) : super(const PsychSocialState());
+  PsychSocialCubit(this._psychSocialRepository)
+      : super(const PsychSocialState());
 
   final PsychSocialRepositoryImp _psychSocialRepository;
   final _appPreferences = instance.get<AppPreferences>();
@@ -30,15 +33,12 @@ class PsychSocialCubit extends Cubit<PsychSocialState> {
   String? shareFeelingsValue;
   String? informationValue;
 
-
   final List<String> optionsList = [
     'Not at All',
     'Slightly',
     'Moderately',
     'Severely',
   ];
-
-
 
   Future<void> getPsychoSocial() async {
     showProgressDialog();
@@ -59,7 +59,8 @@ class PsychSocialCubit extends Cubit<PsychSocialState> {
           emit(state.copyWith(appStatus: AppStatus.failure));
         },
         (r) async {
-          emit(state.copyWith(appStatus: AppStatus.success,psychoSocialReportResponse: r));
+          emit(state.copyWith(
+              appStatus: AppStatus.success, psychoSocialReportResponse: r));
         },
       );
 
@@ -71,21 +72,19 @@ class PsychSocialCubit extends Cubit<PsychSocialState> {
     }
   }
 
-
-
   Future<void> addPsychoSocial() async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
 
     try {
       final formData = <String, dynamic>{
-        "anxious_or_worried": anxiousValue??"",
-        "family_anxious_or_worried": familyAnxiousValue??"",
-        "feeling_depressed": depressedValue??"",
-        "felt_at_peace": flatPeaceValue??"",
-        "share_feeling": shareFeelingsValue??"",
-        "much_information": informationValue??"",
-      } ;
+        "anxious_or_worried": anxiousValue ?? "",
+        "family_anxious_or_worried": familyAnxiousValue ?? "",
+        "feeling_depressed": depressedValue ?? "",
+        "felt_at_peace": flatPeaceValue ?? "",
+        "share_feeling": shareFeelingsValue ?? "",
+        "much_information": informationValue ?? "",
+      };
       final response = await _psychSocialRepository.addPsychoSocial(formData);
 
       response.fold(
@@ -105,7 +104,6 @@ class PsychSocialCubit extends Cubit<PsychSocialState> {
             context: GetContext.context,
             message: AppStrings.savedSuccessfully.tr(),
           );
-
         },
       );
       dismissProgressDialog();
@@ -115,7 +113,7 @@ class PsychSocialCubit extends Cubit<PsychSocialState> {
     }
   }
 
-  void clearOptionData(){
+  void clearOptionData() {
     anxiousValue = null;
     familyAnxiousValue = null;
     depressedValue = null;

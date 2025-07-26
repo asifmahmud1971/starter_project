@@ -2,19 +2,24 @@ import 'package:medPilot/features/patient_portal/services/pain_clinic/model/pain
 
 class AddPainAssessmentModel {
   AddPainAssessmentModel({
-      this.success, 
-      this.patient, 
-      this.savedData, 
-      this.token, 
-      this.tokenType,});
+    this.success,
+    this.patient,
+    this.savedData,
+    this.token,
+    this.tokenType,
+  });
 
   AddPainAssessmentModel.fromJson(dynamic json) {
     success = json['success'];
-    patient = json['patient'] != null ? Patient.fromJson(json['patient']) : null;
-    savedData = json['saved_data'] != null ? AllPainAssessment.fromJson(json['saved_data']) : null;
+    patient =
+        json['patient'] != null ? Patient.fromJson(json['patient']) : null;
+    savedData = json['saved_data'] != null
+        ? AllPainAssessment.fromJson(json['saved_data'])
+        : null;
     token = json['token'];
     tokenType = json['token_type'];
   }
+
   bool? success;
   Patient? patient;
   AllPainAssessment? savedData;
@@ -34,34 +39,33 @@ class AddPainAssessmentModel {
     map['token_type'] = tokenType;
     return map;
   }
-
 }
-
 
 class Patient {
   Patient({
-      this.id, 
-      this.companyId, 
-      this.regNo, 
-      this.userId, 
-      this.branchId, 
-      this.name, 
-      this.dob, 
-      this.age, 
-      this.thana, 
-      this.city, 
-      this.gender, 
-      this.address, 
-      this.mobile, 
-      this.email, 
-      this.consultingDoctor, 
-      this.doctorContractNumber, 
-      this.alternativeNumber, 
-      this.password, 
-      this.status, 
-      this.landMark, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.companyId,
+    this.regNo,
+    this.userId,
+    this.branchId,
+    this.name,
+    this.dob,
+    this.age,
+    this.thana,
+    this.city,
+    this.gender,
+    this.address,
+    this.mobile,
+    this.email,
+    this.consultingDoctor,
+    this.doctorContractNumber,
+    this.alternativeNumber,
+    this.password,
+    this.status,
+    this.landMark,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   Patient.fromJson(dynamic json) {
     id = json['id'];
@@ -87,6 +91,7 @@ class Patient {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   num? id;
   String? companyId;
   String? regNo;
@@ -136,5 +141,4 @@ class Patient {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:medPilot/features/patient_portal/services/invesigation/model/investigation_response.dart';
+
 import '../../../../../data/network/api_client.dart';
 import '../../../../../data/network/api_exception.dart';
 import '../../../../../data/network/api_failure.dart';
@@ -25,5 +26,4 @@ class InvestigationRepository implements InvestigationRepositoryImp {
       return Left(ApiException.handle(error).failure);
     }
   }
-
 }

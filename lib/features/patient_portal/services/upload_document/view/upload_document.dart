@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/components/custom_text_field.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
-import 'dart:io';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/services/upload_document/cubit/document_cubit.dart';
@@ -41,7 +42,6 @@ class _UploadDocumentState extends State<UploadDocument> {
           _selectedFile = File(result.files.single.path!);
           _fileName = result.files.single.name;
         });
-
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -49,7 +49,6 @@ class _UploadDocumentState extends State<UploadDocument> {
       );
     }
   }
-
 
   Widget _buildFileInfo() {
     if (_selectedFile == null) return SizedBox();
@@ -132,7 +131,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                 ],
               ),
             ),
-            if (state.appStatus ==  AppStatus.loading) ...[
+            if (state.appStatus == AppStatus.loading) ...[
               SizedBox(height: 16),
               LinearProgressIndicator(
                 value: state.uploadProgress,
@@ -141,7 +140,7 @@ class _UploadDocumentState extends State<UploadDocument> {
               ),
               8.verticalSpace,
               Text(
-                state.uploadProgressString??"",
+                state.uploadProgressString ?? "",
                 style: TextStyle(
                   color: Colors.grey[600],
                   fontSize: 12,
@@ -159,7 +158,10 @@ class _UploadDocumentState extends State<UploadDocument> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Add wound assessment',style: kTitleLarge.copyWith(color:Colors.white),),
+        title: Text(
+          'Add wound assessment',
+          style: kTitleLarge.copyWith(color: Colors.white),
+        ),
         centerTitle: true,
         backgroundColor: Color(0xFFFF904D),
         iconTheme: IconThemeData(color: Colors.white),
@@ -173,7 +175,7 @@ class _UploadDocumentState extends State<UploadDocument> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: (){
+                  onTap: () {
                     _pickFile();
                   },
                   borderRadius: BorderRadius.circular(90),
@@ -211,7 +213,8 @@ class _UploadDocumentState extends State<UploadDocument> {
                 _buildFileInfo(),
                 SizedBox(height: 32),
                 CustomTextField(
-                  controller: GetContext.context.read<DocumentCubit>().titleController,
+                  controller:
+                      GetContext.context.read<DocumentCubit>().titleController,
                   isOptional: true,
                   titleStyle: kBodyMedium,
                   title: "Title",
@@ -235,23 +238,26 @@ class _UploadDocumentState extends State<UploadDocument> {
                       ),
                       elevation: 0,
                     ),
-                    onPressed: (){
+                    onPressed: () {
                       final document = GetContext.context.read<DocumentCubit>();
-                      if((_selectedFile?.path??"").isEmpty){
+                      if ((_selectedFile?.path ?? "").isEmpty) {
                         showCustomSnackBar(
                           context: GetContext.context,
                           isError: true,
                           message: "Image is Required",
                         );
-                      }else if(document.titleController.text.isEmpty){
+                      } else if (document.titleController.text.isEmpty) {
                         showCustomSnackBar(
                           context: GetContext.context,
                           isError: true,
                           message: "Title is Required",
                         );
-                      } else{
-                        context.read<DocumentCubit>().uploadDocument(imagePath: _selectedFile?.path);
-                    }},
+                      } else {
+                        context
+                            .read<DocumentCubit>()
+                            .uploadDocument(imagePath: _selectedFile?.path);
+                      }
+                    },
                     child: Text(
                       'Submit',
                       style: TextStyle(fontSize: 16),

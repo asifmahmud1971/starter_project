@@ -1,22 +1,27 @@
 class StaffPrescription {
   StaffPrescription({
-      this.success, 
-      this.token, 
-      this.tokenType, 
-      this.patient, 
-      this.diagnosis, 
-      this.prescriptions, 
-      this.lastUpdate,});
+    this.success,
+    this.token,
+    this.tokenType,
+    this.patient,
+    this.diagnosis,
+    this.prescriptions,
+    this.lastUpdate,
+  });
 
   StaffPrescription.fromJson(dynamic json) {
     success = json['success'];
     token = json['token'];
     tokenType = json['token_type'];
-    patient = json['patient'] != null ? Patient.fromJson(json['patient']) : null;
+    patient =
+        json['patient'] != null ? Patient.fromJson(json['patient']) : null;
     diagnosis = json['diagnosis'];
-    prescriptions = json['prescriptions'] != null ? Prescriptions.fromJson(json['prescriptions']) : null;
+    prescriptions = json['prescriptions'] != null
+        ? Prescriptions.fromJson(json['prescriptions'])
+        : null;
     lastUpdate = json['last_update'];
   }
+
   bool? success;
   String? token;
   String? tokenType;
@@ -40,13 +45,13 @@ class StaffPrescription {
     map['last_update'] = lastUpdate;
     return map;
   }
-
 }
 
 class Prescriptions {
   Prescriptions({
-      this.medicine, 
-      this.advice,});
+    this.medicine,
+    this.advice,
+  });
 
   Prescriptions.fromJson(dynamic json) {
     if (json['medicine'] != null) {
@@ -62,6 +67,7 @@ class Prescriptions {
       });
     }*/
   }
+
   List<Medicine>? medicine;
   List<dynamic>? advice;
 
@@ -75,22 +81,22 @@ class Prescriptions {
     }
     return map;
   }
-
 }
 
 class Medicine {
   Medicine({
-      this.id, 
-      this.companyId, 
-      this.patientId, 
-      this.medicine, 
-      this.note, 
-      this.dose, 
-      this.duration, 
-      this.status, 
-      this.generate, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.companyId,
+    this.patientId,
+    this.medicine,
+    this.note,
+    this.dose,
+    this.duration,
+    this.status,
+    this.generate,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   Medicine.fromJson(dynamic json) {
     id = json['id'];
@@ -105,6 +111,7 @@ class Medicine {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   num? id;
   String? companyId;
   String? patientId;
@@ -132,33 +139,33 @@ class Medicine {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }
 
 class Patient {
   Patient({
-      this.id, 
-      this.companyId, 
-      this.regNo, 
-      this.userId, 
-      this.branchId, 
-      this.name, 
-      this.dob, 
-      this.age, 
-      this.thana, 
-      this.city, 
-      this.gender, 
-      this.address, 
-      this.mobile, 
-      this.email, 
-      this.consultingDoctor, 
-      this.doctorContractNumber, 
-      this.alternativeNumber, 
-      this.password, 
-      this.status, 
-      this.landMark, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.companyId,
+    this.regNo,
+    this.userId,
+    this.branchId,
+    this.name,
+    this.dob,
+    this.age,
+    this.thana,
+    this.city,
+    this.gender,
+    this.address,
+    this.mobile,
+    this.email,
+    this.consultingDoctor,
+    this.doctorContractNumber,
+    this.alternativeNumber,
+    this.password,
+    this.status,
+    this.landMark,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   Patient.fromJson(dynamic json) {
     id = json['id'];
@@ -184,6 +191,7 @@ class Patient {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   num? id;
   String? companyId;
   String? regNo;
@@ -233,5 +241,4 @@ class Patient {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }

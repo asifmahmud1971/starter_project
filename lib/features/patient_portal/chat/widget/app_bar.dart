@@ -3,7 +3,8 @@ import 'package:medPilot/core/constants/app_colors.dart';
 
 class MedPilotAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
-  Size get preferredSize => const Size.fromHeight(96); // 56 (default) + 40 (bottom)
+  Size get preferredSize =>
+      const Size.fromHeight(96); // 56 (default) + 40 (bottom)
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,8 @@ class MedPilotAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           CircleAvatar(
             backgroundColor: AppColors.kPrimaryColor.withOpacity(0.2),
-            child: const Icon(Icons.medical_services, color: AppColors.kPrimaryColor),
+            child: const Icon(Icons.medical_services,
+                color: AppColors.kPrimaryColor),
           ),
           const SizedBox(width: 12),
           Column(

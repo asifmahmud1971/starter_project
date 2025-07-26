@@ -40,7 +40,9 @@ class _ExpandableManagementSectionState
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  _isExpanded ? 'HIDE MANAGEMENT DETAILS' : 'VIEW MANAGEMENT DETAILS',
+                  _isExpanded
+                      ? 'HIDE MANAGEMENT DETAILS'
+                      : 'VIEW MANAGEMENT DETAILS',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColors.kPrimaryColor,
@@ -61,9 +63,7 @@ class _ExpandableManagementSectionState
         // Expandable content
         AnimatedSize(
           duration: const Duration(milliseconds: 300),
-          child: _isExpanded
-              ? _buildManagementList()
-              : const SizedBox.shrink(),
+          child: _isExpanded ? _buildManagementList() : const SizedBox.shrink(),
         ),
       ],
     );
@@ -135,7 +135,8 @@ class _ExpandableManagementSectionState
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildDateItem('Date', _formatDate(entry.date ?? "")),
-                _buildDateItem('Next Review', _formatDate(entry.nextDate ?? "")),
+                _buildDateItem(
+                    'Next Review', _formatDate(entry.nextDate ?? "")),
               ],
             ),
           ),

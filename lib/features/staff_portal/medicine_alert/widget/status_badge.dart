@@ -5,6 +5,7 @@ import 'package:medPilot/core/constants/app_strings.dart';
 
 class StatusBadge extends StatelessWidget {
   final bool isGiven;
+
   const StatusBadge({super.key, required this.isGiven});
 
   @override

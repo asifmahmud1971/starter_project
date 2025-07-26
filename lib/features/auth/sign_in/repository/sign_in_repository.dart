@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../../../../data/network/api_client.dart';
 import '../../../../../data/network/api_exception.dart';
 import '../../../../../data/network/api_failure.dart';

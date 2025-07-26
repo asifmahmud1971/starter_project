@@ -1,8 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_content.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/consultants_response.dart';
 
 class ConsultantDetailsScreen extends StatelessWidget {
@@ -68,9 +68,7 @@ class ConsultantDetailsScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12.r),
                       ),
                       child: Text(
-                        ("1"?? "0") == "1"
-                            ? 'Available'
-                            : 'Not Available',
+                        ("1" ?? "0") == "1" ? 'Available' : 'Not Available',
                         style: TextStyle(
                           color: ("1" ?? "0") == "1"
                               ? Colors.green[800]
@@ -80,7 +78,6 @@ class ConsultantDetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ],
@@ -88,13 +85,12 @@ class ConsultantDetailsScreen extends StatelessWidget {
             const SizedBox(height: 16),
             SizedBox(height: 8.h),
             Text(
-              doctorList?.qualifications??"",
+              doctorList?.qualifications ?? "",
               style: TextStyle(
                 fontSize: 12.sp,
                 color: AppColors.kGrayColor800,
               ),
             ),
-
           ],
         ),
       ),

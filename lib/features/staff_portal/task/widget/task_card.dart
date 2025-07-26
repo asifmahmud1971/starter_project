@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/features/staff_portal/task/model/task_model.dart';
-import 'package:medPilot/features/staff_portal/task/view/staff_task_screen.dart';
 import 'package:medPilot/features/staff_portal/task/widget/date_info.dart';
 import 'package:medPilot/features/staff_portal/task/widget/status_badge.dart';
 
@@ -14,8 +13,8 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final assignDate = _parseDate(task.assignDate??"");
-    final lastDate = _parseDate(task.lastDate??"");
+    final assignDate = _parseDate(task.assignDate ?? "");
+    final lastDate = _parseDate(task.lastDate ?? "");
     final daysRemaining = lastDate?.difference(DateTime.now()).inDays;
     final dateFormat = DateFormat('dd-MM-yyyy');
 
@@ -34,23 +33,29 @@ class TaskCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: Text(task.title??"",
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                child: Text(task.title ?? "",
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold)),
               ),
               if (task.selectedStatusOption != null)
-                StatusBadge(status: task.selectedStatusOption?.label??""),
+                StatusBadge(status: task.selectedStatusOption?.label ?? ""),
             ],
           ),
           const SizedBox(height: 12),
           Row(
             children: [
-              DateInfo(label: "Assign Date", date: dateFormat.format(assignDate ?? DateTime.now())),
+              DateInfo(
+                  label: "Assign Date",
+                  date: dateFormat.format(assignDate ?? DateTime.now())),
               const SizedBox(width: 8),
-              DateInfo(label: "Last Date", date: dateFormat.format(lastDate ?? DateTime.now())),
+              DateInfo(
+                  label: "Last Date",
+                  date: dateFormat.format(lastDate ?? DateTime.now())),
             ],
           ),
           const SizedBox(height: 12),
-          Text(task.description??"", style: const TextStyle(color: Colors.grey)),
+          Text(task.description ?? "",
+              style: const TextStyle(color: Colors.grey)),
           const SizedBox(height: 12),
           if (daysRemaining != null && task.status != "2")
             Text("$daysRemaining days remaining",
@@ -61,15 +66,18 @@ class TaskCard extends StatelessWidget {
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
-            children: (task.statusOptions??[]).map((option) {
+            children: (task.statusOptions ?? []).map((option) {
               final isSelected = option.selected;
               return ActionChip(
-                label: Text(option.label??"",
+                label: Text(option.label ?? "",
                     style: TextStyle(
-                      color: isSelected??false ? Colors.white : AppColors.kPrimaryColor,
+                      color: isSelected ?? false
+                          ? Colors.white
+                          : AppColors.kPrimaryColor,
                     )),
-                backgroundColor:
-                isSelected??false ? AppColors.kPrimaryColor : Colors.transparent,
+                backgroundColor: isSelected ?? false
+                    ? AppColors.kPrimaryColor
+                    : Colors.transparent,
                 onPressed: () => onStatusUpdate(option),
               );
             }).toList(),
@@ -82,7 +90,8 @@ class TaskCard extends StatelessWidget {
   DateTime? _parseDate(String dateStr) {
     try {
       final parts = dateStr.split('-');
-      return DateTime(int.parse(parts[2]), int.parse(parts[1]), int.parse(parts[0]));
+      return DateTime(
+          int.parse(parts[2]), int.parse(parts[1]), int.parse(parts[0]));
     } catch (_) {
       return null;
     }

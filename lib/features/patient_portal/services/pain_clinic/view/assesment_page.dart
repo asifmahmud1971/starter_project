@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
@@ -17,8 +16,6 @@ class AssessmentPage extends StatefulWidget {
 }
 
 class _AssessmentPageState extends State<AssessmentPage> {
-
-
   String _selectedFilter = 'All';
 
   @override
@@ -40,11 +37,15 @@ class _AssessmentPageState extends State<AssessmentPage> {
               //_buildFilterChips(),
               Expanded(
                 child: ListView.separated(
-                  padding:
-                  EdgeInsets.only(top: 8, bottom: 16, left: 16.w, right: 16.w),
-                  itemCount: (state.painAssessmentModel?.allPainAssessment??[]).length,
+                  padding: EdgeInsets.only(
+                      top: 8, bottom: 16, left: 16.w, right: 16.w),
+                  itemCount:
+                      (state.painAssessmentModel?.allPainAssessment ?? [])
+                          .length,
                   itemBuilder: (context, index) {
-                    return PainAssessment(entry: state.painAssessmentModel?.allPainAssessment?[index]);
+                    return PainAssessment(
+                        entry: state
+                            .painAssessmentModel?.allPainAssessment?[index]);
                   },
                   separatorBuilder: (BuildContext context, int index) {
                     return 10.verticalSpace;
@@ -65,7 +66,10 @@ class _AssessmentPageState extends State<AssessmentPage> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: Text(AppStrings.painAssessmentHistory.tr(),style: kTitleMedium.copyWith(),),
+      title: Text(
+        AppStrings.painAssessmentHistory.tr(),
+        style: kTitleMedium.copyWith(),
+      ),
       elevation: 0,
     );
   }

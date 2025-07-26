@@ -3,8 +3,11 @@ class AmbulanceResponse {
   List<AmbulanceRequest>? ambulanceRequest;
   String? token;
 
-  AmbulanceResponse(
-      {this.success, this.ambulanceRequest, this.token,});
+  AmbulanceResponse({
+    this.success,
+    this.ambulanceRequest,
+    this.token,
+  });
 
   AmbulanceResponse.fromJson(Map<String, dynamic> json) {
     success = json['success'];
@@ -66,38 +69,38 @@ class AmbulanceRequest {
 
   AmbulanceRequest(
       {this.id,
-        this.companyId,
-        this.clientId,
-        this.branchId,
-        this.invoiceNo,
-        this.invoiceDate,
-        this.whenDate,
-        this.whenTime,
-        this.address,
-        this.amount,
-        this.discount,
-        this.subtotalAmount,
-        this.deliveryCharge,
-        this.serviceCharge,
-        this.vat,
-        this.vatPercent,
-        this.subTotal,
-        this.total,
-        this.advance,
-        this.advanceId,
-        this.due,
-        this.paymentMethod,
-        this.paymentStatus,
-        this.smsCode,
-        this.teleMedicineId,
-        this.totalBill,
-        this.orderBy,
-        this.deliveryStatus,
-        this.collectionCharge,
-        this.ambulance,
-        this.ambulanceInfo,
-        this.createdAt,
-        this.updatedAt});
+      this.companyId,
+      this.clientId,
+      this.branchId,
+      this.invoiceNo,
+      this.invoiceDate,
+      this.whenDate,
+      this.whenTime,
+      this.address,
+      this.amount,
+      this.discount,
+      this.subtotalAmount,
+      this.deliveryCharge,
+      this.serviceCharge,
+      this.vat,
+      this.vatPercent,
+      this.subTotal,
+      this.total,
+      this.advance,
+      this.advanceId,
+      this.due,
+      this.paymentMethod,
+      this.paymentStatus,
+      this.smsCode,
+      this.teleMedicineId,
+      this.totalBill,
+      this.orderBy,
+      this.deliveryStatus,
+      this.collectionCharge,
+      this.ambulance,
+      this.ambulanceInfo,
+      this.createdAt,
+      this.updatedAt});
 
   AmbulanceRequest.fromJson(Map<String, dynamic> json) {
     id = json['id'];

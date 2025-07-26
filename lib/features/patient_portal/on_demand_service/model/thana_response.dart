@@ -35,12 +35,12 @@ class Thana {
 
   Thana(
       {this.id,
-        this.companyId,
-        this.cityId,
-        this.name,
-        this.status,
-        this.createdAt,
-        this.updatedAt});
+      this.companyId,
+      this.cityId,
+      this.name,
+      this.status,
+      this.createdAt,
+      this.updatedAt});
 
   Thana.fromJson(Map<String, dynamic> json) {
     id = json['id'];

@@ -3,7 +3,8 @@ class MedicationModel {
     this.success,
     this.painMedications,
     this.token,
-    this.tokenType,});
+    this.tokenType,
+  });
 
   MedicationModel.fromJson(dynamic json) {
     success = json['success'];
@@ -16,6 +17,7 @@ class MedicationModel {
     token = json['token'];
     tokenType = json['token_type'];
   }
+
   bool? success;
   List<PainMedications>? painMedications;
   String? token;
@@ -25,13 +27,13 @@ class MedicationModel {
     final map = <String, dynamic>{};
     map['success'] = success;
     if (painMedications != null) {
-      map['pain_medications'] = painMedications?.map((v) => v.toJson()).toList();
+      map['pain_medications'] =
+          painMedications?.map((v) => v.toJson()).toList();
     }
     map['token'] = token;
     map['token_type'] = tokenType;
     return map;
   }
-
 }
 
 class PainMedications {
@@ -40,7 +42,8 @@ class PainMedications {
     this.dose,
     this.note,
     this.duration,
-    this.chart,});
+    this.chart,
+  });
 
   PainMedications.fromJson(dynamic json) {
     name = json['name'];
@@ -54,6 +57,7 @@ class PainMedications {
       });
     }
   }
+
   String? name;
   String? dose;
   String? note;
@@ -71,7 +75,6 @@ class PainMedications {
     }
     return map;
   }
-
 }
 
 class Chart {
@@ -79,7 +82,8 @@ class Chart {
     this.id,
     this.date,
     this.time,
-    this.taken,});
+    this.taken,
+  });
 
   Chart.fromJson(dynamic json) {
     id = json['id'];
@@ -87,6 +91,7 @@ class Chart {
     time = json['time'];
     taken = json['taken'];
   }
+
   int? id;
   String? date;
   String? time;
@@ -100,5 +105,4 @@ class Chart {
     map['taken'] = taken;
     return map;
   }
-
 }

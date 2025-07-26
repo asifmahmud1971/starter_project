@@ -1,13 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/services/pain_clinic/cubit/painClinic_cubit.dart';
-import 'package:medPilot/features/patient_portal/services/pain_clinic/model/medication_model.dart';
-import 'package:medPilot/features/patient_portal/services/pain_clinic/view/medication_screen_dialog.dart';
 
 class MedicationScreen extends StatefulWidget {
   @override
@@ -15,7 +12,6 @@ class MedicationScreen extends StatefulWidget {
 }
 
 class _MedicationScreenState extends State<MedicationScreen> {
-
   int _expandedIndex = -1;
 
   @override
@@ -66,10 +62,9 @@ class _MedicationScreenState extends State<MedicationScreen> {
           ),
           child: InkWell(
             borderRadius: BorderRadius.circular(16),
-            onTap: () =>
-                setState(() {
-                  _expandedIndex = isExpanded ? -1 : index;
-                }),
+            onTap: () => setState(() {
+              _expandedIndex = isExpanded ? -1 : index;
+            }),
             child: Padding(
               padding: EdgeInsets.all(16),
               child: Column(
@@ -79,7 +74,7 @@ class _MedicationScreenState extends State<MedicationScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        med?.name??"",
+                        med?.name ?? "",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -87,14 +82,14 @@ class _MedicationScreenState extends State<MedicationScreen> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 6),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
                           color: AppColors.kPrimaryColor.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          med?.duration??"",
+                          med?.duration ?? "",
                           style: TextStyle(
                             color: AppColors.kPrimaryColor,
                             fontWeight: FontWeight.w600,
@@ -104,9 +99,10 @@ class _MedicationScreenState extends State<MedicationScreen> {
                     ],
                   ),
                   SizedBox(height: 12),
-                  _buildDetailRow('${AppStrings.dosage.tr()}:', med?.dose??""),
                   _buildDetailRow(
-                      '${AppStrings.instructions.tr()}:', med?.note??""),
+                      '${AppStrings.dosage.tr()}:', med?.dose ?? ""),
+                  _buildDetailRow(
+                      '${AppStrings.instructions.tr()}:', med?.note ?? ""),
                   SizedBox(height: 8),
                   if (isExpanded) ...[
                     Divider(height: 24, thickness: 1),
@@ -118,13 +114,12 @@ class _MedicationScreenState extends State<MedicationScreen> {
                       ),
                     ),
                     SizedBox(height: 12),
-                    ...(med?.chart??[]).map<Widget>((schedule) {
+                    ...(med?.chart ?? []).map<Widget>((schedule) {
                       return _buildScheduleItem(
-                        schedule.date??"",
-                        schedule.time??"",
-                        schedule.taken == "Yes",
-                        schedule.id??0
-                      );
+                          schedule.date ?? "",
+                          schedule.time ?? "",
+                          schedule.taken == "Yes",
+                          schedule.id ?? 0);
                     }).toList(),
                     /* SizedBox(height: 16),
                 Row(
@@ -206,7 +201,7 @@ class _MedicationScreenState extends State<MedicationScreen> {
     );
   }
 
-  Widget _buildScheduleItem(String date, String time, bool taken,int id) {
+  Widget _buildScheduleItem(String date, String time, bool taken, int id) {
     return Container(
       margin: EdgeInsets.only(bottom: 12),
       padding: EdgeInsets.all(12),
@@ -266,7 +261,9 @@ class _MedicationScreenState extends State<MedicationScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               ),
               onPressed: () {
-                context.read<PainClinicCubit>().givenMedicine(id.toString(),_expandedIndex);
+                context
+                    .read<PainClinicCubit>()
+                    .givenMedicine(id.toString(), _expandedIndex);
               },
               child: Text(AppStrings.markTaken.tr()),
             ),
@@ -274,7 +271,6 @@ class _MedicationScreenState extends State<MedicationScreen> {
       ),
     );
   }
-
 
   void _addNewMedication() {
     showDialog(

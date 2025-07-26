@@ -10,7 +10,6 @@ class RosterContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           const SizedBox(height: 32),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.0),

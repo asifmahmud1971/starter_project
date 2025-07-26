@@ -6,10 +6,18 @@ import 'package:medPilot/features/patient_portal/home/model/dashboard_permission
 import 'package:medPilot/features/patient_portal/home/widgets/service_card.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/cubit/onDemand_service_cubit.dart';
 import 'package:medPilot/generated/assets.dart';
+
 List<Package> packageList = [
-  Package(serviceName: "Tele Health",icon:  Assets.medTelePackage,key: "tele_package"),
-  Package(serviceName: "Home Care",icon: Assets.medHomePackage,key: "home_package"),
-  Package(serviceName: "Clinic",icon: Assets.medInPatientRequest,key: "clinic"),
+  Package(
+      serviceName: "Tele Health",
+      icon: Assets.medTelePackage,
+      key: "tele_package"),
+  Package(
+      serviceName: "Home Care",
+      icon: Assets.medHomePackage,
+      key: "home_package"),
+  Package(
+      serviceName: "Clinic", icon: Assets.medInPatientRequest, key: "clinic"),
 ];
 
 class PackageScreen extends StatelessWidget {
@@ -40,14 +48,13 @@ class PackageScreen extends StatelessWidget {
                   padding: EdgeInsets.all(0),
                   children: List.generate(
                       packageList.length,
-                          (index) => ServiceCard(
-                        onTap: () {
-                          GetContext.toNamed(
-                              route: packageList[index].key);
-                        },
-                        title: packageList[index].serviceName,
-                        icon: packageList[index].icon,
-                      )),
+                      (index) => ServiceCard(
+                            onTap: () {
+                              GetContext.toNamed(route: packageList[index].key);
+                            },
+                            title: packageList[index].serviceName,
+                            icon: packageList[index].icon,
+                          )),
                 ),
               ],
             ),

@@ -5,7 +5,12 @@ class BuildSmartVitalRow extends StatelessWidget {
   final String? label;
   final Widget firstField;
   final Widget secondField;
-  const BuildSmartVitalRow({super.key, this.label, required this.firstField, required this.secondField});
+
+  const BuildSmartVitalRow(
+      {super.key,
+      this.label,
+      required this.firstField,
+      required this.secondField});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,7 @@ class BuildSmartVitalRow extends StatelessWidget {
         Row(
           children: [
             Text(
-              label??"",
+              label ?? "",
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey.shade700,

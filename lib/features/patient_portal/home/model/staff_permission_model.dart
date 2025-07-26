@@ -2,9 +2,10 @@ import 'package:medPilot/features/patient_portal/home/model/dashboard_permission
 
 class StaffPermissionModel {
   StaffPermissionModel({
-      this.success, 
-      this.userType,
-      this.staffPermission,});
+    this.success,
+    this.userType,
+    this.staffPermission,
+  });
 
   StaffPermissionModel.fromJson(dynamic json) {
     success = json['success'];
@@ -16,6 +17,7 @@ class StaffPermissionModel {
       });
     }
   }
+
   bool? success;
   String? userType;
   List<Package>? staffPermission;
@@ -29,6 +31,4 @@ class StaffPermissionModel {
     }
     return map;
   }
-
 }
-

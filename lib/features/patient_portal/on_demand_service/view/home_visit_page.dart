@@ -16,7 +16,6 @@ class HomeVisitPage extends StatefulWidget {
 }
 
 class _HomeVisitPageState extends State<HomeVisitPage> {
-
   @override
   void initState() {
     context.read<OnDemandServiceCubit>().getHomeVisit();
@@ -38,7 +37,7 @@ class _HomeVisitPageState extends State<HomeVisitPage> {
           ),
           body: ListView.separated(
             padding: EdgeInsets.all(16.r),
-            itemCount: (state.onService?.product??[]).length,
+            itemCount: (state.onService?.product ?? []).length,
             itemBuilder: (context, index) {
               return ServiceProductCard(
                 service: state.onService?.product?[index],

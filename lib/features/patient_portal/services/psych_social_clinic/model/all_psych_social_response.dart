@@ -47,17 +47,17 @@ class Psychosocial {
 
   Psychosocial(
       {this.id,
-        this.companyId,
-        this.patientId,
-        this.date,
-        this.anxiousOrWorried,
-        this.familyAnxiousOrWorried,
-        this.feelingDepressed,
-        this.feltAtPeace,
-        this.shareFeeling,
-        this.muchInformation,
-        this.createdAt,
-        this.updatedAt});
+      this.companyId,
+      this.patientId,
+      this.date,
+      this.anxiousOrWorried,
+      this.familyAnxiousOrWorried,
+      this.feelingDepressed,
+      this.feltAtPeace,
+      this.shareFeeling,
+      this.muchInformation,
+      this.createdAt,
+      this.updatedAt});
 
   Psychosocial.fromJson(Map<String, dynamic> json) {
     id = json['id'];

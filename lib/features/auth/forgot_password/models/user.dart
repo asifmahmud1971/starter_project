@@ -1,24 +1,25 @@
 class User {
   User({
-      this.id, 
-      this.name, 
-      this.email, 
-      this.phone, 
-      this.emailVerifiedAt, 
-      this.userType, 
-      this.status, 
-      this.roleId, 
-      this.package, 
-      this.companyId, 
-      this.branchId, 
-      this.depertment, 
-      this.address, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.activeStatus, 
-      this.avatar, 
-      this.darkMode, 
-      this.messengerColor,});
+    this.id,
+    this.name,
+    this.email,
+    this.phone,
+    this.emailVerifiedAt,
+    this.userType,
+    this.status,
+    this.roleId,
+    this.package,
+    this.companyId,
+    this.branchId,
+    this.depertment,
+    this.address,
+    this.createdAt,
+    this.updatedAt,
+    this.activeStatus,
+    this.avatar,
+    this.darkMode,
+    this.messengerColor,
+  });
 
   User.fromJson(dynamic json) {
     id = json['id'];
@@ -41,6 +42,7 @@ class User {
     darkMode = json['dark_mode'];
     messengerColor = json['messenger_color'];
   }
+
   num? id;
   String? name;
   String? email;
@@ -84,5 +86,4 @@ class User {
     map['messenger_color'] = messengerColor;
     return map;
   }
-
 }

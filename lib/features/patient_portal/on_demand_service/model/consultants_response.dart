@@ -4,7 +4,8 @@ class ConsultantsResponse {
   String? token;
   String? tokenType;
 
-  ConsultantsResponse({this.success, this.doctorList, this.token, this.tokenType});
+  ConsultantsResponse(
+      {this.success, this.doctorList, this.token, this.tokenType});
 
   ConsultantsResponse.fromJson(Map<String, dynamic> json) {
     success = json['success'];
@@ -41,12 +42,12 @@ class ConDoctor {
 
   ConDoctor(
       {this.name,
-        this.specialty,
-        this.qualifications,
-        this.hospital,
-        this.rating,
-        this.reviewCount,
-        this.image});
+      this.specialty,
+      this.qualifications,
+      this.hospital,
+      this.rating,
+      this.reviewCount,
+      this.image});
 
   ConDoctor.fromJson(Map<String, dynamic> json) {
     name = json['name'];

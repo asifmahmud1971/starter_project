@@ -45,14 +45,14 @@ class RehabilitativePallVideo {
 
   RehabilitativePallVideo(
       {this.id,
-        this.companyId,
-        this.menuId,
-        this.videoLink,
-        this.videoTitle,
-        this.link,
-        this.status,
-        this.createdAt,
-        this.updatedAt});
+      this.companyId,
+      this.menuId,
+      this.videoLink,
+      this.videoTitle,
+      this.link,
+      this.status,
+      this.createdAt,
+      this.updatedAt});
 
   RehabilitativePallVideo.fromJson(Map<String, dynamic> json) {
     id = json['id'];

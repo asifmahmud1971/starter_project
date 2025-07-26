@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 
-import 'medication_screen.dart';
-
 class MedicationScreenDialog extends StatelessWidget {
   const MedicationScreenDialog({super.key});
 

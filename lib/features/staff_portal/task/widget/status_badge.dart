@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 
@@ -26,7 +25,8 @@ class StatusBadge extends StatelessWidget {
         border: Border.all(color: statusColor, width: 1.5),
       ),
       child: Text(status,
-          style: TextStyle(color: statusColor, fontWeight: FontWeight.bold, fontSize: 14)),
+          style: TextStyle(
+              color: statusColor, fontWeight: FontWeight.bold, fontSize: 14)),
     );
   }
 }

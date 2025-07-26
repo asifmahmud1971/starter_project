@@ -13,16 +13,16 @@ class FollowUpCard extends StatelessWidget {
 
   const FollowUpCard({
     super.key,
-     this.dateTime,
-     this.place,
-     this.vType,
-     this.critical,
+    this.dateTime,
+    this.place,
+    this.vType,
+    this.critical,
     this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    final parsedDate = DateTime.parse(dateTime??"");
+    final parsedDate = DateTime.parse(dateTime ?? "");
     final dateFormat = DateFormat('MMM dd, yyyy');
     final timeFormat = DateFormat('hh:mm a');
 
@@ -30,10 +30,9 @@ class FollowUpCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: critical??false ? Colors.red[50] : Colors.white,
-          boxShadow: [AppColors.kBackGroundShadow],
-          borderRadius: BorderRadius.circular(8.r)
-        ),
+            color: critical ?? false ? Colors.red[50] : Colors.white,
+            boxShadow: [AppColors.kBackGroundShadow],
+            borderRadius: BorderRadius.circular(8.r)),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -46,14 +45,14 @@ class FollowUpCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        place??"",
+                        place ?? "",
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       Text(
-                        vType??"",
+                        vType ?? "",
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[600],
@@ -61,9 +60,10 @@ class FollowUpCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  if (critical??false)
+                  if (critical ?? false)
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.red[100],
                         borderRadius: BorderRadius.circular(12),

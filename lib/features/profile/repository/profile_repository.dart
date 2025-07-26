@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:medPilot/features/profile/models/user_profile_response.dart';
+
 import '../../../../../data/network/api_client.dart';
 import '../../../../../data/network/api_exception.dart';
 import '../../../../../data/network/api_failure.dart';
@@ -26,6 +27,7 @@ class ProfileRepository implements ProfileRepositoryImp {
       return Left(ApiException.handle(error).failure);
     }
   }
+
   @override
   Future<Either<ApiFailure, UserProfileResponse>> getUserData(
       Map<String, dynamic> params) async {
@@ -38,6 +40,7 @@ class ProfileRepository implements ProfileRepositoryImp {
       return Left(ApiException.handle(error).failure);
     }
   }
+
   @override
   Future<Either<ApiFailure, UserProfileResponse>> updateUserData(
       Map<String, dynamic> params) async {

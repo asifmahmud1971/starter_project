@@ -1,8 +1,8 @@
-import 'package:medPilot/core/constants/app_colors.dart';
-import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/constants/app_text_style.dart';
 
 class AppTheme {
   const AppTheme._();

@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:medPilot/data/network/api_client.dart';
 import 'package:medPilot/data/network/api_failure.dart';
 import 'package:medPilot/data/network/api_request.dart';
 import 'package:medPilot/data/network/api_urls.dart';
 import 'package:medPilot/features/auth/sign_up/repository/sign_up_repository.dart';
-import 'package:injectable/injectable.dart';
 
 import '../../sign_in/models/login_response.dart';
 

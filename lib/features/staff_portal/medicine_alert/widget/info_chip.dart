@@ -6,6 +6,7 @@ import 'package:medPilot/core/constants/app_text_style.dart';
 class InfoChip extends StatelessWidget {
   final IconData icon;
   final String text;
+
   const InfoChip({super.key, required this.icon, required this.text});
 
   @override

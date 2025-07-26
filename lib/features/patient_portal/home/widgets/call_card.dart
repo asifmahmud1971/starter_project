@@ -41,7 +41,9 @@ class AIChatCard extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: (){GetContext.to(PalliativeChatScreen());},
+                  onTap: () {
+                    GetContext.to(PalliativeChatScreen());
+                  },
                   child: Container(
                     padding:
                         EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),

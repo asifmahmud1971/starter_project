@@ -14,7 +14,9 @@ class AddPsychoSocialScreen extends StatefulWidget {
 }
 
 class _AddPsychoSocialScreenState extends State<AddPsychoSocialScreen> {
-  final PsychSocialCubit psychSocialCubit = GetContext.context.read<PsychSocialCubit>();
+  final PsychSocialCubit psychSocialCubit =
+      GetContext.context.read<PsychSocialCubit>();
+
   @override
   void initState() {
     psychSocialCubit.clearOptionData();
@@ -43,31 +45,36 @@ class _AddPsychoSocialScreenState extends State<AddPsychoSocialScreen> {
             _buildQuestionDropdown(
               'Have any of your family or friends been anxious or worried about you?',
               psychSocialCubit.familyAnxiousValue,
-              (value) => setState(() => psychSocialCubit.familyAnxiousValue = value),
+              (value) =>
+                  setState(() => psychSocialCubit.familyAnxiousValue = value),
             ),
             const SizedBox(height: 16),
             _buildQuestionDropdown(
               'Have you been feeling depressed?',
               psychSocialCubit.depressedValue,
-              (value) => setState(() => psychSocialCubit.depressedValue = value),
+              (value) =>
+                  setState(() => psychSocialCubit.depressedValue = value),
             ),
             const SizedBox(height: 16),
             _buildQuestionDropdown(
               'Have you felt at peace?',
               psychSocialCubit.flatPeaceValue,
-              (value) => setState(() => psychSocialCubit.flatPeaceValue = value),
+              (value) =>
+                  setState(() => psychSocialCubit.flatPeaceValue = value),
             ),
             const SizedBox(height: 16),
             _buildQuestionDropdown(
               'Have you been able to share how you are feeling with your family or friends as much as you wanted?',
               psychSocialCubit.shareFeelingsValue,
-              (value) => setState(() => psychSocialCubit.shareFeelingsValue = value),
+              (value) =>
+                  setState(() => psychSocialCubit.shareFeelingsValue = value),
             ),
             const SizedBox(height: 16),
             _buildQuestionDropdown(
               'Have you had as much information as you wanted?',
               psychSocialCubit.informationValue,
-              (value) => setState(() => psychSocialCubit.informationValue = value),
+              (value) =>
+                  setState(() => psychSocialCubit.informationValue = value),
             ),
             20.verticalSpace,
             CustomButton(
@@ -128,7 +135,7 @@ class _AddPsychoSocialScreenState extends State<AddPsychoSocialScreen> {
     );
   }
 
- /* void _submitForm() {
+/* void _submitForm() {
     if (_anxiousValue == null ||
         _friendsAnxiousValue == null ||
         _depressedValue == null ||

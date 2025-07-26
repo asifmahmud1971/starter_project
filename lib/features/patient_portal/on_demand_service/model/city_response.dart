@@ -34,11 +34,11 @@ class City {
 
   City(
       {this.id,
-        this.companyId,
-        this.name,
-        this.status,
-        this.createdAt,
-        this.updatedAt});
+      this.companyId,
+      this.name,
+      this.status,
+      this.createdAt,
+      this.updatedAt});
 
   City.fromJson(Map<String, dynamic> json) {
     id = json['id'];

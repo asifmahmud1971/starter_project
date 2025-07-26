@@ -1,12 +1,12 @@
 import 'package:medPilot/core/constants/strings.dart';
-import 'package:medPilot/data/network/api_urls.dart';
 
 class BlogModel {
   BlogModel({
-      this.success, 
-      this.data, 
-      this.token, 
-      this.tokenType,});
+    this.success,
+    this.data,
+    this.token,
+    this.tokenType,
+  });
 
   BlogModel.fromJson(dynamic json) {
     success = json['success'];
@@ -19,6 +19,7 @@ class BlogModel {
     token = json['token'];
     tokenType = json['token_type'];
   }
+
   bool? success;
   List<BlogData>? data;
   String? token;
@@ -34,34 +35,35 @@ class BlogModel {
     map['token_type'] = tokenType;
     return map;
   }
-
 }
 
 class BlogData {
   BlogData({
-      this.companyId, 
-      this.id, 
-      this.title, 
-      this.description, 
-      this.image, 
-      this.date, 
-      this.status, 
-      this.createdBy, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.companyId,
+    this.id,
+    this.title,
+    this.description,
+    this.image,
+    this.date,
+    this.status,
+    this.createdBy,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   BlogData.fromJson(dynamic json) {
     companyId = json['company_id'];
     id = json['id'];
     title = json['title'];
     description = json['description'];
-    image = appBaseUrl+ json['image'];
+    image = appBaseUrl + json['image'];
     date = json['date'];
     status = json['status'];
     createdBy = json['created_by'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   String? companyId;
   num? id;
   String? title;
@@ -87,5 +89,4 @@ class BlogData {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }

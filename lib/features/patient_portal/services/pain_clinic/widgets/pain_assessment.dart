@@ -10,6 +10,7 @@ import 'package:medPilot/features/patient_portal/services/pain_clinic/widgets/pa
 
 class PainAssessment extends StatefulWidget {
   final AllPainAssessment? entry;
+
   const PainAssessment({super.key, this.entry});
 
   @override
@@ -19,6 +20,7 @@ class PainAssessment extends StatefulWidget {
 class _PainAssessmentState extends State<PainAssessment> {
   final dateFormat = DateFormat('MMM dd, yyyy');
   final timeFormat = DateFormat('h:mm a');
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +30,7 @@ class _PainAssessmentState extends State<PainAssessment> {
           borderRadius: BorderRadius.circular(8.r)),
       child: InkWell(
         borderRadius: BorderRadius.circular(16.r),
-        onTap: () => _showDetailsDialog(widget.entry??AllPainAssessment()),
+        onTap: () => _showDetailsDialog(widget.entry ?? AllPainAssessment()),
         child: Padding(
           padding: EdgeInsets.all(16.r),
           child: Column(
@@ -38,7 +40,7 @@ class _PainAssessmentState extends State<PainAssessment> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.entry?.painLocation??"",
+                    widget.entry?.painLocation ?? "",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -48,18 +50,18 @@ class _PainAssessmentState extends State<PainAssessment> {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color:
-                      _getSeverityColor(widget.entry?.severity??"").withValues(alpha: 0.1),
+                      color: _getSeverityColor(widget.entry?.severity ?? "")
+                          .withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: _getSeverityColor(widget.entry?.severity??""),
+                        color: _getSeverityColor(widget.entry?.severity ?? ""),
                         width: 1,
                       ),
                     ),
                     child: Text(
-                      widget.entry?.severity??"",
+                      widget.entry?.severity ?? "",
                       style: TextStyle(
-                        color: _getSeverityColor(widget.entry?.severity??""),
+                        color: _getSeverityColor(widget.entry?.severity ?? ""),
                         fontWeight: FontWeight.w600,
                         fontSize: 12.sp,
                       ),
@@ -77,7 +79,8 @@ class _PainAssessmentState extends State<PainAssessment> {
                   ),
                   4.horizontalSpace,
                   Text(
-                    dateFormat.format(widget.entry?.date?.toDate()??DateTime.now()),
+                    dateFormat
+                        .format(widget.entry?.date?.toDate() ?? DateTime.now()),
                     style: TextStyle(
                       color: AppColors.kBlackColor,
                       fontSize: 12,
@@ -91,7 +94,8 @@ class _PainAssessmentState extends State<PainAssessment> {
                   ),
                   4.horizontalSpace,
                   Text(
-                    timeFormat.format(widget.entry?.date?.toDate()??DateTime.now()),
+                    timeFormat
+                        .format(widget.entry?.date?.toDate() ?? DateTime.now()),
                     style: TextStyle(
                       color: AppColors.kBlackColor,
                       fontSize: 12,
@@ -100,8 +104,9 @@ class _PainAssessmentState extends State<PainAssessment> {
                 ],
               ),
               12.verticalSpace,
-              if ((widget.entry?.radiation??"").isNotEmpty)
-                _buildDetailRow('${AppStrings.radiation.tr()}:', widget.entry?.radiation??""),
+              if ((widget.entry?.radiation ?? "").isNotEmpty)
+                _buildDetailRow('${AppStrings.radiation.tr()}:',
+                    widget.entry?.radiation ?? ""),
               8.verticalSpace,
               Divider(height: 1, color: Colors.grey[200]),
               8.verticalSpace,
@@ -128,6 +133,7 @@ class _PainAssessmentState extends State<PainAssessment> {
       ),
     );
   }
+
   Widget _buildDetailRow(String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -136,7 +142,10 @@ class _PainAssessmentState extends State<PainAssessment> {
         children: [
           Text(
             label,
-            style: kRegular.copyWith(fontSize: 13.sp,color: AppColors.kGrayColor700,fontWeight: FontWeight.w500),
+            style: kRegular.copyWith(
+                fontSize: 13.sp,
+                color: AppColors.kGrayColor700,
+                fontWeight: FontWeight.w500),
           ),
           SizedBox(width: 8),
           Expanded(
@@ -170,11 +179,10 @@ class _PainAssessmentState extends State<PainAssessment> {
     showDialog(
       context: context,
       builder: (context) {
-        return PainAssessmentDialog(entry: entry,);
+        return PainAssessmentDialog(
+          entry: entry,
+        );
       },
     );
   }
-
-
-
 }

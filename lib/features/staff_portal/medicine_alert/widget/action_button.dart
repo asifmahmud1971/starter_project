@@ -12,6 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 class ActionButtons extends StatelessWidget {
   final MedicineAlertActions? actions;
   final num? id;
+
   const ActionButtons({super.key, required this.actions, this.id});
 
   Future<void> _launchUrl(BuildContext context, String url) async {
@@ -59,7 +60,8 @@ class ActionButtons extends StatelessWidget {
             icon: Icon(Icons.close, size: 20.sp),
             label: Text(
               AppStrings.notGiven.tr(),
-              style: kButtonLargeStyle.copyWith(color: AppColors.kNotGivenColor),
+              style:
+                  kButtonLargeStyle.copyWith(color: AppColors.kNotGivenColor),
             ),
             style: OutlinedButton.styleFrom(
               foregroundColor: AppColors.kNotGivenColor,

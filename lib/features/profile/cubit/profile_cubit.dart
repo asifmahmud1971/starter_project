@@ -11,7 +11,6 @@ import 'package:medPilot/core/app/app_dependency.dart';
 import 'package:medPilot/core/app/app_preference.dart';
 import 'package:medPilot/core/components/custom_progress_loader.dart';
 import 'package:medPilot/core/components/custom_snack_bar.dart';
-import 'package:medPilot/core/constants/app_print.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/profile/repository/profile_repository_imp.dart';
 
@@ -64,12 +63,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     'Separated',
     'Divorced'
   ];
-  List<String> genderList = [
-    'Male',
-    'Female',
-    'Other'
-  ];
-
+  List<String> genderList = ['Male', 'Female', 'Other'];
 
   Future<void> faceUserData() async {
     showProgressDialog();
@@ -90,7 +84,8 @@ class ProfileCubit extends Cubit<ProfileState> {
           emit(state.copyWith(appStatus: AppStatus.failure));
         },
         (r) async {
-          emit(state.copyWith(appStatus: AppStatus.success,profileDetails: r.profileDetails));
+          emit(state.copyWith(
+              appStatus: AppStatus.success, profileDetails: r.profileDetails));
           userDataSaveProfile(profileDetails: state.profileDetails);
         },
       );
@@ -117,8 +112,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     landMarkController.text = profileDetails?.landMark ?? "";
     permanentAddressController.text = profileDetails?.permanentAddress ?? "";
     nIDPassportController.text = profileDetails?.nidPassport ?? "";
-    familyContactNumberController.text = profileDetails?.contactPersonNumber ?? "";
-    familyContactPersonController.text = profileDetails?.familyContactPerson ?? "";
+    familyContactNumberController.text =
+        profileDetails?.contactPersonNumber ?? "";
+    familyContactPersonController.text =
+        profileDetails?.familyContactPerson ?? "";
     allergiesController.text = profileDetails?.allergy ?? "";
     primaryDiagnosisController.text = profileDetails?.primaryDiagnosis ?? "";
   }
@@ -130,10 +127,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       final formData = <String, dynamic>{
         "patient_name": nameController.text,
-        "gender": selectGender??"",
+        "gender": selectGender ?? "",
         "dob": dateOfBirthController.text,
-        "blood_group": selectBloodGroup??"",
-        "marital_status": selectMaritalStatus??"",
+        "blood_group": selectBloodGroup ?? "",
+        "marital_status": selectMaritalStatus ?? "",
         "phone": mobileNoController.text,
         "doctor_contact_no": doctorContactController.text,
         "city_id": cityController.text,
@@ -147,7 +144,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         "relation_family_contract_person": "",
         "allergy": allergiesController.text,
         "primary_diagnosis": primaryDiagnosisController.text
-      } ;
+      };
       final response = await _profileRepository.updateUserData(formData);
 
       response.fold(
@@ -168,7 +165,6 @@ class ProfileCubit extends Cubit<ProfileState> {
             context: GetContext.context,
             message: AppStrings.savedSuccessfully.tr(),
           );
-
         },
       );
       dismissProgressDialog();

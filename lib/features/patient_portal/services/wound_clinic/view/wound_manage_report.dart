@@ -5,12 +5,6 @@ import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_describe_report_model.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart';
-import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_describe_report_model.dart';
-
 class WoundManagementScreen extends StatefulWidget {
   const WoundManagementScreen({Key? key}) : super(key: key);
 
@@ -46,10 +40,12 @@ class _WoundManagementScreenState extends State<WoundManagementScreen> {
             ),
             child: ListView.separated(
               padding: const EdgeInsets.all(16),
-              itemCount: (state.woundDescribeReportModel?.woundDescribe ?? []).length,
+              itemCount:
+                  (state.woundDescribeReportModel?.woundDescribe ?? []).length,
               separatorBuilder: (_, __) => const SizedBox(height: 24),
               itemBuilder: (context, index) {
-                final wound = (state.woundDescribeReportModel?.woundDescribe ?? [])[index];
+                final wound = (state.woundDescribeReportModel?.woundDescribe ??
+                    [])[index];
                 return _buildWoundCard(wound);
               },
             ),
@@ -208,7 +204,9 @@ class _ExpandableManagementSectionState
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  _isExpanded ? 'HIDE MANAGEMENT DETAILS' : 'VIEW MANAGEMENT DETAILS',
+                  _isExpanded
+                      ? 'HIDE MANAGEMENT DETAILS'
+                      : 'VIEW MANAGEMENT DETAILS',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColors.kPrimaryColor,
@@ -229,9 +227,7 @@ class _ExpandableManagementSectionState
         // Expandable content
         AnimatedSize(
           duration: const Duration(milliseconds: 300),
-          child: _isExpanded
-              ? _buildManagementList()
-              : const SizedBox.shrink(),
+          child: _isExpanded ? _buildManagementList() : const SizedBox.shrink(),
         ),
       ],
     );
@@ -303,7 +299,8 @@ class _ExpandableManagementSectionState
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildDateItem('Date', _formatDate(entry.date ?? "")),
-                _buildDateItem('Next Review', _formatDate(entry.nextDate ?? "")),
+                _buildDateItem(
+                    'Next Review', _formatDate(entry.nextDate ?? "")),
               ],
             ),
           ),

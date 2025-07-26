@@ -1,14 +1,16 @@
 class FollowUpModel {
   FollowUpModel({
-      this.success, 
-      this.patient, 
-      this.followup, 
-      this.token, 
-      this.tokenType,});
+    this.success,
+    this.patient,
+    this.followup,
+    this.token,
+    this.tokenType,
+  });
 
   FollowUpModel.fromJson(dynamic json) {
     success = json['success'];
-    patient = json['patient'] != null ? Patient.fromJson(json['patient']) : null;
+    patient =
+        json['patient'] != null ? Patient.fromJson(json['patient']) : null;
     if (json['followup'] != null) {
       followup = [];
       json['followup'].forEach((v) {
@@ -18,6 +20,7 @@ class FollowUpModel {
     token = json['token'];
     tokenType = json['token_type'];
   }
+
   bool? success;
   Patient? patient;
   List<Followup>? followup;
@@ -37,39 +40,39 @@ class FollowUpModel {
     map['token_type'] = tokenType;
     return map;
   }
-
 }
 
 class Followup {
   Followup({
-      this.id, 
-      this.companyId, 
-      this.patientId, 
-      this.date, 
-      this.time, 
-      this.place, 
-      this.type, 
-      this.reason, 
-      this.functionalStatus, 
-      this.response, 
-      this.bpHigh, 
-      this.bpMin, 
-      this.pulse, 
-      this.saturation, 
-      this.oxygen, 
-      this.temp, 
-      this.intake, 
-      this.output, 
-      this.otherReason, 
-      this.otherResponse, 
-      this.note, 
-      this.insulin, 
-      this.sugar, 
-      this.pain, 
-      this.shortnessOfBreath, 
-      this.bowelMovement, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.companyId,
+    this.patientId,
+    this.date,
+    this.time,
+    this.place,
+    this.type,
+    this.reason,
+    this.functionalStatus,
+    this.response,
+    this.bpHigh,
+    this.bpMin,
+    this.pulse,
+    this.saturation,
+    this.oxygen,
+    this.temp,
+    this.intake,
+    this.output,
+    this.otherReason,
+    this.otherResponse,
+    this.note,
+    this.insulin,
+    this.sugar,
+    this.pain,
+    this.shortnessOfBreath,
+    this.bowelMovement,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   Followup.fromJson(dynamic json) {
     id = json['id'];
@@ -101,6 +104,7 @@ class Followup {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   int? id;
   String? companyId;
   String? patientId;
@@ -162,33 +166,33 @@ class Followup {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }
 
 class Patient {
   Patient({
-      this.id, 
-      this.companyId, 
-      this.regNo, 
-      this.userId, 
-      this.branchId, 
-      this.name, 
-      this.dob, 
-      this.age, 
-      this.thana, 
-      this.city, 
-      this.gender, 
-      this.address, 
-      this.mobile, 
-      this.email, 
-      this.consultingDoctor, 
-      this.doctorContractNumber, 
-      this.alternativeNumber, 
-      this.password, 
-      this.status, 
-      this.landMark, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.companyId,
+    this.regNo,
+    this.userId,
+    this.branchId,
+    this.name,
+    this.dob,
+    this.age,
+    this.thana,
+    this.city,
+    this.gender,
+    this.address,
+    this.mobile,
+    this.email,
+    this.consultingDoctor,
+    this.doctorContractNumber,
+    this.alternativeNumber,
+    this.password,
+    this.status,
+    this.landMark,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   Patient.fromJson(dynamic json) {
     id = json['id'];
@@ -214,6 +218,7 @@ class Patient {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   num? id;
   String? companyId;
   String? regNo;
@@ -263,5 +268,4 @@ class Patient {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }

@@ -15,9 +15,14 @@ class WoundClinicHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppStrings.woundClinic.tr(),style: kTitleMedium,),),
+      appBar: AppBar(
+        title: Text(
+          AppStrings.woundClinic.tr(),
+          style: kTitleMedium,
+        ),
+      ),
       body: Padding(
-        padding:  EdgeInsets.all(16.r),
+        padding: EdgeInsets.all(16.r),
         child: GridView.count(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
@@ -26,19 +31,22 @@ class WoundClinicHome extends StatelessWidget {
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
           padding: EdgeInsets.all(0),
-          children: [ServiceCard(
-            onTap: () {
-              GetContext.to(WoundAssessmentScreen());
-            },
-            title: AppStrings.assessment.tr(),
-            icon: Assets.medWound,
-          ),ServiceCard(
-            onTap: () {
-              GetContext.to(WoundManagementScreen());
-            },
-            title: AppStrings.management.tr(),
-            icon: Assets.medWoundDersing,
-          )],
+          children: [
+            ServiceCard(
+              onTap: () {
+                GetContext.to(WoundAssessmentScreen());
+              },
+              title: AppStrings.assessment.tr(),
+              icon: Assets.medWound,
+            ),
+            ServiceCard(
+              onTap: () {
+                GetContext.to(WoundManagementScreen());
+              },
+              title: AppStrings.management.tr(),
+              icon: Assets.medWoundDersing,
+            )
+          ],
         ),
       ),
     );

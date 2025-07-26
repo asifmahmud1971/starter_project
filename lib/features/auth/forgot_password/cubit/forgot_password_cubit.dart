@@ -13,6 +13,7 @@ import 'package:medPilot/core/components/custom_snack_bar.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/core/router/routes.dart';
 import 'package:medPilot/features/auth/forgot_password/view/set_password_screen.dart';
+
 import '../../../../../core/constants/app_strings.dart';
 import '../repository/forgot_password_repository_imp.dart';
 
@@ -20,7 +21,8 @@ part 'forgot_password_state.dart';
 
 @injectable
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
-  ForgotPasswordCubit(this._forgotRepository) : super(const ForgotPasswordState());
+  ForgotPasswordCubit(this._forgotRepository)
+      : super(const ForgotPasswordState());
 
   final ForgotPasswordRepositoryImp _forgotRepository;
   final _appPreferences = instance.get<AppPreferences>();

@@ -1,7 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Color _getBPColor(TextEditingController bpHighController,TextEditingController bpLowController,) {
+Color _getBPColor(
+  TextEditingController bpHighController,
+  TextEditingController bpLowController,
+) {
   final high = int.tryParse(bpHighController.text) ?? 0;
   final low = int.tryParse(bpLowController.text) ?? 0;
 

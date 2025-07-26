@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:medPilot/core/components/custom_button.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_smart_dropdown_widget.dart';
 import 'package:medPilot/features/profile/cubit/profile_cubit.dart';
+
 import '../../core/components/custom_text_field.dart';
 import '../../core/constants/app_colors.dart';
 
@@ -21,7 +23,7 @@ class EditAbleProfileScreen extends StatefulWidget {
 }
 
 class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
-  final profileCubit =  GetContext.context.read<ProfileCubit>();
+  final profileCubit = GetContext.context.read<ProfileCubit>();
   bool isEditing = false;
   final _formKey = GlobalKey<FormState>();
   File? _image;
@@ -35,6 +37,7 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
       });
     }
   }
+
   DateTime? _selectedDate;
 
   Future<void> _selectDate(BuildContext context) async {
@@ -47,19 +50,18 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
-        profileCubit.dateOfBirthController.text = DateFormat('yyyy-MM-dd').format(_selectedDate!);
+        profileCubit.dateOfBirthController.text =
+            DateFormat('yyyy-MM-dd').format(_selectedDate!);
       });
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.kGrayColor50,
       appBar: AppBar(
-        title: Text('Patient Profile',style: kTitleMedium),
+        title: Text('Patient Profile', style: kTitleMedium),
       ),
       body: Form(
         key: _formKey,
@@ -76,17 +78,18 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
                     children: [
                       _image != null
                           ? CircleAvatar(
-                        radius: 45,
-                        backgroundColor: AppColors.kGrayColor600,
-                        backgroundImage: FileImage(_image!),
-                      ) : CircleAvatar(
-                        radius: 45,
-                        backgroundColor: AppColors.kGrayColor200,
-                        backgroundImage: CachedNetworkImageProvider(
-                            "https://picsum.photos/2000" ?? ""),
-                      ),
+                              radius: 45,
+                              backgroundColor: AppColors.kGrayColor600,
+                              backgroundImage: FileImage(_image!),
+                            )
+                          : CircleAvatar(
+                              radius: 45,
+                              backgroundColor: AppColors.kGrayColor200,
+                              backgroundImage: CachedNetworkImageProvider(
+                                  "https://picsum.photos/2000" ?? ""),
+                            ),
                       InkWell(
-                        onTap: ()=> _pickImage(ImageSource.gallery),
+                        onTap: () => _pickImage(ImageSource.gallery),
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                         child: Container(
                           padding: EdgeInsets.all(4),
@@ -101,7 +104,10 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
                               ),
                             ],
                           ),
-                          child:  Icon(Icons.edit,size: 16,),
+                          child: Icon(
+                            Icons.edit,
+                            size: 16,
+                          ),
                         ),
                       )
                     ],
@@ -128,56 +134,58 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
                     keyboardType: TextInputType.name,
                   ),
                   10.verticalSpace,
-                  Text('Gender',style: kBodyMedium),
+                  Text('Gender', style: kBodyMedium),
                   10.verticalSpace,
                   BuildSmartDropdown(
                     value: profileCubit.selectGender,
                     hint: 'Select Functional Status',
                     items: profileCubit.genderList,
-                    onChanged:  (value) => setState(() {
+                    onChanged: (value) => setState(() {
                       profileCubit.selectGender = value;
                     }),
                   ),
                   10.verticalSpace,
                   CustomTextField(
-                    controller: profileCubit.dateOfBirthController,
-                    isOptional: false,
-                    readOnly: true,
-                    titleStyle: kBodyMedium,
-                    title: "Date of Birth",
-                    hint: "Date of Birth",
-                    hintColor: AppColors.kGrayColor400,
-                    textColor: AppColors.kGrayColor950,
-                    fillColor: AppColors.kWhiteColor,
-                    radius: 10,
-                    borderThink: 1,
-                    keyboardType: TextInputType.name,
+                      controller: profileCubit.dateOfBirthController,
+                      isOptional: false,
+                      readOnly: true,
+                      titleStyle: kBodyMedium,
+                      title: "Date of Birth",
+                      hint: "Date of Birth",
+                      hintColor: AppColors.kGrayColor400,
+                      textColor: AppColors.kGrayColor950,
+                      fillColor: AppColors.kWhiteColor,
+                      radius: 10,
+                      borderThink: 1,
+                      keyboardType: TextInputType.name,
                       suffixIcon: InkWell(
-                          onTap: (){
-                            _selectDate(context);
-                          },
-                          child: Icon(Icons.calendar_month_sharp,color: AppColors.kGrayColor,),
-                      )
-                  ),
+                        onTap: () {
+                          _selectDate(context);
+                        },
+                        child: Icon(
+                          Icons.calendar_month_sharp,
+                          color: AppColors.kGrayColor,
+                        ),
+                      )),
                   10.verticalSpace,
-                  Text('Blood Group',style: kBodyMedium),
+                  Text('Blood Group', style: kBodyMedium),
                   10.verticalSpace,
                   BuildSmartDropdown(
                     value: profileCubit.selectBloodGroup,
                     hint: 'Select Functional Status',
                     items: profileCubit.bloodGroupList,
-                    onChanged:  (value) => setState(() {
+                    onChanged: (value) => setState(() {
                       profileCubit.selectBloodGroup = value;
                     }),
                   ),
                   10.verticalSpace,
-                  Text('Marital Status',style: kBodyMedium),
+                  Text('Marital Status', style: kBodyMedium),
                   10.verticalSpace,
                   BuildSmartDropdown(
                     value: profileCubit.selectMaritalStatus,
                     hint: 'Select Functional Status',
                     items: profileCubit.maritalStatusList,
-                    onChanged:  (value) => setState(() {
+                    onChanged: (value) => setState(() {
                       profileCubit.selectMaritalStatus = value;
                     }),
                   ),
@@ -379,7 +387,7 @@ class _EditAbleProfileScreenState extends State<EditAbleProfileScreen> {
               10.verticalSpace,
               CustomButton(
                 title: "Confirm",
-                onTap: (){
+                onTap: () {
                   profileCubit.updateProfile();
                 },
                 backgroundColor: AppColors.kPrimaryColor,

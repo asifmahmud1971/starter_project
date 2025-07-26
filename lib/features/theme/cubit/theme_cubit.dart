@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:medPilot/core/app/app_dependency.dart';
-import 'package:medPilot/core/app/app_preference.dart';
-import 'package:medPilot/features/theme/app_theme.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:medPilot/core/app/app_dependency.dart';
+import 'package:medPilot/core/app/app_preference.dart';
+import 'package:medPilot/features/theme/app_theme.dart';
 
 part 'theme_state.dart';
 

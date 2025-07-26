@@ -11,6 +11,7 @@ abstract class ProfileRepositoryImp {
   Future<Either<ApiFailure, UserProfileResponse>> getUserData(
     Map<String, dynamic> params,
   );
+
   Future<Either<ApiFailure, UserProfileResponse>> updateUserData(
     Map<String, dynamic> params,
   );

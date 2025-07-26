@@ -9,9 +9,10 @@ import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_date_time_card.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_functional_status_card.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_head_section_widget.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_physical_symptoms_card.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_smart_vital_row.dart';
-import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_head_section_widget.dart';
+
 import '../widget/build_smart_dropdown_widget.dart';
 
 class AddFollowUpScreen extends StatefulWidget {
@@ -23,6 +24,7 @@ class AddFollowUpScreen extends StatefulWidget {
 
 class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
   final FollowUpCubit followUpCubit = GetContext.context.read<FollowUpCubit>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,19 +51,23 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
             children: [
               // Date Time Card
               BuildDateTimeCard(
-                 selectedDate: followUpCubit.selectedDate,
-                 selectedTime: followUpCubit.selectedTime,
+                selectedDate: followUpCubit.selectedDate,
+                selectedTime: followUpCubit.selectedTime,
                 onSelectDate: () => _selectDate(context),
-                onSelectTime: ()=> _selectTime(context),
+                onSelectTime: () => _selectTime(context),
               ),
               20.verticalSpace,
-              BuildHeadSectionWidget(title: AppStrings.vitalSign.tr(),icon: Icons.monitor_heart),
+              BuildHeadSectionWidget(
+                  title: AppStrings.vitalSign.tr(), icon: Icons.monitor_heart),
               _buildVitalSignsCard(),
               20.verticalSpace,
-              BuildHeadSectionWidget(title:AppStrings.physicalSymptoms.tr(), icon: Icons.medical_services),
+              BuildHeadSectionWidget(
+                  title: AppStrings.physicalSymptoms.tr(),
+                  icon: Icons.medical_services),
               BuildPhysicalSymptomsCard(),
               20.verticalSpace,
-              BuildHeadSectionWidget(title: 'Functional Status', icon: Icons.accessibility),
+              BuildHeadSectionWidget(
+                  title: 'Functional Status', icon: Icons.accessibility),
               BuildFunctionalStatusCard(
                 functionalStatus: followUpCubit.functionalStatus,
                 onChange: (value) => setState(() {
@@ -73,15 +79,19 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
               Center(
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.save, size: 20),
-                  label: const Text('SAVE FOLLOW-UP',
-                      style: TextStyle(letterSpacing: 1),),
+                  label: const Text(
+                    'SAVE FOLLOW-UP',
+                    style: TextStyle(letterSpacing: 1),
+                  ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 15,),
+                      horizontal: 50,
+                      vertical: 15,
+                    ),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
-                    backgroundColor: AppColors.kPrimaryColor.withValues(alpha: 0.7
-                    ),
+                    backgroundColor:
+                        AppColors.kPrimaryColor.withValues(alpha: 0.7),
                     foregroundColor: Colors.white,
                     elevation: 4,
                   ),
@@ -94,7 +104,6 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
       ),
     );
   }
-
 
   Widget _buildVitalSignsCard() {
     return Container(
@@ -119,7 +128,11 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 validator: followUpCubit.validator,
               ),
             ),
-            Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
+            Divider(
+              height: 24.h,
+              thickness: 0.5,
+              color: AppColors.kGrayColor200,
+            ),
             BuildSmartVitalRow(
               label: 'Pulse (bpm) / Saturation (%)',
               firstField: CustomTextField(
@@ -135,7 +148,11 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 validator: followUpCubit.validator,
               ),
             ),
-            Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
+            Divider(
+              height: 24.h,
+              thickness: 0.5,
+              color: AppColors.kGrayColor200,
+            ),
             BuildSmartVitalRow(
               label: 'Oxygen (L) / Temp (°F)',
               firstField: CustomTextField(
@@ -151,7 +168,11 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 validator: followUpCubit.validator,
               ),
             ),
-            Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
+            Divider(
+              height: 24.h,
+              thickness: 0.5,
+              color: AppColors.kGrayColor200,
+            ),
             BuildSmartVitalRow(
               label: 'Intake (ml) / Output (ml)',
               firstField: CustomTextField(
@@ -167,10 +188,13 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 validator: followUpCubit.validator,
               ),
             ),
-            Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
+            Divider(
+              height: 24.h,
+              thickness: 0.5,
+              color: AppColors.kGrayColor200,
+            ),
             BuildSmartVitalRow(
               label: 'Insulin (units) / Blood Sugar (mmol/L)',
-
               firstField: CustomTextField(
                 controller: followUpCubit.insulinController,
                 radius: 8.r,
@@ -184,13 +208,17 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
                 validator: followUpCubit.validator,
               ),
             ),
-            Divider(height: 24.h, thickness: 0.5,color: AppColors.kGrayColor200,),
+            Divider(
+              height: 24.h,
+              thickness: 0.5,
+              color: AppColors.kGrayColor200,
+            ),
             BuildSmartDropdown(
               value: followUpCubit.shortnessOfBreath,
               hint: 'Shortness of Breath',
               items: followUpCubit.shortnessOfBreathList,
               icon: Icons.air,
-              onChanged:  (value) => setState(() {
+              onChanged: (value) => setState(() {
                 followUpCubit.shortnessOfBreath = value;
               }),
             ),
@@ -200,7 +228,7 @@ class _AddFollowUpScreenState extends State<AddFollowUpScreen> {
               hint: 'Bowel Movement',
               items: ['Moved', 'Not Moved'],
               icon: Icons.clean_hands,
-              onChanged:  (value) => setState(() {
+              onChanged: (value) => setState(() {
                 followUpCubit.bowelMovement = value;
               }),
             )

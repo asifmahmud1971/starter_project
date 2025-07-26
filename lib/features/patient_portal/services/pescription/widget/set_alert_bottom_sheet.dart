@@ -191,7 +191,8 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
                   child: InkWell(
                     onTap: () => _selectDate(isStart: true),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.w, vertical: 16.h),
                       decoration: BoxDecoration(
                         color: Colors.grey.shade100,
                         borderRadius: BorderRadius.circular(12.r),
@@ -205,7 +206,8 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
                                 : 'Start Date',
                             style: kBodyMedium,
                           ),
-                          Icon(Icons.calendar_today, size: 20.r, color: Colors.grey),
+                          Icon(Icons.calendar_today,
+                              size: 20.r, color: Colors.grey),
                         ],
                       ),
                     ),
@@ -218,7 +220,8 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
                   child: InkWell(
                     onTap: () => _selectDate(isStart: false),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.w, vertical: 16.h),
                       decoration: BoxDecoration(
                         color: Colors.grey.shade100,
                         borderRadius: BorderRadius.circular(12.r),
@@ -232,7 +235,8 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
                                 : 'End Date',
                             style: kBodyMedium,
                           ),
-                          Icon(Icons.calendar_today, size: 20.r, color: Colors.grey),
+                          Icon(Icons.calendar_today,
+                              size: 20.r, color: Colors.grey),
                         ],
                       ),
                     ),
@@ -382,7 +386,8 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
   Future<void> _selectDate({required bool isStart}) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: isStart ? _startDate ?? DateTime.now() : _endDate ?? DateTime.now(),
+      initialDate:
+          isStart ? _startDate ?? DateTime.now() : _endDate ?? DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
     );
@@ -409,7 +414,15 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
   void _addAlarm() {
     List<String>? days;
     if (_alarmType == 'Custom') {
-      final dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      final dayNames = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ];
       days = [];
       for (int i = 0; i < _selectedDays.length; i++) {
         if (_selectedDays[i]) {
@@ -419,7 +432,8 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
 
       if (days.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please select at least one day for custom alarm')),
+          const SnackBar(
+              content: Text('Please select at least one day for custom alarm')),
         );
         return;
       }

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart'
-    show FontSize, Html, Margins, Style;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
@@ -55,7 +53,7 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
         builder: (context, state) {
           return Column(
             children: [
-             // _buildSearchBar(),
+              // _buildSearchBar(),
               Expanded(
                 child: ListView.builder(
                   padding: EdgeInsets.symmetric(vertical: 8.h),
@@ -147,7 +145,6 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
                         color: Colors.grey[600],
                       ),
                     ),
-
                     SizedBox(height: 4.h),
                     Text(
                       capitalizeFirstLetter(doctor?.qualifications ?? ""),
@@ -156,7 +153,7 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
                         color: Colors.grey[600],
                       ),
                     ),
-                 /*   ClipRect(
+                    /*   ClipRect(
                       child: Container(
                         alignment: Alignment.centerLeft,
                         constraints: BoxConstraints(
@@ -254,4 +251,3 @@ class _ConsultationScreenState extends State<ConsultationScreen> {
     );
   }
 }
-

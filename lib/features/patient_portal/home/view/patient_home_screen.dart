@@ -3,19 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/components/common_background.dart';
-import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/home/cubit/home_cubit.dart';
-import 'package:medPilot/features/patient_portal/home/helper/dummy_slider_list.dart';
-import 'package:medPilot/features/patient_portal/home/model/service_model.dart';
 import 'package:medPilot/features/patient_portal/home/view/blog_list.dart';
 import 'package:medPilot/features/patient_portal/home/view/service_list.dart';
-import 'package:medPilot/features/patient_portal/home/widgets/app_slider.dart';
 import 'package:medPilot/features/patient_portal/home/widgets/call_card.dart';
 import 'package:medPilot/features/patient_portal/home/widgets/top_bar.dart';
-import 'package:medPilot/generated/assets.dart';
 
 class PatientHomeScreen extends StatefulWidget {
   const PatientHomeScreen({super.key});
@@ -50,7 +45,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
             const TopBar(),
             30.verticalSpace,
             AIChatCard(),
-           /* 20.verticalSpace,
+            /* 20.verticalSpace,
              AppSlider(imageUrls: sliderList,),*/
             20.verticalSpace,
             DefaultTabController(
@@ -71,7 +66,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                     labelStyle: kTitleMedium,
                     dividerColor: Colors.transparent,
                     dividerHeight: 0.h,
-                    tabs:  [
+                    tabs: [
                       Tab(text: AppStrings.myPackage.tr()),
                       Tab(text: AppStrings.onDemandService.tr()),
                     ],

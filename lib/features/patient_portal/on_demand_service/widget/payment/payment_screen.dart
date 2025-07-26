@@ -1,6 +1,5 @@
-import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -16,6 +15,7 @@ class WebPaymentScreen extends StatefulWidget {
 class _WebPaymentScreenState extends State<WebPaymentScreen> {
   WebViewController controller = WebViewController();
   bool isLoading = true;
+
   @override
   void initState() {
     initController();
@@ -46,13 +46,13 @@ class _WebPaymentScreenState extends State<WebPaymentScreen> {
   Widget build(BuildContext context) {
     // ignore: deprecated_member_use
     return Scaffold(
-        appBar: AppBar(
-
-            centerTitle: false,
-            title: Text("Payment"),
-        ),
-        body: Stack(
-            alignment: Alignment.center,
-            children: [WebViewWidget(controller: controller)]),);
+      appBar: AppBar(
+        centerTitle: false,
+        title: Text("Payment"),
+      ),
+      body: Stack(
+          alignment: Alignment.center,
+          children: [WebViewWidget(controller: controller)]),
+    );
   }
 }

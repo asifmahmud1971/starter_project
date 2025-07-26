@@ -13,6 +13,7 @@ class Shift {
     required this.hours,
   });
 }
+
 final List<Shift> shifts = [
   Shift(
     date: DateTime(2025, 6, 21),

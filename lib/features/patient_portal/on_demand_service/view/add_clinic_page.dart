@@ -10,7 +10,6 @@ import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/cubit/onDemand_service_cubit.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/widget/city_dropdown_widget.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/widget/thana_dropdown_widget.dart';
-import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_smart_dropdown_widget.dart';
 
 import '../model/city_response.dart';
@@ -45,57 +44,57 @@ class _AddClinicPageState extends State<AddClinicPage> {
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
-        onDemandCubit.startServiceDateController.text = DateFormat('yyyy-MM-dd').format(_selectedDate!);
+        onDemandCubit.startServiceDateController.text =
+            DateFormat('yyyy-MM-dd').format(_selectedDate!);
       });
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:
-            const Text('Clinic', style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        foregroundColor: AppColors.kPrimaryColor,
-      ),
-      body: BlocBuilder<OnDemandServiceCubit, OnDemandServiceState>(
-        builder: (context, state) {
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
-            child: Form(
-              key: onDemandCubit.formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
-                      _BuildSmartVitalRow(
-                        label: 'Patient Name',
-                        isOptional: true,
-                        firstField: CustomTextField(
-                          controller: onDemandCubit.patientNameController,
-                          radius: 8.r,
-                          hint: "Enter Patient name",
-                          validator: onDemandCubit.validator,
+        appBar: AppBar(
+          title: const Text('Clinic',
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          foregroundColor: AppColors.kPrimaryColor,
+        ),
+        body: BlocBuilder<OnDemandServiceCubit, OnDemandServiceState>(
+          builder: (context, state) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Form(
+                key: onDemandCubit.formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        _BuildSmartVitalRow(
+                          label: 'Patient Name',
+                          isOptional: true,
+                          firstField: CustomTextField(
+                            controller: onDemandCubit.patientNameController,
+                            radius: 8.r,
+                            hint: "Enter Patient name",
+                            validator: onDemandCubit.validator,
+                          ),
                         ),
-                      ),
-                      10.verticalSpace,
-                      _BuildSmartVitalRow(
-                        label: 'Age',
-                        isOptional: true,
-                        firstField: CustomTextField(
-                          controller: onDemandCubit.ageController,
-                          radius: 8.r,
-                          hint: "Enter Patient name",
-                          validator: onDemandCubit.validator,
+                        10.verticalSpace,
+                        _BuildSmartVitalRow(
+                          label: 'Age',
+                          isOptional: true,
+                          firstField: CustomTextField(
+                            controller: onDemandCubit.ageController,
+                            radius: 8.r,
+                            hint: "Enter Patient name",
+                            validator: onDemandCubit.validator,
+                          ),
                         ),
-                      ),
-                      10.verticalSpace,
-                      /*Text('Gender',style: kBodyMedium),
+                        10.verticalSpace,
+                        /*Text('Gender',style: kBodyMedium),
                         10.verticalSpace,
                         BuildSmartDropdown(
                           value: profileCubit.selectGender,
@@ -105,137 +104,139 @@ class _AddClinicPageState extends State<AddClinicPage> {
                             profileCubit.selectGender = value;
                           }),
                         ),*/
-
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Gender",
-                        style: kBodyMedium.copyWith(color: AppColors.kGrayColor600),
-                      ),
-                      Text(
-                        "*",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: AppColors.kError400,
-                          fontWeight: FontWeight.w500,
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Gender",
+                          style: kBodyMedium.copyWith(
+                              color: AppColors.kGrayColor600),
                         ),
-                      )
-                    ],
-                  ),
-                  5.verticalSpace,
-                  BuildSmartDropdown(
-                    value: onDemandCubit.selectGender,
-                    hint: 'Select gender',
-                    items: onDemandCubit.genderList,
-                    onChanged: (value) => setState(() {
-                      onDemandCubit.selectGender = value;
-                    }),
-                  ),
-                  10.verticalSpace,
-                  Row(
-                    children: [
-                      Text(
-                        "City",
-                        style: kBodyMedium.copyWith(color: AppColors.kGrayColor600),
-                      ),
-                      Text(
-                        "*",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: AppColors.kError400,
-                          fontWeight: FontWeight.w500,
+                        Text(
+                          "*",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: AppColors.kError400,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
+                      ],
+                    ),
+                    5.verticalSpace,
+                    BuildSmartDropdown(
+                      value: onDemandCubit.selectGender,
+                      hint: 'Select gender',
+                      items: onDemandCubit.genderList,
+                      onChanged: (value) => setState(() {
+                        onDemandCubit.selectGender = value;
+                      }),
+                    ),
+                    10.verticalSpace,
+                    Row(
+                      children: [
+                        Text(
+                          "City",
+                          style: kBodyMedium.copyWith(
+                              color: AppColors.kGrayColor600),
                         ),
-                      )
-                    ],
-                  ),
-                  5.verticalSpace,
-                  CityBuildSmartDropdown(
-                    value: onDemandCubit.selectCity,
-                    // This should be a City object, not just a string
-                    hint: 'Select City',
-                    items: state.city?.city ?? [],
-                    onChanged: (City? value) {
-                      if (value != null) {
-                        setState(() {
-                          onDemandCubit.selectCity =
-                              value; // Store the whole City object
-                          printLog("------- ${value.id}");
-                          onDemandCubit.getThana(id: value.id);
-                        });
-                      }
-                    },
-                  ),
-                  10.verticalSpace,
-                  Row(
-                    children: [
-                      Text(
-                        "Thana",
-                        style: kBodyMedium.copyWith(color: AppColors.kGrayColor600),
-                      ),
-                      Text(
-                        "*",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: AppColors.kError400,
-                          fontWeight: FontWeight.w500,
+                        Text(
+                          "*",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: AppColors.kError400,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
+                      ],
+                    ),
+                    5.verticalSpace,
+                    CityBuildSmartDropdown(
+                      value: onDemandCubit.selectCity,
+                      // This should be a City object, not just a string
+                      hint: 'Select City',
+                      items: state.city?.city ?? [],
+                      onChanged: (City? value) {
+                        if (value != null) {
+                          setState(() {
+                            onDemandCubit.selectCity =
+                                value; // Store the whole City object
+                            printLog("------- ${value.id}");
+                            onDemandCubit.getThana(id: value.id);
+                          });
+                        }
+                      },
+                    ),
+                    10.verticalSpace,
+                    Row(
+                      children: [
+                        Text(
+                          "Thana",
+                          style: kBodyMedium.copyWith(
+                              color: AppColors.kGrayColor600),
                         ),
-                      )
-                    ],
-                  ),
-                  5.verticalSpace,
-                  ThanaBuildSmartDropdown(
-                    value: onDemandCubit.selectThana,
-                    hint: 'Select Thana',
-                    items: state.thana?.thana ?? [],
-                    onChanged: state.thana?.thana != null
-                        ? (value) => setState(() {
-                      onDemandCubit.selectThana = value;
-                    })
-                        : null,
-                  ),
-                  10.verticalSpace,
-                  _BuildSmartVitalRow(
-                    label: 'Address',
-                    isOptional: true,
-                    firstField: CustomTextField(
-                      controller: onDemandCubit.addressController,
-                      radius: 8.r,
-                      hint: "Enter your Address",
-                      validator: onDemandCubit.validator,
+                        Text(
+                          "*",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: AppColors.kError400,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
+                      ],
                     ),
-                  ),
-                  10.verticalSpace,
-                  _BuildSmartVitalRow(
-                    label: 'Phone',
-                    firstField: CustomTextField(
-                      controller: onDemandCubit.phoneController,
-                      radius: 8.r,
-                      hint: "Enter your phone",
-                      validator: onDemandCubit.validator,
+                    5.verticalSpace,
+                    ThanaBuildSmartDropdown(
+                      value: onDemandCubit.selectThana,
+                      hint: 'Select Thana',
+                      items: state.thana?.thana ?? [],
+                      onChanged: state.thana?.thana != null
+                          ? (value) => setState(() {
+                                onDemandCubit.selectThana = value;
+                              })
+                          : null,
                     ),
-                  ),
-                  10.verticalSpace,
-                  _BuildSmartVitalRow(
-                    label: 'Email',
-                    firstField: CustomTextField(
-                      controller: onDemandCubit.emailController,
-                      radius: 8.r,
-                      hint: "Enter your Email",
+                    10.verticalSpace,
+                    _BuildSmartVitalRow(
+                      label: 'Address',
+                      isOptional: true,
+                      firstField: CustomTextField(
+                        controller: onDemandCubit.addressController,
+                        radius: 8.r,
+                        hint: "Enter your Address",
+                        validator: onDemandCubit.validator,
+                      ),
                     ),
-                  ),
-                  10.verticalSpace,
-                  _BuildSmartVitalRow(
-                    label: 'Current Package',
-                    firstField: CustomTextField(
-                      controller: onDemandCubit.currentPackageController,
-                      radius: 8.r,
-                      hint: "Enter your current package",
+                    10.verticalSpace,
+                    _BuildSmartVitalRow(
+                      label: 'Phone',
+                      firstField: CustomTextField(
+                        controller: onDemandCubit.phoneController,
+                        radius: 8.r,
+                        hint: "Enter your phone",
+                        validator: onDemandCubit.validator,
+                      ),
                     ),
-                  ),
-                  10.verticalSpace,
-                  CustomTextField(
+                    10.verticalSpace,
+                    _BuildSmartVitalRow(
+                      label: 'Email',
+                      firstField: CustomTextField(
+                        controller: onDemandCubit.emailController,
+                        radius: 8.r,
+                        hint: "Enter your Email",
+                      ),
+                    ),
+                    10.verticalSpace,
+                    _BuildSmartVitalRow(
+                      label: 'Current Package',
+                      firstField: CustomTextField(
+                        controller: onDemandCubit.currentPackageController,
+                        radius: 8.r,
+                        hint: "Enter your current package",
+                      ),
+                    ),
+                    10.verticalSpace,
+                    CustomTextField(
                       controller: onDemandCubit.startServiceDateController,
                       isOptional: false,
                       readOnly: true,
@@ -257,76 +258,75 @@ class _AddClinicPageState extends State<AddClinicPage> {
                           color: AppColors.kGrayColor,
                         ),
                       ),
-                  ),
-                  10.verticalSpace,
-                  _BuildSmartVitalRow(
-                    label: 'Legal Representive Name',
-                    firstField: CustomTextField(
-                      controller: onDemandCubit.representativeNameController,
-                      radius: 8.r,
-                      hint: "Legal Representive Name",
                     ),
-                  ),
-                  10.verticalSpace,
-                  _BuildSmartVitalRow(
-                    label: 'Mobile No (Primary)',
-                    firstField: CustomTextField(
-                      controller: onDemandCubit.mobileNoPrimaryController,
-                      radius: 8.r,
-                      hint: "Mobile No",
-                    ),
-                  ),
-                  10.verticalSpace,
-                  _BuildSmartVitalRow(
-                    label: 'Mobile No (Alternative)',
-                    firstField: CustomTextField(
-                      controller: onDemandCubit.mobileNoAlternativeController,
-                      radius: 8.r,
-                      hint: "Mobile No",
-                    ),
-                  ),
-                  10.verticalSpace,
-                  _BuildSmartVitalRow(
-                    label: 'Legal Representive Email',
-                    firstField: CustomTextField(
-                      controller: onDemandCubit.representativeEmailController,
-                      radius: 8.r,
-                      hint: "Legal Representive Email",
-                    ),
-                  ),
-                  30.verticalSpace,
-                  Center(
-                    child: ElevatedButton.icon(
-                      label: Text(
-                        "Submit",
-                        style: TextStyle(letterSpacing: 1),
+                    10.verticalSpace,
+                    _BuildSmartVitalRow(
+                      label: 'Legal Representive Name',
+                      firstField: CustomTextField(
+                        controller: onDemandCubit.representativeNameController,
+                        radius: 8.r,
+                        hint: "Legal Representive Name",
                       ),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 100,
-                          vertical: 15,
+                    ),
+                    10.verticalSpace,
+                    _BuildSmartVitalRow(
+                      label: 'Mobile No (Primary)',
+                      firstField: CustomTextField(
+                        controller: onDemandCubit.mobileNoPrimaryController,
+                        radius: 8.r,
+                        hint: "Mobile No",
+                      ),
+                    ),
+                    10.verticalSpace,
+                    _BuildSmartVitalRow(
+                      label: 'Mobile No (Alternative)',
+                      firstField: CustomTextField(
+                        controller: onDemandCubit.mobileNoAlternativeController,
+                        radius: 8.r,
+                        hint: "Mobile No",
+                      ),
+                    ),
+                    10.verticalSpace,
+                    _BuildSmartVitalRow(
+                      label: 'Legal Representive Email',
+                      firstField: CustomTextField(
+                        controller: onDemandCubit.representativeEmailController,
+                        radius: 8.r,
+                        hint: "Legal Representive Email",
+                      ),
+                    ),
+                    30.verticalSpace,
+                    Center(
+                      child: ElevatedButton.icon(
+                        label: Text(
+                          "Submit",
+                          style: TextStyle(letterSpacing: 1),
                         ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
-                        backgroundColor:
-                        AppColors.kPrimaryColor.withValues(alpha: 0.7),
-                        foregroundColor: Colors.white,
-                        elevation: 4,
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 100,
+                            vertical: 15,
+                          ),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          backgroundColor:
+                              AppColors.kPrimaryColor.withValues(alpha: 0.7),
+                          foregroundColor: Colors.white,
+                          elevation: 4,
+                        ),
+                        onPressed: () {
+                          if (onDemandCubit.formKey.currentState!.validate()) {
+                            context.read<OnDemandServiceCubit>().addClinic();
+                          }
+                        },
                       ),
-                      onPressed: (){
-                        if (onDemandCubit.formKey.currentState!.validate()) {
-                          context.read<OnDemandServiceCubit>().addClinic();
-                        }
-                      },
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          );
-        },
-      )
-    );
+            );
+          },
+        ));
   }
 }
 
@@ -338,7 +338,7 @@ class _BuildSmartVitalRow extends StatelessWidget {
   const _BuildSmartVitalRow({
     super.key,
     this.label,
-    this.isOptional=false,
+    this.isOptional = false,
     required this.firstField,
   });
 
@@ -357,17 +357,19 @@ class _BuildSmartVitalRow extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            isOptional?Padding(
-              padding: const EdgeInsets.only(left: 4),
-              child: Text(
-                "*",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: AppColors.kError400,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ):SizedBox.shrink()
+            isOptional
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 4),
+                    child: Text(
+                      "*",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: AppColors.kError400,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  )
+                : SizedBox.shrink()
           ],
         ),
         8.verticalSpace,

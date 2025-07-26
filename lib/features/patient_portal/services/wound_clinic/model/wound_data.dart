@@ -1,5 +1,3 @@
-
-import 'package:medPilot/core/app/app_config.dart';
 import 'package:medPilot/core/constants/strings.dart';
 
 class WoundData {
@@ -26,14 +24,15 @@ class WoundData {
     this.painScore,
     this.type,
     this.createdAt,
-    this.updatedAt,});
+    this.updatedAt,
+  });
 
   WoundData.fromJson(dynamic json) {
     id = json['id'];
     companyId = json['company_id'];
     patientId = json['patient_id'];
     date = json['date'];
-    image = appBaseUrl+json['image'];
+    image = appBaseUrl + json['image'];
     woundStage = json['wound_stage'];
     width = json['width'];
     length = json['length'];
@@ -53,6 +52,7 @@ class WoundData {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   num? id;
   dynamic companyId;
   String? patientId;
@@ -104,5 +104,4 @@ class WoundData {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }

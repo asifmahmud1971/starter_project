@@ -1,13 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/app/app_dependency.dart';
 import 'package:medPilot/core/app/app_preference.dart';
-import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/router/routes.dart';
 import 'package:medPilot/generated/assets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashScreen extends StatefulWidget {
   final AppPreferences _appPreferences;

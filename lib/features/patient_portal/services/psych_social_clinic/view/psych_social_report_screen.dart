@@ -39,23 +39,25 @@ class _PsychoSocialReportPageState extends State<PsychoSocialReportPage> {
       ),
       body: BlocBuilder<PsychSocialCubit, PsychSocialState>(
         builder: (context, state) {
-          return state.psychoSocialReportResponse!=null? Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  padding: EdgeInsets.all(16),
-                  itemCount:
-                      state.psychoSocialReportResponse?.psychosocial?.length,
-                  itemBuilder: (context, index) {
-                    Psychosocial? psychSocial = state
-                        .psychoSocialReportResponse?.psychosocial
-                        ?.elementAt(index);
-                    return _buildRecordCard(psychSocial, index + 1);
-                  },
-                ),
-              ),
-            ],
-          ):SizedBox.shrink();
+          return state.psychoSocialReportResponse != null
+              ? Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        padding: EdgeInsets.all(16),
+                        itemCount: state
+                            .psychoSocialReportResponse?.psychosocial?.length,
+                        itemBuilder: (context, index) {
+                          Psychosocial? psychSocial = state
+                              .psychoSocialReportResponse?.psychosocial
+                              ?.elementAt(index);
+                          return _buildRecordCard(psychSocial, index + 1);
+                        },
+                      ),
+                    ),
+                  ],
+                )
+              : SizedBox.shrink();
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -145,7 +147,7 @@ class _PsychoSocialReportPageState extends State<PsychoSocialReportPage> {
     return Container(
       margin: EdgeInsets.only(bottom: 16),
       decoration: AppColors.kDecoration,
-     /* elevation: 1,
+      /* elevation: 1,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),*/
@@ -173,7 +175,7 @@ class _PsychoSocialReportPageState extends State<PsychoSocialReportPage> {
               ],
             ),
             SizedBox(height: 12),
-            Divider(height: 1,color: AppColors.kDividerColor),
+            Divider(height: 1, color: AppColors.kDividerColor),
             SizedBox(height: 12),
             _buildEmotionRow(
                 'Feeling anxious or worried:', record?.anxiousOrWorried ?? ""),

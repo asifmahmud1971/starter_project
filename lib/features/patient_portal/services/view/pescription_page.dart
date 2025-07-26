@@ -217,10 +217,6 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
   }
 }
 
-
-
-
-
 class MedicationCard extends StatelessWidget {
   final IconData icon;
   final Color iconColor;

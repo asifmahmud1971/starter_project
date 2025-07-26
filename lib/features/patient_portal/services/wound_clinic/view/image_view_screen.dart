@@ -5,7 +5,8 @@ class GalleryViewerScreen extends StatefulWidget {
   final List<String> imageUrls;
   final int initialIndex;
 
-  const GalleryViewerScreen({super.key,
+  const GalleryViewerScreen({
+    super.key,
     required this.imageUrls,
     required this.initialIndex,
   });
@@ -70,12 +71,14 @@ class _GalleryViewerScreenState extends State<GalleryViewerScreen> {
                     child: CircularProgressIndicator(
                       value: event == null
                           ? 0
-                          : event.cumulativeBytesLoaded / event.expectedTotalBytes!,
+                          : event.cumulativeBytesLoaded /
+                              event.expectedTotalBytes!,
                       color: Color(0xFFFF904D),
                     ),
                   ),
                   errorBuilder: (context, error, stackTrace) => Center(
-                    child: Icon(Icons.broken_image, color: Colors.grey, size: 50),
+                    child:
+                        Icon(Icons.broken_image, color: Colors.grey, size: 50),
                   ),
                 ),
               );

@@ -10,7 +10,16 @@ class BuildSmartDropdown extends StatelessWidget {
   final Function(String?)? onChanged;
   final String? Function(String?)? validator;
   final Widget? prefixIcon;
-  const BuildSmartDropdown({super.key, this.value, this.hint, this.items, this.icon, this.onChanged, this.validator, this.prefixIcon});
+
+  const BuildSmartDropdown(
+      {super.key,
+      this.value,
+      this.hint,
+      this.items,
+      this.icon,
+      this.onChanged,
+      this.validator,
+      this.prefixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +33,26 @@ class BuildSmartDropdown extends StatelessWidget {
               hintText: hint,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: AppColors.kBorderColor), // Default border color
+                borderSide: BorderSide(
+                    color: AppColors.kBorderColor), // Default border color
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: AppColors.kBorderColor), // Border color when not focused
+                borderSide: BorderSide(
+                    color: AppColors
+                        .kBorderColor), // Border color when not focused
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: AppColors.kPrimaryColor), // Border color when focused
+                borderSide: BorderSide(
+                    color:
+                        AppColors.kPrimaryColor), // Border color when focused
               ),
-              prefixIcon: icon!=null? Icon(icon, color: AppColors.kPrimaryColor):null,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              prefixIcon: icon != null
+                  ? Icon(icon, color: AppColors.kPrimaryColor)
+                  : null,
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             ),
             items: items?.map((String value) {
               return DropdownMenuItem<String>(
@@ -47,12 +64,13 @@ class BuildSmartDropdown extends StatelessWidget {
               );
             }).toList(),
             onChanged: onChanged,
-            validator: validator??(value) {
-              if (value == null || value.isEmpty) {
-                return 'Please select an option';
-              }
-              return null;
-            },
+            validator: validator ??
+                (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select an option';
+                  }
+                  return null;
+                },
             style: TextStyle(color: Colors.grey.shade800),
             dropdownColor: Colors.white,
             borderRadius: BorderRadius.circular(10),

@@ -43,12 +43,12 @@ class RehabilitativePallMenu {
 
   RehabilitativePallMenu(
       {this.id,
-        this.companyId,
-        this.menuName,
-        this.image,
-        this.status,
-        this.createdAt,
-        this.updatedAt});
+      this.companyId,
+      this.menuName,
+      this.image,
+      this.status,
+      this.createdAt,
+      this.updatedAt});
 
   RehabilitativePallMenu.fromJson(Map<String, dynamic> json) {
     id = json['id'];

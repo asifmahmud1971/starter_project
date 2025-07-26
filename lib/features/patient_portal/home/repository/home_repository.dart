@@ -8,13 +8,12 @@ import 'package:medPilot/features/patient_portal/home/model/staff_permission_mod
 abstract class HomeRepository {
   Future<Either<ApiFailure, DashboardPermission>> getDashboardPermission(
       Map<String, dynamic> params);
-Future<Either<ApiFailure, StaffPermissionModel>> getStaffPermission(
+
+  Future<Either<ApiFailure, StaffPermissionModel>> getStaffPermission(
       Map<String, dynamic> params);
 
-   Future<Either<ApiFailure, PrescriptionModel>> getPrescription(
-      Map<String, dynamic> params);
- Future<Either<ApiFailure, BlogModel>> getBlog(
+  Future<Either<ApiFailure, PrescriptionModel>> getPrescription(
       Map<String, dynamic> params);
 
-
+  Future<Either<ApiFailure, BlogModel>> getBlog(Map<String, dynamic> params);
 }

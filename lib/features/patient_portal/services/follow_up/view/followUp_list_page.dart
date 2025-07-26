@@ -54,7 +54,7 @@ class _FollowupListPageState extends State<FollowupListPage> {
               _buildHeaderSection(),
               Expanded(
                 child: ListView.separated(
-                  itemCount: (state.followupList??[]).length,
+                  itemCount: (state.followupList ?? []).length,
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   itemBuilder: (context, index) {
                     return FollowUpCard(
@@ -63,7 +63,9 @@ class _FollowupListPageState extends State<FollowupListPage> {
                       vType: state.followupList?[index].type,
                       critical: false,
                       onTap: () {
-                        GetContext.to(FollowUpDetails(followup: state.followupList?[index],));
+                        GetContext.to(FollowUpDetails(
+                          followup: state.followupList?[index],
+                        ));
                       },
                     );
                   },

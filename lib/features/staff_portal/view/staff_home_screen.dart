@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/components/common_background.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
-import 'package:medPilot/features/patient_portal/home/widgets/call_card.dart';
-import 'package:medPilot/features/patient_portal/home/widgets/top_bar.dart';
 import 'package:medPilot/features/staff_portal/view/staff_portal_service_list.dart';
 import 'package:medPilot/generated/assets.dart';
 
@@ -18,7 +16,6 @@ class StaffHomeScreen extends StatefulWidget {
 }
 
 class _StaffHomeScreenState extends State<StaffHomeScreen> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -31,7 +28,7 @@ class _StaffHomeScreenState extends State<StaffHomeScreen> {
     return Scaffold(
       body: CommonBackground(
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           children: [
             70.verticalSpace,
             _buildSmartHeader(),
@@ -89,7 +86,10 @@ class _StaffHomeScreenState extends State<StaffHomeScreen> {
                 ],
               ),
             ),
-            CustomSvg(icon: Assets.medGoodMorning,size: 100.r,),
+            CustomSvg(
+              icon: Assets.medGoodMorning,
+              size: 100.r,
+            ),
           ],
         ),
       ),
@@ -157,7 +157,6 @@ class _StaffHomeScreenState extends State<StaffHomeScreen> {
       ],
     );
   }
-
 
   Widget _buildTaskOverview() {
     return Column(
