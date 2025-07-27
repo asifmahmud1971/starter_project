@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/components/custom_date_time_formatter.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_data.dart';
 
@@ -61,7 +62,15 @@ class _WoundAssessmentScreenState extends State<WoundAssessmentScreen> {
                                 ),
                               ),
                             const SizedBox(height: 12),
-                            _buildMeasurementTable(assessment),
+                           /* Container(
+                        decoration: AppColors.kDecoration,
+                        child: Column(
+                          children: [
+                            Text(assessment?.descriptions?[0].date??"",style: kBodyMedium,)
+                          ],
+                        ),
+                      ),*/
+                      const SizedBox(height: 12), _buildMeasurementTable(assessment),
                             const SizedBox(height: 12),
                             _buildAppearanceSection(assessment),
                             const SizedBox(height: 12),

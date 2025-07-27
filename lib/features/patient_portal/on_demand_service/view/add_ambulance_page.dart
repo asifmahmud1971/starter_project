@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/components/custom_button.dart';
 import 'package:medPilot/core/components/custom_text_field.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/patient_portal/on_demand_service/cubit/onDemand_service_cubit.dart';
 
 class AddAmbulancePage extends StatefulWidget {
   const AddAmbulancePage({super.key});
@@ -13,20 +16,14 @@ class AddAmbulancePage extends StatefulWidget {
 }
 
 class _AddAmbulancePageState extends State<AddAmbulancePage> {
-  String _urgency = 'immediate';
   bool _oxygenRequired = false;
   bool _climbingRequired = false;
   bool _waitingCharge = false;
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _dateController = TextEditingController();
-  TextEditingController _timeController = TextEditingController();
-  TextEditingController _fromAddressController =
-      TextEditingController(text: '2222+22 Kabaru, Nigeria');
-  TextEditingController _toAddressController =
-      TextEditingController(text: '7GJ42222+22');
-  TextEditingController _noteController = TextEditingController(text: 'Note');
-  TextEditingController _distanceController = TextEditingController();
+
+  final onDemand = GetContext.context.read<OnDemandServiceCubit>();
 
   @override
   void initState() {
@@ -115,7 +112,7 @@ class _AddAmbulancePageState extends State<AddAmbulancePage> {
               _BuildSmartVitalRow(
                 label: 'From Address',
                 firstField: CustomTextField(
-                  controller: _fromAddressController,
+                  controller: onDemand.formAddressController,
                   radius: 8.r,
                   hint: "From Address",
                   //validator: onDemandCubit.validator,
@@ -125,7 +122,7 @@ class _AddAmbulancePageState extends State<AddAmbulancePage> {
               _BuildSmartVitalRow(
                 label: 'To Address',
                 firstField: CustomTextField(
-                  controller: _toAddressController,
+                  controller: onDemand.toAddressController,
                   radius: 8.r,
                   hint: "To Address",
                   //validator: onDemandCubit.validator,
@@ -135,7 +132,7 @@ class _AddAmbulancePageState extends State<AddAmbulancePage> {
               _BuildSmartVitalRow(
                 label: 'Note',
                 firstField: CustomTextField(
-                  controller: _noteController,
+                  controller: onDemand.noteController,
                   radius: 8.r,
                   hint: "Note",
                   maxLine: 3,
@@ -145,33 +142,37 @@ class _AddAmbulancePageState extends State<AddAmbulancePage> {
               SizedBox(height: 24),
 
               // Charges Section
-              Card(
-                elevation: 2,
+              Text('Service Charges', style: kHeadLineSmall),
+              SizedBox(height: 10),
+              _BuildSmartVitalRow(
+                label: 'Total KM',
+                firstField: CustomTextField(
+                  controller: onDemand.distanceController,
+                  radius: 8.r,
+                  hint: "Total KM (Per KM 300 TK.)",
+                  //validator: onDemandCubit.validator,
+                ),
+              ),
+              SizedBox(height: 10),
+              Container(
+                decoration: AppColors.kDecoration,
                 child: Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: EdgeInsets.all(8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Service Charges', style: kHeadLineSmall),
-                      SizedBox(height: 10),
-                      _BuildSmartVitalRow(
-                        label: 'Total KM',
-                        firstField: CustomTextField(
-                          controller: _distanceController,
-                          radius: 8.r,
-                          hint: "Total KM (Per KM 300 TK.)",
-                          //validator: onDemandCubit.validator,
-                        ),
-                      ),
                       SizedBox(height: 10),
                       CheckboxListTile(
                         title: Text('Oxygen Required (Per Cy 800 TK.)',
                             style: kTitleSmall.copyWith(
                                 color: AppColors.kGrayColor700)),
+                        activeColor: AppColors.kPrimaryColor,
+
                         value: _oxygenRequired,
                         onChanged: (bool? value) {
                           setState(() {
                             _oxygenRequired = value!;
+                            onDemand.oxygenController.text = "800";
                           });
                         },
                         controlAffinity: ListTileControlAffinity.leading,
@@ -180,35 +181,36 @@ class _AddAmbulancePageState extends State<AddAmbulancePage> {
                         title: Text('Climbing Required (Per Floor 120 TK.)',
                             style: kTitleSmall.copyWith(
                                 color: AppColors.kGrayColor700)),
+                        activeColor: AppColors.kPrimaryColor,
                         value: _climbingRequired,
                         onChanged: (bool? value) {
                           setState(() {
                             _climbingRequired = value!;
+                            onDemand.climbingController.text = "120";
                           });
                         },
                         controlAffinity: ListTileControlAffinity.leading,
                       ),
-                      CheckboxListTile(
-                        title: Text(
-                          'Waiting Charge (Per Hour TK.)',
-                          style: kTitleSmall.copyWith(
-                              color: AppColors.kGrayColor700),
-                        ),
-                        value: _waitingCharge,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _waitingCharge = value!;
-                          });
-                        },
-                        controlAffinity: ListTileControlAffinity.leading,
-                      ),
+
                     ],
                   ),
                 ),
               ),
+              SizedBox(height: 10),
+              _BuildSmartVitalRow(
+                label: 'Floor Number',
+                firstField: CustomTextField(
+                  controller: onDemand.noteController,
+                  radius: 8.r,
+                  hint: "Floor Number",
+                  //validator: onDemandCubit.validator,
+                ),
+              ),
               SizedBox(height: 26),
               CustomButton(
-                onTap: () {},
+                onTap: () {
+                  onDemand.addAmbulance();
+                },
                 title: "Submit",
                 backgroundColor: Colors.orange,
               )

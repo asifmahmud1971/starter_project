@@ -53,6 +53,13 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       TextEditingController();
   final TextEditingController representativeEmailController =
       TextEditingController();
+  final formAddressController = TextEditingController();
+  final toAddressController = TextEditingController();
+  final distanceController = TextEditingController();
+  final noteController = TextEditingController();
+  final oxygenController = TextEditingController();
+  final climbingController = TextEditingController();
+  final floorController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
   String? selectGender;
@@ -374,6 +381,53 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
     }
   }
 
+  Future<void> addAmbulance() async {
+    showProgressDialog();
+    emit(state.copyWith(appStatus: AppStatus.loading));
+
+    try {
+      final formData = <String, dynamic>{};
+      formData['from_lng'] = "";
+      formData['from_lat'] = "";
+      formData['to_lng'] = "";
+      formData['to_lat'] = "";
+      formData['form_address'] = formAddressController.text;
+      formData['to_address'] = toAddressController.text;
+      formData['distance'] = distanceController.text;
+      formData['note'] = noteController.text;
+      formData['oxygen'] = oxygenController.text;
+      formData['climbing'] = climbingController.text;
+      formData['floor'] = floorController.text;
+
+      final response =
+      await onDemandServiceRepository.addAmbulance(formData);
+
+      response.fold(
+            (l) {
+          showCustomSnackBar(
+            context: GetContext.context,
+            isError: true,
+            message: AppStrings.wrongCredential.tr(),
+          );
+          emit(state.copyWith(appStatus: AppStatus.failure));
+        },
+            (r) async {
+          emit(state.copyWith(appStatus: AppStatus.success));
+          showCustomSnackBar(
+            context: GetContext.context,
+            message: AppStrings.savedSuccessfully.tr(),
+          );
+        },
+      );
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+      emit(state.copyWith(appStatus: AppStatus.failure));
+      log('$runtimeType:: @signIn => $e');
+    }
+  }
+
   Future<void> getCurrentTelePackage() async {
     showProgressDialog();
     emit(state.copyWith(
@@ -397,7 +451,6 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       dismissProgressDialog();
     }
   }
-
   Future<void> getTelePackege() async {
     showProgressDialog();
     emit(state.copyWith(
