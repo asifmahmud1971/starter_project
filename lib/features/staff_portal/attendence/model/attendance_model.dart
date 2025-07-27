@@ -3,8 +3,7 @@ class AttendanceModel {
     this.success,
     this.date,
     this.day,
-    this.data,
-  });
+    this.data,});
 
   AttendanceModel.fromJson(dynamic json) {
     success = json['success'];
@@ -12,7 +11,6 @@ class AttendanceModel {
     day = json['day'];
     data = json['data'] != null ? AttendanceData.fromJson(json['data']) : null;
   }
-
   bool? success;
   String? date;
   String? day;
@@ -28,6 +26,7 @@ class AttendanceModel {
     }
     return map;
   }
+
 }
 
 class AttendanceData {
@@ -35,21 +34,14 @@ class AttendanceData {
     this.checkIn,
     this.checkOut,
     this.breakStart,
-    this.breakEnd,
-  });
+    this.breakEnd,});
 
   AttendanceData.fromJson(dynamic json) {
-    checkIn =
-        json['check_in'] != null ? CheckIn.fromJson(json['check_in']) : null;
-    checkOut =
-        json['check_out'] != null ? CheckOut.fromJson(json['check_out']) : null;
-    breakStart = json['break_start'] != null
-        ? BreakStart.fromJson(json['break_start'])
-        : null;
-    breakEnd =
-        json['break_end'] != null ? BreakEnd.fromJson(json['break_end']) : null;
+    checkIn = json['check_in'] != null ? CheckIn.fromJson(json['check_in']) : null;
+    checkOut = json['check_out'] != null ? CheckOut.fromJson(json['check_out']) : null;
+    breakStart = json['break_start'] != null ? BreakStart.fromJson(json['break_start']) : null;
+    breakEnd = json['break_end'] != null ? BreakEnd.fromJson(json['break_end']) : null;
   }
-
   CheckIn? checkIn;
   CheckOut? checkOut;
   BreakStart? breakStart;
@@ -71,21 +63,20 @@ class AttendanceData {
     }
     return map;
   }
+
 }
 
 class BreakEnd {
   BreakEnd({
     this.scheduled,
     this.actual,
-    this.canEndBreak,
-  });
+    this.canEndBreak,});
 
   BreakEnd.fromJson(dynamic json) {
     scheduled = json['scheduled'];
     actual = json['actual'];
     canEndBreak = json['can_end_break'];
   }
-
   String? scheduled;
   dynamic actual;
   bool? canEndBreak;
@@ -97,21 +88,20 @@ class BreakEnd {
     map['can_end_break'] = canEndBreak;
     return map;
   }
+
 }
 
 class BreakStart {
   BreakStart({
     this.scheduled,
     this.actual,
-    this.canStartBreak,
-  });
+    this.canStartBreak,});
 
   BreakStart.fromJson(dynamic json) {
     scheduled = json['scheduled'];
     actual = json['actual'];
     canStartBreak = json['can_start_break'];
   }
-
   String? scheduled;
   dynamic actual;
   bool? canStartBreak;
@@ -123,21 +113,20 @@ class BreakStart {
     map['can_start_break'] = canStartBreak;
     return map;
   }
+
 }
 
 class CheckOut {
   CheckOut({
     this.scheduled,
     this.actual,
-    this.canCheckOut,
-  });
+    this.canCheckOut,});
 
   CheckOut.fromJson(dynamic json) {
     scheduled = json['scheduled'];
     actual = json['actual'];
     canCheckOut = json['can_check_out'];
   }
-
   String? scheduled;
   dynamic actual;
   bool? canCheckOut;
@@ -149,6 +138,7 @@ class CheckOut {
     map['can_check_out'] = canCheckOut;
     return map;
   }
+
 }
 
 class CheckIn {
@@ -156,8 +146,7 @@ class CheckIn {
     this.scheduled,
     this.actual,
     this.canCheckIn,
-    this.checkInUrl,
-  });
+    this.checkInUrl,});
 
   CheckIn.fromJson(dynamic json) {
     scheduled = json['scheduled'];
@@ -165,7 +154,6 @@ class CheckIn {
     canCheckIn = json['can_check_in'];
     checkInUrl = json['check_in_url'];
   }
-
   String? scheduled;
   dynamic actual;
   bool? canCheckIn;
@@ -179,4 +167,5 @@ class CheckIn {
     map['check_in_url'] = checkInUrl;
     return map;
   }
+
 }

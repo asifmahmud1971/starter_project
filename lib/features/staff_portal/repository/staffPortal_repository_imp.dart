@@ -4,6 +4,7 @@ import 'package:medPilot/data/network/api_client.dart';
 import 'package:medPilot/data/network/api_failure.dart';
 import 'package:medPilot/data/network/api_request.dart';
 import 'package:medPilot/data/network/api_urls.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/model/follow_up.dart';
 import 'package:medPilot/features/staff_portal/attendence/model/attendance_model.dart';
 import 'package:medPilot/features/staff_portal/medicine_alert/model/medicineAlertGiven.dart';
 import 'package:medPilot/features/staff_portal/medicine_alert/model/medicine_alert_model.dart';
@@ -53,6 +54,16 @@ class StaffPortalRepositoryImp implements StaffPortalRepository {
       fromJson: StaffPrescription.fromJson,
     );
   }
+@override
+  Future<Either<ApiFailure, FollowUpModel>> getPatientFollowUp(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+      url: ApiUrls.patientFollowUp,
+      method: Method.post,
+      params: params,
+      fromJson: FollowUpModel.fromJson,
+    );
+  }
 
   @override
   Future<Either<ApiFailure, TaskModel>> getTask(Map<String, dynamic> params) {
@@ -82,6 +93,7 @@ class StaffPortalRepositoryImp implements StaffPortalRepository {
       url: ApiUrls.attendanceStaff,
       method: Method.get,
       params: params,
+      fromJson: AttendanceModel.fromJson,
     );
   }
 

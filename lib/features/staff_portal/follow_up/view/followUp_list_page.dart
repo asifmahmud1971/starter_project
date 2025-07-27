@@ -1,0 +1,196 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/view/add_followUp.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/view/followUp_description_page.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/widget/followUp_card.dart';
+import 'package:medPilot/features/staff_portal/follow_up/cubit/followup_cubit.dart';
+import 'package:medPilot/features/staff_portal/pescription/widget/patient_dropdown.dart';
+
+class StaffFollowUpListPage extends StatefulWidget {
+  const StaffFollowUpListPage({super.key});
+
+  @override
+  State<StaffFollowUpListPage> createState() => _StaffFollowUpListPageState();
+}
+
+class _StaffFollowUpListPageState extends State<StaffFollowUpListPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<StaffFollowUpCubit>().clearFollowUp();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Recent Patient Follow-Ups",
+        ),
+        centerTitle: false,
+      ),
+
+      body: BlocBuilder<StaffFollowUpCubit, StaffFollowUpState>(
+        builder: (context, state) {
+          return Column(
+            children: [
+              AnimatedPatientDropdown(type: "followUp",),
+              state.followUp == null
+                  ? Center(
+                child: Text("No patient selected"),
+              )
+                  : Expanded(
+                child: ListView.separated(
+                  itemCount: (state.followupList ?? []).length,
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  itemBuilder: (context, index) {
+                    return FollowUpCard(
+                      dateTime: state.followupList?[index].date,
+                      place: state.followupList?[index].place,
+                      vType: state.followupList?[index].type,
+                      critical: false,
+                      onTap: () {
+                        GetContext.to(FollowUpDetails(
+                          followup: state.followupList?[index],
+                        ));
+                      },
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return 10.verticalSpace;
+                  },
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  void _showDownloadOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Export Report',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 16),
+              ListTile(
+                leading: const Icon(Icons.picture_as_pdf, color: Colors.red),
+                title: const Text('PDF Format'),
+                onTap: () {
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('PDF report generated')),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.table_chart, color: Colors.blue),
+                title: const Text('Excel Format'),
+                onTap: () {
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Excel report generated')),
+                  );
+                },
+              ),
+              const SizedBox(height: 8),
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildHeaderSection() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              _buildStatCard('Total', '24', Icons.calendar_today),
+              const SizedBox(width: 12),
+              _buildStatCard('Critical', '3', Icons.warning,
+                  color: Colors.orange),
+              const SizedBox(width: 12),
+              _buildStatCard('Today', '1', Icons.today, color: Colors.teal),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatCard(String title, String value, IconData icon,
+      {Color color = Colors.grey}) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.grey[50],
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.grey[200]!),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, size: 18, color: color),
+            const SizedBox(width: 8),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

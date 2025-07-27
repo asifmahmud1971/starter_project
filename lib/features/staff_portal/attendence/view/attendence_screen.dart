@@ -28,15 +28,6 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     return BlocBuilder<AttendanceCubit, AttendanceState>(
       builder: (context, state) {
         final theme = Theme.of(context);
-        final colors = theme.colorScheme;
-        final now = TimeOfDay.now();
-        /*  final shiftStart = _parseTime(state.attendanceModel?.data?.shift?.start??"");
-    final shiftEnd = _parseTime(state.attendanceModel?.data?.shift?.end??"");*/
-
-        // Calculate shift progress
-/*  final totalMinutes = _timeDifference(shiftStart, shiftEnd);
-    final elapsedMinutes = _timeDifference(shiftStart, now);
-    final progress = elapsedMinutes / totalMinutes;*/
         return Scaffold(
           appBar: AppBar(
             backgroundColor: AppColors.kPrimaryColor,
@@ -71,7 +62,6 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                       _buildStatusCards(
                           state.attendanceModel?.data ?? AttendanceData(),
                           theme),
-                      const SizedBox(height: 32),
 
                       // Action grid
                     ],
@@ -145,148 +135,43 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     );
   }
 
-  Widget _buildShiftTimeline(AttendanceData data, BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Theme.of(context).colorScheme.surface,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          _buildTimelineItem(
-            icon: Icons.alarm_on,
-            title: 'Shift Start',
-            time: data.breakStart?.scheduled ?? "",
-            isActive: true,
-          ),
-          _buildTimelineDivider(),
-          _buildTimelineItem(
-            icon: Icons.coffee,
-            title: 'Break Start',
-            time: data.breakStart?.scheduled ?? "",
-            isActive: false,
-          ),
-          _buildTimelineDivider(),
-          _buildTimelineItem(
-            icon: Icons.lunch_dining,
-            title: 'Break End',
-            time: data.breakStart?.scheduled ?? "",
-            isActive: false,
-          ),
-          _buildTimelineDivider(),
-          _buildTimelineItem(
-            icon: Icons.alarm_off,
-            title: 'Shift End',
-            time: data.breakStart?.scheduled ?? "",
-            isActive: false,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTimelineItem({
-    required IconData icon,
-    required String title,
-    required String time,
-    required bool isActive,
-  }) {
-    return Row(
-      children: [
-        Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: isActive
-                ? Theme.of(context).colorScheme.primary.withOpacity(0.2)
-                : Colors.grey.withOpacity(0.1),
-          ),
-          child: Icon(
-            icon,
-            color:
-                isActive ? Theme.of(context).colorScheme.primary : Colors.grey,
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
-              color: isActive
-                  ? Theme.of(context).colorScheme.onSurface
-                  : Colors.grey,
-            ),
-          ),
-        ),
-        Text(
-          time,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color:
-                isActive ? Theme.of(context).colorScheme.primary : Colors.grey,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTimelineDivider() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: Row(
-        children: [
-          const SizedBox(width: 20),
-          Container(width: 1, height: 20, color: Colors.grey.withOpacity(0.3)),
-          const SizedBox(width: 20),
-        ],
-      ),
-    );
-  }
 
   Widget _buildStatusCards(AttendanceData data, ThemeData theme) {
     return GridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       crossAxisCount: 2,
-      crossAxisSpacing: 16,
       mainAxisSpacing: 16,
-      childAspectRatio: 1.5,
+      crossAxisSpacing: 16,
+      childAspectRatio: 1.2,  // Width/height ratio
       children: [
         _buildStatusCard(
           title: 'Check In',
           icon: Icons.login,
           time: data.checkIn?.scheduled ?? "",
           color: const Color(0xFF5E35B1),
+          isButtonEnable:  data.checkIn?.canCheckIn??false
         ),
         _buildStatusCard(
           title: 'Break Start',
           icon: Icons.coffee,
           time: data.breakStart?.scheduled ?? "",
           color: const Color(0xFFF57C00),
+            isButtonEnable: data.breakStart?.canStartBreak??false
         ),
         _buildStatusCard(
           title: 'Break End',
           icon: Icons.done,
           time: data.breakEnd?.scheduled ?? "",
           color: const Color(0xFF43A047),
+            isButtonEnable: data.breakEnd?.canEndBreak??false
         ),
         _buildStatusCard(
           title: 'Check Out',
           icon: Icons.logout,
           time: data.checkOut?.scheduled ?? "",
           color: const Color(0xFFE53935),
+          isButtonEnable: data.checkOut?.canCheckOut??false
         ),
       ],
     );
@@ -297,6 +182,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     required IconData icon,
     required String? time,
     required Color color,
+    required bool isButtonEnable,
   }) {
     final isCompleted = time != null;
 
@@ -346,6 +232,33 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   : Theme.of(context).colorScheme.onSurface.withOpacity(0.4),
             ),
           ),
+          Visibility(
+            visible: isButtonEnable,
+            child: Container(
+              margin: EdgeInsetsGeometry.only(top: 10.h),
+              padding: EdgeInsetsGeometry.symmetric(vertical: 10.h),
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: AppColors.kGrayColor200, // Change to your desired color
+                    width: 2.0,         // Thickness of the top border
+                  ),
+                ),
+              ),
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsetsGeometry.symmetric(horizontal: 10.w),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    Expanded(child: Text(title,style: kTitleSmall.copyWith(color:AppColors.kPrimarySpeechBlue500),)),
+                    Icon(Icons.arrow_forward,size: 24.r,)
+                  ],),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -382,37 +295,4 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     );
   }
 
-  Widget _buildActionButton(
-    String label,
-    IconData icon,
-    bool enabled,
-    Color color,
-  ) {
-    return ElevatedButton.icon(
-      onPressed: enabled ? () {} : null,
-      icon: Icon(icon, size: 20),
-      label: Text(label),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: enabled ? color : color.withOpacity(0.1),
-        foregroundColor: enabled ? Colors.white : color.withOpacity(0.5),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-        elevation: enabled ? 2 : 0,
-      ),
-    );
-  }
-
-  // Helper functions for time calculations
-  /* TimeOfDay _parseTime(String time) {
-    final parts = time.split(':');
-    return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
-  }*/
-
-  int _timeDifference(TimeOfDay start, TimeOfDay end) {
-    final startMinutes = start.hour * 60 + start.minute;
-    final endMinutes = end.hour * 60 + end.minute;
-    return endMinutes - startMinutes;
-  }
 }

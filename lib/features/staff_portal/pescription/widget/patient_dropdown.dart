@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/features/staff_portal/follow_up/cubit/followup_cubit.dart';
 import 'package:medPilot/features/staff_portal/pescription/cubit/staff_prescription_cubit.dart';
 import 'package:medPilot/features/staff_portal/pescription/model/patient_list.dart';
 
@@ -13,7 +14,9 @@ class Patient {
 }
 
 class AnimatedPatientDropdown extends StatefulWidget {
-  const AnimatedPatientDropdown({super.key});
+  final String? type;
+
+  const AnimatedPatientDropdown({super.key, this.type});
 
   @override
   _AnimatedPatientDropdownState createState() =>
@@ -89,10 +92,14 @@ class _AnimatedPatientDropdownState extends State<AnimatedPatientDropdown> {
                           _selectedPatient = patient;
                           _isExpanded = false;
                         });
-                        context
-                            .read<StaffPrescriptionCubit>()
-                            .getStaffPrescription(
-                                patientId: _selectedPatient?.id);
+                        if (widget.type == "followUp") {
+                          context.read<StaffFollowUpCubit>().getFollowUpReport(patientId: _selectedPatient?.id);
+                        }else{
+                          context
+                              .read<StaffPrescriptionCubit>()
+                              .getStaffPrescription(
+                              patientId: _selectedPatient?.id);
+                        }
                       },
                     );
                   },

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:medPilot/data/network/api_failure.dart';
+import 'package:medPilot/features/patient_portal/services/follow_up/model/follow_up.dart';
 import 'package:medPilot/features/staff_portal/attendence/model/attendance_model.dart';
 import 'package:medPilot/features/staff_portal/medicine_alert/model/medicineAlertGiven.dart';
 import 'package:medPilot/features/staff_portal/medicine_alert/model/medicine_alert_model.dart';
@@ -33,4 +34,7 @@ abstract class StaffPortalRepository {
 
   Future<Either<ApiFailure, MedicineAlertGiven>> markAsMedicineNotGiven(
       int? id);
+
+  Future<Either<ApiFailure, FollowUpModel>> getPatientFollowUp(
+      Map<String, dynamic> params);
 }

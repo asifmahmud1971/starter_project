@@ -33,6 +33,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medPilot/features/staff_portal/attendence/view/attendence_screen.dart';
+import 'package:medPilot/features/staff_portal/follow_up/view/followUp_list_page.dart';
 import 'package:medPilot/features/staff_portal/medicine_alert/view/medicine_alert_page.dart';
 import 'package:medPilot/features/staff_portal/pescription/view/staff_prescription_page.dart';
 import 'package:medPilot/features/staff_portal/roaster/view/roaster_screen_view.dart';
@@ -125,10 +126,15 @@ class RouteGenerator {
                 settings: routeSettings,
               );
       case Routes.followUp:
-        return CupertinoPageRoute(
-          builder: (_) => FollowupListPage(),
-          settings: routeSettings,
-        );
+        return (appPreferences.getUserData().userType == "Patient")
+            ? CupertinoPageRoute(
+                builder: (_) => FollowupListPage(),
+                settings: routeSettings,
+              )
+            : CupertinoPageRoute(
+                builder: (_) => StaffFollowUpListPage(),
+                settings: routeSettings,
+              );
 
       case Routes.investigation:
         return CupertinoPageRoute(
@@ -254,19 +260,18 @@ class RouteGenerator {
           settings: routeSettings,
         );
       // global routes end
-case Routes.attendance:
+      case Routes.attendance:
         return CupertinoPageRoute(
           builder: (_) => AttendanceScreen(),
           settings: routeSettings,
         );
       // global routes end
-    case Routes.pilot:
+      case Routes.pilot:
         return CupertinoPageRoute(
           builder: (_) => CarePlanningLandingPage(),
           settings: routeSettings,
         );
       // global routes end
-
 
       default:
         return unDefinedRoute();
