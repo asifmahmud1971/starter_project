@@ -26,7 +26,7 @@ class ServiceCard extends StatelessWidget {
           10.verticalSpace,
           Text(title ?? "",
               textAlign: TextAlign.center,
-              style: kBodyLarge.copyWith(color: Colors.black))
+              style: kBodyLarge.copyWith(color: Colors.black),maxLines: 2,)
         ],
       ),
     );

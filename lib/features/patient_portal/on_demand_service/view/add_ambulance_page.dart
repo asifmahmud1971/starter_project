@@ -8,6 +8,8 @@ import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/cubit/onDemand_service_cubit.dart';
 
+import '../widget/map/map_screen.dart';
+
 class AddAmbulancePage extends StatefulWidget {
   const AddAmbulancePage({super.key});
 
@@ -18,7 +20,6 @@ class AddAmbulancePage extends StatefulWidget {
 class _AddAmbulancePageState extends State<AddAmbulancePage> {
   bool _oxygenRequired = false;
   bool _climbingRequired = false;
-  bool _waitingCharge = false;
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _dateController = TextEditingController();
@@ -28,9 +29,8 @@ class _AddAmbulancePageState extends State<AddAmbulancePage> {
   @override
   void initState() {
     super.initState();
-    // Set current date and time as default
+     onDemand.resetAddAmbulanceField();
     _dateController.text = DateTime.now().toString().split(' ')[0];
-    //_timeController.text = TimeOfDay.now().format(context);
   }
 
   @override
@@ -55,21 +55,12 @@ class _AddAmbulancePageState extends State<AddAmbulancePage> {
                     child: _BuildSmartVitalRow(
                       label: 'Date',
                       firstField: CustomTextField(
-                        controller: null,
+                        controller: onDemand.dateController,
                         radius: 8.r,
                         hint: "Date",
-                        //validator: onDemandCubit.validator,
+                        readOnly: true,
                         onPress: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            _dateController.text =
-                                pickedDate.toString().split(' ')[0];
-                          }
+                          onDemand.selectDate();
                         },
                         suffixIcon: Icon(
                           Icons.calendar_today,
@@ -83,21 +74,13 @@ class _AddAmbulancePageState extends State<AddAmbulancePage> {
                     child: _BuildSmartVitalRow(
                       label: 'Time',
                       firstField: CustomTextField(
-                        controller: null,
+                        controller: onDemand.timeController,
                         radius: 8.r,
                         hint: "Time",
                         //validator: onDemandCubit.validator,
+                        readOnly: true,
                         onPress: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            _dateController.text =
-                                pickedDate.toString().split(' ')[0];
-                          }
+                         onDemand.selectTime();
                         },
                         suffixIcon: Icon(
                           Icons.access_time_outlined,
@@ -113,15 +96,27 @@ class _AddAmbulancePageState extends State<AddAmbulancePage> {
                 label: 'From Address',
                 firstField: CustomTextField(
                   controller: onDemand.formAddressController,
+                  suffixIcon: InkWell(
+                    child: Icon(Icons.location_on,color: AppColors.kGrayColor800),
+                  ),
+                  onPress: (){
+                    GetContext.to(MapLocationPicker());
+                  },
                   radius: 8.r,
                   hint: "From Address",
-                  //validator: onDemandCubit.validator,
+                  readOnly: true,
                 ),
               ),
               SizedBox(height: 10),
               _BuildSmartVitalRow(
                 label: 'To Address',
                 firstField: CustomTextField(
+                  suffixIcon: InkWell(
+                    child: Icon(Icons.location_on,color: AppColors.kGrayColor800,),
+                  ),
+                  onPress: (){
+                    GetContext.to(MapLocationPicker(isToAddress: true));
+                  },
                   controller: onDemand.toAddressController,
                   radius: 8.r,
                   hint: "To Address",
@@ -140,8 +135,6 @@ class _AddAmbulancePageState extends State<AddAmbulancePage> {
                 ),
               ),
               SizedBox(height: 24),
-
-              // Charges Section
               Text('Service Charges', style: kHeadLineSmall),
               SizedBox(height: 10),
               _BuildSmartVitalRow(
@@ -167,12 +160,11 @@ class _AddAmbulancePageState extends State<AddAmbulancePage> {
                             style: kTitleSmall.copyWith(
                                 color: AppColors.kGrayColor700)),
                         activeColor: AppColors.kPrimaryColor,
-
                         value: _oxygenRequired,
                         onChanged: (bool? value) {
                           setState(() {
                             _oxygenRequired = value!;
-                            onDemand.oxygenController.text = "800";
+                            onDemand.oxygenController.text = "yes";
                           });
                         },
                         controlAffinity: ListTileControlAffinity.leading,
@@ -186,12 +178,11 @@ class _AddAmbulancePageState extends State<AddAmbulancePage> {
                         onChanged: (bool? value) {
                           setState(() {
                             _climbingRequired = value!;
-                            onDemand.climbingController.text = "120";
+                            onDemand.climbingController.text = "yes";
                           });
                         },
                         controlAffinity: ListTileControlAffinity.leading,
                       ),
-
                     ],
                   ),
                 ),
@@ -200,7 +191,7 @@ class _AddAmbulancePageState extends State<AddAmbulancePage> {
               _BuildSmartVitalRow(
                 label: 'Floor Number',
                 firstField: CustomTextField(
-                  controller: onDemand.noteController,
+                  controller: onDemand.floorController,
                   radius: 8.r,
                   hint: "Floor Number",
                   //validator: onDemandCubit.validator,

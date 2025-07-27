@@ -1,16 +1,19 @@
 import 'dart:developer';
+import 'dart:math' as math;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/components/custom_progress_loader.dart';
 import 'package:medPilot/core/components/custom_snack_bar.dart';
+import 'package:medPilot/core/constants/app_print.dart';
 import 'package:medPilot/core/constants/app_strings.dart';
 import 'package:medPilot/core/enum/app_status.dart';
-import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
-import 'package:medPilot/features/patient_portal/more/view/payment_screen.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/ambulance_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/assign_shift_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/city_response.dart';
@@ -18,14 +21,13 @@ import 'package:medPilot/features/patient_portal/on_demand_service/model/consult
 import 'package:medPilot/features/patient_portal/on_demand_service/model/current_package_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/current_tele_package_mnode.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/on_sarevice_model.dart';
-import 'package:medPilot/features/patient_portal/on_demand_service/model/procedure_model.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/tele_package_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/thana_response.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/model/upgrade_tele_package.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/repository/onDemandService_repository.dart';
-import 'package:medPilot/features/patient_portal/on_demand_service/widget/payment/payment_screen.dart' show WebPaymentScreen;
+import 'package:medPilot/features/patient_portal/on_demand_service/widget/payment/payment_screen.dart'
+    show WebPaymentScreen;
 import 'package:medPilot/features/patient_portal/services/follow_up/model/follow_up.dart';
-import 'package:medPilot/generated/assets.dart';
 
 part 'onDemand_service_state.dart';
 
@@ -62,9 +64,13 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
   final oxygenController = TextEditingController();
   final climbingController = TextEditingController();
   final floorController = TextEditingController();
+  final dateController = TextEditingController();
+  final timeController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
   String? selectGender;
+  LatLng? selectedLocationFrom;
+  LatLng? selectedLocationTo;
   City? selectCity;
   Thana? selectThana;
   String? selectPatientPackage;
@@ -72,8 +78,6 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
   List<String> genderList = ['Male', 'Female', 'Other'];
   FormFieldValidator<String>? validator =
       (value) => (value ?? "").isEmpty ? 'This field is required' : null;
-
-
 
   Future<void> getHomeVisit() async {
     showProgressDialog();
@@ -362,7 +366,6 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
     }
   }
 
-
   Future<void> getAmbulance() async {
     showProgressDialog();
     emit(state.copyWith(
@@ -372,8 +375,8 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       final response = await onDemandServiceRepository.getAmbulance({});
 
       response.fold(
-            (failure) {},
-            (data) async {
+        (failure) {},
+        (data) async {
           emit(state.copyWith(
               appStatus: AppStatus.success, ambulanceResponse: data));
         },
@@ -386,16 +389,58 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
     }
   }
 
+  Future<void> selectTime() async {
+    TimeOfDay? pickedTime = await showTimePicker(
+      context: GetContext.context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (pickedTime != null) {
+      final now = DateTime.now();
+      final dateTime = DateTime(now.year, now.month, now.day, pickedTime.hour, pickedTime.minute);
+      timeController.text = pickedTime.format(GetContext.context);// or format as needed
+
+    }
+  }
+  Future<void> selectDate() async {
+
+    DateTime? pickedDate = await showDatePicker(
+      context: GetContext.context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+
+    );
+    if (pickedDate != null) {
+      dateController.text =
+      pickedDate.toString().split(' ')[0];
+    }
+  }
+  void resetAddAmbulanceField(){
+    selectedLocationFrom = LatLng(0.0,0.0);
+    selectedLocationTo = LatLng(0.0,0.0);
+    floorController.clear();
+    formAddressController.clear();
+    toAddressController.clear();
+    distanceController.clear();
+    distanceController.clear();
+    noteController.clear();
+    oxygenController.clear();
+    climbingController.clear();
+    floorController.clear();
+    dateController.clear();
+    timeController.clear();
+  }
+
   Future<void> addAmbulance() async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
 
     try {
       final formData = <String, dynamic>{};
-      formData['from_lng'] = "";
-      formData['from_lat'] = "";
-      formData['to_lng'] = "";
-      formData['to_lat'] = "";
+      formData['from_lng'] = selectedLocationFrom?.longitude ?? "";
+      formData['from_lat'] = selectedLocationFrom?.latitude ?? "";
+      formData['to_lng'] = selectedLocationTo?.longitude ?? "";
+      formData['to_lat'] = selectedLocationTo?.latitude ?? "";
       formData['form_address'] = formAddressController.text;
       formData['to_address'] = toAddressController.text;
       formData['distance'] = distanceController.text;
@@ -403,12 +448,13 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       formData['oxygen'] = oxygenController.text;
       formData['climbing'] = climbingController.text;
       formData['floor'] = floorController.text;
+      formData['date'] = dateController.text;
+      formData['time'] = timeController.text;
 
-      final response =
-      await onDemandServiceRepository.addAmbulance(formData);
+      final response = await onDemandServiceRepository.addAmbulance(formData);
 
       response.fold(
-            (l) {
+        (l) {
           showCustomSnackBar(
             context: GetContext.context,
             isError: true,
@@ -416,12 +462,13 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
           );
           emit(state.copyWith(appStatus: AppStatus.failure));
         },
-            (r) async {
+        (r) async {
           emit(state.copyWith(appStatus: AppStatus.success));
           showCustomSnackBar(
             context: GetContext.context,
             message: AppStrings.savedSuccessfully.tr(),
           );
+          getAmbulance();
         },
       );
 
@@ -433,17 +480,58 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
     }
   }
 
+  Future<String> getAddressFromLatLong(String? latitude, String? longitude,{bool isToAddress=false}) async {
+    try {
+      List<Placemark> placeMarks = await placemarkFromCoordinates(double.parse(latitude??""), double.parse(longitude??""));
+      if (placeMarks.isNotEmpty) {
+        printLog("----- $placeMarks");
+        Placemark place = placeMarks.first;
+        printLog("----- ${place.country}");
+        if(isToAddress){
+          selectedLocationFrom = LatLng(double.parse(latitude??""), double.parse(longitude??""));
+          selectedLocationTo = LatLng(double.parse(latitude??""), double.parse(longitude??""));
+          toAddressController.text = "${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.country}";
+
+        }else{
+          selectedLocationFrom = LatLng(double.parse(latitude??""), double.parse(longitude??""));
+          selectedLocationTo = LatLng(double.parse(latitude??""), double.parse(longitude??""));
+          formAddressController.text = "${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.country}";
+        }
+        calculateDistance(selectedLocationFrom!,selectedLocationTo!);
+        return "${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.country}";
+      } else {
+        return "No address found";
+      }
+    } catch (e) {
+      return "Error: $e";
+    }
+  }
+
+
+  double calculateDistance(LatLng start, LatLng end) {
+    var p = 0.017453292519943295;
+    var a = 0.5 -
+        math.cos((end.latitude - start.latitude) * p) / 2 +
+        math.cos(start.latitude * p) *
+            math.cos(end.latitude * p) *
+            (1 - math.cos((end.longitude - start.longitude) * p)) /
+            2;
+    distanceController.text = "${12742 * math.asin(math.sqrt(a))}";
+    return 12742 * math.asin(math.sqrt(a));
+  }
+
   Future<void> getCurrentTelePackage() async {
     showProgressDialog();
     emit(state.copyWith(
         appStatus: AppStatus.loading, onService: OnServiceModel()));
 
     try {
-      final response = await onDemandServiceRepository.getCurrentTelePackage({});
+      final response =
+          await onDemandServiceRepository.getCurrentTelePackage({});
 
       response.fold(
-            (failure) {},
-            (data) async {
+        (failure) {},
+        (data) async {
           emit(state.copyWith(
               appStatus: AppStatus.success, currentTelePackage: data));
         },
@@ -455,6 +543,7 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       dismissProgressDialog();
     }
   }
+
   Future<void> getTelePackege() async {
     showProgressDialog();
     emit(state.copyWith(
@@ -464,10 +553,9 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       final response = await onDemandServiceRepository.getTelePackage({});
 
       response.fold(
-            (failure) {},
-            (data) async {
-          emit(state.copyWith(
-              appStatus: AppStatus.success, telePackage: data));
+        (failure) {},
+        (data) async {
+          emit(state.copyWith(appStatus: AppStatus.success, telePackage: data));
         },
       );
       log("ambulanceResponse  ---------> ${state.onService?.success}");
@@ -477,7 +565,9 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       dismissProgressDialog();
     }
   }
-  Future<void> upgradeTelePackage({String? packageId, String? paymentOption}) async {
+
+  Future<void> upgradeTelePackage(
+      {String? packageId, String? paymentOption}) async {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
 
@@ -486,12 +576,11 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       formData['package_id'] = packageId;
       formData['payment_option'] = paymentOption;
 
-
       final response =
-      await onDemandServiceRepository.upgradeTelePackage(formData);
+          await onDemandServiceRepository.upgradeTelePackage(formData);
 
       response.fold(
-            (l) {
+        (l) {
           showCustomSnackBar(
             context: GetContext.context,
             isError: true,
@@ -500,9 +589,12 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
 
           emit(state.copyWith(appStatus: AppStatus.failure));
         },
-            (r) async {
-          emit(state.copyWith(appStatus: AppStatus.success,upgradeTelePackage: r));
-          GetContext.to(WebPaymentScreen(initialURl: r.redirectUrl??"",));
+        (r) async {
+          emit(state.copyWith(
+              appStatus: AppStatus.success, upgradeTelePackage: r));
+          GetContext.to(WebPaymentScreen(
+            initialURl: r.redirectUrl ?? "",
+          ));
         },
       );
 
@@ -513,6 +605,4 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       log('$runtimeType:: @signIn => $e');
     }
   }
-
-
 }
