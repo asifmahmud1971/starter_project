@@ -166,6 +166,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                         context,
                         medicine.medicine?.medicineName ?? "",
                         medicine.duration ?? "",
+                        medicine.id,
                       ),
                     );
                   },
@@ -204,7 +205,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
   }
 
   void _showAlarmSettings(
-      BuildContext context, String medicineName, String duration) {
+      BuildContext context, String medicineName, String duration,num? id) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -212,6 +213,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
       builder: (context) => AlarmSettingsBottomSheet(
         medicineName: medicineName,
         duration: duration,
+        medicineId: id.toString(),
       ),
     );
   }

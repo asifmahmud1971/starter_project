@@ -113,6 +113,7 @@ class ApiUrls {
   static String breakEnd(int? id){
       return "break-end-monthly-staff/$id";
   }
+  static const String setMedicineAlert = 'set-medicine-alert';
 
 
 
