@@ -54,7 +54,8 @@ class StaffPortalRepositoryImp implements StaffPortalRepository {
       fromJson: StaffPrescription.fromJson,
     );
   }
-@override
+
+  @override
   Future<Either<ApiFailure, FollowUpModel>> getPatientFollowUp(
       Map<String, dynamic> params) {
     return apiRequest.performRequest(
@@ -122,6 +123,38 @@ class StaffPortalRepositoryImp implements StaffPortalRepository {
       url: ApiUrls.markAsMedicineNotGiven(id),
       method: Method.get,
       fromJson: MedicineAlertGiven.fromJson,
+    );
+  }
+
+  @override
+  Future<Either<ApiFailure, dynamic>> checkInMonthlyStaff(int? id) {
+    return apiRequest.performRequest(
+      url: ApiUrls.checkIn(id),
+      method: Method.get,
+    );
+  }
+
+  @override
+  Future<Either<ApiFailure, dynamic>> checkOutMonthlyStaff(int? id) {
+    return apiRequest.performRequest(
+      url: ApiUrls.checkOut(id),
+      method: Method.get,
+    );
+  }
+
+  @override
+  Future<Either<ApiFailure, dynamic>> breakStartMonthlyStaff(int? id) {
+    return apiRequest.performRequest(
+      url: ApiUrls.breakStart(id),
+      method: Method.get,
+    );
+  }
+
+  @override
+  Future<Either<ApiFailure, dynamic>> breakEndMonthlyStaff(int? id) {
+    return apiRequest.performRequest(
+      url: ApiUrls.breakEnd(id),
+      method: Method.get,
     );
   }
 }

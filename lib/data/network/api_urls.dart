@@ -98,4 +98,21 @@ class ApiUrls {
   static String markAsMedicineNotGiven(int? id){
       return "not-given-medicine/$id";
   }
+
+
+  static String checkIn(int? id){
+      return "chech-in-monthly-staff/$id";
+  }
+  static String checkOut(int? id){
+      return "chech-out-monthly-staff/$id";
+  }
+  static String breakStart(int? id){
+      return "break-start-monthly-staff/$id";
+  }
+  static String breakEnd(int? id){
+      return "break-end-monthly-staff/$id";
+  }
+
+
+
 }

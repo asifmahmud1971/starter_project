@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medPilot/core/app/app_dependency.dart';
+import 'package:medPilot/core/app/app_preference.dart';
 import 'package:medPilot/core/components/common_background.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/features/staff_portal/view/staff_portal_service_list.dart';
@@ -16,6 +18,7 @@ class StaffHomeScreen extends StatefulWidget {
 }
 
 class _StaffHomeScreenState extends State<StaffHomeScreen> {
+  AppPreferences appPreferences = instance.get();
   @override
   void initState() {
     // TODO: implement initState
@@ -68,7 +71,7 @@ class _StaffHomeScreenState extends State<StaffHomeScreen> {
                   ),
                   SizedBox(height: 4.h),
                   Text(
-                    'Dr. Smith',
+                    appPreferences.getUserData().name??"",
                     style: TextStyle(
                       fontSize: 24.sp,
                       fontWeight: FontWeight.bold,

@@ -19,7 +19,7 @@ class AttendanceCubit extends Cubit<AttendanceState> {
   Future<void> getAttendanceData() async {
     showProgressDialog();
     emit(state.copyWith(
-        appStatus: AppStatus.loading, attendanceModel: AttendanceModel()));
+        appStatus: AppStatus.initialLoading, attendanceModel: AttendanceModel()));
     try {
       final response = await staffPortalRepository.getAttendanceData({});
 
@@ -36,4 +36,91 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       dismissProgressDialog();
     }
   }
+
+  Future<void> checkIn(int id) async {
+    showProgressDialog();
+    emit(state.copyWith(
+        appStatus: AppStatus.loading));
+    try {
+      final response = await staffPortalRepository.checkInMonthlyStaff(id);
+
+      response.fold(
+        (failure) {},
+        (data) async {
+          state.attendanceModel?.data?.checkIn?.canCheckIn = false;
+          emit(state.copyWith(
+              appStatus: AppStatus.success,attendanceModel: state.attendanceModel));
+        },
+      );
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+    }
+  }
+  Future<void> checkOut(int id) async {
+    showProgressDialog();
+    emit(state.copyWith(
+        appStatus: AppStatus.loading));
+    try {
+      final response = await staffPortalRepository.checkOutMonthlyStaff(id);
+
+      response.fold(
+        (failure) {},
+        (data) async {
+          state.attendanceModel?.data?.checkOut?.canCheckOut = false;
+          emit(state.copyWith(
+              appStatus: AppStatus.success,attendanceModel: state.attendanceModel));
+        },
+      );
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+    }
+  }
+  Future<void> breakStart(int id) async {
+    showProgressDialog();
+    emit(state.copyWith(
+        appStatus: AppStatus.loading));
+    try {
+      final response = await staffPortalRepository.breakStartMonthlyStaff(id);
+
+      response.fold(
+        (failure) {},
+        (data) async {
+          state.attendanceModel?.data?.breakStart?.canStartBreak = false;
+          emit(state.copyWith(
+              appStatus: AppStatus.success,attendanceModel: state.attendanceModel));
+        },
+      );
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+    }
+  }
+  Future<void> breakEnd(int id) async {
+    showProgressDialog();
+    emit(state.copyWith(
+        appStatus: AppStatus.loading));
+    try {
+      final response = await staffPortalRepository.checkInMonthlyStaff(id);
+
+      response.fold(
+        (failure) {},
+        (data) async {
+          state.attendanceModel?.data?.breakEnd?.canEndBreak = false;
+          emit(state.copyWith(
+              appStatus: AppStatus.success,attendanceModel: state.attendanceModel));
+        },
+      );
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+    }
+  }
+
+
 }

@@ -37,4 +37,11 @@ abstract class StaffPortalRepository {
 
   Future<Either<ApiFailure, FollowUpModel>> getPatientFollowUp(
       Map<String, dynamic> params);
+
+  Future<Either<ApiFailure, dynamic>> checkInMonthlyStaff(int id);
+  Future<Either<ApiFailure, dynamic>> checkOutMonthlyStaff(int id);
+  Future<Either<ApiFailure, dynamic>> breakStartMonthlyStaff(int id);
+  Future<Either<ApiFailure, dynamic>> breakEndMonthlyStaff(int id);
+
+
 }

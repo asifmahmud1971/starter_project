@@ -70,9 +70,12 @@ class BreakEnd {
   BreakEnd({
     this.scheduled,
     this.actual,
-    this.canEndBreak,});
+    this.canEndBreak,
+    this.id,
+  });
 
   BreakEnd.fromJson(dynamic json) {
+    id = json['id'];
     scheduled = json['scheduled'];
     actual = json['actual'];
     canEndBreak = json['can_end_break'];
@@ -80,9 +83,11 @@ class BreakEnd {
   String? scheduled;
   dynamic actual;
   bool? canEndBreak;
+  int? id;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['id'] = id;
     map['scheduled'] = scheduled;
     map['actual'] = actual;
     map['can_end_break'] = canEndBreak;
@@ -95,9 +100,12 @@ class BreakStart {
   BreakStart({
     this.scheduled,
     this.actual,
-    this.canStartBreak,});
+    this.canStartBreak,
+    this.id,
+  });
 
   BreakStart.fromJson(dynamic json) {
+    id = json['id'];
     scheduled = json['scheduled'];
     actual = json['actual'];
     canStartBreak = json['can_start_break'];
@@ -105,9 +113,11 @@ class BreakStart {
   String? scheduled;
   dynamic actual;
   bool? canStartBreak;
+  int? id;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['id'] = id;
     map['scheduled'] = scheduled;
     map['actual'] = actual;
     map['can_start_break'] = canStartBreak;
@@ -120,9 +130,12 @@ class CheckOut {
   CheckOut({
     this.scheduled,
     this.actual,
-    this.canCheckOut,});
+    this.canCheckOut,
+    this.id,
+  });
 
   CheckOut.fromJson(dynamic json) {
+    id = json['id'];
     scheduled = json['scheduled'];
     actual = json['actual'];
     canCheckOut = json['can_check_out'];
@@ -130,9 +143,11 @@ class CheckOut {
   String? scheduled;
   dynamic actual;
   bool? canCheckOut;
+  int? id;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['id'] = id;
     map['scheduled'] = scheduled;
     map['actual'] = actual;
     map['can_check_out'] = canCheckOut;
@@ -146,9 +161,12 @@ class CheckIn {
     this.scheduled,
     this.actual,
     this.canCheckIn,
-    this.checkInUrl,});
+    this.checkInUrl,
+    this.id,
+  });
 
   CheckIn.fromJson(dynamic json) {
+    id = json['id'];
     scheduled = json['scheduled'];
     actual = json['actual'];
     canCheckIn = json['can_check_in'];
@@ -158,9 +176,11 @@ class CheckIn {
   dynamic actual;
   bool? canCheckIn;
   String? checkInUrl;
+  int? id;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['id'] = id;
     map['scheduled'] = scheduled;
     map['actual'] = actual;
     map['can_check_in'] = canCheckIn;
