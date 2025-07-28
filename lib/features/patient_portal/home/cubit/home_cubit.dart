@@ -8,6 +8,7 @@ import 'package:medPilot/features/patient_portal/home/model/blog_model.dart';
 import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
 import 'package:medPilot/features/patient_portal/home/model/prescription_model.dart';
 import 'package:medPilot/features/patient_portal/home/model/staff_permission_model.dart';
+import 'package:medPilot/features/patient_portal/home/model/subscriber_details.dart';
 import 'package:medPilot/features/patient_portal/home/repository/home_repository.dart';
 
 import '../../../../core/app/app_dependency.dart';
@@ -41,6 +42,29 @@ class HomeCubit extends Cubit<HomeState> {
       dismissProgressDialog();
     }
   }
+
+  Future<void> getSubscriberDetails() async {
+    showProgressDialog();
+    emit(state.copyWith(appStatus: AppStatus.loading));
+
+    try {
+      final response = await homeRepository.getSubscriberDetails({});
+
+      response.fold(
+        (failure) {},
+        (data) async {
+          emit(state.copyWith(
+              appStatus: AppStatus.success, subscriberDetails: data));
+        },
+      );
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+    }
+  }
+
+
 
   Future<void> getStaffPermission() async {
     showProgressDialog();

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/core/app/app_dependency.dart';
+import 'package:medPilot/core/app/app_preference.dart';
 import 'package:medPilot/core/components/custom_image.dart';
 import 'package:medPilot/core/components/custom_svg.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
@@ -15,6 +17,8 @@ class TopBar extends StatefulWidget {
 }
 
 class _TopBarState extends State<TopBar> {
+  AppPreferences appPreferences = instance.get();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,7 +34,7 @@ class _TopBarState extends State<TopBar> {
                 children: [
                   CustomImage(
                     baseUrl:
-                        "https://images.unsplash.com/photo-1633332755192-727a05c4013d?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D",
+                        appPreferences.getUserData().avatar,
                     isCircle: true,
                     size: 45.r,
                   ),
@@ -43,7 +47,7 @@ class _TopBarState extends State<TopBar> {
                         style: kBodyLarge,
                       ),
                       Text(
-                        "Asif Al Mahmud",
+                        appPreferences.getUserData().name??"",
                         style: kTitleMedium,
                       )
                     ],

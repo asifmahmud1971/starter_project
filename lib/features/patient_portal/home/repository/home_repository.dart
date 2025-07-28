@@ -4,6 +4,7 @@ import 'package:medPilot/features/patient_portal/home/model/blog_model.dart';
 import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
 import 'package:medPilot/features/patient_portal/home/model/prescription_model.dart';
 import 'package:medPilot/features/patient_portal/home/model/staff_permission_model.dart';
+import 'package:medPilot/features/patient_portal/home/model/subscriber_details.dart';
 
 abstract class HomeRepository {
   Future<Either<ApiFailure, DashboardPermission>> getDashboardPermission(
@@ -16,4 +17,5 @@ abstract class HomeRepository {
       Map<String, dynamic> params);
 
   Future<Either<ApiFailure, BlogModel>> getBlog(Map<String, dynamic> params);
+  Future<Either<ApiFailure, SubscriberDetails>> getSubscriberDetails(Map<String, dynamic> params);
 }

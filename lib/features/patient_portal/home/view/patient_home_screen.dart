@@ -25,6 +25,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   @override
   void initState() {
     context.read<HomeCubit>().getDashboardPermission();
+    context.read<HomeCubit>().getSubscriberDetails();
     //context.read<HomeCubit>().;
     super.initState();
   }

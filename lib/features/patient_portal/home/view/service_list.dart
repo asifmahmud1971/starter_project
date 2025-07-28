@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/home/cubit/home_cubit.dart';
 import 'package:medPilot/features/patient_portal/home/widgets/service_card.dart';
@@ -26,11 +27,17 @@ class _ServiceListState extends State<ServiceList> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              8.verticalSpace,
               Row(
                 children: [
                   Expanded(
-                      child: Text(widget.title ?? "",
-                          style: kTitleMedium.copyWith())),
+                      child: Wrap(
+                        children: [
+                          Text("${state.subscriberDetails?.subscribePackage?[0].homePackage?.packageName}" ?? "",
+                              style: kBodyLarge.copyWith(color: AppColors.kPrimarySpeechBlue500)),
+
+                        ]
+                      )),
                 ],
               ),
               10.verticalSpace,

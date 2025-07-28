@@ -18,16 +18,6 @@ class StaffPortalServiceList extends StatefulWidget {
 }
 
 class _StaffPortalServiceListState extends State<StaffPortalServiceList> {
-  final List<Map<String, dynamic>> services = [
-    {'icon': Icons.video_call, 'label': 'Video Consult'},
-    {'icon': Icons.home, 'label': 'Doctor Home Visit'},
-    {'icon': Icons.medical_services, 'label': 'Nurse Home Visit'},
-    {'icon': Icons.local_dining, 'label': 'Dietitian'},
-    {'icon': Icons.local_hospital, 'label': 'Ambulance'},
-    {'icon': Icons.favorite, 'label': 'Health Screening'},
-    {'icon': Icons.no_food, 'label': 'IgG Food Allergy'},
-    {'icon': Icons.medication, 'label': 'IgE Skin Prick Test'},
-  ];
 
   @override
   Widget build(BuildContext context) {

@@ -8,6 +8,7 @@ import 'package:medPilot/features/patient_portal/home/model/blog_model.dart';
 import 'package:medPilot/features/patient_portal/home/model/dashboard_permission.dart';
 import 'package:medPilot/features/patient_portal/home/model/prescription_model.dart';
 import 'package:medPilot/features/patient_portal/home/model/staff_permission_model.dart';
+import 'package:medPilot/features/patient_portal/home/model/subscriber_details.dart';
 
 import 'home_repository.dart';
 
@@ -55,4 +56,14 @@ class HomeRepositoryImp implements HomeRepository {
         params: params,
         fromJson: BlogModel.fromJson);
   }
+  @override
+  Future<Either<ApiFailure, SubscriberDetails>> getSubscriberDetails(Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+        url: ApiUrls.subscriberDetails,
+        method: Method.get,
+        params: params,
+        fromJson: SubscriberDetails.fromJson);
+  }
+
+
 }

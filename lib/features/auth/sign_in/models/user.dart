@@ -1,3 +1,5 @@
+import 'package:medPilot/core/constants/strings.dart';
+
 class User {
   User({
     this.id,
@@ -38,7 +40,7 @@ class User {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     activeStatus = json['active_status'];
-    avatar = json['avatar'];
+    avatar = appBaseUrl+json['avatar'];
     darkMode = json['dark_mode'];
     messengerColor = json['messenger_color'];
   }
