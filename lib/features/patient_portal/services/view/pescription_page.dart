@@ -74,7 +74,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                           const Icon(Icons.cake, color: Colors.black, size: 16),
                           8.horizontalSpace,
                           Text(
-                            '${state.prescriptionModel?.patient?.age} ${AppStrings.years.tr()} • ${state.prescriptionModel?.patient?.gender}',
+                            '${state.prescriptionModel?.patient?.age??""} ${AppStrings.years.tr()} • ${state.prescriptionModel?.patient?.gender??""}',
                             style: kBodyMedium,
                           ),
                         ],

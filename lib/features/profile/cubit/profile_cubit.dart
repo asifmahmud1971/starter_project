@@ -111,8 +111,8 @@ class ProfileCubit extends Cubit<ProfileState> {
     selectMaritalStatus = profileDetails?.maritalStatus;
     mobileNoController.text = profileDetails?.phone ?? "";
     doctorContactController.text = profileDetails?.doctorContactNo ?? "";
-    cityController.text = profileDetails?.cityId.toString() ?? "";
-    thanaController.text = profileDetails?.thanaId.toString() ?? "";
+    cityController.text = profileDetails?.cityId ?? "";
+    thanaController.text = profileDetails?.thanaId ?? "";
     presentAddressController.text = profileDetails?.presentAddress ?? "";
     landMarkController.text = profileDetails?.landMark ?? "";
     permanentAddressController.text = profileDetails?.permanentAddress ?? "";
@@ -132,21 +132,21 @@ class ProfileCubit extends Cubit<ProfileState> {
         "patient_name": nameController.text,
         "gender": selectGender??"",
         "dob": dateOfBirthController.text,
-        "blood_group": selectBloodGroup??"",
-        "marital_status": selectMaritalStatus??"",
-        "phone": mobileNoController.text,
-        "doctor_contact_no": doctorContactController.text,
-        "city_id": cityController.text,
-        "thana_id": thanaController.text,
-        "present_address": presentAddressController.text,
-        "land_mark": landMarkController.text,
-        "permanent_address": permanentAddressController.text,
-        "nid_passport": nIDPassportController.text,
-        "contact_person_number": familyContactNumberController.text,
-        "family_contact_person": familyContactPersonController.text,
+        "blood_group": selectBloodGroup,
+        "marital_status": selectMaritalStatus,
+        "phone": mobileNoController.text??"",
+        "doctor_contact_no": doctorContactController.text??"",
+        "city_id": cityController.text??"",
+        "thana_id": thanaController.text??"",
+        "present_address": presentAddressController.text??"",
+        "land_mark": landMarkController.text??"",
+        "permanent_address": permanentAddressController.text??"",
+        "nid_passport": nIDPassportController.text??"",
+        "contact_person_number": familyContactNumberController.text??"",
+        "family_contact_person": familyContactPersonController.text??"",
         "relation_family_contract_person": "",
-        "allergy": allergiesController.text,
-        "primary_diagnosis": primaryDiagnosisController.text
+        "allergy": allergiesController.text??"",
+        "primary_diagnosis": primaryDiagnosisController.text??""
       } ;
       final response = await _profileRepository.updateUserData(formData);
 
