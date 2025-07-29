@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/components/custom_progress_loader.dart';
+import 'package:medPilot/core/constants/app_print.dart';
 import 'package:medPilot/core/enum/app_status.dart';
 import 'package:medPilot/features/patient_portal/home/model/prescription_model.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/model/follow_up.dart';
@@ -97,10 +98,43 @@ class ServiceCubit extends Cubit<ServiceState> {
       time.add(timeFormat(alarms[i].time));
       day.add(alarms[i].days.toString());
     }
+    printLog( '______ $day');
     typeOutput = type.map((e) => '"$e"').toList();
     timeOutput = time.map((e) => '"$e"').toList();
     dayOutput = day.map((e) => '"$e"').toList();
+    //dayFormat();
   }
+  void dayFormat() {
+
+    List<String> input = [
+      "null",
+      "[Monday, Tuesday, Wednesday, Friday]",
+      "[Monday, Tuesday, Wednesday, Friday]"
+    ];
+    printLog("---- $dayOutput");
+
+    List<String> output = [];
+
+    for (var item in input) {
+      if (item=="null") {
+        // Remove square brackets and split by comma
+        output.add(item);
+      } else {
+        var days = item
+            .substring(1, item.length - 1)
+            .split(',')
+            .map((e) => e.trim()) // remove spaces
+            .toList();
+        output.addAll(days);
+
+      }
+    }
+
+    print(output);
+
+  }
+
+
 
   String timeFormat(TimeOfDay time) {
     DateTime dateTime = DateTime(0, 1, 1, time.hour, time.minute);
@@ -114,7 +148,6 @@ class ServiceCubit extends Cubit<ServiceState> {
     dayOutput = [];
     alarms.clear();
     alarmType = 'Daily';
-
   }
 
 }

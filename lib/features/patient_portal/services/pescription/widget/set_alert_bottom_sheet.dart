@@ -375,12 +375,6 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Switch(
-              value: alarm.isActive,
-              onChanged: (value) => _toggleAlarm(alarm, value),
-              activeColor: AppColors.kPrimaryColor,
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
             IconButton(
               icon: Icon(Icons.delete, size: 20.r, color: Colors.red),
               onPressed: () => _removeAlarm(alarm),
