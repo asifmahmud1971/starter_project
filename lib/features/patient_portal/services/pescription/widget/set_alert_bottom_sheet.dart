@@ -1,18 +1,23 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
+import 'package:medPilot/features/patient_portal/services/cubit/services_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/pescription/model/alarm_setting.dart';
 
 class AlarmSettingsBottomSheet extends StatefulWidget {
   final String medicineName;
   final String duration;
+  final String? medicineId;
 
   const AlarmSettingsBottomSheet({
     super.key,
     required this.medicineName,
     required this.duration,
+    this.medicineId
   });
 
   @override
@@ -21,27 +26,23 @@ class AlarmSettingsBottomSheet extends StatefulWidget {
 }
 
 class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
-  String _alarmType = 'Daily';
-  TimeOfDay _selectedTime = TimeOfDay.now();
-  final List<bool> _selectedDays = List.filled(7, false);
-  bool _notifyPortal = true;
-  bool _notifyNurse = true;
-  DateTime? _startDate;
-  DateTime? _endDate;
-  final List<AlarmSetting> _alarms = [];
+  ServiceCubit serviceCubit = GetContext.context.read<ServiceCubit>();
 
   @override
   void initState() {
     super.initState();
-    _startDate = DateTime.now();
-    _endDate = DateTime.now().add(const Duration(days: 5));
+    serviceCubit.startDate = DateTime.now();
+    serviceCubit.endDate = DateTime.now().add(const Duration(days: 5));
   }
+
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final maxHeight = screenHeight * 0.85;
 
+    return BlocBuilder<ServiceCubit, ServiceState>(
+    builder: (context, state) {
     return Container(
       constraints: BoxConstraints(maxHeight: maxHeight),
       decoration: BoxDecoration(
@@ -86,7 +87,7 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
                 borderRadius: BorderRadius.circular(12.r),
               ),
               child: DropdownButton<String>(
-                value: _alarmType,
+                value: serviceCubit.alarmType,
                 isExpanded: true,
                 underline: const SizedBox(),
                 items: const [
@@ -95,7 +96,7 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
                 ],
                 onChanged: (value) {
                   setState(() {
-                    _alarmType = value!;
+                    serviceCubit.alarmType = value!;
                   });
                 },
               ),
@@ -120,7 +121,7 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      _selectedTime.format(context),
+                      serviceCubit.selectedTime.format(context),
                       style: kBodyLarge.copyWith(fontWeight: FontWeight.bold),
                     ),
                     Icon(Icons.access_time, color: Colors.grey),
@@ -131,7 +132,7 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
             16.verticalSpace,
 
             // Custom Days Selector (only shown when Custom is selected)
-            if (_alarmType == 'Custom') ...[
+            if (serviceCubit.alarmType == 'Custom') ...[
               Text(
                 'Select Days',
                 style: kBodyMedium.copyWith(fontWeight: FontWeight.bold),
@@ -144,19 +145,19 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        _selectedDays[index] = !_selectedDays[index];
+                        serviceCubit.selectedDays[index] = ! serviceCubit.selectedDays[index];
                       });
                     },
                     child: Container(
                       width: 36.w,
                       height: 36.w,
                       decoration: BoxDecoration(
-                        color: _selectedDays[index]
+                        color: serviceCubit.selectedDays[index]
                             ? AppColors.kPrimaryColor
                             : Colors.transparent,
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: _selectedDays[index]
+                          color: serviceCubit.selectedDays[index]
                               ? AppColors.kPrimaryColor
                               : Colors.grey,
                         ),
@@ -165,7 +166,7 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
                         child: Text(
                           dayNames[index],
                           style: TextStyle(
-                            color: _selectedDays[index]
+                            color: serviceCubit.selectedDays[index]
                                 ? Colors.white
                                 : Colors.black,
                             fontWeight: FontWeight.bold,
@@ -178,7 +179,6 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
               ),
               16.verticalSpace,
             ],
-
             // Duration Selector
             Text(
               'Duration',
@@ -200,8 +200,8 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            _startDate != null
-                                ? DateFormat('dd-MM-yyyy').format(_startDate!)
+                            serviceCubit.startDate != null
+                                ? DateFormat('dd-MM-yyyy').format(serviceCubit.startDate!)
                                 : 'Start Date',
                             style: kBodyMedium,
                           ),
@@ -227,8 +227,8 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            _endDate != null
-                                ? DateFormat('dd-MM-yyyy').format(_endDate!)
+                            serviceCubit.endDate != null
+                                ? DateFormat('dd-MM-yyyy').format(serviceCubit.endDate!)
                                 : 'End Date',
                             style: kBodyMedium,
                           ),
@@ -240,29 +240,7 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
                 ),
               ],
             ),
-            16.verticalSpace,
 
-            // Notification Settings
-            Text(
-              'Notifications',
-              style: kBodyMedium.copyWith(fontWeight: FontWeight.bold),
-            ),
-            8.verticalSpace,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildNotificationToggle(
-                  label: 'Portal',
-                  value: _notifyPortal,
-                  onChanged: (v) => setState(() => _notifyPortal = v!),
-                ),
-                _buildNotificationToggle(
-                  label: 'Nurse',
-                  value: _notifyNurse,
-                  onChanged: (v) => setState(() => _notifyNurse = v!),
-                ),
-              ],
-            ),
             24.verticalSpace,
 
             // Add Alarm Button
@@ -271,7 +249,7 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
               child: ElevatedButton(
                 onPressed: _addAlarm,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.kPrimaryColor,
+                  backgroundColor: AppColors.kSecondaryIndigo700,
                   padding: EdgeInsets.symmetric(vertical: 16.r),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.r),
@@ -286,18 +264,64 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
             16.verticalSpace,
 
             // List of Added Alarms
-            if (_alarms.isNotEmpty) ...[
+            if (serviceCubit.alarms.isNotEmpty) ...[
               Text(
                 'Active Alarms',
                 style: kTitleMedium.copyWith(fontWeight: FontWeight.bold),
               ),
               8.verticalSpace,
-              ..._alarms.map((alarm) => _buildAlarmItem(alarm)).toList(),
+              ...serviceCubit.alarms.map((alarm) => _buildAlarmItem(alarm)).toList(),
             ],
+            16.verticalSpace,
+
+            // Notification Settings
+            Text(
+              'Notifications',
+              style: kBodyMedium.copyWith(fontWeight: FontWeight.bold),
+            ),
+            8.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildNotificationToggle(
+                  label: 'Portal',
+                  value: serviceCubit.notifyPortal,
+                  onChanged: (v) => setState(() => serviceCubit.notifyPortal = v!),
+                ),
+                _buildNotificationToggle(
+                  label: 'Nurse',
+                  value: serviceCubit.notifyNurse,
+                  onChanged: (v) => setState(() => serviceCubit.notifyNurse = v!),
+                ),
+              ],
+            ),
+            20.verticalSpace,
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: (){
+                  serviceCubit.addMedicineAlert(id: widget.medicineId);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.kPrimaryColor,
+                  padding: EdgeInsets.symmetric(vertical: 16.r),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                ),
+                child: Text(
+                  'Submit',
+                  style: kBodyLarge.copyWith(color: Colors.white),
+                ),
+              ),
+            ),
+            26.verticalSpace,
           ],
         ),
       ),
     );
+  },
+);
   }
 
   Widget _buildNotificationToggle({
@@ -370,11 +394,12 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
   Future<void> _selectTime() async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: _selectedTime,
+      initialTime: serviceCubit.selectedTime,
+
     );
     if (picked != null && mounted) {
       setState(() {
-        _selectedTime = picked;
+        serviceCubit.selectedTime = picked;
       });
     }
   }
@@ -382,7 +407,7 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
   Future<void> _selectDate({required bool isStart}) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: isStart ? _startDate ?? DateTime.now() : _endDate ?? DateTime.now(),
+      initialDate: isStart ? serviceCubit.startDate ?? DateTime.now() : serviceCubit.endDate ?? DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
     );
@@ -390,16 +415,16 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
     if (picked != null && mounted) {
       setState(() {
         if (isStart) {
-          _startDate = picked;
+          serviceCubit.startDate = picked;
           // Ensure end date is after start date
-          if (_endDate != null && _endDate!.isBefore(picked)) {
-            _endDate = picked.add(const Duration(days: 1));
+          if (serviceCubit.endDate != null && serviceCubit.endDate!.isBefore(picked)) {
+            serviceCubit.endDate = picked.add(const Duration(days: 1));
           }
         } else {
-          _endDate = picked;
+          serviceCubit.endDate = picked;
           // Ensure start date is before end date
-          if (_startDate != null && _startDate!.isAfter(picked)) {
-            _startDate = picked.subtract(const Duration(days: 1));
+          if (serviceCubit.startDate != null && serviceCubit.startDate!.isAfter(picked)) {
+            serviceCubit.startDate = picked.subtract(const Duration(days: 1));
           }
         }
       });
@@ -408,11 +433,11 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
 
   void _addAlarm() {
     List<String>? days;
-    if (_alarmType == 'Custom') {
+    if (serviceCubit.alarmType == 'Custom') {
       final dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       days = [];
-      for (int i = 0; i < _selectedDays.length; i++) {
-        if (_selectedDays[i]) {
+      for (int i = 0; i < serviceCubit.selectedDays.length; i++) {
+        if (serviceCubit.selectedDays[i]) {
           days.add(dayNames[i]);
         }
       }
@@ -426,20 +451,20 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
     }
 
     setState(() {
-      _alarms.add(AlarmSetting(
-        type: _alarmType,
-        time: _selectedTime,
+      serviceCubit.alarms.add(AlarmSetting(
+        type: serviceCubit.alarmType,
+        time: serviceCubit.selectedTime,
         days: days,
-        startDate: _startDate,
-        endDate: _endDate,
+        startDate: serviceCubit.startDate,
+        endDate: serviceCubit.endDate,
       ));
     });
 
     // Reset form for next entry
-    _selectedTime = TimeOfDay.now();
-    if (_alarmType == 'Custom') {
-      for (int i = 0; i < _selectedDays.length; i++) {
-        _selectedDays[i] = false;
+    serviceCubit.selectedTime = TimeOfDay.now();
+    if (serviceCubit.alarmType == 'Custom') {
+      for (int i = 0; i < serviceCubit.selectedDays.length; i++) {
+        serviceCubit.selectedDays[i] = false;
       }
     }
   }
@@ -455,7 +480,7 @@ class _AlarmSettingsBottomSheetState extends State<AlarmSettingsBottomSheet> {
   void _removeAlarm(AlarmSetting alarm) {
     if (mounted) {
       setState(() {
-        _alarms.remove(alarm);
+        serviceCubit.alarms.remove(alarm);
       });
     }
   }

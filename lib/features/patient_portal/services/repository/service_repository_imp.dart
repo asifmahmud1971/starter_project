@@ -153,5 +153,14 @@ class ServiceRepositoryImp implements ServiceRepository {
         params: params,
         fromJson: AllWoundData.fromJson);
   }
+@override
+  Future<Either<ApiFailure, dynamic>> addMedicineAlert(
+      Map<String, dynamic> params) {
+    return apiRequest.performRequest(
+        url: ApiUrls.setMedicineAlert,
+        method: Method.post,
+        params: params,
+    );
+  }
 
 }

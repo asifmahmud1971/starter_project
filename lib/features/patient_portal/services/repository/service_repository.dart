@@ -57,4 +57,7 @@ abstract class ServiceRepository {
       ProgressCallback? onSendProgress,
       // Added callback for upload progress
       ProgressCallback? onReceiveProgress);
+
+  Future<Either<ApiFailure, dynamic>> addMedicineAlert(
+      Map<String, dynamic> params);
 }

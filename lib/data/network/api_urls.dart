@@ -81,6 +81,7 @@ class ApiUrls {
   static const String currentTelePackage = 'current-tele-package';
   static const String telePackage = 'tele-package';
   static const String upgradeTelePackage = 'upgrade-tele-package';
+  static const String setMedicineAlert = 'set-medicine-alert';
 
 
 
