@@ -32,7 +32,7 @@ class _ServiceListState extends State<ServiceList> {
                 visible: widget.type == "myPackage",
                 child: Wrap(
                   children: List.generate((state.subscriberDetails?.subscribePackage??[]).length, (index){
-                    return   Text("${state.subscriberDetails?.subscribePackage?[index].packageName} " ?? "",
+                    return   Text("${state.subscriberDetails?.subscribePackage?[index].packageName} ",
                         style: kBodyLarge.copyWith(color: AppColors.kPrimarySpeechBlue500));
                   }),
                 ),

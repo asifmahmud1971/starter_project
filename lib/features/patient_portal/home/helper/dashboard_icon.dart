@@ -59,6 +59,9 @@ extension MedIconExtension on String {
         return Assets.medTask;
       case "medicine_alert":
         return Assets.medMedicalAlert;
+        case "package":
+        return Assets.medPackage;
+
 
       default:
         return null;
