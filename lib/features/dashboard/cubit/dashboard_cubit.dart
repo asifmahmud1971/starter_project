@@ -8,6 +8,7 @@ import 'package:medPilot/features/patient_portal/cart/view/patient_cart_homescre
 import 'package:medPilot/features/patient_portal/chat/view/chat_screen.dart';
 import 'package:medPilot/features/patient_portal/home/view/patient_home_screen.dart';
 import 'package:medPilot/features/patient_portal/more/view/more_option_screen.dart';
+import 'package:medPilot/features/staff_portal/profile/view/staff_profile_screen.dart';
 import 'package:medPilot/features/staff_portal/view/staff_home_screen.dart';
 
 @injectable
@@ -27,7 +28,7 @@ class DashboardCubit extends Cubit<DashboardState> {
   List<Widget>? staffScreen = [
     const StaffHomeScreen(),
     const PalliativeChatScreen(),
-    MoreOptionScreen()
+    PersonalInfoScreen()
   ];
 
   void onPageChanged(int index) async {

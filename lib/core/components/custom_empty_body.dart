@@ -26,7 +26,7 @@ class CustomEmptyBody extends StatelessWidget {
     switch (type) {
       case EmptyType.gallery:
         return CustomEmptyBody(
-          icons: Assets.imagesMusicEmpty,
+          icons: "",
           title: AppStrings.noPageFound.tr(),
         );
       default:

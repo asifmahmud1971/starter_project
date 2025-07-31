@@ -43,6 +43,7 @@ class Assets {
   static const String iconsMore = 'assets/icons/more.svg';
   static const String iconsNotification = 'assets/icons/notification.svg';
   static const String iconsPlaceholderViewVector = 'assets/icons/Placeholder_view_vector.svg';
+  static const String iconsProfile = 'assets/icons/profile.svg';
   static const String iconsProfileIcon = 'assets/icons/profile_icon.svg';
   static const String iconsUser = 'assets/icons/user.svg';
   static const String iconsVector = 'assets/icons/vector.svg';

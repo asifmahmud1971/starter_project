@@ -70,13 +70,13 @@ class _StaffDashboardScreenState extends State<StaffDashboardScreen> {
               ),
               BottomNavigationBarItem(
                 icon: CustomSvg(
-                  icon: Assets.medMore,
+                  icon: Assets.iconsProfile,
                 ),
                 activeIcon: CustomSvg(
-                  icon: Assets.medMore,
+                  icon: Assets.iconsProfile,
                   color: AppColors.kPrimaryColor,
                 ),
-                label: "More",
+                label: "Profile",
               ),
             ],
           ),

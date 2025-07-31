@@ -16,7 +16,6 @@ class AppStrings {
   static const String email = "email";
   static const String provideValidNumber = "provideValidNumber";
   static const String logOut = "logOut";
-  static const String home = "home";
 
   static const String forgotPassword = "Forgot Password";
   static const String login = "Login";
@@ -116,17 +115,46 @@ class AppStrings {
   static const String markAsGiven = "Mark as Given";
   static const String notGiven = "Not Given";
   static const String couldNotLaunch = "Could not launch";
-  static const String taskManager = 'task_manager';
-  static const String yourTasks = 'your_tasks';
-  static const String inProgress = 'in_progress';
+  static const String taskManager = 'Task Manager';
+  static const String yourTasks = 'Your Task';
+  static const String inProgress = 'In Progress';
   static const String completed = 'completed';
-  static const String assignDate = 'assign_date';
-  static const String lastDate = 'last_date';
-  static const String daysRemaining = 'days_remaining';
-  static const String updatingStatus = 'updating_status';
+  static const String assignDate = 'Assign Date';
+  static const String lastDate = 'Last Date';
+  static const String daysRemaining = 'Day Remaining';
+  static const String updatingStatus = 'Updating Status';
   static const String attendance = 'Attendance';
   static const String myPackage = 'My Package';
   static const String onDemandService = 'On-Demand Service';
   static const String latestArticle = 'Latest article';
+  static const String chat = 'Chat';
+  static const String profile = 'Profile';
+  static const String home = "Home";
+  // 🎯 Constants
+  static const String title = "Edit Profile";
+  static const String save = "Save";
+  static const String personalInfo = "Personal Information";
+  static const String firstName = "First Name";
+  static const String lastName = "Last Name";
+  static const String fatherName = "Father Name";
+  static const String motherName = "Mother Name";
+  static const String dob = "Date of Birth";
+  static const String gender = "Gender";
+  static const String presentAddress = "Present Address";
+  static const String permanentAddress = "Permanent Address";
+  static const String parentsNid = "Parents NID";
+  static const String nid = "NID Number";
+  static const String altMobile = "Alternative Mobile";
+  static const String updateProfile = "Update Profile";
+
+  // 🎯 Error messages
+  static const String enterFirstName = "Please enter your first name";
+  static const String enterLastName = "Please enter your last name";
+  static const String enterDob = "Please select your date of birth";
+  static const String enterGender = "Please select your gender";
+  static const String enterPresentAddress = "Please enter your present address";
+  static const String enterNid = "Please enter your NID number";
+  static const String profileUpdated = "Profile updated successfully";
+  static const String hintAltMobile = "+880 1XXX XXXXXX";
 
 }
