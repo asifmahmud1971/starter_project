@@ -24,40 +24,24 @@ class SubscriberDetails {
 
 class SubscribePackage {
   SubscribePackage({
-      this.homePackage,});
-
-  SubscribePackage.fromJson(dynamic json) {
-    homePackage = json['home_package'] != null ? HomePackage.fromJson(json['home_package']) : null;
-  }
-  HomePackage? homePackage;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (homePackage != null) {
-      map['home_package'] = homePackage?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class HomePackage {
-  HomePackage({
       this.packageName, 
       this.fromTime, 
       this.endTime, 
-      this.status,});
+      this.status, 
+      this.type,});
 
-  HomePackage.fromJson(dynamic json) {
+  SubscribePackage.fromJson(dynamic json) {
     packageName = json['package_name'];
     fromTime = json['from_time'];
     endTime = json['end_time'];
     status = json['status'];
+    type = json['type'];
   }
   String? packageName;
   String? fromTime;
   String? endTime;
   String? status;
+  String? type;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -65,6 +49,7 @@ class HomePackage {
     map['from_time'] = fromTime;
     map['end_time'] = endTime;
     map['status'] = status;
+    map['type'] = type;
     return map;
   }
 
