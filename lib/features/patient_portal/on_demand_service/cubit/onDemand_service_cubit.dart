@@ -52,7 +52,11 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       TextEditingController();
   final TextEditingController representativeNameController =
       TextEditingController();
+  final TextEditingController legalReNameController =
+      TextEditingController();
   final TextEditingController mobileNoPrimaryController =
+      TextEditingController();
+  final TextEditingController legalMobileNoController =
       TextEditingController();
   final TextEditingController mobileNoAlternativeController =
       TextEditingController();
@@ -221,6 +225,7 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
         (data) async {
           emit(state.copyWith(
               appStatus: AppStatus.success, currentPackage: data));
+          currentPackageController.text = state.currentPackage?.currentPackage??"";
         },
       );
       log("procedure Data ---------> ${state.onService?.success}");
@@ -338,8 +343,8 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       formData['email'] = emailController.text;
       formData['request_package'] = currentPackageController.text;
       formData['whenDate'] = startServiceDateController.text;
-      formData['legalReName'] = representativeNameController.text;
-      formData['legalMobileNo'] = mobileNoPrimaryController.text;
+      formData['legalReName'] = legalReNameController.text;
+      formData['legalMobileNo'] = legalMobileNoController.text;
 
       final response =
           await onDemandServiceRepository.inPatientPackage(formData);
@@ -349,13 +354,17 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
           showCustomSnackBar(
             context: GetContext.context,
             isError: true,
-            message: AppStrings.wrongCredential.tr(),
+            message: AppStrings.somethingWentWrong.tr(),
           );
 
           emit(state.copyWith(appStatus: AppStatus.failure));
         },
         (r) async {
           emit(state.copyWith(appStatus: AppStatus.success));
+          showCustomSnackBar(
+            context: GetContext.context,
+            message: AppStrings.savedSuccessfully.tr(),
+          );
         },
       );
 
@@ -365,6 +374,75 @@ class OnDemandServiceCubit extends Cubit<OnDemandServiceState> {
       emit(state.copyWith(appStatus: AppStatus.failure));
       log('$runtimeType:: @signIn => $e');
     }
+  }
+
+
+  Future<void> addHomeCare() async {
+    showProgressDialog();
+    emit(state.copyWith(appStatus: AppStatus.loading));
+
+    try {
+      final formData = <String, dynamic>{};
+      formData['patient_name'] = patientNameController.text;
+      formData['age'] = ageController.text;
+      formData['gender'] = selectGender ?? "";
+      formData['legal_representive_name'] = representativeNameController.text;
+      formData['mobile_no'] = mobileNoPrimaryController.text;
+      formData['legal_representive_email'] = representativeEmailController.text;
+      formData['city_id'] = selectCity?.id ?? "";
+      formData['thana_id'] = selectThana?.id ?? "";
+      formData['address'] = addressController.text;
+      formData['phone'] = phoneController.text;
+      formData['email'] = emailController.text;
+      formData['request_package'] = currentPackageController.text;
+      formData['whenDate'] = startServiceDateController.text;
+      formData['legalReName'] = legalReNameController.text;
+      formData['legalMobileNo'] = legalMobileNoController.text;
+
+      final response =
+          await onDemandServiceRepository.addHomeCare(formData);
+
+      response.fold(
+        (l) {
+          showCustomSnackBar(
+            context: GetContext.context,
+            isError: true,
+            message: AppStrings.somethingWentWrong.tr(),
+          );
+
+          emit(state.copyWith(appStatus: AppStatus.failure));
+        },
+        (r) async {
+          emit(state.copyWith(appStatus: AppStatus.success));
+          showCustomSnackBar(
+            context: GetContext.context,
+            message: AppStrings.savedSuccessfully.tr(),
+          );
+        },
+      );
+
+      dismissProgressDialog();
+    } catch (e) {
+      dismissProgressDialog();
+      emit(state.copyWith(appStatus: AppStatus.failure));
+      log('$runtimeType:: @signIn => $e');
+    }
+  }
+  void resetFiled(){
+    patientNameController.clear();
+    ageController.clear();
+    selectGender = "";
+    representativeNameController.clear();
+    mobileNoPrimaryController.clear();
+    addressController.clear();
+    phoneController.clear();
+    emailController.clear();
+    currentPackageController.clear();
+    startServiceDateController.clear();
+    legalReNameController.clear();
+    legalMobileNoController.clear();
+    selectCity = City();
+    selectThana = Thana();
   }
 
   Future<void> getAmbulance() async {

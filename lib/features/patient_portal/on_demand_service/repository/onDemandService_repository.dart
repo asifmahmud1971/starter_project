@@ -44,6 +44,8 @@ abstract class OnDemandServiceRepository {
   Future<Either<ApiFailure, dynamic>> inPatientPackage(
       Map<String, dynamic> params);
 
+  Future<Either<ApiFailure, dynamic>> addHomeCare(
+      Map<String, dynamic> params);
   Future<Either<ApiFailure, ConsultantsResponse>> getConsultants(
       Map<String, dynamic> params);
 
