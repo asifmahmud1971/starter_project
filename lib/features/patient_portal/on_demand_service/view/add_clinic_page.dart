@@ -28,6 +28,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
 
   @override
   void initState() {
+    onDemandCubit.resetFiled();
     onDemandCubit.getPatientPackage();
     onDemandCubit.getCity();
     super.initState();
@@ -153,10 +154,10 @@ class _AddClinicPageState extends State<AddClinicPage> {
                   5.verticalSpace,
                   CityBuildSmartDropdown(
                     value: onDemandCubit.selectCity,
-                    // This should be a City object, not just a string
                     hint: 'Select City',
                     items: state.city?.city ?? [],
-                    onChanged: (City? value) {
+                    onChanged: state.city!= null
+                        ? (City? value) {
                       if (value != null) {
                         setState(() {
                           onDemandCubit.selectCity =
@@ -165,7 +166,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
                           onDemandCubit.getThana(id: value.id);
                         });
                       }
-                    },
+                    }:null,
                   ),
                   10.verticalSpace,
                   Row(
@@ -209,6 +210,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
                   10.verticalSpace,
                   _BuildSmartVitalRow(
                     label: 'Phone',
+                    isOptional: true,
                     firstField: CustomTextField(
                       controller: onDemandCubit.phoneController,
                       radius: 8.r,
@@ -219,15 +221,18 @@ class _AddClinicPageState extends State<AddClinicPage> {
                   10.verticalSpace,
                   _BuildSmartVitalRow(
                     label: 'Email',
+                    isOptional: true,
                     firstField: CustomTextField(
                       controller: onDemandCubit.emailController,
                       radius: 8.r,
                       hint: "Enter your Email",
+                      validator: onDemandCubit.validator,
                     ),
                   ),
                   10.verticalSpace,
                   _BuildSmartVitalRow(
                     label: 'Current Package',
+                    isOptional: true,
                     firstField: CustomTextField(
                       controller: onDemandCubit.currentPackageController,
                       radius: 8.r,
@@ -261,10 +266,12 @@ class _AddClinicPageState extends State<AddClinicPage> {
                   10.verticalSpace,
                   _BuildSmartVitalRow(
                     label: 'Legal Representive Name',
+                    isOptional: true,
                     firstField: CustomTextField(
-                      controller: onDemandCubit.representativeNameController,
+                      controller: onDemandCubit.legalReNameController,
                       radius: 8.r,
                       hint: "Legal Representive Name",
+                      validator: onDemandCubit.validator,
                     ),
                   ),
                   10.verticalSpace,
@@ -279,10 +286,12 @@ class _AddClinicPageState extends State<AddClinicPage> {
                   10.verticalSpace,
                   _BuildSmartVitalRow(
                     label: 'Mobile No (Alternative)',
+                    isOptional: true,
                     firstField: CustomTextField(
-                      controller: onDemandCubit.mobileNoAlternativeController,
+                      controller: onDemandCubit.legalMobileNoController,
                       radius: 8.r,
                       hint: "Mobile No",
+                      validator: onDemandCubit.validator,
                     ),
                   ),
                   10.verticalSpace,
@@ -315,7 +324,7 @@ class _AddClinicPageState extends State<AddClinicPage> {
                       ),
                       onPressed: (){
                         if (onDemandCubit.formKey.currentState!.validate()) {
-                          context.read<OnDemandServiceCubit>().addClinic();
+                          onDemandCubit.addClinic();
                         }
                       },
                     ),

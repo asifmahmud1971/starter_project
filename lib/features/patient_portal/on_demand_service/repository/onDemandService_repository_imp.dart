@@ -133,7 +133,17 @@ class OnDemandServiceRepositoryImp implements OnDemandServiceRepository {
       method: Method.post,
       params: params,
     );
-  }  @override
+  }
+
+  @override
+  Future<Either<ApiFailure, dynamic>> addHomeCare(
+      Map<String, dynamic> params) async {
+    return apiRequest.performRequest(
+      url: ApiUrls.addHomeCare,
+      method: Method.post,
+      params: params,
+    );
+  }
 
   @override
   Future<Either<ApiFailure, ConsultantsResponse>> getConsultants(

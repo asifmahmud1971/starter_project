@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +10,6 @@ import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/cubit/onDemand_service_cubit.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/widget/city_dropdown_widget.dart';
 import 'package:medPilot/features/patient_portal/on_demand_service/widget/thana_dropdown_widget.dart';
-import 'package:medPilot/features/patient_portal/services/follow_up/cubit/followup_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/follow_up/widget/build_smart_dropdown_widget.dart';
 
 import '../model/city_response.dart';
@@ -27,9 +27,28 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
 
   @override
   void initState() {
+    onDemandCubit.resetFiled();
     onDemandCubit.getPatientPackage();
     onDemandCubit.getCity();
+
     super.initState();
+  }
+
+  DateTime? _selectedDate;
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime(2000), // Default DOB
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(), // Prevent future dates
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        onDemandCubit.startServiceDateController.text = DateFormat('yyyy-MM-dd').format(_selectedDate!);
+      });
+    }
   }
 
   @override
@@ -108,8 +127,8 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
                   5.verticalSpace,
                   BuildSmartDropdown(
                     value: onDemandCubit.selectGender,
-                    hint: 'Select Functional Status',
-                    items: onDemandCubit.genderList,
+                    hint: 'Select gender',
+                    items: onDemandCubit.genderList??[],
                     onChanged: (value) => setState(() {
                       onDemandCubit.selectGender = value;
                     }),
@@ -190,6 +209,7 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
                   10.verticalSpace,
                   _BuildSmartVitalRow(
                     label: 'Phone',
+                    isOptional: true,
                     firstField: CustomTextField(
                       controller: onDemandCubit.phoneController,
                       radius: 8.r,
@@ -200,6 +220,7 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
                   10.verticalSpace,
                   _BuildSmartVitalRow(
                     label: 'Email',
+                    isOptional: true,
                     firstField: CustomTextField(
                       controller: onDemandCubit.emailController,
                       radius: 8.r,
@@ -210,6 +231,7 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
                   10.verticalSpace,
                   _BuildSmartVitalRow(
                     label: 'Current Package',
+                    isOptional: true,
                     firstField: CustomTextField(
                       controller: onDemandCubit.currentPackageController,
                       radius: 8.r,
@@ -243,8 +265,9 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
                   10.verticalSpace,
                   _BuildSmartVitalRow(
                     label: 'Legal Representive Name',
+                    isOptional: true,
                     firstField: CustomTextField(
-                      controller: onDemandCubit.representativeNameController,
+                      controller: onDemandCubit.legalReNameController,
                       radius: 8.r,
                       hint: "Legal Representive Name",
                       validator: onDemandCubit.validator,
@@ -263,10 +286,12 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
                   10.verticalSpace,
                   _BuildSmartVitalRow(
                     label: 'Mobile No (Alternative)',
+                    isOptional: true,
                     firstField: CustomTextField(
-                      controller: onDemandCubit.mobileNoAlternativeController,
+                      controller: onDemandCubit.legalMobileNoController,
                       radius: 8.r,
                       hint: "Mobile No",
+                      isOptional: true,
                       validator: onDemandCubit.validator,
                     ),
                   ),
@@ -277,7 +302,6 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
                       controller: onDemandCubit.representativeEmailController,
                       radius: 8.r,
                       hint: "Legal Representive Email",
-                      validator: onDemandCubit.validator,
                     ),
                   ),
                   30.verticalSpace,
@@ -313,11 +337,11 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
 
   void _saveFollowUp() {
     if (onDemandCubit.formKey.currentState!.validate()) {
-      context.read<FollowUpCubit>().createFollowUp();
+      onDemandCubit.addHomeCare();
     }
   }
 
-  Future<void> _selectDate(BuildContext context) async {
+/*  Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: onDemandCubit.selectedDate,
@@ -341,29 +365,8 @@ class _AddHomePackagePageState extends State<AddHomePackagePage> {
         onDemandCubit.selectedDate = picked;
       });
     }
-  }
+  }*/
 
-  void _showHelpDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Help'),
-          content: const Text(
-            'Fill in all the patient\'s vital signs and symptoms. '
-                'The color indicators show whether values are normal (green), '
-                'concerning (orange), or critical (red).',
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 }
 
 class _BuildSmartVitalRow extends StatelessWidget {

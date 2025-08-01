@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../core/constants/app_colors.dart';
 
 class BuildSmartDropdown extends StatelessWidget {
@@ -10,44 +9,64 @@ class BuildSmartDropdown extends StatelessWidget {
   final Function(String?)? onChanged;
   final String? Function(String?)? validator;
   final Widget? prefixIcon;
-  const BuildSmartDropdown({super.key, this.value, this.hint, this.items, this.icon, this.onChanged, this.validator, this.prefixIcon});
+
+  const BuildSmartDropdown({
+    super.key,
+    this.value,
+    this.hint,
+    this.items,
+    this.icon,
+    this.onChanged,
+    this.validator,
+    this.prefixIcon,
+  });
 
   @override
   Widget build(BuildContext context) {
+    // Check if items is null or empty
+    final bool hasItems = items != null && items!.isNotEmpty;
+
+    // Check if value is null or not in items list
+    final bool isValidValue = value != null && hasItems && items!.contains(value);
+
     return Row(
       children: [
         Expanded(
           child: DropdownButtonFormField<String>(
-            value: value,
+            // Only set value if it's valid
+            value: isValidValue ? value : null,
             isExpanded: true,
             decoration: InputDecoration(
               hintText: hint,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: AppColors.kBorderColor), // Default border color
+                borderSide: BorderSide(color: AppColors.kBorderColor),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: AppColors.kBorderColor), // Border color when not focused
+                borderSide: BorderSide(color: AppColors.kBorderColor),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: AppColors.kPrimaryColor), // Border color when focused
+                borderSide: BorderSide(color: AppColors.kPrimaryColor),
               ),
-              prefixIcon: icon!=null? Icon(icon, color: AppColors.kPrimaryColor):null,
+              prefixIcon: icon != null ? Icon(icon, color: AppColors.kPrimaryColor) : null,
               contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             ),
-            items: items?.map((String value) {
+            // Create items only if items is not null and rename variable to avoid confusion
+            items: hasItems
+                ? items!.map((String item) {
               return DropdownMenuItem<String>(
-                value: value,
+                value: item,
                 child: Text(
-                  value,
+                  item,
                   maxLines: 1,
                 ),
               );
-            }).toList(),
+            }).toList()
+                : [],
             onChanged: onChanged,
-            validator: validator??(value) {
+            validator: validator ?? (value) {
               if (value == null || value.isEmpty) {
                 return 'Please select an option';
               }

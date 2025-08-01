@@ -24,11 +24,13 @@ class ThanaBuildSmartDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool hasItems = items != null && items!.isNotEmpty;
+    final bool isValidValue = value != null && hasItems && items!.contains(value);
     return Row(
       children: [
         Expanded(
           child: DropdownButtonFormField<Thana>( // Change from String to City
-            value: value,
+            value: isValidValue ? value : null,
             isExpanded: true,
             decoration: InputDecoration(
               hintText: hint,
