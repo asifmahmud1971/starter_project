@@ -112,7 +112,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                               color: Colors.black, size: 16),
                           8.horizontalSpace,
                           Text(
-                            "${AppStrings.lastUpdate.tr()}: ${state.prescriptionModel?.patient?.updatedAt?.toFormattedDateTime}",
+                            "${AppStrings.lastUpdate.tr()}: ${state.prescriptionModel?.patient?.updatedAt?.toFormattedDateTime??""}",
                             style: kBodyMedium,
                           ),
                         ],
