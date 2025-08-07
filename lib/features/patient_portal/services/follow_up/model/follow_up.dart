@@ -27,6 +27,7 @@ class FollowUpModel {
   String? token;
   String? tokenType;
 
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['success'] = success;
