@@ -75,6 +75,7 @@ class Followup {
     this.updatedAt,
   });
 
+
   Followup.fromJson(dynamic json) {
     id = json['id'];
     companyId = json['company_id'];
