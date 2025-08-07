@@ -32,7 +32,6 @@ class SignInCubit extends Cubit<SignInState> {
     showProgressDialog();
     emit(state.copyWith(appStatus: AppStatus.loading));
 
-    try {
       final formData = <String, dynamic>{};
       formData['email'] = emailCtrl.text;
       formData['password'] = passwordCtrl.text;
@@ -69,11 +68,7 @@ class SignInCubit extends Cubit<SignInState> {
       );
 
       dismissProgressDialog();
-    } catch (e) {
-      dismissProgressDialog();
-      emit(state.copyWith(appStatus: AppStatus.failure));
-      log('$runtimeType:: @signIn => $e');
-    }
+
   }
 
   void resetForm() {

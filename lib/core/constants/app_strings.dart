@@ -156,5 +156,6 @@ class AppStrings {
   static const String enterNid = "Please enter your NID number";
   static const String profileUpdated = "Profile updated successfully";
   static const String hintAltMobile = "+880 1XXX XXXXXX";
+  static const String noMedicationFound = "No pain medication found";
 
 }

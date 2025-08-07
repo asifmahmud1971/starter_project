@@ -285,7 +285,8 @@ class MedicationCard extends StatelessWidget {
               ],
             ),
             12.verticalSpace,
-            Row(
+            Wrap(
+              runSpacing: 3.0,
               children: [
                 _buildInfoChip(
                   icon: Icons.medical_information,

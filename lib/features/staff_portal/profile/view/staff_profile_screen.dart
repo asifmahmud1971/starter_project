@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medPilot/core/app/app_context.dart';
+import 'package:medPilot/core/app/app_dependency.dart';
+import 'package:medPilot/core/app/app_preference.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
+import 'package:medPilot/core/router/routes.dart';
 import 'package:medPilot/features/staff_portal/profile/view/edit_staff_profile_screen.dart';
 
 class PersonalInfoScreen extends StatelessWidget {
-  const PersonalInfoScreen({super.key});
+  final AppPreferences _appPreferences;
+   PersonalInfoScreen({super.key}):_appPreferences = instance.get();
 
   @override
   Widget build(BuildContext context) {
@@ -150,32 +154,18 @@ class PersonalInfoScreen extends StatelessWidget {
             const SizedBox(height: 24),
 
             // Action Button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
+            Center(
+              child: TextButton.icon(
+                icon: Icon(Icons.exit_to_app, color: Colors.red),
+                label: Text('Logout',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    )),
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Information saved'),
-                      backgroundColor: Color(0xFF16A085),
-                    ),
-                  );
+                 _appPreferences.logout();
+                  GetContext.offAll(Routes.signIn);
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.kPrimaryColor,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Text(
-                  'Save Information',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
               ),
             ),
           ],

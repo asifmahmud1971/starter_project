@@ -1,3 +1,6 @@
+
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
@@ -22,7 +25,8 @@ class SignInRepository implements SignInRepositoryImp {
           url: ApiUrls.login, method: Method.post, params: params);
 
       return Right(LoginResponse.fromJson(response));
-    } catch (error) {
+    } catch (error,st) {
+      log(st.toString());
       return Left(ApiException.handle(error).failure);
     }
   }

@@ -2,12 +2,18 @@ import 'package:medPilot/core/app/app_flavor.dart';
 
 class ApiUrls {
   static String baseUrl = getServerUrl();
-  static const String liveUrl =
+  /*static const String liveUrl =
       'https://my.medpilot.app/api/'; //live server
   static const String devUrl =
       'https://my.medpilot.app/api/'; // dev server
   static const String testUrl =
-      'https://my.medpilot.app/api/'; // test server
+      'https://my.medpilot.app/api/'; // test server */
+   static const String liveUrl =
+      'https://app.hospicebangladesh.com/api/'; //live server
+  static const String devUrl =
+      'https://app.hospicebangladesh.com/api/'; // dev server
+  static const String testUrl =
+      'https://app.hospicebangladesh.com/api/'; // test server
 
   // get current flavor url
   static String getServerUrl() {
@@ -22,7 +28,8 @@ class ApiUrls {
     }
   }
    //auth
-  static const String mainUrl = 'https://my.medpilot.app/';
+  static const String mainUrl = 'https://app.hospicebangladesh.com/';
+  /*static const String mainUrl = 'https://my.medpilot.app/';*/
   static const String login = 'login';
   static const String checkUser = 'check-user';
   static const String resetNewPassword = 'reset-new-password';

@@ -31,12 +31,16 @@ class _MedicationScreenState extends State<MedicationScreen> {
             title: Text(AppStrings.medication.tr(), style: kTitleMedium),
             elevation: 0,
           ),
-          body: ListView.builder(
+          body:
+          (state.medicationModel?.painMedications??[]).isNotEmpty?
+          ListView.builder(
             padding: EdgeInsets.only(bottom: 16),
             itemCount: state.medicationModel?.painMedications?.length,
             itemBuilder: (context, index) {
               return _buildMedicationCard(index);
             },
+          ):Center(
+            child: Text(AppStrings.noMedicationFound.tr(),style: kBodyLarge,),
           ),
           /*  floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.kPrimaryColor,

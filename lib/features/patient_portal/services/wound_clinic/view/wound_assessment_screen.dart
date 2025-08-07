@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medPilot/core/app/app_context.dart';
 import 'package:medPilot/core/components/custom_date_time_formatter.dart';
 import 'package:medPilot/core/constants/app_colors.dart';
 import 'package:medPilot/core/constants/app_text_style.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/cubit/woundClinic_cubit.dart';
 import 'package:medPilot/features/patient_portal/services/wound_clinic/model/wound_data.dart';
+import 'package:medPilot/features/patient_portal/services/wound_clinic/view/add_wound_assessment.dart';
 
 class WoundAssessmentScreen extends StatefulWidget {
   const WoundAssessmentScreen({super.key});
@@ -82,6 +84,11 @@ class _WoundAssessmentScreenState extends State<WoundAssessmentScreen> {
                   },
                 )
               : SizedBox.shrink(),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: AppColors.kPrimaryColor,
+            child: Icon(Icons.add, color: Colors.white),
+            onPressed: () => GetContext.to(AddWoundAssessment()),
+          ),
         );
       },
     );

@@ -40,7 +40,7 @@ class User {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     activeStatus = json['active_status'];
-    avatar = appBaseUrl+json['avatar'];
+    avatar = appBaseUrl+json['avatar'].toString();
     darkMode = json['dark_mode'];
     messengerColor = json['messenger_color'];
   }
